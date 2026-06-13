@@ -39,18 +39,38 @@ Git:
 
 ## Known Follow-Ups
 
-- Replace `hello@example.com` with the real contact email.
-- Update the GitHub link in `index.html` to the repository or profile.
 - Revisit the visible name/brand (`KAIZEN`) and final personal-site copy.
 - Add metadata such as social preview image, favicon, and canonical URL.
 - Consider moving Google Fonts to local assets if external font loading is
   undesirable.
 
+## Future Feature Requests
+
+### Interactive Digital Sea
+
+Turn the hero background into a full-width, low-poly digital ocean inspired by
+the luminous geometric environments of *Tron: Legacy* and *Tron: Ares*.
+
+- Treat the header's horizontal rule as a shoreline or the boundary of an
+  invisible tank.
+- Render the water from small geometric shapes, likely with a Canvas 2D
+  spring-mesh simulation.
+- On desktop, loop a wave that travels left to right, crashes, and retreats.
+- On mobile, let device tilt and acceleration apply forces to the water.
+- Provide pointer input as a desktop fallback.
+- Include a user-triggered motion-permission control where required.
+- Preserve an autonomous fallback when motion access is unavailable or denied.
+- Respect `prefers-reduced-motion` and keep the effect performant on phones.
+
+Estimated effort: 4-6 hours for a prototype or 1-2 days for a polished,
+responsive implementation.
+
 ## Working Notes
 
 The repository was initially committed locally, then uploaded through GitHub's
-web interface because command-line Git authentication was unavailable. Local
-`main` has since been aligned with `origin/main`.
+web interface because command-line Git authentication was unavailable. GitHub
+CLI is now installed and authenticated through the macOS keychain, so future
+changes can be pushed directly from the local repository.
 
 Preview locally with:
 
