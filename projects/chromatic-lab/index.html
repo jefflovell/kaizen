@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Chromatic Lab is a precision RGB color-training game built with JavaScript and Vite." />
+    <title>Chromatic Lab | Kaizen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <script src="../../script.js" defer></script>
+  </head>
+  <body class="case-study-page">
+    <header class="site-header">
+      <a class="brand" href="../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="sr-only">Toggle navigation</span><span></span><span></span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+        <a href="../../#about">About</a><a href="../../#work">Work</a><a href="../../#contact">Contact</a>
+      </nav>
+    </header>
+    <main>
+      <section class="case-hero" aria-labelledby="project-title">
+        <div class="case-kicker"><a href="../../#work">← All work</a><span>Project 02</span></div>
+        <div class="case-title">
+          <h1 id="project-title">Chromatic Lab</h1>
+          <p>RGB Color Training Game</p>
+        </div>
+        <div class="case-actions">
+          <a class="button" href="https://jefflovell.github.io/chromatic-lab/" rel="noreferrer">Play Chromatic Lab</a>
+          <a class="text-link" href="https://github.com/jefflovell/chromatic-lab" rel="noreferrer">View GitHub repo <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="chromatic-preview" aria-hidden="true">
+          <span class="chromatic-choice choice-a"></span><span class="chromatic-choice choice-b"></span>
+          <span class="chromatic-target">RGB<br />144 / 208 / 74<small>Target sealed</small></span>
+          <span class="chromatic-choice choice-c"></span><span class="chromatic-choice choice-d"></span>
+        </div>
+      </section>
+      <section class="case-content">
+        <div class="case-section">
+          <p class="case-section-label">Inspiration &amp; purpose</p>
+          <div class="case-section-copy">
+            <h2>From tutorial exercise to color-training arcade.</h2>
+            <p>Chromatic Lab rebuilds an RGB guessing game I first made during the Colt Steele Web Developer Bootcamp. The original taught the relationship between numerical RGB values and visible color.</p>
+            <p>This version turns that lesson into a replayable training game with increasingly similar choices, timed modes, scoring, streaks, lives, and channel-by-channel feedback after every guess.</p>
+          </div>
+        </div>
+        <div class="case-section">
+          <p class="case-section-label">Tech stack</p>
+          <div class="stack-list">
+            <article><span>01</span><h3><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" rel="noreferrer">JavaScript</a></h3><p>Game state, adaptive color generation, scoring, and input.</p></article>
+            <article><span>02</span><h3><a href="https://developer.mozilla.org/en-US/docs/Web/CSS" rel="noreferrer">CSS</a></h3><p>The responsive optical-lab interface and game states.</p></article>
+            <article><span>03</span><h3><a href="https://vite.dev/" rel="noreferrer">Vite</a></h3><p>Fast development and a compact static production build.</p></article>
+            <article><span>04</span><h3><a href="https://nodejs.org/api/test.html" rel="noreferrer">Node Test Runner</a></h3><p>Focused tests for color generation, distance, and scoring.</p></article>
+          </div>
+        </div>
+        <div class="case-section case-decision">
+          <p class="case-section-label">Why this stack</p>
+          <div class="case-section-copy">
+            <h2>Browser-native by design.</h2>
+            <p>The game is mostly state, timing, color math, and responsive controls, so a large framework would add more weight than value. Plain JavaScript keeps the game loop direct and easy to reason about.</p>
+            <p>Vite provides the development and deployment tooling while the browser handles the interface, keyboard, pointer, and touchscreen input. The result is small, fast, and deploys cleanly to GitHub Pages.</p>
+          </div>
+        </div>
+        <div class="case-footer">
+          <p>The complete game and its tests are available in the repository.</p>
+          <a class="button" href="https://github.com/jefflovell/chromatic-lab" rel="noreferrer">Explore the code</a>
+        </div>
+      </section>
+    </main>
+    <footer id="contact" class="site-footer">
+      <p>Built with care and a little curiosity.</p><a href="https://github.com/jefflovell" rel="me">@jefflovell</a><a class="back-to-top" href="#" aria-label="Back to top">↑</a>
+    </footer>
+  </body>
+</html>
