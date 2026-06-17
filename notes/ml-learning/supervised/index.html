@@ -132,20 +132,6 @@
         <div class="lab-copy">
           <p class="case-section-label">Supervised learning | Classification</p>
           <h2 id="classification-lab-title">A tiny classifier learns a boundary.</h2>
-          <p>
-            This interactive graph demonstrates a simple linear classifier
-            inspired by the
-            <a href="https://en.wikipedia.org/wiki/Perceptron" rel="noreferrer"
-              >perceptron</a
-            >. “Linear” means it tries to separate the two groups cleanly with
-            a single straight line. The line is the machine's current decision
-            boundary: points on one side are guessed as cyan, and points on the
-            other side are guessed as coral. Each point has an attached label.
-            If the machine guesses the wrong color because of the line's
-            position relative to the point, the position and slope of the line
-            are updated to attempt to put that point on the correct side of the
-            line.
-          </p>
           <div class="step-explainer">
             <p class="case-section-label">One training step</p>
             <ol>
@@ -213,6 +199,23 @@
               <button id="train-epoch" type="button">Train epoch</button>
               <button id="reset-data" type="button">Reset</button>
             </div>
+          </div>
+
+          <div class="classifier-lede">
+            <p>
+              This interactive graph demonstrates a simple linear classifier
+              inspired by the
+              <a href="https://en.wikipedia.org/wiki/Perceptron" rel="noreferrer"
+                >perceptron</a
+              >. “Linear” means it tries to separate the two groups cleanly with
+              a single straight line. The line is the machine's current decision
+              boundary: points on one side are guessed as cyan, and points on the
+              other side are guessed as coral. Each point has an attached label.
+              If the machine guesses the wrong color because of the line's
+              position relative to the point, the position and slope of the line
+              are updated to attempt to put that point on the correct side of the
+              line.
+            </p>
           </div>
 
           <aside class="watch-panel" aria-label="What to watch in the classifier">
