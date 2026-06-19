@@ -64,6 +64,12 @@ const titles = [
 
 const plot = { left: 62, right: 28, top: 28, bottom: 62 };
 const state = { k: 5, query: { x: 0.47, y: 0.55 }, dragging: false };
+const mapColors = {
+  lighthearted: [255, 117, 95],
+  serious: [166, 112, 255],
+  slow: [78, 149, 255],
+  energetic: [255, 205, 82],
+};
 
 function plotWidth() {
   return canvas.width - plot.left - plot.right;
@@ -86,6 +92,23 @@ function fromCanvas(clientX, clientY) {
 
 function distance(a, b) {
   return Math.hypot(a.x - b.x, a.y - b.y);
+}
+
+function mixColor(a, b, amount) {
+  return a.map((channel, index) =>
+    Math.round(channel + (b[index] - channel) * amount),
+  );
+}
+
+function titleColor(title) {
+  const tone = mixColor(
+    mapColors.lighthearted,
+    mapColors.serious,
+    title.x,
+  );
+  const energy = mixColor(mapColors.slow, mapColors.energetic, title.y);
+  const blended = mixColor(tone, energy, 0.42);
+  return `rgb(${blended.join(", ")})`;
 }
 
 function neighbors() {
@@ -118,17 +141,27 @@ function drawGrid() {
     ctx.stroke();
   }
 
-  ctx.fillStyle = "rgba(247, 246, 241, 0.72)";
-  ctx.font = "600 13px DM Sans, sans-serif";
+  ctx.font = "700 14px DM Sans, sans-serif";
   ctx.textBaseline = "middle";
   ctx.textAlign = "left";
+  ctx.fillStyle = "rgb(255, 117, 95)";
   ctx.fillText("Lighthearted", plot.left, canvas.height - 24);
   ctx.textAlign = "right";
+  ctx.fillStyle = "rgb(166, 112, 255)";
   ctx.fillText("Serious", canvas.width - plot.right, canvas.height - 24);
   ctx.save();
   ctx.translate(18, plot.top + plotHeight() / 2);
   ctx.rotate(-Math.PI / 2);
   ctx.textAlign = "center";
+  const energyLabel = ctx.createLinearGradient(
+    -plotHeight() / 2,
+    0,
+    plotHeight() / 2,
+    0,
+  );
+  energyLabel.addColorStop(0, "rgb(78, 149, 255)");
+  energyLabel.addColorStop(1, "rgb(255, 205, 82)");
+  ctx.fillStyle = energyLabel;
   ctx.fillText("Slow burn  →  High energy", 0, 0);
   ctx.restore();
 }
@@ -166,14 +199,18 @@ function drawTitles(selected) {
   titles.forEach((title) => {
     const [x, y] = toCanvas(title);
     const isSelected = selectedNames.has(title.name);
-    ctx.fillStyle = isSelected ? "#4bf3ff" : "#ff755f";
-    ctx.shadowBlur = isSelected ? 16 : 8;
+    const color = titleColor(title);
+    ctx.fillStyle = isSelected ? "#4bf3ff" : color;
+    ctx.strokeStyle = isSelected ? "#f7f6f1" : "rgba(247, 246, 241, 0.9)";
+    ctx.lineWidth = isSelected ? 2.5 : 1.5;
+    ctx.shadowBlur = isSelected ? 18 : 12;
     ctx.shadowColor = isSelected
       ? "rgba(75, 243, 255, 0.8)"
-      : "rgba(255, 117, 95, 0.55)";
+      : color;
     ctx.beginPath();
-    ctx.arc(x, y, isSelected ? 8 : 6, 0, Math.PI * 2);
+    ctx.arc(x, y, isSelected ? 9 : 7, 0, Math.PI * 2);
     ctx.fill();
+    ctx.stroke();
     ctx.shadowBlur = 0;
   });
 }

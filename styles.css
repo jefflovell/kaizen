@@ -1318,6 +1318,7 @@ h1 {
   display: grid;
   grid-template-columns: 1.18fr 0.82fr;
   gap: 24px;
+  align-items: start;
 }
 
 .knn-map-tool,
@@ -1328,7 +1329,14 @@ h1 {
   background: #fff;
 }
 
+.knn-map-column {
+  display: grid;
+  gap: 28px;
+  min-width: 0;
+}
+
 .knn-map-tool {
+  align-self: start;
   box-shadow: 10px 10px 0 var(--coral);
 }
 
@@ -1432,9 +1440,8 @@ h1 {
 
 .knn-control-panel {
   display: grid;
-  grid-template-columns: 1.25fr 0.75fr;
-  gap: 22px;
-  margin-top: 28px;
+  grid-template-columns: 1fr;
+  gap: 16px;
 }
 
 .knn-selector {
@@ -1459,7 +1466,6 @@ h1 {
   display: grid;
   grid-template-columns: 1.35fr 1fr;
   gap: 12px;
-  align-items: end;
 }
 
 .knn-actions button {
@@ -1477,7 +1483,8 @@ h1 {
 }
 
 .knn-readout {
-  max-width: 620px;
+  max-width: none;
+  margin-top: 0;
 }
 
 .knn-watch {

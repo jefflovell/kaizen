@@ -146,14 +146,48 @@
         </div>
 
         <div class="knn-lab-grid">
-          <div class="knn-map-tool">
-            <canvas
-              id="knn-canvas"
-              width="760"
-              height="560"
-              aria-label="Interactive catalog similarity map"
-            ></canvas>
-            <p class="knn-drag-note">Drag the cyan new-title point to change its neighbors.</p>
+          <div class="knn-map-column">
+            <div class="knn-map-tool">
+              <canvas
+                id="knn-canvas"
+                width="760"
+                height="560"
+                aria-label="Interactive catalog similarity map"
+              ></canvas>
+              <p class="knn-drag-note">Drag the cyan new-title point to change its neighbors.</p>
+            </div>
+
+            <div class="knn-control-panel">
+              <fieldset class="knn-selector">
+                <legend>Neighbors (k)</legend>
+                <div class="segmented knn-buttons">
+                  <button type="button" data-k="1">1</button>
+                  <button type="button" data-k="3">3</button>
+                  <button type="button" data-k="5" class="is-selected">5</button>
+                  <button type="button" data-k="7">7</button>
+                  <button type="button" data-k="9">9</button>
+                </div>
+              </fieldset>
+              <div class="knn-actions">
+                <button id="move-title" class="button" type="button">Move new title</button>
+                <button id="reset-knn" type="button">Reset</button>
+              </div>
+            </div>
+
+            <div class="lab-readout knn-readout" aria-label="k-nearest neighbors status">
+              <article>
+                <span>Neighbors</span>
+                <strong id="knn-count">5</strong>
+              </article>
+              <article>
+                <span>Prediction</span>
+                <strong id="knn-readout-prediction">0 min</strong>
+              </article>
+              <article>
+                <span>Neighborhood</span>
+                <strong>Local</strong>
+              </article>
+            </div>
           </div>
 
           <div class="knn-neighbor-panel">
@@ -165,38 +199,6 @@
               <p>Average minutes watched among the selected neighbors.</p>
             </div>
           </div>
-        </div>
-
-        <div class="knn-control-panel">
-          <fieldset class="knn-selector">
-            <legend>Neighbors (k)</legend>
-            <div class="segmented knn-buttons">
-              <button type="button" data-k="1">1</button>
-              <button type="button" data-k="3">3</button>
-              <button type="button" data-k="5" class="is-selected">5</button>
-              <button type="button" data-k="7">7</button>
-              <button type="button" data-k="9">9</button>
-            </div>
-          </fieldset>
-          <div class="knn-actions">
-            <button id="move-title" class="button" type="button">Move new title</button>
-            <button id="reset-knn" type="button">Reset</button>
-          </div>
-        </div>
-
-        <div class="lab-readout knn-readout" aria-label="k-nearest neighbors status">
-          <article>
-            <span>Neighbors</span>
-            <strong id="knn-count">5</strong>
-          </article>
-          <article>
-            <span>Prediction</span>
-            <strong id="knn-readout-prediction">0 min</strong>
-          </article>
-          <article>
-            <span>Neighborhood</span>
-            <strong>Local</strong>
-          </article>
         </div>
 
         <aside class="watch-panel knn-watch" aria-label="What to watch in k-nearest neighbors">
