@@ -1005,6 +1005,16 @@ h1 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+.algorithm-path-label {
+  width: min(1200px, calc(100% - 48px));
+  margin: 68px auto -52px;
+  color: var(--blue);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .algo-card {
   position: relative;
   display: flex;
@@ -2179,6 +2189,7 @@ h1 {
   }
 
   .supervised-overview,
+  .algorithm-path-label,
   .algo-grid,
   .lab-panel,
   .tree-lab-panel,
@@ -2423,6 +2434,11 @@ h1 {
   .algo-grid {
     grid-template-columns: 1fr;
     padding: 56px 0;
+  }
+
+  .algorithm-path-label {
+    margin-top: 48px;
+    margin-bottom: -34px;
   }
 
   .algo-card {
