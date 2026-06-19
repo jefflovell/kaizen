@@ -778,6 +778,156 @@ h1 {
   gap: 0 24px;
 }
 
+.supervised-task-grid {
+  display: grid;
+  gap: 32px;
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 80px 0 96px;
+}
+
+.supervised-task-card {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr) minmax(300px, 0.72fr);
+  gap: 34px;
+  align-items: center;
+  padding: 36px;
+  border: 2px solid var(--ink);
+  background: #fff;
+}
+
+.classification-task {
+  box-shadow: 10px 10px 0 #9deeff;
+}
+
+.regression-task {
+  box-shadow: 10px 10px 0 var(--coral);
+}
+
+.task-number {
+  align-self: start;
+  color: var(--blue);
+  font-family: var(--display);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.task-copy h2 {
+  margin: 8px 0 14px;
+  font-size: clamp(2.4rem, 4.5vw, 4.8rem);
+  letter-spacing: -0.055em;
+  line-height: 0.95;
+}
+
+.task-copy > p:not(.case-section-label) {
+  max-width: 610px;
+  color: var(--muted);
+  font-size: 1.08rem;
+}
+
+.task-copy dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 28px 0 0;
+}
+
+.task-copy dl div {
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.task-copy dt {
+  margin-bottom: 5px;
+  color: var(--ink);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.task-copy dd {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.task-visual {
+  position: relative;
+  min-height: 260px;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  background-color: #07101f;
+  background-image:
+    linear-gradient(rgba(75, 243, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(75, 243, 255, 0.08) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.category-dot,
+.regression-dot {
+  position: absolute;
+  z-index: 2;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+
+.category-cyan {
+  background: #4bf3ff;
+  box-shadow: 0 0 12px rgba(75, 243, 255, 0.78);
+}
+
+.category-coral,
+.regression-dot {
+  background: #ff755f;
+  box-shadow: 0 0 12px rgba(255, 117, 95, 0.74);
+}
+
+.category-dot.one { top: 20%; right: 20%; }
+.category-dot.two { top: 35%; right: 34%; }
+.category-dot.three { top: 18%; right: 48%; }
+.category-dot.four { bottom: 24%; left: 18%; }
+.category-dot.five { bottom: 38%; left: 35%; }
+.category-dot.six { bottom: 18%; left: 50%; }
+
+.category-boundary,
+.regression-line {
+  position: absolute;
+  z-index: 1;
+  height: 3px;
+  background: #f7f6f1;
+  box-shadow: 0 0 14px rgba(75, 243, 255, 0.7);
+  transform-origin: left center;
+}
+
+.category-boundary {
+  bottom: 8%;
+  left: 55%;
+  width: 110%;
+  transform: rotate(-68deg);
+}
+
+.regression-line {
+  bottom: 18%;
+  left: 8%;
+  width: 110%;
+  background: #4bf3ff;
+  transform: rotate(-24deg);
+}
+
+.regression-dot.one { bottom: 18%; left: 12%; }
+.regression-dot.two { bottom: 32%; left: 27%; }
+.regression-dot.three { bottom: 39%; left: 44%; }
+.regression-dot.four { bottom: 55%; left: 59%; }
+.regression-dot.five { bottom: 63%; left: 73%; }
+.regression-dot.six { bottom: 78%; left: 86%; }
+
+.supervised-summary {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
 .supervised-overview {
   width: min(1200px, calc(100% - 48px));
   margin: 0 auto;
@@ -1772,6 +1922,18 @@ h1 {
     grid-template-columns: 1fr;
   }
 
+  .supervised-task-card {
+    grid-template-columns: 42px 1fr;
+  }
+
+  .task-visual {
+    grid-column: 2;
+  }
+
+  .task-copy dl {
+    grid-template-columns: 1fr;
+  }
+
   .classifier-caption {
     grid-template-columns: 1fr;
   }
@@ -1795,7 +1957,9 @@ h1 {
 
   .supervised-overview,
   .algo-grid,
-  .lab-panel {
+  .lab-panel,
+  .supervised-task-grid,
+  .supervised-summary {
     width: min(100% - 32px, 1200px);
   }
 
@@ -2048,6 +2212,25 @@ h1 {
   .lab-panel {
     margin-bottom: 82px;
     padding-top: 56px;
+  }
+
+  .supervised-task-grid {
+    padding: 56px 0 72px;
+  }
+
+  .supervised-task-card {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 24px;
+  }
+
+  .task-number,
+  .task-visual {
+    grid-column: 1;
+  }
+
+  .task-visual {
+    min-height: 220px;
   }
 
   .lab-readout {

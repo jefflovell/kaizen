@@ -3,11 +3,187 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="refresh" content="0; url=classification/" />
-    <link rel="canonical" href="classification/" />
-    <title>Classification | Kaizen</title>
+    <meta
+      name="description"
+      content="An introduction to supervised learning through its two foundational tasks: classification and regression."
+    />
+    <title>Supervised Learning | Kaizen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../../styles.css?v=3" />
+    <script src="../../../script.js" defer></script>
   </head>
-  <body>
-    <p>This page has moved to <a href="classification/">Classification</a>.</p>
+  <body class="note-page">
+    <header class="site-header">
+      <a class="brand" href="../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+        <a href="../../../#about">About</a>
+        <a href="../../../#notes">Notes</a>
+        <a href="../../../#work">Work</a>
+        <a href="../../../#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="note-hero" aria-labelledby="note-title">
+        <div class="case-kicker">
+          <a href="../">← Learning types</a>
+          <span>Machine learning regime</span>
+        </div>
+        <div class="note-title">
+          <h1 id="note-title">Supervised Learning</h1>
+          <p class="key-idea">
+            Supervised learning practices with examples that already include
+            the answer, then predicts answers for new examples.
+          </p>
+        </div>
+      </section>
+
+      <section class="supervised-overview">
+        <p>
+          Each training example pairs a set of input features with a known
+          target. The learning algorithm compares its prediction with that
+          target and adjusts the model to reduce future errors.
+        </p>
+        <p>
+          The first question is not which algorithm to choose. It is what kind
+          of answer the system must produce: a category or a number.
+        </p>
+      </section>
+
+      <section class="learning-loop" aria-label="Supervised learning loop">
+        <article>
+          <span>01</span>
+          <h2>Read labeled examples</h2>
+          <p>Each example includes features and a known target answer.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h2>Compare predictions</h2>
+          <p>The model measures how its guess differs from the target.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h2>Generalize</h2>
+          <p>The trained model predicts answers for examples it has not seen.</p>
+        </article>
+      </section>
+
+      <section class="learning-intro supervised-intro">
+        <p>
+          <strong>Two foundational tasks:</strong> classification predicts a
+          category; regression predicts a number.
+        </p>
+      </section>
+
+      <section class="supervised-task-grid" aria-label="Supervised learning tasks">
+        <article class="supervised-task-card classification-task">
+          <div class="task-number">01</div>
+          <div class="task-copy">
+            <p class="case-section-label">Choose among categories</p>
+            <h2>Classification</h2>
+            <p>
+              Use labeled examples to decide which category a new example
+              belongs to.
+            </p>
+            <dl>
+              <div>
+                <dt>Input features</dt>
+                <dd>Email words, image pixels, account behavior</dd>
+              </div>
+              <div>
+                <dt>Target</dt>
+                <dd>Spam or not spam; cat, dog, or bird; fraud or legitimate</dd>
+              </div>
+              <div>
+                <dt>Current lesson</dt>
+                <dd>A perceptron learns a linear decision boundary.</dd>
+              </div>
+            </dl>
+            <a class="card-link" href="classification/">Explore classification</a>
+          </div>
+          <div class="task-visual category-visual" aria-hidden="true">
+            <span class="category-dot category-cyan one"></span>
+            <span class="category-dot category-cyan two"></span>
+            <span class="category-dot category-cyan three"></span>
+            <span class="category-dot category-coral four"></span>
+            <span class="category-dot category-coral five"></span>
+            <span class="category-dot category-coral six"></span>
+            <span class="category-boundary"></span>
+          </div>
+        </article>
+
+        <article class="supervised-task-card regression-task">
+          <div class="task-number">02</div>
+          <div class="task-copy">
+            <p class="case-section-label">Estimate a numeric value</p>
+            <h2>Regression</h2>
+            <p>
+              Use examples with known numeric outcomes to estimate a number for
+              a new example.
+            </p>
+            <dl>
+              <div>
+                <dt>Input features</dt>
+                <dd>GPU performance, product age, condition, memory</dd>
+              </div>
+              <div>
+                <dt>Target</dt>
+                <dd>Used price, delivery time, energy demand, temperature</dd>
+              </div>
+              <div>
+                <dt>Current lesson</dt>
+                <dd>A linear model predicts GPU resale price.</dd>
+              </div>
+            </dl>
+            <a class="card-link" href="linear-regression/">Explore linear regression</a>
+          </div>
+          <div class="task-visual regression-visual" aria-hidden="true">
+            <span class="regression-line"></span>
+            <span class="regression-dot one"></span>
+            <span class="regression-dot two"></span>
+            <span class="regression-dot three"></span>
+            <span class="regression-dot four"></span>
+            <span class="regression-dot five"></span>
+            <span class="regression-dot six"></span>
+          </div>
+        </article>
+      </section>
+
+      <section class="learning-summary supervised-summary">
+        <div>
+          <p class="case-section-label">A useful distinction</p>
+          <h2>The task and the algorithm are not the same thing.</h2>
+        </div>
+        <div>
+          <p>
+            Classification and regression describe the kind of answer wanted.
+            Algorithms describe how a model learns that answer. Trees, nearest
+            neighbors, support vector machines, and neural networks can often be
+            adapted to either task.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact" class="site-footer">
+      <p>Built with care and a little curiosity.</p>
+      <a href="https://github.com/jefflovell" rel="me">@jefflovell</a>
+      <a class="back-to-top" href="#" aria-label="Back to top">↑</a>
+    </footer>
   </body>
 </html>
