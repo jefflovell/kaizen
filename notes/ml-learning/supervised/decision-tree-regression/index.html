@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive introduction to decision tree regression using GPU performance and used-market prices."
+    />
+    <title>Decision Tree Regression | Kaizen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../../../styles.css?v=4" />
+    <script src="../../../../script.js" defer></script>
+    <script src="decision-tree-regression.js?v=1" defer></script>
+  </head>
+  <body class="note-page">
+    <header class="site-header">
+      <a class="brand" href="../../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="sr-only">Toggle navigation</span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+        <a href="../../../../#about">About</a>
+        <a href="../../../../#notes">Notes</a>
+        <a href="../../../../#work">Work</a>
+        <a href="../../../../#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="note-hero" aria-labelledby="note-title">
+        <div class="case-kicker">
+          <a href="../">← Supervised learning</a>
+          <span>Regression</span>
+        </div>
+        <div class="note-title">
+          <h1 id="note-title">Decision Tree Regression</h1>
+          <p class="key-idea">
+            A regression tree asks a sequence of threshold questions, then
+            predicts one numeric value for each resulting region.
+          </p>
+        </div>
+      </section>
+
+      <section class="supervised-overview">
+        <p>
+          Linear regression describes the whole market with one line. A
+          decision tree takes another approach: split the examples into groups,
+          then predict the average outcome inside each group.
+        </p>
+        <p>
+          This makes trees good at capturing jumps, plateaus, and other
+          nonlinear patterns. It also creates a danger: a deep tree can keep
+          splitting until it learns the quirks of individual listings instead
+          of the broader market.
+        </p>
+      </section>
+
+      <section class="learning-loop" aria-label="Decision tree regression learning loop">
+        <article>
+          <span>01</span>
+          <h2>Try a threshold</h2>
+          <p>Consider dividing the GPUs at one performance value.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h2>Measure the groups</h2>
+          <p>Predict each side's average price and calculate the error.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h2>Split again</h2>
+          <p>Repeat inside each branch until the depth limit is reached.</p>
+        </article>
+      </section>
+
+      <section class="learning-intro supervised-intro">
+        <p>
+          <strong>The question:</strong> Where should we split the GPU market
+          so each group has a useful price estimate?
+        </p>
+      </section>
+
+      <section class="algo-grid regression-menu" aria-label="Regression algorithms">
+        <article class="algo-card">
+          <span>01</span>
+          <h2>Linear Regression</h2>
+          <p>Fit a straight-line relationship between features and a number.</p>
+          <a class="algo-card-link" href="../linear-regression/">Explore linear regression</a>
+        </article>
+        <article class="algo-card">
+          <span>02</span>
+          <h2>Regularized Linear Models</h2>
+          <p>Use ridge or lasso penalties to control complexity and overfitting.</p>
+        </article>
+        <article class="algo-card">
+          <span>03</span>
+          <h2>k-Nearest Neighbors</h2>
+          <p>Average the outcomes of nearby examples instead of fitting one global rule.</p>
+        </article>
+        <article class="algo-card is-active">
+          <span>04</span>
+          <h2>Decision Trees</h2>
+          <p>Split the feature space into regions with different numeric estimates.</p>
+        </article>
+        <article class="algo-card">
+          <span>05</span>
+          <h2>Support Vector Regression</h2>
+          <p>Fit a function that keeps most errors inside a tolerated margin.</p>
+        </article>
+        <article class="algo-card">
+          <span>06</span>
+          <h2>Ensembles</h2>
+          <p>Combine trees through random forests or gradient boosting.</p>
+        </article>
+        <article class="algo-card">
+          <span>07</span>
+          <h2>Neural Networks</h2>
+          <p>Learn complex nonlinear relationships through stacked transformations.</p>
+        </article>
+      </section>
+
+      <section class="tree-lab-panel" aria-labelledby="tree-lab-title">
+        <div class="tree-lab-heading">
+          <p class="case-section-label">Supervised learning | Regression</p>
+          <h2 id="tree-lab-title">A tree turns the market into price bands.</h2>
+          <p>
+            Grow the model one split at a time. The chart and tree diagram show
+            the same decisions from two different angles.
+          </p>
+        </div>
+
+        <div class="tree-lab-grid">
+          <div class="tree-chart-tool">
+            <canvas
+              id="tree-regression-canvas"
+              width="720"
+              height="520"
+              aria-label="GPU performance and price chart with decision tree predictions"
+            ></canvas>
+          </div>
+
+          <div class="tree-diagram-panel">
+            <p class="case-section-label">Current decision tree</p>
+            <div id="tree-diagram" class="tree-diagram" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <div class="tree-control-panel">
+          <fieldset class="depth-selector">
+            <legend>Maximum depth</legend>
+            <div class="segmented depth-buttons">
+              <button type="button" data-depth="1" class="is-selected">1</button>
+              <button type="button" data-depth="2">2</button>
+              <button type="button" data-depth="3">3</button>
+              <button type="button" data-depth="4">4</button>
+            </div>
+          </fieldset>
+          <div class="tree-actions">
+            <button id="grow-split" class="button" type="button">Grow one split</button>
+            <button id="fit-tree" type="button">Fit tree</button>
+            <button id="reset-tree" type="button">Reset</button>
+          </div>
+        </div>
+
+        <div class="lab-readout tree-readout" aria-label="Decision tree status">
+          <article>
+            <span>Depth</span>
+            <strong id="tree-depth">0</strong>
+          </article>
+          <article>
+            <span>Leaves</span>
+            <strong id="leaf-count">1</strong>
+          </article>
+          <article>
+            <span>Avg. error</span>
+            <strong id="tree-error">$0</strong>
+          </article>
+        </div>
+
+        <aside class="watch-panel tree-watch" aria-label="What to watch in decision tree regression">
+          <p class="case-section-label">What to watch</p>
+          <ul>
+            <li>Cyan vertical lines mark threshold questions.</li>
+            <li>White steps show each leaf's price prediction.</li>
+            <li>More depth lowers training error.</li>
+            <li>Very specific leaves can overfit unusual listings.</li>
+          </ul>
+        </aside>
+
+        <div class="classifier-caption">
+          <section>
+            <h3>Splits</h3>
+            <p>
+              A split asks a yes-or-no question such as
+              <code>performance &lt; 121?</code>. The tree chooses the threshold
+              that reduces squared prediction error the most.
+            </p>
+          </section>
+          <section>
+            <h3>Leaves</h3>
+            <p>
+              A leaf is an endpoint in the tree. Every GPU that reaches the same
+              leaf receives the same predicted price: the average sale price of
+              the training examples in that region.
+            </p>
+          </section>
+          <section>
+            <h3>Depth</h3>
+            <p>
+              Depth limits how many questions the tree may ask on the way to a
+              prediction. Shallow trees are simpler; deeper trees can represent
+              finer price bands.
+            </p>
+          </section>
+          <section>
+            <h3>Overfitting</h3>
+            <p>
+              If a tree grows too deep, it can isolate individual sales and
+              achieve tiny training error while making brittle predictions for
+              new listings.
+            </p>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact" class="site-footer">
+      <p>Built with care and a little curiosity.</p>
+      <a href="https://github.com/jefflovell" rel="me">@jefflovell</a>
+      <a class="back-to-top" href="#" aria-label="Back to top">↑</a>
+    </footer>
+  </body>
+</html>

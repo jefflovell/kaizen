@@ -1052,6 +1052,215 @@ h1 {
   font-size: 0.95rem;
 }
 
+.algo-card-link {
+  display: inline-block;
+  margin-top: 18px;
+  color: var(--blue);
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.tree-lab-panel {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto 110px;
+  padding-top: 80px;
+  border-top: 1px solid var(--line);
+}
+
+.tree-lab-heading {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 48px;
+  align-items: end;
+  margin-bottom: 38px;
+}
+
+.tree-lab-heading .case-section-label {
+  grid-column: 1 / -1;
+  margin-bottom: -24px;
+}
+
+.tree-lab-heading h2 {
+  margin: 0;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  letter-spacing: -0.055em;
+  line-height: 0.96;
+}
+
+.tree-lab-heading > p:last-child {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.08rem;
+}
+
+.tree-lab-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 24px;
+}
+
+.tree-chart-tool,
+.tree-diagram-panel {
+  min-width: 0;
+  padding: 20px;
+  border: 2px solid var(--ink);
+  background: #fff;
+}
+
+.tree-chart-tool {
+  box-shadow: 10px 10px 0 var(--coral);
+}
+
+.tree-diagram-panel {
+  box-shadow: 10px 10px 0 #9deeff;
+  overflow-x: auto;
+}
+
+#tree-regression-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid var(--ink);
+  background: #07101f;
+}
+
+.tree-diagram {
+  display: grid;
+  place-items: start center;
+  min-height: 390px;
+  padding-top: 18px;
+}
+
+.tree-branch {
+  display: grid;
+  justify-items: center;
+  width: 100%;
+}
+
+.tree-node {
+  display: grid;
+  gap: 3px;
+  min-width: 96px;
+  padding: 10px 8px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  text-align: center;
+}
+
+.tree-node span,
+.tree-node small,
+.branch-label {
+  color: var(--muted);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tree-node strong {
+  font-family: var(--display);
+  font-size: 0.78rem;
+}
+
+.split-node {
+  background: rgba(75, 243, 255, 0.12);
+  box-shadow: 5px 5px 0 #9deeff;
+}
+
+.leaf-node {
+  background: rgba(255, 117, 95, 0.09);
+  box-shadow: 5px 5px 0 #ffd0c7;
+}
+
+.tree-children {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(96px, 1fr));
+  gap: 10px;
+  width: 100%;
+  padding-top: 34px;
+}
+
+.tree-children::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  left: 25%;
+  width: 50%;
+  border-top: 2px solid var(--ink);
+}
+
+.tree-children > div {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+}
+
+.tree-children > div::before {
+  content: "";
+  position: absolute;
+  top: -18px;
+  height: 18px;
+  border-left: 2px solid var(--ink);
+}
+
+.tree-control-panel {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.65fr) 1.35fr;
+  gap: 22px;
+  margin-top: 28px;
+}
+
+.depth-selector {
+  padding: 16px;
+  border: 1px solid rgba(18, 24, 43, 0.22);
+}
+
+.depth-selector legend {
+  padding: 0 7px;
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.depth-buttons {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.tree-actions {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 12px;
+  align-items: end;
+}
+
+.tree-actions button {
+  min-height: 48px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  color: var(--ink);
+  font: 700 0.86rem var(--body);
+  cursor: pointer;
+}
+
+.tree-actions .button {
+  background: var(--ink);
+  color: #fff;
+}
+
+.tree-readout {
+  max-width: 620px;
+}
+
+.tree-watch {
+  margin-top: 28px;
+}
+
 .lab-panel {
   display: grid;
   grid-template-columns: 0.46fr 0.54fr;
@@ -1923,6 +2132,19 @@ h1 {
     grid-template-columns: 1fr;
   }
 
+  .tree-lab-heading,
+  .tree-lab-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tree-lab-heading .case-section-label {
+    margin-bottom: -20px;
+  }
+
+  .tree-control-panel {
+    grid-template-columns: 1fr;
+  }
+
   .supervised-task-card {
     grid-template-columns: 42px 1fr;
   }
@@ -1959,6 +2181,7 @@ h1 {
   .supervised-overview,
   .algo-grid,
   .lab-panel,
+  .tree-lab-panel,
   .supervised-task-grid,
   .supervised-summary {
     width: min(100% - 32px, 1200px);
@@ -2213,6 +2436,36 @@ h1 {
   .lab-panel {
     margin-bottom: 82px;
     padding-top: 56px;
+  }
+
+  .tree-lab-panel {
+    margin-bottom: 82px;
+    padding-top: 56px;
+  }
+
+  .tree-lab-heading {
+    gap: 26px;
+  }
+
+  .tree-lab-heading .case-section-label {
+    margin-bottom: -14px;
+  }
+
+  .tree-chart-tool,
+  .tree-diagram-panel {
+    padding: 12px;
+  }
+
+  .tree-diagram {
+    min-height: 320px;
+  }
+
+  .tree-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .tree-children {
+    min-width: 220px;
   }
 
   .supervised-task-grid {
