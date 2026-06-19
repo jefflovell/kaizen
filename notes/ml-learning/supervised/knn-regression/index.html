@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../../../../styles.css?v=5" />
+    <link rel="stylesheet" href="../../../../styles.css?v=6" />
     <script src="../../../../script.js" defer></script>
     <script src="knn-regression.js?v=1" defer></script>
   </head>
@@ -211,6 +211,53 @@
             <li>Distance only works when features share a sensible scale.</li>
           </ul>
         </aside>
+
+        <section class="mechanics-section" aria-labelledby="knn-mechanics-title">
+          <div class="mechanics-heading">
+            <p class="case-section-label">How it is built</p>
+            <h2 id="knn-mechanics-title">KNN calculates first and predicts second.</h2>
+            <p>
+              KNN does not learn coefficients or grow a model during training.
+              It stores the known examples, then performs these calculations
+              whenever a new example arrives.
+            </p>
+          </div>
+          <div class="equation-grid">
+            <article class="equation-card">
+              <span>01 · Measure distance</span>
+              <div class="equation" aria-label="Euclidean distance between x and q">
+                d(x, q) = √<span class="radicand">Σ<sub>j=1</sub><sup>m</sup>(x<sub>j</sub> − q<sub>j</sub>)<sup>2</sup></span>
+              </div>
+              <p>
+                Compare the new title <code>q</code> with a known title
+                <code>x</code> across all <code>m</code> features. In this
+                simplified map, <code>m = 2</code>.
+              </p>
+            </article>
+            <article class="equation-card">
+              <span>02 · Select neighbors</span>
+              <div class="equation" aria-label="N k of q is the k examples with the smallest distance">
+                N<sub>k</sub>(q) = k smallest d(x<sub>i</sub>, q)
+              </div>
+              <p>
+                Sort every known title by distance and keep the closest
+                <code>k</code>. The selected cyan points are this set.
+              </p>
+            </article>
+            <article class="equation-card">
+              <span>03 · Predict the target</span>
+              <div class="equation" aria-label="y hat of q equals one over k times the sum of neighbor targets">
+                ŷ(q) = <span class="fraction"><span>1</span><span>k</span></span>
+                Σ<sub>i ∈ N<sub>k</sub>(q)</sub> y<sub>i</sub>
+              </div>
+              <p>
+                Average the known engagement values <code>y<sub>i</sub></code>
+                of those neighbors. That average becomes the prediction
+                <code>ŷ</code> for the new title.
+              </p>
+            </article>
+          </div>
+        </section>
 
         <div class="classifier-caption">
           <section>

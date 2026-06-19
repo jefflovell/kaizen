@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../../../../styles.css?v=2" />
+    <link rel="stylesheet" href="../../../../styles.css?v=6" />
     <script src="../../../../script.js" defer></script>
     <script src="linear-regression.js?v=2" defer></script>
   </head>
@@ -261,6 +261,55 @@
             </ul>
           </aside>
         </div>
+
+        <section class="mechanics-section" aria-labelledby="linear-mechanics-title">
+          <div class="mechanics-heading">
+            <p class="case-section-label">How it is built</p>
+            <h2 id="linear-mechanics-title">The line is an equation trained to miss by less.</h2>
+            <p>
+              Linear regression begins with a weighted equation, measures how
+              wrong its predictions are, then adjusts the weights to minimize
+              the total squared error.
+            </p>
+          </div>
+          <div class="equation-grid">
+            <article class="equation-card">
+              <span>01 · Make a prediction</span>
+              <div class="equation" aria-label="y hat equals b zero plus the sum of b j x j">
+                ŷ = b<sub>0</sub> + Σ<sub>j=1</sub><sup>m</sup>b<sub>j</sub>x<sub>j</sub>
+              </div>
+              <p>
+                Multiply each feature <code>x<sub>j</sub></code> by its learned
+                coefficient <code>b<sub>j</sub></code>, add the intercept
+                <code>b<sub>0</sub></code>, and produce the estimate
+                <code>ŷ</code>.
+              </p>
+            </article>
+            <article class="equation-card">
+              <span>02 · Measure each miss</span>
+              <div class="equation" aria-label="residual e i equals actual y i minus predicted y hat i">
+                e<sub>i</sub> = y<sub>i</sub> − ŷ<sub>i</sub>
+              </div>
+              <p>
+                The residual <code>e<sub>i</sub></code> is the vertical gap
+                between an actual sale price <code>y<sub>i</sub></code> and the
+                line's estimate <code>ŷ<sub>i</sub></code>.
+              </p>
+            </article>
+            <article class="equation-card">
+              <span>03 · Fit the coefficients</span>
+              <div class="equation" aria-label="mean squared error equals one over n times the sum of squared residuals">
+                MSE = <span class="fraction"><span>1</span><span>n</span></span>
+                Σ<sub>i=1</sub><sup>n</sup>(y<sub>i</sub> − ŷ<sub>i</sub>)<sup>2</sup>
+              </div>
+              <p>
+                Choose the coefficients that make this loss as small as
+                possible. Squaring prevents positive and negative misses from
+                canceling and penalizes large misses more heavily.
+              </p>
+            </article>
+          </div>
+        </section>
 
         <div class="classifier-caption">
           <section>

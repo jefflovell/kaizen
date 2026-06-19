@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../../../../styles.css?v=4" />
+    <link rel="stylesheet" href="../../../../styles.css?v=6" />
     <script src="../../../../script.js" defer></script>
     <script src="decision-tree-regression.js?v=3" defer></script>
   </head>
@@ -196,6 +196,56 @@
             <li>Too many specific rules can memorize unusual listings.</li>
           </ul>
         </aside>
+
+        <section class="mechanics-section" aria-labelledby="tree-mechanics-title">
+          <div class="mechanics-heading">
+            <p class="case-section-label">How it is built</p>
+            <h2 id="tree-mechanics-title">A tree repeatedly chooses the least-wrong split.</h2>
+            <p>
+              At each node, the algorithm tests candidate questions, measures
+              the error on both resulting groups, and keeps the split that
+              reduces squared error the most.
+            </p>
+          </div>
+          <div class="equation-grid">
+            <article class="equation-card">
+              <span>01 · Score a candidate split</span>
+              <div class="equation equation-compact" aria-label="split error is the squared error in the left group plus the squared error in the right group">
+                E(s) = Σ<sub>i ∈ L(s)</sub>(y<sub>i</sub> − ȳ<sub>L</sub>)<sup>2</sup>
+                + Σ<sub>i ∈ R(s)</sub>(y<sub>i</sub> − ȳ<sub>R</sub>)<sup>2</sup>
+              </div>
+              <p>
+                A candidate question <code>s</code> divides examples into left
+                and right groups. Each group is scored against its own average
+                target, <code>ȳ</code>.
+              </p>
+            </article>
+            <article class="equation-card">
+              <span>02 · Keep the best question</span>
+              <div class="equation" aria-label="s star equals the split with minimum error">
+                s<sup>*</sup> = arg min<sub>s</sub> E(s)
+              </div>
+              <p>
+                Test the available feature thresholds and select the split
+                <code>s<sup>*</sup></code> with the lowest combined error. Then
+                repeat the process inside each new branch.
+              </p>
+            </article>
+            <article class="equation-card">
+              <span>03 · Predict from a leaf</span>
+              <div class="equation" aria-label="y hat for region R equals one over the number of examples in R times their target sum">
+                ŷ<sub>R</sub> =
+                <span class="fraction"><span>1</span><span>|R|</span></span>
+                Σ<sub>i ∈ R</sub> y<sub>i</sub>
+              </div>
+              <p>
+                When splitting stops, every example in leaf
+                <code>R</code> receives the same prediction: the average target
+                value of the training examples that landed there.
+              </p>
+            </article>
+          </div>
+        </section>
 
         <div class="classifier-caption">
           <section>
