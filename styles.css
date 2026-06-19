@@ -1660,15 +1660,79 @@ h1 {
   box-shadow: 10px 10px 0 #9deeff;
 }
 
+.error-curves {
+  margin-top: 14px;
+  border: 1px solid var(--ink);
+  background: #fbfaf6;
+}
+
+.error-curves svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.error-curves text {
+  fill: var(--ink);
+  font: 700 10px var(--body);
+}
+
+.error-curves .axis-label {
+  fill: var(--muted);
+  font-size: 8px;
+}
+
+.chart-grid path {
+  fill: none;
+  stroke: rgba(18, 24, 43, 0.16);
+  stroke-width: 1;
+}
+
+.training-curve,
+.unseen-curve {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.training-curve {
+  stroke: var(--coral);
+}
+
+.unseen-curve {
+  stroke: var(--blue);
+}
+
+.current-lambda-line {
+  stroke: rgba(18, 24, 43, 0.38);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.training-marker,
+.unseen-marker {
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+.training-marker {
+  fill: var(--coral);
+}
+
+.unseen-marker {
+  fill: var(--blue);
+}
+
 .prediction-card {
-  margin: 20px 0 24px;
-  padding: 22px;
+  margin: 18px 0;
+  padding: 18px 22px;
   border: 2px solid var(--ink);
   background: rgba(157, 238, 255, 0.18);
 }
 
 .prediction-card span,
-.error-comparison span,
+.error-readout span,
 .balance-callout span {
   display: block;
   color: var(--blue);
@@ -1685,37 +1749,21 @@ h1 {
   letter-spacing: -0.05em;
 }
 
-.error-comparison {
+.error-readout {
   display: grid;
-  gap: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
 }
 
-.error-comparison article {
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
+.error-readout article {
+  padding: 12px;
+  border: 1px solid var(--line);
 }
 
-.error-comparison strong {
+.error-readout strong {
   display: block;
-  margin: 5px 0 9px;
-  font-size: 1.55rem;
-}
-
-.error-track {
-  height: 10px;
-  background: rgba(18, 24, 43, 0.09);
-}
-
-.error-track i {
-  display: block;
-  width: 0;
-  height: 100%;
-  background: var(--coral);
-  transition: width 260ms ease;
-}
-
-.error-track.unseen i {
-  background: var(--blue);
+  margin-top: 5px;
+  font-size: 1.45rem;
 }
 
 .balance-callout {
@@ -1760,6 +1808,37 @@ h1 {
 
 .regularization-model-buttons {
   grid-template-columns: repeat(2, 1fr);
+}
+
+.lambda-slider-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: baseline;
+  margin: 0 2px 8px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.lambda-slider-label output {
+  color: var(--ink);
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.lambda-slider {
+  width: 100%;
+  margin: 4px 0 0;
+  accent-color: var(--blue);
+  cursor: ew-resize;
+}
+
+.lambda-scale {
+  display: flex;
+  justify-content: space-between;
+  margin: 2px 2px 14px;
+  color: var(--muted);
+  font-size: 0.68rem;
 }
 
 .lambda-buttons {

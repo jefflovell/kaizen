@@ -77,11 +77,12 @@
           </div>
 
           <aside class="regularization-performance">
-            <p class="case-section-label">Model check</p>
+            <p class="case-section-label">Model performance</p>
+            <div id="error-curves" class="error-curves" aria-label="Training and unseen error across regularization strengths"></div>
             <div class="prediction-card"><span>Predicted first-week completion</span><strong id="regularized-prediction">0%</strong></div>
-            <div class="error-comparison">
-              <article><span>Training error</span><strong id="training-error">0.0</strong><div class="error-track"><i id="training-error-bar"></i></div></article>
-              <article><span>Unseen error</span><strong id="unseen-error">0.0</strong><div class="error-track unseen"><i id="unseen-error-bar"></i></div></article>
+            <div class="error-readout">
+              <article><span>Training error (MSE)</span><strong id="training-error">0.0</strong></article>
+              <article><span>Unseen error (MSE)</span><strong id="unseen-error">0.0</strong></article>
             </div>
             <div id="balance-callout" class="balance-callout"><span>Model state</span><strong>Low regularization</strong><p>The model still trusts nearly every training pattern.</p></div>
           </aside>
@@ -97,6 +98,12 @@
           </fieldset>
           <fieldset>
             <legend>Regularization strength λ (lambda)</legend>
+            <label class="lambda-slider-label" for="lambda-slider">
+              <span>Drag to tune the penalty</span>
+              <output id="lambda-slider-output" for="lambda-slider">0.30</output>
+            </label>
+            <input id="lambda-slider" class="lambda-slider" type="range" min="0" max="100" step="1" value="11" aria-label="Regularization strength lambda">
+            <div class="lambda-scale" aria-hidden="true"><span>0</span><span>0.1</span><span>0.3</span><span>1</span><span>3</span><span>10</span></div>
             <div class="segmented lambda-buttons">
               <button type="button" data-lambda="0">0</button><button type="button" data-lambda="0.1">0.1</button>
               <button type="button" data-lambda="0.3" class="is-selected">0.3</button><button type="button" data-lambda="1">1</button>

@@ -15,14 +15,15 @@ const ui = {
   prediction: document.querySelector("#regularized-prediction"),
   trainingError: document.querySelector("#training-error"),
   unseenError: document.querySelector("#unseen-error"),
-  trainingBar: document.querySelector("#training-error-bar"),
-  unseenBar: document.querySelector("#unseen-error-bar"),
+  errorCurves: document.querySelector("#error-curves"),
   balance: document.querySelector("#balance-callout"),
   modelReadout: document.querySelector("#regularized-model-readout"),
   lambdaReadout: document.querySelector("#lambda-readout"),
   activeCount: document.querySelector("#active-feature-count"),
   modelButtons: [...document.querySelectorAll("[data-model]")],
   lambdaButtons: [...document.querySelectorAll("[data-lambda]")],
+  lambdaSlider: document.querySelector("#lambda-slider"),
+  lambdaSliderOutput: document.querySelector("#lambda-slider-output"),
 };
 
 function coefficient(feature) {
@@ -31,11 +32,24 @@ function coefficient(feature) {
   return Math.sign(feature.base) * Math.max(Math.abs(feature.base) - threshold, 0);
 }
 
-function errors() {
-  const scale = Math.log10(1 + state.lambda * 3);
-  const training = 7.4 + scale * 3.5 + (state.model === "lasso" ? 0.35 : 0);
-  const optimum = state.model === "ridge" ? 0.7 : 0.45;
-  const unseen = 11.8 - Math.min(state.lambda, optimum) * 4.2 + Math.max(0, state.lambda - optimum) * 1.15 + (state.model === "lasso" && state.lambda > 3 ? 1.2 : 0);
+function lambdaPosition(lambda) {
+  return Math.log1p(lambda) / Math.log(11);
+}
+
+function lambdaFromPosition(position) {
+  return Math.expm1((position / 100) * Math.log(11));
+}
+
+function sliderPosition(lambda) {
+  return Math.round(lambdaPosition(lambda) * 100);
+}
+
+function errorsFor(lambda, model = state.model) {
+  const position = lambdaPosition(lambda);
+  const optimum = model === "ridge" ? lambdaPosition(0.35) : lambdaPosition(0.55);
+  const distance = position - optimum;
+  const training = 7.4 + position * 7.2 + (model === "lasso" ? 0.35 : 0);
+  const unseen = 9.15 + Math.pow(distance, 2) * (distance < 0 ? 80 : 13) + (model === "lasso" ? 0.15 : 0);
   return { training, unseen };
 }
 
@@ -58,10 +72,51 @@ function renderBoard(values) {
   }).join("");
 }
 
+function chartPath(points, width, top, height) {
+  const min = 7;
+  const max = 20;
+  return points.map(({ lambda, value }) => {
+    const x = 34 + lambdaPosition(lambda) * (width - 48);
+    const y = top + height - ((value - min) / (max - min)) * height;
+    return `${x.toFixed(1)},${y.toFixed(1)}`;
+  }).join(" ");
+}
+
+function chartMarker(value, top, height) {
+  const min = 7;
+  const max = 20;
+  return {
+    x: 34 + lambdaPosition(state.lambda) * 252,
+    y: top + height - ((value - min) / (max - min)) * height,
+  };
+}
+
+function renderCurves(training, unseen) {
+  const samples = [0, 0.04, 0.1, 0.2, 0.3, 0.5, 0.8, 1.2, 2, 3, 5, 7.5, 10];
+  const trainingPoints = samples.map((lambda) => ({ lambda, value: errorsFor(lambda).training }));
+  const unseenPoints = samples.map((lambda) => ({ lambda, value: errorsFor(lambda).unseen }));
+  const trainingMarker = chartMarker(training, 24, 58);
+  const unseenMarker = chartMarker(unseen, 117, 58);
+  const selectedX = trainingMarker.x;
+  ui.errorCurves.innerHTML = `<svg viewBox="0 0 300 202" role="img" aria-labelledby="error-chart-title error-chart-desc">
+    <title id="error-chart-title">Training and unseen error by regularization strength</title>
+    <desc id="error-chart-desc">The highlighted points show the current lambda setting. Training error rises while unseen error first falls and then rises.</desc>
+    <g class="chart-grid"><path d="M34 24V175M34 82H286M34 117H286M34 175H286"></path></g>
+    <text x="34" y="14">Training error</text>
+    <text x="34" y="107">Unseen error</text>
+    <line class="current-lambda-line" x1="${selectedX}" y1="24" x2="${selectedX}" y2="175"></line>
+    <polyline class="training-curve" points="${chartPath(trainingPoints, 300, 24, 58)}"></polyline>
+    <polyline class="unseen-curve" points="${chartPath(unseenPoints, 300, 117, 58)}"></polyline>
+    <circle class="training-marker" cx="${trainingMarker.x}" cy="${trainingMarker.y}" r="5"></circle>
+    <circle class="unseen-marker" cx="${unseenMarker.x}" cy="${unseenMarker.y}" r="5"></circle>
+    <text class="axis-label" x="34" y="195">0</text><text class="axis-label" x="273" y="195">10 λ</text>
+  </svg>`;
+}
+
 function render() {
   const values = features.map((feature) => ({ feature, value: coefficient(feature) }));
   const active = values.filter(({ value }) => Math.abs(value) >= 0.001).length;
-  const { training, unseen } = errors();
+  const { training, unseen } = errorsFor(state.lambda);
   const completion = Math.round(42 + values.reduce((sum, { feature, value }) => sum + value * feature.contribution, 0));
   const balance = modelState(unseen);
   renderBoard(values);
@@ -70,12 +125,14 @@ function render() {
   ui.prediction.textContent = `${completion}%`;
   ui.trainingError.textContent = training.toFixed(1);
   ui.unseenError.textContent = unseen.toFixed(1);
-  ui.trainingBar.style.width = `${Math.min(100, training * 6.2)}%`;
-  ui.unseenBar.style.width = `${Math.min(100, unseen * 6.2)}%`;
+  renderCurves(training, unseen);
   ui.balance.innerHTML = `<span>Model state</span><strong>${balance.title}</strong><p>${balance.copy}</p>`;
   ui.modelReadout.textContent = state.model === "ridge" ? "Ridge" : "Lasso";
   ui.lambdaReadout.textContent = state.lambda;
   ui.activeCount.textContent = `${active} / ${features.length}`;
+  ui.lambdaSlider.value = sliderPosition(state.lambda);
+  ui.lambdaSliderOutput.value = state.lambda < 1 ? state.lambda.toFixed(2) : state.lambda.toFixed(1);
+  ui.lambdaButtons.forEach((item) => item.classList.toggle("is-selected", Number(item.dataset.lambda) === state.lambda));
 }
 
 ui.modelButtons.forEach((button) => button.addEventListener("click", () => {
@@ -85,7 +142,10 @@ ui.modelButtons.forEach((button) => button.addEventListener("click", () => {
 }));
 ui.lambdaButtons.forEach((button) => button.addEventListener("click", () => {
   state.lambda = Number(button.dataset.lambda);
-  ui.lambdaButtons.forEach((item) => item.classList.toggle("is-selected", item === button));
   render();
 }));
+ui.lambdaSlider.addEventListener("input", () => {
+  state.lambda = Number(lambdaFromPosition(Number(ui.lambdaSlider.value)).toFixed(2));
+  render();
+});
 render();
