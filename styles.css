@@ -1491,6 +1491,289 @@ h1 {
   margin-top: 28px;
 }
 
+.regularization-lab-panel {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto 110px;
+  padding-top: 80px;
+  border-top: 1px solid var(--line);
+}
+
+.regularization-lab-heading {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 48px;
+  align-items: end;
+  margin-bottom: 38px;
+}
+
+.regularization-lab-heading .case-section-label {
+  grid-column: 1 / -1;
+  margin-bottom: -24px;
+}
+
+.regularization-lab-heading h2 {
+  margin: 0;
+  font-size: clamp(2.6rem, 5vw, 5rem);
+  letter-spacing: -0.055em;
+  line-height: 0.96;
+}
+
+.regularization-lab-heading > p:last-child {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.08rem;
+}
+
+.regularization-lab-heading code {
+  padding: 1px 5px;
+  background: rgba(49, 85, 245, 0.08);
+  color: var(--ink);
+}
+
+.regularization-lab-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 24px;
+}
+
+.coefficient-mixer,
+.regularization-performance {
+  min-width: 0;
+  padding: 24px;
+  border: 2px solid var(--ink);
+}
+
+.coefficient-mixer {
+  background: #07101f;
+  color: #fff;
+  box-shadow: 10px 10px 0 var(--coral);
+}
+
+.mixer-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 28px;
+}
+
+.mixer-header .case-section-label {
+  color: #9deeff;
+}
+
+.mixer-header h3 {
+  margin: 6px 0 0;
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
+}
+
+.mixer-header > p {
+  max-width: 200px;
+  margin: 0;
+  color: rgba(247, 246, 241, 0.68);
+  text-align: right;
+}
+
+.coefficient-board {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(60px, 1fr));
+  gap: 12px;
+  min-height: 330px;
+}
+
+.coefficient-channel {
+  display: grid;
+  grid-template-rows: 28px 210px auto;
+  gap: 10px;
+  min-width: 0;
+  text-align: center;
+}
+
+.coefficient-value {
+  color: #9deeff;
+  font: 700 0.82rem var(--body);
+}
+
+.coefficient-rail {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-left: 1px solid rgba(157, 238, 255, 0.15);
+  border-right: 1px solid rgba(157, 238, 255, 0.15);
+  background: linear-gradient(rgba(157, 238, 255, 0.06) 1px, transparent 1px);
+  background-size: 100% 35px;
+}
+
+.coefficient-rail i {
+  position: absolute;
+  left: 50%;
+  width: 20px;
+  transform: translateX(-50%);
+  transition: height 260ms ease, opacity 260ms ease;
+}
+
+.coefficient-rail i.positive {
+  bottom: 50%;
+  background: linear-gradient(#ffd45c, #ff755f);
+}
+
+.coefficient-rail i.negative {
+  top: 50%;
+  background: linear-gradient(#a670ff, #4bf3ff);
+}
+
+.coefficient-zero {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: rgba(247, 246, 241, 0.82);
+}
+
+.coefficient-channel strong {
+  font-size: 0.76rem;
+  line-height: 1.25;
+}
+
+.coefficient-channel.is-muted {
+  opacity: 0.42;
+}
+
+.zero-key {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  margin-top: 18px;
+  color: rgba(247, 246, 241, 0.58);
+  font-size: 0.76rem;
+}
+
+.zero-key span {
+  width: 26px;
+  height: 2px;
+  background: #fff;
+}
+
+.regularization-performance {
+  background: #fff;
+  box-shadow: 10px 10px 0 #9deeff;
+}
+
+.prediction-card {
+  margin: 20px 0 24px;
+  padding: 22px;
+  border: 2px solid var(--ink);
+  background: rgba(157, 238, 255, 0.18);
+}
+
+.prediction-card span,
+.error-comparison span,
+.balance-callout span {
+  display: block;
+  color: var(--blue);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.prediction-card strong {
+  display: block;
+  margin-top: 10px;
+  font-size: clamp(2.4rem, 4vw, 4rem);
+  letter-spacing: -0.05em;
+}
+
+.error-comparison {
+  display: grid;
+  gap: 20px;
+}
+
+.error-comparison article {
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.error-comparison strong {
+  display: block;
+  margin: 5px 0 9px;
+  font-size: 1.55rem;
+}
+
+.error-track {
+  height: 10px;
+  background: rgba(18, 24, 43, 0.09);
+}
+
+.error-track i {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--coral);
+  transition: width 260ms ease;
+}
+
+.error-track.unseen i {
+  background: var(--blue);
+}
+
+.balance-callout {
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px solid var(--ink);
+  box-shadow: 6px 6px 0 rgba(255, 117, 95, 0.55);
+}
+
+.balance-callout strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 1.35rem;
+}
+
+.balance-callout p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.regularization-controls {
+  display: grid;
+  grid-template-columns: 0.72fr 1.28fr;
+  gap: 22px;
+  margin-top: 28px;
+}
+
+.regularization-controls fieldset {
+  padding: 16px;
+  border: 1px solid rgba(18, 24, 43, 0.22);
+}
+
+.regularization-controls legend {
+  padding: 0 7px;
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.regularization-model-buttons {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.lambda-buttons {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.regularization-readout {
+  max-width: 720px;
+}
+
+.regularization-watch {
+  margin-top: 28px;
+}
+
 .lab-panel {
   display: grid;
   grid-template-columns: 0.46fr 0.54fr;
@@ -2548,7 +2831,9 @@ h1 {
   .tree-lab-heading,
   .tree-lab-grid,
   .knn-lab-heading,
-  .knn-lab-grid {
+  .knn-lab-grid,
+  .regularization-lab-heading,
+  .regularization-lab-grid {
     grid-template-columns: 1fr;
   }
 
@@ -2565,6 +2850,10 @@ h1 {
   }
 
   .knn-control-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .regularization-controls {
     grid-template-columns: 1fr;
   }
 
@@ -2888,7 +3177,16 @@ h1 {
     padding-top: 56px;
   }
 
+  .regularization-lab-panel {
+    margin-bottom: 82px;
+    padding-top: 56px;
+  }
+
   .knn-lab-heading {
+    gap: 26px;
+  }
+
+  .regularization-lab-heading {
     gap: 26px;
   }
 
@@ -2896,9 +3194,27 @@ h1 {
     margin-bottom: -14px;
   }
 
+  .regularization-lab-heading .case-section-label {
+    margin-bottom: -14px;
+  }
+
   .knn-map-tool,
   .knn-neighbor-panel {
     padding: 12px;
+  }
+
+  .coefficient-mixer,
+  .regularization-performance {
+    padding: 16px;
+  }
+
+  .coefficient-board {
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 28px;
+  }
+
+  .lambda-buttons {
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .knn-actions {

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="An interactive comparison of Ridge and Lasso regression through coefficient shrinkage and model generalization." />
+    <title>Regularized Linear Models | Kaizen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../../../../styles.css?v=7" />
+    <script src="../../../../script.js" defer></script>
+    <script src="regularized-linear-models.js?v=1" defer></script>
+  </head>
+  <body class="note-page">
+    <header class="site-header">
+      <a class="brand" href="../../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="sr-only">Toggle navigation</span><span></span><span></span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+        <a href="../../../../#about">About</a><a href="../../../">Notes</a>
+        <a href="../../../../#work">Work</a><a href="../../../../#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="note-hero">
+        <div class="note-kicker"><a href="../">← Supervised learning</a><span>Regression</span></div>
+        <div class="note-title">
+          <h1 id="note-title">Regularized Linear Models</h1>
+          <p class="key-idea">Ridge and Lasso deliberately trade a little training fit for a simpler model that can perform better on new examples.</p>
+        </div>
+      </section>
+
+      <section class="supervised-overview">
+        <p>Imagine predicting first-week completion for a new streaming title from hundreds of signals: tone, cast, franchise history, runtime, release timing, social buzz, and learned embeddings. Ordinary linear regression may assign confident weights to patterns that happened by accident in the training catalog.</p>
+        <p>Regularization adds a cost for large coefficients. Ridge gently shrinks every coefficient; Lasso can remove weak features entirely. Both ask the model to explain the data with less complexity.</p>
+      </section>
+
+      <section class="learning-loop" aria-label="Regularized linear model loop">
+        <article><span>01</span><h2>Fit the signal</h2><p>Start with features that may help predict engagement.</p></article>
+        <article><span>02</span><h2>Penalize complexity</h2><p>Charge the model for relying too heavily on large coefficients.</p></article>
+        <article><span>03</span><h2>Validate the balance</h2><p>Choose the strength that performs best on unseen examples.</p></article>
+      </section>
+
+      <section class="learning-intro supervised-intro">
+        <p><strong>The question:</strong> How much training accuracy should we sacrifice to build a model that travels better?</p>
+      </section>
+
+      <p class="algorithm-path-label">Suggested regression learning path</p>
+      <section class="algo-grid regression-menu" aria-label="Suggested regression learning path">
+        <article class="algo-card"><span>01</span><h2>Linear Regression</h2><p>Fit a straight-line relationship between features and a number.</p><a class="algo-card-link" href="../linear-regression/">Explore linear regression</a></article>
+        <article class="algo-card"><span>02</span><h2>Decision Trees</h2><p>Split the feature space into regions with different numeric estimates.</p><a class="algo-card-link" href="../decision-tree-regression/">Explore decision tree regression</a></article>
+        <article class="algo-card"><span>03</span><h2>k-Nearest Neighbors</h2><p>Average the outcomes of nearby examples instead of fitting one global rule.</p><a class="algo-card-link" href="../knn-regression/">Explore k-NN regression</a></article>
+        <article class="algo-card is-active"><span>04</span><h2>Regularized Linear Models</h2><p>Use Ridge or Lasso penalties to control complexity and overfitting.</p></article>
+        <article class="algo-card"><span>05</span><h2>Support Vector Regression</h2><p>Fit a function that keeps most errors inside a tolerated margin.</p></article>
+        <article class="algo-card"><span>06</span><h2>Ensembles</h2><p>Combine trees through random forests or gradient boosting.</p></article>
+        <article class="algo-card"><span>07</span><h2>Neural Networks</h2><p>Learn complex nonlinear relationships through stacked transformations.</p></article>
+      </section>
+
+      <section class="regularization-lab-panel" aria-labelledby="regularization-lab-title">
+        <div class="regularization-lab-heading">
+          <p class="case-section-label">Streaming engagement | Generalization</p>
+          <h2 id="regularization-lab-title">One dial changes what the model is willing to remember.</h2>
+          <p>Switch between Ridge and Lasso, then increase <code>λ</code> (“lambda”). Watch the coefficients shrink while the model trades training fit for performance on unseen titles.</p>
+        </div>
+
+        <div class="regularization-lab-grid">
+          <div class="coefficient-mixer">
+            <div class="mixer-header">
+              <div><p class="case-section-label">Coefficient mixing board</p><h3 id="model-name">Ridge Regression</h3></div>
+              <p id="model-behavior">All signals stay in the mix.</p>
+            </div>
+            <div id="coefficient-board" class="coefficient-board" aria-live="polite"></div>
+            <div class="zero-key"><span></span> zero coefficient</div>
+          </div>
+
+          <aside class="regularization-performance">
+            <p class="case-section-label">Model check</p>
+            <div class="prediction-card"><span>Predicted first-week completion</span><strong id="regularized-prediction">0%</strong></div>
+            <div class="error-comparison">
+              <article><span>Training error</span><strong id="training-error">0.0</strong><div class="error-track"><i id="training-error-bar"></i></div></article>
+              <article><span>Unseen error</span><strong id="unseen-error">0.0</strong><div class="error-track unseen"><i id="unseen-error-bar"></i></div></article>
+            </div>
+            <div id="balance-callout" class="balance-callout"><span>Model state</span><strong>Low regularization</strong><p>The model still trusts nearly every training pattern.</p></div>
+          </aside>
+        </div>
+
+        <div class="regularization-controls">
+          <fieldset>
+            <legend>Penalty type</legend>
+            <div class="segmented regularization-model-buttons">
+              <button type="button" data-model="ridge" class="is-selected">Ridge (L2)</button>
+              <button type="button" data-model="lasso">Lasso (L1)</button>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Regularization strength λ (lambda)</legend>
+            <div class="segmented lambda-buttons">
+              <button type="button" data-lambda="0">0</button><button type="button" data-lambda="0.1">0.1</button>
+              <button type="button" data-lambda="0.3" class="is-selected">0.3</button><button type="button" data-lambda="1">1</button>
+              <button type="button" data-lambda="3">3</button><button type="button" data-lambda="10">10</button>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="lab-readout regularization-readout" aria-label="Regularization model status">
+          <article><span>Model</span><strong id="regularized-model-readout">Ridge</strong></article>
+          <article><span>λ (lambda)</span><strong id="lambda-readout">0.3</strong></article>
+          <article><span>Active features</span><strong id="active-feature-count">6 / 6</strong></article>
+        </div>
+
+        <aside class="watch-panel regularization-watch" aria-label="What to watch in regularization">
+          <p class="case-section-label">What to watch</p>
+          <ul><li>Training error usually rises as regularization strengthens.</li><li>Unseen error can improve before too much shrinkage hurts.</li><li>Ridge keeps every feature but reduces its influence.</li><li>Lasso can set weak coefficients exactly to zero.</li></ul>
+        </aside>
+
+        <section class="mechanics-section" aria-labelledby="regularization-mechanics-title">
+          <div class="mechanics-heading">
+            <p class="case-section-label">How it is built</p>
+            <h2 id="regularization-mechanics-title">The model fits the data and pays for complexity.</h2>
+            <p>Both methods begin with Mean Squared Error, then add a penalty controlled by <code>λ</code> (“lambda”). The shape of that penalty creates the difference between Ridge and Lasso.</p>
+          </div>
+          <div class="equation-grid">
+            <article class="equation-card">
+              <span>01 · Measure prediction error</span>
+              <div class="equation">MSE = <span class="fraction"><span>1</span><span>n</span></span> Σ<sub>i=1</sub><sup>n</sup>(y<sub>i</sub> − ŷ<sub>i</sub>)<sup>2</sup></div>
+              <p><code>MSE</code> means Mean Squared Error. <code>Σ</code> (“capital sigma”) adds squared residuals for all <code>n</code> training examples.</p>
+            </article>
+            <article class="equation-card">
+              <span>02 · Ridge adds an L2 penalty</span>
+              <div class="equation equation-compact">Loss<sub>Ridge</sub> = MSE + λΣ<sub>j=1</sub><sup>m</sup>b<sub>j</sub><sup>2</sup></div>
+              <p>Ridge squares each coefficient <code>b<sub>j</sub></code> (“b sub j”). Large weights become expensive, so every coefficient is smoothly pulled toward zero.</p>
+            </article>
+            <article class="equation-card">
+              <span>03 · Lasso adds an L1 penalty</span>
+              <div class="equation equation-compact">Loss<sub>Lasso</sub> = MSE + λΣ<sub>j=1</sub><sup>m</sup>|b<sub>j</sub>|</div>
+              <p>Lasso uses absolute values. Its geometry can make the cheapest solution land exactly at zero, effectively removing weak features.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="terms-section" aria-labelledby="regularization-terms-title">
+          <div class="terms-heading">
+            <p class="case-section-label">Key terms</p><h2 id="regularization-terms-title">The vocabulary of controlled complexity.</h2>
+            <p>Regularization is less about making the training score perfect and more about building a rule that survives new data.</p>
+          </div>
+          <dl class="term-grid">
+            <div><dt>Regularization</dt><dd>Adding a complexity penalty to the model's training objective.</dd></div>
+            <div><dt>λ (lambda)</dt><dd>The hyperparameter controlling how strongly coefficients are penalized.</dd></div>
+            <div><dt>Ridge / L2</dt><dd>A squared-coefficient penalty that shrinks every feature smoothly.</dd></div>
+            <div><dt>Lasso / L1</dt><dd>An absolute-value penalty that can force weak coefficients to zero.</dd></div>
+            <div><dt>Coefficient shrinkage</dt><dd>Reducing learned weights so the model relies less on fragile patterns.</dd></div>
+            <div><dt>Generalization</dt><dd>How well a model performs on examples it did not see during training.</dd></div>
+            <div><dt>Hyperparameter</dt><dd>A setting chosen outside training, such as penalty type or <code>λ</code>.</dd></div>
+            <div><dt>Feature selection</dt><dd>Keeping useful inputs while excluding weak ones; Lasso can do this automatically.</dd></div>
+          </dl>
+        </section>
+      </section>
+    </main>
+    <footer id="contact" class="site-footer"><p>Built with care and a little curiosity.</p><a href="https://github.com/jefflovell" rel="me">@jefflovell</a><a class="back-to-top" href="#" aria-label="Back to top">↑</a></footer>
+  </body>
+</html>
