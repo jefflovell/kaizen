@@ -111,6 +111,21 @@ function titleColor(title) {
   return `rgb(${blended.join(", ")})`;
 }
 
+function drawArrowhead(x, y, angle, color) {
+  const size = 8;
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(angle);
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(-size, -size * 0.58);
+  ctx.lineTo(-size, size * 0.58);
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+}
+
 function neighbors() {
   return titles
     .map((title) => ({ ...title, distance: distance(title, state.query) }))
@@ -141,29 +156,50 @@ function drawGrid() {
     ctx.stroke();
   }
 
+  const horizontalY = canvas.height - 30;
+  const verticalX = 28;
+  const axisStartX = plot.left;
+  const axisEndX = canvas.width - plot.right;
+  const axisTopY = plot.top;
+  const axisBottomY = canvas.height - plot.bottom;
+
+  const toneAxis = ctx.createLinearGradient(axisStartX, 0, axisEndX, 0);
+  toneAxis.addColorStop(0, "rgb(255, 117, 95)");
+  toneAxis.addColorStop(1, "rgb(166, 112, 255)");
+  ctx.strokeStyle = toneAxis;
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(axisStartX + 8, horizontalY);
+  ctx.lineTo(axisEndX - 8, horizontalY);
+  ctx.stroke();
+  drawArrowhead(axisStartX, horizontalY, Math.PI, "rgb(255, 117, 95)");
+  drawArrowhead(axisEndX, horizontalY, 0, "rgb(166, 112, 255)");
+
+  const energyAxis = ctx.createLinearGradient(0, axisBottomY, 0, axisTopY);
+  energyAxis.addColorStop(0, "rgb(78, 149, 255)");
+  energyAxis.addColorStop(1, "rgb(255, 205, 82)");
+  ctx.strokeStyle = energyAxis;
+  ctx.beginPath();
+  ctx.moveTo(verticalX, axisBottomY - 8);
+  ctx.lineTo(verticalX, axisTopY + 8);
+  ctx.stroke();
+  drawArrowhead(verticalX, axisBottomY, Math.PI / 2, "rgb(78, 149, 255)");
+  drawArrowhead(verticalX, axisTopY, -Math.PI / 2, "rgb(255, 205, 82)");
+
   ctx.font = "700 14px DM Sans, sans-serif";
   ctx.textBaseline = "middle";
   ctx.textAlign = "left";
   ctx.fillStyle = "rgb(255, 117, 95)";
-  ctx.fillText("Lighthearted", plot.left, canvas.height - 24);
+  ctx.fillText("Lighthearted", plot.left + 13, horizontalY - 14);
   ctx.textAlign = "right";
   ctx.fillStyle = "rgb(166, 112, 255)";
-  ctx.fillText("Serious", canvas.width - plot.right, canvas.height - 24);
-  ctx.save();
-  ctx.translate(18, plot.top + plotHeight() / 2);
-  ctx.rotate(-Math.PI / 2);
-  ctx.textAlign = "center";
-  const energyLabel = ctx.createLinearGradient(
-    -plotHeight() / 2,
-    0,
-    plotHeight() / 2,
-    0,
-  );
-  energyLabel.addColorStop(0, "rgb(78, 149, 255)");
-  energyLabel.addColorStop(1, "rgb(255, 205, 82)");
-  ctx.fillStyle = energyLabel;
-  ctx.fillText("Slow burn  →  High energy", 0, 0);
-  ctx.restore();
+  ctx.fillText("Serious", axisEndX - 13, horizontalY - 14);
+
+  ctx.textAlign = "left";
+  ctx.fillStyle = "rgb(255, 205, 82)";
+  ctx.fillText("High energy", verticalX + 12, axisTopY + 4);
+  ctx.fillStyle = "rgb(78, 149, 255)";
+  ctx.fillText("Slow burn", verticalX + 12, axisBottomY - 4);
 }
 
 function drawNeighborhood(selected) {
