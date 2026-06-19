@@ -118,6 +118,29 @@
           <article><span>Active features</span><strong id="active-feature-count">6 / 6</strong></article>
         </div>
 
+        <section class="regularization-callouts" aria-label="How to read the regularization lab">
+          <article>
+            <span>Ridge · L2</span>
+            <h3>Turn every voice down.</h3>
+            <p>Ridge shrinks all coefficients toward zero. Strong signals remain strongest, but no single feature gets to dominate unchecked.</p>
+          </article>
+          <article>
+            <span>Lasso · L1</span>
+            <h3>Remove the weakest voices.</h3>
+            <p>Lasso can push small coefficients exactly to zero, performing a kind of automatic feature selection.</p>
+          </article>
+          <article>
+            <span>λ · Lambda</span>
+            <h3>Set the cost of complexity.</h3>
+            <p>Move right to penalize large weights more aggressively. The goal is balance—not the smallest training error.</p>
+          </article>
+          <article>
+            <span>How to use the lab</span>
+            <h3>Disturb it, then constrain it.</h3>
+            <p>Drag a feature fader, switch penalties, and tune λ. Watch the regularized bars, prediction, and error curves respond together.</p>
+          </article>
+        </section>
+
         <aside class="watch-panel regularization-watch" aria-label="What to watch in regularization">
           <p class="case-section-label">What to watch</p>
           <ul><li>Training error usually rises as regularization strengthens.</li><li>Unseen error can improve before too much shrinkage hurts.</li><li>Ridge keeps every feature but reduces its influence.</li><li>Lasso can set weak coefficients exactly to zero.</li></ul>

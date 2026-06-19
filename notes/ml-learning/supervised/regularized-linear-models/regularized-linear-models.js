@@ -82,7 +82,7 @@ function renderBoard(values) {
   }
   values.forEach(({ feature, value }, index) => {
     const channel = ui.board.querySelector(`[data-channel="${index}"]`);
-    const height = Math.max(2, (Math.abs(value) / 0.36) * 150);
+    const height = Math.max(2, Math.min(96, (Math.abs(value) / 0.4) * 96));
     const inactive = Math.abs(value) < 0.001;
     const bar = channel.querySelector(".coefficient-rail i");
     channel.classList.toggle("is-muted", inactive);
@@ -114,8 +114,22 @@ function chartMarker(value, top, height) {
 
 function renderCurves(training, unseen) {
   const samples = [0, 0.04, 0.1, 0.2, 0.3, 0.5, 0.8, 1.2, 2, 3, 5, 7.5, 10];
+  const checkpoints = [0, 0.1, 0.3, 1, 3, 10];
   const trainingPoints = samples.map((lambda) => ({ lambda, value: errorsFor(lambda).training }));
   const unseenPoints = samples.map((lambda) => ({ lambda, value: errorsFor(lambda).unseen }));
+  const checkpointNodes = checkpoints.map((lambda) => {
+    const checkpointErrors = errorsFor(lambda);
+    const trainingPoint = {
+      x: 34 + lambdaPosition(lambda) * 252,
+      y: 24 + 58 - ((checkpointErrors.training - 7) / 13) * 58,
+    };
+    const unseenPoint = {
+      x: trainingPoint.x,
+      y: 117 + 58 - ((checkpointErrors.unseen - 7) / 13) * 58,
+    };
+    return `<circle class="curve-node training-node" cx="${trainingPoint.x}" cy="${trainingPoint.y}" r="2.8"></circle>
+      <circle class="curve-node unseen-node" cx="${unseenPoint.x}" cy="${unseenPoint.y}" r="2.8"></circle>`;
+  }).join("");
   const trainingMarker = chartMarker(training, 24, 58);
   const unseenMarker = chartMarker(unseen, 117, 58);
   const selectedX = trainingMarker.x;
@@ -128,6 +142,7 @@ function renderCurves(training, unseen) {
     <line class="current-lambda-line" x1="${selectedX}" y1="24" x2="${selectedX}" y2="175"></line>
     <polyline class="training-curve" points="${chartPath(trainingPoints, 300, 24, 58)}"></polyline>
     <polyline class="unseen-curve" points="${chartPath(unseenPoints, 300, 117, 58)}"></polyline>
+    ${checkpointNodes}
     <circle class="training-marker" cx="${trainingMarker.x}" cy="${trainingMarker.y}" r="5"></circle>
     <circle class="unseen-marker" cx="${unseenMarker.x}" cy="${unseenMarker.y}" r="5"></circle>
     <text class="axis-label" x="34" y="195">0</text><text class="axis-label" x="273" y="195">10 λ</text>
