@@ -25,7 +25,11 @@ complex systems easier to understand—and improve.
 
 The site is intentionally lean and dependency-free: vanilla HTML, CSS, and
 JavaScript wherever possible, served directly through GitHub Pages. Good music
-does not have to be complicated.
+does not have to be complicated.  I hope you enjoy exploring it as much as I've enjoyed designing and building it.
+
+Cheers,
+
+Jeff
 
 ## Preview locally
 
