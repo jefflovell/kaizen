@@ -237,6 +237,18 @@
               useful when the model also predicts new examples well.
             </p>
           </section>
+          <section>
+            <h3>Why squared error?</h3>
+            <p>
+              Squaring makes negative and positive misses count the same, while
+              making a large miss cost more than several small ones. It also
+              explains why each leaf predicts its examples' average price: the
+              average is the single number that produces the smallest total
+              squared error for that group. The tradeoff is that unusually
+              expensive or cheap examples can have a strong influence because
+              their large errors are amplified.
+            </p>
+          </section>
         </div>
       </section>
     </main>
