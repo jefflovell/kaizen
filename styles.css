@@ -485,6 +485,18 @@ h1 {
   padding: 72px 0 96px;
 }
 
+.note-kicker {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 44px;
+}
+
+.note-kicker a,
+.note-kicker span {
+  display: inline-block;
+}
+
 .note-title {
   display: grid;
   grid-template-columns: 1.35fr 0.65fr;
@@ -1902,6 +1914,10 @@ h1 {
 }
 
 .norm-explainer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 112px;
+  gap: 14px;
+  align-items: center;
   margin-top: 16px;
   padding: 15px;
   border: 1px solid var(--ink);
@@ -1922,6 +1938,31 @@ h1 {
 .norm-explainer code {
   color: var(--ink);
   font-size: 0.76rem;
+}
+
+.penalty-shape {
+  padding: 4px;
+  border-left: 1px solid rgba(18, 24, 43, 0.18);
+}
+
+.penalty-shape svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.penalty-axis {
+  fill: none;
+  stroke: rgba(18, 24, 43, 0.28);
+  stroke-width: 1;
+}
+
+.penalty-line {
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .model-explainer-grid {
@@ -2239,6 +2280,11 @@ h1 {
 
 .equation-compact {
   font-size: clamp(1.08rem, 1.65vw, 1.55rem);
+}
+
+.equation-mse {
+  font-size: clamp(1.08rem, 1.55vw, 1.45rem);
+  white-space: nowrap;
 }
 
 .equation sub,

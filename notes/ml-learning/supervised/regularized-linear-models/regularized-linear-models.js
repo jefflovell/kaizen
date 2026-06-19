@@ -64,7 +64,7 @@ function errorsFor(lambda, model = state.model) {
 
 function modelState(unseen) {
   if (state.lambda === 0) return { title: "No regularization", copy: "The model is free to chase every pattern in the training catalog." };
-  if (unseen <= 9.5) return { title: "Best balance", copy: "Some training fit is traded for a cleaner rule on unseen titles." };
+  if (unseen <= 9.5) return { title: "Best balance", copy: "Some training fit is traded for a cleaner rule on held-out new titles." };
   if (state.lambda >= 3) return { title: "Too constrained", copy: "Useful signal is being suppressed along with the noise." };
   return { title: "Moderate regularization", copy: "The model is becoming less sensitive to fragile coefficients." };
 }
@@ -134,11 +134,11 @@ function renderCurves(training, unseen) {
   const unseenMarker = chartMarker(unseen, 117, 58);
   const selectedX = trainingMarker.x;
   ui.errorCurves.innerHTML = `<svg viewBox="0 0 300 202" role="img" aria-labelledby="error-chart-title error-chart-desc">
-    <title id="error-chart-title">Training and unseen error by regularization strength</title>
-    <desc id="error-chart-desc">The highlighted points show the current lambda setting. Training error rises while unseen error first falls and then rises.</desc>
+    <title id="error-chart-title">Training and new-example error by regularization strength</title>
+    <desc id="error-chart-desc">The highlighted points show the current lambda setting. Training error rises while error on held-out new examples first falls and then rises.</desc>
     <g class="chart-grid"><path d="M34 24V175M34 82H286M34 117H286M34 175H286"></path></g>
     <text x="34" y="14">Training error</text>
-    <text x="34" y="107">Unseen error</text>
+    <text x="34" y="107">New-example error</text>
     <line class="current-lambda-line" x1="${selectedX}" y1="24" x2="${selectedX}" y2="175"></line>
     <polyline class="training-curve" points="${chartPath(trainingPoints, 300, 24, 58)}"></polyline>
     <polyline class="unseen-curve" points="${chartPath(unseenPoints, 300, 117, 58)}"></polyline>
@@ -159,14 +159,20 @@ function render() {
   ui.modelName.textContent = state.model === "ridge" ? "Ridge Regression" : "Lasso Regression";
   ui.modelBehavior.textContent = state.model === "ridge" ? "All signals stay in the mix." : active < features.length ? `${features.length - active} weak signal${features.length - active === 1 ? "" : "s"} muted.` : "Weak signals are approaching zero.";
   if (state.model === "ridge") {
-    ui.normExplainer.innerHTML = `<p><strong>L2</strong> measures coefficient size by adding their squares: <code>b₁² + b₂² + …</code></p>`;
+    ui.normExplainer.innerHTML = `<p><strong>L2</strong> measures coefficient size by adding their squares: <code>b₁² + b₂² + …</code></p>
+      <div class="penalty-shape" aria-label="L2 penalty curve">
+        <svg viewBox="0 0 120 72" role="img"><title>L2 penalty is a smooth U-shaped curve</title><path class="penalty-axis" d="M8 62H114M61 6V66"></path><path class="penalty-line" d="M12 12C32 45 43 58 61 58S90 45 110 12"></path></svg>
+      </div>`;
     ui.modelExplainer.innerHTML = `<article data-model-explainer="ridge">
       <span>Ridge · L2</span>
       <h3>Turn every voice down.</h3>
       <p>Ridge shrinks all coefficients toward zero. Strong signals remain strongest, but no single feature gets to dominate unchecked.</p>
     </article>`;
   } else {
-    ui.normExplainer.innerHTML = `<p><strong>L1</strong> measures coefficient size by adding their absolute values: <code>|b₁| + |b₂| + …</code></p>`;
+    ui.normExplainer.innerHTML = `<p><strong>L1</strong> measures coefficient size by adding their absolute values: <code>|b₁| + |b₂| + …</code></p>
+      <div class="penalty-shape" aria-label="L1 penalty curve">
+        <svg viewBox="0 0 120 72" role="img"><title>L1 penalty is a sharp V-shaped curve</title><path class="penalty-axis" d="M8 62H114M61 6V66"></path><path class="penalty-line" d="M12 10 61 58 110 10"></path></svg>
+      </div>`;
     ui.modelExplainer.innerHTML = `<article data-model-explainer="lasso">
       <span>Lasso · L1</span>
       <h3>Remove the weakest voices.</h3>
