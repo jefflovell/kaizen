@@ -230,8 +230,10 @@
               </div>
               <p>
                 Compare the new title <code>q</code> with a known title
-                <code>x</code> across all <code>m</code> features. In this
-                simplified map, <code>m = 2</code>.
+                <code>x</code> across all <code>m</code> features.
+                <code>Σ</code> (“capital sigma”) means “sum,”
+                <code>x<sub>j</sub></code> is pronounced “x sub j,” and
+                <code>√</code> means square root. Here, <code>m = 2</code>.
               </p>
             </article>
             <article class="equation-card">
@@ -241,7 +243,8 @@
               </div>
               <p>
                 Sort every known title by distance and keep the closest
-                <code>k</code>. The selected cyan points are this set.
+                <code>k</code>. <code>N<sub>k</sub>(q)</code> is pronounced
+                “N sub k of q” and names the selected neighborhood.
               </p>
             </article>
             <article class="equation-card">
@@ -252,50 +255,33 @@
               </div>
               <p>
                 Average the known engagement values <code>y<sub>i</sub></code>
-                of those neighbors. That average becomes the prediction
-                <code>ŷ</code> for the new title.
+                (“y sub i”) of those neighbors. That average becomes prediction
+                <code>ŷ</code> (“y-hat”) for the new title.
               </p>
             </article>
           </div>
         </section>
 
-        <div class="classifier-caption">
-          <section>
-            <h3>Cold start</h3>
+        <section class="terms-section" aria-labelledby="knn-terms-title">
+          <div class="terms-heading">
+            <p class="case-section-label">Key terms</p>
+            <h2 id="knn-terms-title">The vocabulary of local similarity.</h2>
             <p>
-              New titles have no clicks, plays, completions, or watch time.
-              Content-based neighbors provide a temporary prediction until
-              enough behavioral evidence exists to personalize more directly.
+              KNN makes predictions from relationships among stored examples,
+              so distance and representation matter enormously.
             </p>
-          </section>
-          <section>
-            <h3>Choosing k</h3>
-            <p>
-              With <code>k = 1</code>, one unusual neighbor can dominate. As k
-              grows, the estimate becomes more stable but less specific. The
-              best value is a model choice validated against held-out examples.
-            </p>
-          </section>
-          <section>
-            <h3>Feature scaling</h3>
-            <p>
-              Distance treats every numeric dimension literally. A runtime
-              measured from 20–200 could overpower a tone score measured from
-              0–1, so production features must be normalized or otherwise
-              weighted deliberately.
-            </p>
-          </section>
-          <section>
-            <h3>From maps to embeddings</h3>
-            <p>
-              Real recommendation systems work in almost unimaginably
-              high-dimensional embeddings—sometimes a space with 1,000 or more
-              dimensions learned from content and behavior. This two-axis map
-              is a simplified, human-readable version of the same core idea:
-              nearby vectors represent similar items.
-            </p>
-          </section>
-        </div>
+          </div>
+          <dl class="term-grid">
+            <div><dt>Neighbor</dt><dd>A known example that is close to the query under the chosen distance metric.</dd></div>
+            <div><dt>k</dt><dd>The number of neighbors used for one prediction; pronounced “kay.”</dd></div>
+            <div><dt>Euclidean distance</dt><dd>Straight-line distance calculated from squared feature differences and a square root.</dd></div>
+            <div><dt>Feature scaling</dt><dd>Putting dimensions on comparable scales so one numeric range does not dominate distance.</dd></div>
+            <div><dt>Cold start</dt><dd>Making an initial prediction before clicks, plays, purchases, or other behavioral history exists.</dd></div>
+            <div><dt>Lazy learning</dt><dd>Storing examples during training and postponing most computation until prediction time.</dd></div>
+            <div><dt>Embedding</dt><dd>A learned numeric vector that positions similar items near one another in many-dimensional space.</dd></div>
+            <div><dt>Curse of dimensionality</dt><dd>As dimensions multiply, distance becomes less informative and neighbor search becomes harder.</dd></div>
+          </dl>
+        </section>
       </section>
     </main>
 

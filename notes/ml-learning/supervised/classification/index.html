@@ -257,11 +257,12 @@
                 z = w · x + b
               </div>
               <p>
-                Multiply the feature vector <code>x</code> by the weights
-                <code>w</code>, then add the bias <code>b</code>. The sign and
-                size of <code>z</code> describe which side of the boundary the
-                point occupies. Dividing by <code>||w||</code> converts it to
-                the signed distance shown in the live trace.
+                Multiply the feature vector <code>x</code> (“x”) by the weights
+                <code>w</code> (“w”), then add the bias <code>b</code> (“b”).
+                The sign and size of score <code>z</code> (“z”) describe which
+                side of the boundary the point occupies. Dividing by
+                <code>||w||</code> (“the magnitude of w”) converts it to the
+                signed distance shown in the live trace.
               </p>
             </article>
             <article class="equation-card">
@@ -272,8 +273,9 @@
               <p>
                 A nonnegative score predicts cyan
                 <code>(ŷ = 1)</code>; a negative score predicts coral
-                <code>(ŷ = −1)</code>. Compare that guess with the known label
-                <code>y</code>.
+                <code>(ŷ = −1)</code>. The symbol <code>ŷ</code> is pronounced
+                “y-hat” and means the prediction. Compare it with known label
+                <code>y</code> (“y”).
               </p>
             </article>
             <article class="equation-card">
@@ -284,7 +286,7 @@
               </div>
               <p>
                 Only a wrong guess triggers an update. The learning rate
-                <code>η</code> controls the step size; the label
+                <code>η</code> (“eta”) controls the step size; the label
                 <code>y</code> controls the direction of the nudge.
               </p>
             </article>
@@ -315,11 +317,11 @@
             </div>
             <div>
               <dt>Learning rate</dt>
-              <dd><code>η</code> controls how far the boundary moves after each mistake.</dd>
+              <dd><code>η</code> (“eta”) controls how far the boundary moves after each mistake.</dd>
             </div>
             <div>
               <dt>Label and prediction</dt>
-              <dd><code>y</code> is the known answer used in training; <code>ŷ</code> is the model's guess.</dd>
+              <dd><code>y</code> is the known answer used in training; <code>ŷ</code> (“y-hat”) is the model's guess.</dd>
             </div>
             <div>
               <dt>Decision boundary</dt>

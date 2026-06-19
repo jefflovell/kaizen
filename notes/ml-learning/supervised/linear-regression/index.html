@@ -279,10 +279,11 @@
                 ŷ = b<sub>0</sub> + Σ<sub>j=1</sub><sup>m</sup>b<sub>j</sub>x<sub>j</sub>
               </div>
               <p>
-                Multiply each feature <code>x<sub>j</sub></code> by its learned
-                coefficient <code>b<sub>j</sub></code>, add the intercept
-                <code>b<sub>0</sub></code>, and produce the estimate
-                <code>ŷ</code>.
+                <code>Σ</code> (“capital sigma”) means “sum.” Multiply each
+                feature <code>x<sub>j</sub></code> (“x sub j”) by coefficient
+                <code>b<sub>j</sub></code> (“b sub j”), add intercept
+                <code>b<sub>0</sub></code> (“b sub zero”), and produce estimate
+                <code>ŷ</code> (“y-hat”).
               </p>
             </article>
             <article class="equation-card">
@@ -291,9 +292,10 @@
                 e<sub>i</sub> = y<sub>i</sub> − ŷ<sub>i</sub>
               </div>
               <p>
-                The residual <code>e<sub>i</sub></code> is the vertical gap
-                between an actual sale price <code>y<sub>i</sub></code> and the
-                line's estimate <code>ŷ<sub>i</sub></code>.
+                The residual <code>e<sub>i</sub></code> (“e sub i”) is the
+                vertical gap between actual sale price
+                <code>y<sub>i</sub></code> (“y sub i”) and estimate
+                <code>ŷ<sub>i</sub></code> (“y-hat sub i”).
               </p>
             </article>
             <article class="equation-card">
@@ -303,48 +305,35 @@
                 Σ<sub>i=1</sub><sup>n</sup>(y<sub>i</sub> − ŷ<sub>i</sub>)<sup>2</sup>
               </div>
               <p>
-                Choose the coefficients that make this loss as small as
-                possible. Squaring prevents positive and negative misses from
-                canceling and penalizes large misses more heavily.
+                <code>MSE</code> means Mean Squared Error. Choose the
+                coefficients that make this loss as small as possible.
+                <code>n</code> is the number of examples, and
+                <code>Σ</code> (“capital sigma”) adds their squared errors.
               </p>
             </article>
           </div>
         </section>
 
-        <div class="classifier-caption">
-          <section>
-            <h3>Slope</h3>
+        <section class="terms-section" aria-labelledby="linear-terms-title">
+          <div class="terms-heading">
+            <p class="case-section-label">Key terms</p>
+            <h2 id="linear-terms-title">The vocabulary of a fitted line.</h2>
             <p>
-              The slope describes how much price tends to rise when performance
-              increases. A steeper line means the market pays a larger premium
-              for each additional unit of gaming performance.
+              The equation is compact; these terms describe the jobs performed
+              by each part of it.
             </p>
-          </section>
-          <section>
-            <h3>Intercept</h3>
-            <p>
-              The intercept anchors the line. It is the model's predicted price
-              when the normalized performance input is zero—not necessarily a
-              useful real-world GPU, but a number the equation needs.
-            </p>
-          </section>
-          <section>
-            <h3>Residuals</h3>
-            <p>
-              A residual is the difference between an actual sale and the
-              model's estimate. A card above the line sold for more than
-              expected; one below it sold for less.
-            </p>
-          </section>
-          <section>
-            <h3>Missing features</h3>
-            <p>
-              Performance alone cannot explain every price. Adding age, VRAM,
-              condition, power use, and warranty would turn this into multiple
-              linear regression and usually improve the estimate.
-            </p>
-          </section>
-        </div>
+          </div>
+          <dl class="term-grid">
+            <div><dt>Coefficient</dt><dd>A learned weight such as <code>b<sub>j</sub></code> (“b sub j”) that scales one feature.</dd></div>
+            <div><dt>Slope</dt><dd>How much the prediction changes when an input increases by one unit.</dd></div>
+            <div><dt>Intercept</dt><dd><code>b<sub>0</sub></code> (“b sub zero”), the baseline prediction when all inputs are zero.</dd></div>
+            <div><dt>Residual</dt><dd><code>e<sub>i</sub></code> (“e sub i”), the actual value minus the prediction for example <code>i</code>.</dd></div>
+            <div><dt>Loss function</dt><dd>A single score that tells training how wrong the model is overall.</dd></div>
+            <div><dt>MSE</dt><dd>Mean Squared Error: the average of all squared residuals.</dd></div>
+            <div><dt>Multiple regression</dt><dd>Linear regression using several input features instead of only one.</dd></div>
+            <div><dt>Outlier</dt><dd>An unusual example whose large residual can pull the fitted line away from the broader trend.</dd></div>
+          </dl>
+        </section>
       </section>
     </main>
 

@@ -216,8 +216,9 @@
               </div>
               <p>
                 A candidate question <code>s</code> divides examples into left
-                and right groups. Each group is scored against its own average
-                target, <code>ȳ</code>.
+                and right groups. <code>Σ</code> (“capital sigma”) means “sum,”
+                and each group is scored against its average target
+                <code>ȳ</code> (“y-bar”).
               </p>
             </article>
             <article class="equation-card">
@@ -227,8 +228,9 @@
               </div>
               <p>
                 Test the available feature thresholds and select the split
-                <code>s<sup>*</sup></code> with the lowest combined error. Then
-                repeat the process inside each new branch.
+                <code>s<sup>*</sup></code> (“s-star”) with the lowest combined
+                error. <code>arg min</code> means “the input that produces the
+                minimum.” Then repeat inside each new branch.
               </p>
             </article>
             <article class="equation-card">
@@ -240,68 +242,35 @@
               </div>
               <p>
                 When splitting stops, every example in leaf
-                <code>R</code> receives the same prediction: the average target
-                value of the training examples that landed there.
+                <code>R</code> receives prediction
+                <code>ŷ<sub>R</sub></code> (“y-hat sub R”).
+                <code>|R|</code> (“the size of R”) is its example count, and
+                <code>Σ</code> adds their targets before averaging.
               </p>
             </article>
           </div>
         </section>
 
-        <div class="classifier-caption">
-          <section>
-            <h3>Splits</h3>
+        <section class="terms-section" aria-labelledby="tree-terms-title">
+          <div class="terms-heading">
+            <p class="case-section-label">Key terms</p>
+            <h2 id="tree-terms-title">The vocabulary of branching decisions.</h2>
             <p>
-              A split asks a yes-or-no question such as
-              <code>performance &lt; 121?</code>. The tree chooses the threshold
-              that reduces squared prediction error the most. Each question is
-              one split: it divides the examples into a “yes” branch and a “no”
-              branch.
+              Trees replace one global equation with a hierarchy of local
+              questions and regional predictions.
             </p>
-          </section>
-          <section>
-            <h3>Leaves</h3>
-            <p>
-              A leaf is an endpoint in the tree. Every GPU that reaches the same
-              leaf receives the same predicted price: the average sale price of
-              the training examples in that region.
-            </p>
-          </section>
-          <section>
-            <h3>Depth</h3>
-            <p>
-              Depth is the number of questions one example can encounter from
-              the top of the tree to its final leaf. A depth-two tree may ask
-              one question and then one follow-up question. It can contain
-              several splits overall, but no single prediction follows more
-              than two of them. Shallow trees are simpler; deeper trees can
-              create finer price bands.
-            </p>
-          </section>
-          <section>
-            <h3>Overfitting</h3>
-            <p>
-              A very deep tree can memorize the training examples instead of
-              learning the broader market pattern. It is like memorizing the
-              answers to one practice test: the score looks perfect until the
-              real test asks different questions. A tree might create one leaf
-              just for an unusually expensive GPU and then overprice every new
-              GPU that lands in that tiny region. Low training error is only
-              useful when the model also predicts new examples well.
-            </p>
-          </section>
-          <section>
-            <h3>Why squared error?</h3>
-            <p>
-              Squaring makes negative and positive misses count the same, while
-              making a large miss cost more than several small ones. It also
-              explains why each leaf predicts its examples' average price: the
-              average is the single number that produces the smallest total
-              squared error for that group. The tradeoff is that unusually
-              expensive or cheap examples can have a strong influence because
-              their large errors are amplified.
-            </p>
-          </section>
-        </div>
+          </div>
+          <dl class="term-grid">
+            <div><dt>Node</dt><dd>A location in the tree that either asks a question or returns a prediction.</dd></div>
+            <div><dt>Split</dt><dd>A yes-or-no threshold question that divides examples into two branches.</dd></div>
+            <div><dt>Threshold</dt><dd>The cutoff value in a question such as <code>performance &lt; 121?</code>.</dd></div>
+            <div><dt>Branch</dt><dd>One path created by the answer to a split question.</dd></div>
+            <div><dt>Leaf</dt><dd>An endpoint whose prediction is the average target of the examples inside it.</dd></div>
+            <div><dt>Depth</dt><dd>The maximum number of split questions one prediction encounters from root to leaf.</dd></div>
+            <div><dt>Greedy search</dt><dd>Choosing the best available split now without reconsidering the whole tree later.</dd></div>
+            <div><dt>Overfitting</dt><dd>Memorizing training quirks so precisely that predictions become worse on new examples.</dd></div>
+          </dl>
+        </section>
       </section>
     </main>
 

@@ -39,6 +39,13 @@ python3 -m http.server 8000
 
 Then open `http://localhost:8000`.
 
+## Lesson authoring
+
+Interactive machine-learning lessons follow the
+[ML lesson standard](notes/ml-learning/LESSON-TEMPLATE.md), including
+under-the-hood mechanics, spoken notation, model-specific vocabulary, and
+responsive interaction checks.
+
 ## Publish
 
 Push the repository to GitHub, then open **Settings → Pages** and choose:
