@@ -13,15 +13,33 @@ const ui = {
 };
 
 const points = [
+  { performance: 45, price: 95 },
+  { performance: 50, price: 120 },
   { performance: 58, price: 150 },
+  { performance: 64, price: 175 },
+  { performance: 68, price: 205 },
   { performance: 72, price: 220 },
+  { performance: 78, price: 235 },
+  { performance: 84, price: 260 },
   { performance: 91, price: 285 },
+  { performance: 96, price: 315 },
   { performance: 101, price: 330 },
+  { performance: 108, price: 345 },
+  { performance: 113, price: 375 },
   { performance: 118, price: 390 },
+  { performance: 124, price: 425 },
   { performance: 132, price: 470 },
+  { performance: 139, price: 485 },
+  { performance: 145, price: 525 },
   { performance: 151, price: 560 },
+  { performance: 157, price: 610 },
   { performance: 164, price: 650 },
+  { performance: 170, price: 625 },
+  { performance: 178, price: 710 },
+  { performance: 184, price: 745 },
   { performance: 196, price: 830 },
+  { performance: 203, price: 910 },
+  { performance: 210, price: 1090 },
   { performance: 218, price: 1375 },
 ];
 
