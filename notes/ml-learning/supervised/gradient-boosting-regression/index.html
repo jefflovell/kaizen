@@ -68,26 +68,30 @@
             <div class="boost-stage-header"><div><p class="case-section-label">Selected home</p><h3 id="boost-home-name">Hot apartment · occupied</h3></div><div><span>Current forecast</span><strong id="boost-prediction">0 kWh</strong></div></div>
             <div id="boost-steps" class="boost-steps" aria-live="polite"></div>
             <div class="boost-total"><span>Baseline</span><i>+</i><span>Tree corrections</span><i>=</i><strong id="boost-total">0 kWh</strong></div>
+            <div id="boost-error-curve" class="boost-error-curve" aria-label="Training and held-out error by boosting round"></div>
+            <p class="boost-validation-note">The held-out curve is a simplified validation simulation: new homes the model did not train on.</p>
           </div>
           <aside class="boost-readout">
             <p class="case-section-label">Training progress</p>
             <div class="prediction-card"><span>Mean absolute error (MAE)</span><strong id="boost-mae">0 kWh</strong></div>
-            <div class="forest-stat-grid"><article><span>Actual demand</span><strong id="boost-actual">0 kWh</strong></article><article><span>Selected residual</span><strong id="boost-residual">0 kWh</strong></article><article><span>Correction trees</span><strong id="boost-tree-count">0</strong></article></div>
+            <div class="forest-stat-grid"><article><span>Actual demand</span><strong id="boost-actual">0 kWh</strong></article><article><span>Selected residual</span><strong id="boost-residual">0 kWh</strong></article><article><span>Held-out error</span><strong id="boost-heldout">0 kWh</strong></article><article><span>Correction trees</span><strong id="boost-tree-count">0</strong></article></div>
             <div class="balance-callout"><span>Model state</span><strong id="boost-state-title">Baseline only</strong><p id="boost-state-copy">The model has not learned which homes differ from the average.</p></div>
           </aside>
         </div>
 
         <div class="boost-controls">
-          <fieldset><legend>Boosting rounds</legend><input id="boost-rounds" type="range" min="0" max="8" step="1" value="0" aria-label="Number of boosting rounds" /><label for="boost-rounds"><strong id="boost-rounds-output">0 trees</strong><span>Each round adds one correction tree.</span></label></fieldset>
+          <fieldset><legend>Boosting rounds</legend><input id="boost-rounds" type="range" min="0" max="12" step="1" value="0" aria-label="Number of boosting rounds" /><label for="boost-rounds"><strong id="boost-rounds-output">0 trees</strong><span>Each round adds one correction tree.</span></label><button id="boost-next" type="button">Grow next tree</button></fieldset>
           <fieldset><legend>Learning rate</legend><input id="boost-rate" type="range" min="1" max="10" step="1" value="4" aria-label="Learning rate eta" /><label for="boost-rate"><strong><span id="boost-rate-output">0.4</span> η (eta)</strong><span>Smaller steps learn more cautiously.</span></label></fieldset>
+          <fieldset><legend>Correction-tree depth</legend><div class="segmented boost-depth"><button class="is-selected" data-depth="1">1 · stump</button><button data-depth="2">2</button><button data-depth="3">3</button></div><p>Deeper trees fit narrower residual patterns and can overfit sooner.</p></fieldset>
+          <fieldset class="boost-actions"><legend>Experiment</legend><button id="boost-reset" type="button">Reset homes and model</button></fieldset>
         </div>
 
         <div class="boost-residual-panel">
-          <div class="boost-residual-heading"><div><p class="case-section-label">Residual board</p><h3>What the next tree still needs to fix</h3></div><span>Click a home to inspect it</span></div>
+          <div class="boost-residual-heading"><div><p class="case-section-label">Residual board</p><h3>What the next tree still needs to fix</h3></div><span>Adjust actual demand to rewrite the lesson</span></div>
           <div id="boost-residuals" class="boost-residuals" aria-live="polite"></div>
         </div>
 
-        <aside class="watch-panel boost-watch"><p class="case-section-label">What to watch</p><ul><li>Round zero predicts the same baseline for every home.</li><li>Positive residuals need a higher forecast; negative residuals need a lower one.</li><li>Each tree targets the residuals left by all previous trees.</li><li>A smaller learning rate takes safer steps but usually needs more trees.</li></ul></aside>
+        <aside class="watch-panel boost-watch"><p class="case-section-label">What to watch</p><ul><li>Use “Grow next tree” to pause after every inherited correction.</li><li>Adjust a home’s actual demand and watch the baseline, residuals, and all later trees recompute.</li><li>Training error keeps falling; held-out error can turn upward when aggressive boosting starts fitting noise.</li><li>Deeper trees and a high learning rate reach that overfitting region sooner.</li></ul></aside>
 
         <aside class="step-explainer boost-contrast" aria-labelledby="boost-contrast-title">
           <p class="case-section-label">Random forest versus gradient boosting</p><h3 id="boost-contrast-title">Parallel opinions versus sequential revisions.</h3>

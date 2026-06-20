@@ -81,15 +81,22 @@
               <article><span>Forest error</span><strong id="forest-error">0</strong></article>
             </div>
             <div class="balance-callout"><span>Model state</span><strong id="forest-state-title">Small committee</strong><p id="forest-state-copy">A few trees can still swing the result.</p></div>
+            <div class="forest-inspector">
+              <span>Selected tree</span><strong id="forest-inspector-title">Tree 1</strong>
+              <p id="forest-inspector-sample">Bootstrap sample details</p>
+              <p id="forest-inspector-features">Candidate features</p>
+            </div>
           </aside>
         </div>
 
         <div class="forest-controls">
           <fieldset><legend>Number of trees</legend><input id="tree-count" type="range" min="1" max="25" step="2" value="7" /><label for="tree-count"><strong id="tree-count-output">7 trees</strong><span>More trees usually stabilize the average.</span></label></fieldset>
           <fieldset><legend>Energy scenario</legend><div class="segmented forest-scenarios"><button class="is-selected" data-scenario="hot">Hot weekday</button><button data-scenario="mild">Mild weekend</button><button data-scenario="storm">Storm evening</button></div></fieldset>
+          <fieldset><legend>Feature diversity</legend><input id="forest-diversity" type="range" min="0" max="100" step="10" value="70" /><label for="forest-diversity"><strong id="forest-diversity-output">High diversity</strong><span>Higher diversity gives trees different feature menus.</span></label></fieldset>
+          <fieldset class="forest-actions"><legend>New bootstrap samples</legend><button id="forest-resample" type="button">Resample forest</button><button id="forest-reset" type="button">Reset experiment</button></fieldset>
         </div>
 
-        <aside class="watch-panel forest-watch"><p class="case-section-label">What to watch</p><ul><li>Every tree makes a complete numeric prediction.</li><li>Trees disagree because they see different examples and features.</li><li>The forest prediction is the mean of the visible tree votes.</li><li>More trees reduce variance, but do not automatically remove shared bias.</li></ul></aside>
+        <aside class="watch-panel forest-watch"><p class="case-section-label">What to watch</p><ul><li>Drag an individual tree’s vote and watch the mean resist it as the forest grows.</li><li>Resampling changes which homes repeat or disappear from each bootstrap sample.</li><li>Low feature diversity makes tree opinions more correlated and less useful to average.</li><li>More trees reduce variance, but do not automatically remove shared bias.</li></ul></aside>
 
         <aside class="step-explainer forest-bootstrap-note" aria-labelledby="bootstrap-note-title">
           <p class="case-section-label">Why the trees disagree</p>
