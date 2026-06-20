@@ -35,7 +35,7 @@
 
       <section class="supervised-overview">
         <p>Imagine predicting first-week completion for a new streaming title from hundreds of signals: tone, cast, franchise history, runtime, release timing, social buzz, and learned embeddings. Ordinary linear regression may assign confident weights to patterns that happened by accident in the training catalog.</p>
-        <p>Regularization adds a cost for large coefficients. Ridge gently shrinks every coefficient; Lasso can remove weak features entirely. Both ask the model to explain the data with less complexity.</p>
+        <p>Each signal gets a <strong>coefficient</strong>: a learned weight describing how strongly—and in which direction—that feature changes the prediction. Regularization adds a cost for large coefficients. Ridge gently shrinks every weight; Lasso can remove weak features entirely. Both ask the model to explain the data with less complexity.</p>
       </section>
 
       <section class="learning-loop" aria-label="Regularized linear model loop">
@@ -94,7 +94,7 @@
                 <article>
                   <span><code>λ</code> · Lambda</span>
                   <h3>Set the cost of complexity.</h3>
-                  <p>Move right to penalize large weights more aggressively. The goal is balance—not the smallest training error.</p>
+                  <p><code>λ</code> is a hyperparameter: a setting we choose to shape how the model learns, rather than a value the model learns from the examples. Move right to penalize large weights more aggressively.</p>
                 </article>
               </div>
             </div>
@@ -162,13 +162,13 @@
           <div class="mechanics-heading">
             <p class="case-section-label">How it is built</p>
             <h2 id="regularization-mechanics-title">The model fits the data and pays for complexity.</h2>
-            <p>Both methods begin with Mean Squared Error, then add a penalty controlled by <code>λ</code> (“lambda”). The shape of that penalty creates the difference between Ridge and Lasso.</p>
+            <p>A <strong>loss function</strong> is the score the training process tries to minimize: lower means the current model is doing a better job under the rules we gave it. Ridge and Lasso begin with Mean Squared Error, then add a penalty controlled by <code>λ</code> (“lambda”).</p>
           </div>
           <div class="equation-grid">
             <article class="equation-card">
               <span>01 · Measure prediction error</span>
               <div class="equation equation-mse">MSE = <span class="fraction"><span>1</span><span>n</span></span> Σ<sub>i=1</sub><sup>n</sup>(y<sub>i</sub> − ŷ<sub>i</sub>)<sup>2</sup></div>
-              <p><code>MSE</code> means Mean Squared Error. <code>Σ</code> (“capital sigma”) adds squared residuals for all <code>n</code> training examples.</p>
+              <p>A <strong>residual</strong> is the gap between an actual result <code>y<sub>i</sub></code> and its prediction <code>ŷ<sub>i</sub></code> (“y-hat sub i”). <code>MSE</code> (Mean Squared Error) squares those gaps, then averages them across all <code>n</code> examples.</p>
             </article>
             <article class="equation-card">
               <span>02 · Ridge adds an L2 penalty</span>
@@ -190,12 +190,15 @@
           </div>
           <dl class="term-grid">
             <div><dt>Regularization</dt><dd>Adding a complexity penalty to the model's training objective.</dd></div>
-            <div><dt>λ (lambda)</dt><dd>The hyperparameter controlling how strongly coefficients are penalized.</dd></div>
+            <div><dt>Coefficient</dt><dd>A weight learned for a feature. Its size controls the feature's influence; its sign controls whether the prediction moves up or down.</dd></div>
+            <div><dt>Residual</dt><dd>The difference between an observed value and the model's prediction: actual minus predicted.</dd></div>
+            <div><dt>Loss function</dt><dd>A single score describing how costly the model's mistakes are. Training searches for parameter values that make this score smaller.</dd></div>
+            <div><dt>λ (lambda)</dt><dd>The hyperparameter that sets how strongly the loss function penalizes large coefficients.</dd></div>
             <div><dt>Ridge / L2</dt><dd>A squared-coefficient penalty that shrinks every feature smoothly.</dd></div>
             <div><dt>Lasso / L1</dt><dd>An absolute-value penalty that can force weak coefficients to zero.</dd></div>
             <div><dt>Coefficient shrinkage</dt><dd>Reducing learned weights so the model relies less on fragile patterns.</dd></div>
             <div><dt>Generalization</dt><dd>How well a model performs on examples it did not see during training.</dd></div>
-            <div><dt>Hyperparameter</dt><dd>A setting chosen outside training, such as penalty type or <code>λ</code>.</dd></div>
+            <div><dt>Hyperparameter</dt><dd>A learning-rule setting chosen by the practitioner—not learned as a coefficient from the training examples. We compare candidate settings, such as several values of <code>λ</code>, using held-out data.</dd></div>
             <div><dt>Feature selection</dt><dd>Keeping useful inputs while excluding weak ones; Lasso can do this automatically.</dd></div>
           </dl>
         </section>
