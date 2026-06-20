@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="An interactive introduction to Support Vector Regression through rideshare pickup-time predictions." />
+    <title>Support Vector Regression | Kaizen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../../../../styles.css?v=8" />
+    <script src="../../../../script.js" defer></script>
+    <script src="support-vector-regression.js?v=1" defer></script>
+  </head>
+  <body class="note-page">
+    <header class="site-header">
+      <a class="brand" href="../../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="sr-only">Toggle navigation</span><span></span><span></span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+        <a href="../../../../#about">About</a><a href="../../../">Notes</a>
+        <a href="../../../../#work">Work</a><a href="../../../../#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="note-hero">
+        <div class="note-kicker"><a href="../">← Supervised learning</a><span aria-hidden="true">/</span><span>Regression</span></div>
+        <div class="note-title">
+          <h1 id="note-title">Support Vector Regression</h1>
+          <p class="key-idea">Instead of punishing every small miss, SVR creates a zone where predictions are considered close enough.</p>
+        </div>
+      </section>
+
+      <section class="supervised-overview">
+        <p>A rideshare app predicts that your driver will arrive in eight minutes. If the car arrives in seven or nine, the prediction was still useful. A model does not always need to chase every last minute of error.</p>
+        <p>Support Vector Regression draws an <strong>ε-tube</strong> (“epsilon tube”) around its prediction. Here, an <strong>error</strong> is the vertical gap in minutes between the driver’s actual arrival time and the time predicted by the line. Errors inside the tube cost nothing. Unusually fast or slow arrivals outside its walls become <strong>support vectors</strong>—the observations that shape the final model.</p>
+        <p>A wider tube is useful when small misses come from unavoidable noise—traffic lights, a slow elevator, or where a rider is standing—and do not change the decision. Ignoring those harmless differences gives fewer pickup observations the power to pull on the model, producing a simpler, steadier rule that can generalize better. Make the tube too wide, however, and “close enough” stops being useful.</p>
+      </section>
+
+      <section class="learning-loop" aria-label="Support Vector Regression loop">
+        <article><span>01</span><h2>Draw a prediction</h2><p>Fit a function through pickup conditions such as distance and traffic.</p></article>
+        <article><span>02</span><h2>Allow a margin</h2><p>Treat errors within <code>±ε</code> minutes as close enough.</p></article>
+        <article><span>03</span><h2>Learn from the misses</h2><p>Let unusually fast or slow arrivals pull on the model according to penalty <code>C</code>.</p></article>
+      </section>
+
+      <section class="learning-intro supervised-intro">
+        <p><strong>The question:</strong> How much error can we tolerate before a pickup-time prediction stops being useful?</p>
+      </section>
+
+      <p class="algorithm-path-label">Suggested regression learning path</p>
+      <section class="algo-grid regression-menu" aria-label="Suggested regression learning path">
+        <article class="algo-card"><span>01</span><h2>Linear Regression</h2><p>Fit a straight-line relationship between features and a number.</p><a class="algo-card-link" href="../linear-regression/">Explore linear regression</a></article>
+        <article class="algo-card"><span>02</span><h2>Decision Trees</h2><p>Split the feature space into regions with different numeric estimates.</p><a class="algo-card-link" href="../decision-tree-regression/">Explore decision tree regression</a></article>
+        <article class="algo-card"><span>03</span><h2>k-Nearest Neighbors</h2><p>Average the outcomes of nearby examples instead of fitting one global rule.</p><a class="algo-card-link" href="../knn-regression/">Explore k-NN regression</a></article>
+        <article class="algo-card"><span>04</span><h2>Regularized Linear Models</h2><p>Use Ridge or Lasso penalties to control complexity and overfitting.</p><a class="algo-card-link" href="../regularized-linear-models/">Explore regularized models</a></article>
+        <article class="algo-card is-active"><span>05</span><h2>Support Vector Regression</h2><p>Fit a function that keeps most errors inside a tolerated margin.</p></article>
+        <article class="algo-card"><span>06</span><h2>Ensembles</h2><p>Combine trees through random forests or gradient boosting.</p></article>
+        <article class="algo-card"><span>07</span><h2>Neural Networks</h2><p>Learn complex nonlinear relationships through stacked transformations.</p></article>
+      </section>
+
+      <section class="svr-lab-panel" aria-labelledby="svr-lab-title">
+        <div class="regularization-lab-heading">
+          <p class="case-section-label">Rideshare pickup | Tolerance-based learning</p>
+          <h2 id="svr-lab-title">Close enough is a modeling decision.</h2>
+          <p>Adjust <code>ε</code> (“epsilon”) to widen the acceptable-error tube. Then change <code>C</code> to decide how strongly unusually fast or slow arrivals should pull on the prediction. This simplified lab uses one input and a straight-line SVR.</p>
+        </div>
+
+        <div class="svr-lab-grid">
+          <div class="svr-chart-tool">
+            <div class="svr-chart-header">
+              <div><p class="case-section-label">Pickup-time model</p><h3>Distance to driver → arrival time</h3></div>
+              <div class="svr-status"><span>Support vectors</span><strong id="svr-support-count">0 / 0</strong></div>
+            </div>
+            <div id="svr-chart" class="svr-chart" aria-live="polite"></div>
+            <div class="svr-legend" aria-label="Chart legend">
+              <span><i class="svr-legend-point"></i> Inside the tube</span>
+              <span><i class="svr-legend-support"></i> Above-tube support vector</span>
+              <span><i class="svr-legend-support-below"></i> Below-tube support vector</span>
+              <span><i class="svr-legend-line"></i> Prediction</span>
+              <span class="svr-drag-hint">↕ Drag arrival times</span>
+              <button id="svr-reset" type="button">Reset pickups</button>
+            </div>
+          </div>
+
+          <aside class="svr-readout">
+            <p class="case-section-label">What the rider sees</p>
+            <div class="prediction-card"><span>Predicted pickup at 2.8 miles</span><strong id="svr-prediction">0 min</strong></div>
+            <div class="svr-stat-grid">
+              <article><span>Acceptable range</span><strong id="svr-range">0–0 min</strong></article>
+              <article><span>Average tube violation</span><strong id="svr-loss">0.0 min</strong></article>
+            </div>
+            <div id="svr-state" class="balance-callout"><span>Model state</span><strong>Balanced tolerance</strong><p>Ordinary arrival variation is ignored while unusually fast and slow pickups still shape the model.</p></div>
+            <div class="svr-pickup-card">
+              <span>Selected pickup</span>
+              <strong id="svr-selected-name">Downtown side street</strong>
+              <p id="svr-selected-copy">Select a pickup observation to inspect its residual.</p>
+            </div>
+          </aside>
+        </div>
+
+        <div class="svr-controls">
+          <fieldset>
+            <legend>Tolerance window</legend>
+            <label for="epsilon-slider"><span>Acceptable error</span><strong><output id="epsilon-output">3.0</output> min <code>ε</code> (epsilon)</strong></label>
+            <input id="epsilon-slider" type="range" min="0.5" max="6" step="0.5" value="3" aria-label="Acceptable error epsilon in minutes" />
+            <div class="svr-scale" aria-hidden="true"><span>±0.5</span><span>±3</span><span>±6 min</span></div>
+            <p><strong>Wider tube:</strong> the model ignores ordinary pickup noise instead of fitting it. Fewer arrival observations influence the line, which can improve stability—but too much tolerance makes the estimate vague.</p>
+          </fieldset>
+          <fieldset>
+            <legend>Outside-error penalty</legend>
+            <label for="c-slider"><span>Penalty strength</span><strong><output id="c-output">5</output> <code>C</code></strong></label>
+            <input id="c-slider" type="range" min="1" max="10" step="1" value="5" aria-label="Outside error penalty C" />
+            <div class="svr-scale" aria-hidden="true"><span>Flexible</span><span>Balanced</span><span>Strict</span></div>
+            <p><strong>Higher C:</strong> unusually fast or slow arrivals pull harder, improving fit but making the model more sensitive to exceptional pickup conditions.</p>
+          </fieldset>
+        </div>
+
+        <aside class="watch-panel svr-watch" aria-label="What to watch in Support Vector Regression">
+          <p class="case-section-label">What to watch</p>
+          <ul>
+            <li>Drag any observation vertically to change the driver’s arrival time while distance stays fixed.</li>
+            <li>Points inside the tube do not contribute to the ε-insensitive loss.</li>
+            <li>Ordinary arrivals leave a quiet gap near the margin; unusually fast and slow pickups sit at varied distances beyond it.</li>
+            <li>A wider ε can improve generalization by preventing ordinary pickup noise from steering the model.</li>
+            <li>A high C makes outside points pull the refitted line more strongly.</li>
+          </ul>
+        </aside>
+
+        <aside class="step-explainer svr-system-note" aria-labelledby="svr-system-title">
+          <p class="case-section-label">One prediction, many downstream decisions</p>
+          <h3 id="svr-system-title">Pickup time can inform pricing without setting it.</h3>
+          <p>A pickup-time prediction can support driver matching, rider expectations, and operational planning. A separate pricing system may use related signals—such as supply, demand, ride distance, and timing volatility—to calculate fares or incentives. Keeping those models separate makes it clearer which prediction drives each decision.</p>
+        </aside>
+
+        <section class="mechanics-section" aria-labelledby="svr-mechanics-title">
+          <div class="mechanics-heading">
+            <p class="case-section-label">How it is built</p>
+            <h2 id="svr-mechanics-title">Ignore small misses. Pay for the rest.</h2>
+            <p>SVR uses an <strong>ε-insensitive loss function</strong>. A residual can move freely inside the tolerance tube; only the portion extending beyond <code>ε</code> adds prediction loss.</p>
+          </div>
+          <div class="equation-grid">
+            <article class="equation-card">
+              <span>01 · Make a prediction</span>
+              <div class="equation equation-compact">ŷ = w · x + b</div>
+              <p><code>ŷ</code> (“y-hat”) is the predicted pickup time. <code>w</code> (“w”) contains learned feature weights and <code>x</code> is driver distance. <code>b</code> is the <strong>intercept</strong>: the baseline wait when distance is zero. Even a nearby driver needs time to accept the ride, reach the pickup point, and locate the rider.</p>
+            </article>
+            <article class="equation-card">
+              <span>02 · Ignore errors inside ε</span>
+              <div class="equation equation-compact">L<sub>ε</sub> = max(0, |y − ŷ| − ε)</div>
+              <p><code>L<sub>ε</sub></code> (“L sub epsilon”) is the <strong>ε-insensitive loss</strong>: how far a prediction extends beyond the tube. It is zero while the absolute residual <code>|y − ŷ|</code> stays inside <code>ε</code>; beyond the boundary, only the excess counts.</p>
+            </article>
+            <article class="equation-card">
+              <span>03 · Balance flatness and misses</span>
+              <div class="equation equation-svr"><span>Loss = <span class="fraction"><span>1</span><span>2</span></span>||w||²</span><span>+ CΣL<sub>ε</sub></span></div>
+              <p><code>Σ</code> (“capital sigma”) adds the tube violations from card two. <code>C</code> sets their cost, while <code>||w||²</code> (“w norm squared”) rewards a flatter, less reactive function.</p>
+            </article>
+          </div>
+        </section>
+
+        <aside class="step-explainer svr-kernel-note" aria-labelledby="svr-kernel-title">
+          <p class="case-section-label">Beyond straight lines</p>
+          <h3 id="svr-kernel-title">A kernel lets SVR model curves using similarity.</h3>
+          <p>Our rideshare lab uses a <strong>linear kernel</strong>, so it assumes each additional mile changes pickup time at one steady rate and fits a straight prediction line.</p>
+          <p>A relationship is <strong>nonlinear</strong> when that rate changes. An extra mile in light traffic may add little time, while the same mile near a stadium may add much more. The pattern bends, so one straight line cannot describe it well.</p>
+          <p>A nonlinear <strong>kernel</strong> helps by asking, “How similar are these two pickup conditions?” Imagine a virtual map where observations with similar distance, traffic, and pickup conditions sit near one another. The kernel gives the model the similarity scores it needs to fit a curve without building that entire map coordinate by coordinate. This shortcut is called the <strong>kernel trick</strong>.</p>
+        </aside>
+
+        <section class="terms-section" aria-labelledby="svr-terms-title">
+          <div class="terms-heading">
+            <p class="case-section-label">Key terms</p><h2 id="svr-terms-title">The vocabulary of useful precision.</h2>
+            <p>Support Vector Regression separates harmless variation from mistakes large enough to change the model.</p>
+          </div>
+          <dl class="term-grid">
+            <div><dt>ε (epsilon)</dt><dd>The tolerated prediction error on either side of the fitted function.</dd></div>
+            <div><dt>ε-tube</dt><dd>The band around the prediction where residuals create no ε-insensitive loss.</dd></div>
+            <div><dt>Support vector</dt><dd>A training example on or outside the tube that helps determine the fitted function.</dd></div>
+            <div><dt>C (penalty)</dt><dd>A hyperparameter controlling how strongly the model reacts to errors outside the tube.</dd></div>
+            <div><dt>Residual / prediction error</dt><dd>The signed vertical gap between actual and predicted driver-arrival time: actual minus predicted. Its absolute size determines whether the observation falls outside the ε-tube.</dd></div>
+            <div><dt>ε-insensitive loss</dt><dd>A loss function that ignores residuals up to ε and charges only for the excess.</dd></div>
+            <div><dt>Margin</dt><dd>The allowed distance between the prediction function and the tube boundary.</dd></div>
+            <div><dt>Nonlinear relationship</dt><dd>A relationship whose rate of change is not constant, so a curve describes it better than one straight line.</dd></div>
+            <div><dt>Kernel</dt><dd>A similarity rule that lets SVR fit straight or curved relationships. This lab uses a linear kernel; nonlinear kernels can bend the prediction function.</dd></div>
+          </dl>
+        </section>
+      </section>
+    </main>
+    <footer id="contact" class="site-footer"><p>Built with care and a little curiosity.</p><a href="https://github.com/jefflovell" rel="me">@jefflovell</a><a class="back-to-top" href="#" aria-label="Back to top">↑</a></footer>
+  </body>
+</html>
