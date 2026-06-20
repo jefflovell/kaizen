@@ -1909,6 +1909,55 @@ h1 {
 .forest-watch { margin-top:28px; }
 .forest-bootstrap-note { margin-top:28px; }
 
+.ensemble-switch {
+  display: flex;
+  width: min(1200px, calc(100% - 48px));
+  margin: -48px auto 72px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  box-shadow: 7px 7px 0 rgba(49, 85, 245, 0.14);
+}
+
+.ensemble-switch > span {
+  display: flex;
+  align-items: center;
+  padding: 14px 20px;
+  border-right: 1px solid var(--ink);
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ensemble-switch div {
+  display: grid;
+  flex: 1;
+  grid-template-columns: 1fr 1fr;
+}
+
+.ensemble-switch a {
+  padding: 15px 20px;
+  color: var(--ink);
+  font-family: var(--display);
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+}
+
+.ensemble-switch a + a {
+  border-left: 1px solid var(--ink);
+}
+
+.ensemble-switch a:hover {
+  background: rgba(49, 85, 245, 0.07);
+}
+
+.ensemble-switch a[aria-current="page"] {
+  background: var(--blue);
+  color: #fff;
+}
+
 .boost-lab-panel { width:min(1200px,calc(100% - 48px)); margin:0 auto 110px; padding-top:80px; border-top:1px solid var(--line); }
 .boost-lab-grid { display:grid; grid-template-columns:1.35fr .65fr; gap:24px; }
 .boost-stage,.boost-readout { min-width:0; padding:24px; border:2px solid var(--ink); }
@@ -4097,6 +4146,18 @@ h1 {
 
   .forest-stat-grid article:first-child {
     grid-column: auto;
+  }
+
+  .ensemble-switch {
+    display: block;
+    width: min(100% - 32px, 1200px);
+    margin-top: -34px;
+  }
+
+  .ensemble-switch > span {
+    justify-content: center;
+    border-right: 0;
+    border-bottom: 1px solid var(--ink);
   }
 
   .boost-stage,
