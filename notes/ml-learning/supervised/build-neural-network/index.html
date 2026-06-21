@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Build a neural network interactively, from feature vectors and one neuron to a feedforward hidden layer." />
+    <title>Build a Neural Network | Kaizen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../../../../styles.css?v=13" />
+    <script src="../../../../script.js" defer></script>
+    <script src="build-neural-network.js?v=1" defer></script>
+  </head>
+  <body class="note-page">
+    <header class="site-header">
+      <a class="brand" href="../../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="sr-only">Toggle navigation</span><span></span><span></span></button>
+      <nav id="site-nav" class="site-nav" aria-label="Main navigation"><a href="../../../../#about">About</a><a href="../../../">Notes</a><a href="../../../../#work">Work</a><a href="../../../../#contact">Contact</a></nav>
+    </header>
+    <main>
+      <section class="note-hero">
+        <div class="note-kicker"><a href="../">← Supervised learning</a><span>/</span><span>Neural-network foundations</span></div>
+        <div class="note-title"><h1>Build a Neural Network</h1><p class="key-idea">Start with real-world features, turn them into numbers, and assemble one complete prediction from the inside out.</p></div>
+      </section>
+
+      <section class="supervised-overview">
+        <p>A neural network diagram can look like a mysterious web of circles and lines. It becomes much simpler when we build it one operation at a time.</p>
+        <p>The same object will grow throughout this lesson: features become a vector, the vector enters a neuron, bias and activation shape its response, and several neurons become a feedforward network.</p>
+      </section>
+
+      <nav class="neural-lesson-switch" aria-label="Neural network learning path">
+        <span>Neural-network path</span>
+        <div><a href="../build-neural-network/" aria-current="page">1 · Build</a><a href="../train-neural-network/">2 · Train</a><a href="../mlp-regression/">3 · Apply</a></div>
+      </nav>
+
+      <section class="builder-lab-panel" aria-labelledby="builder-title">
+        <div class="regularization-lab-heading">
+          <p class="case-section-label">Persistent mini-lab | Neuron → network</p>
+          <h2 id="builder-title">Every line in the diagram is arithmetic.</h2>
+          <p>Move a feature or weight and watch the object diagram, scalar equation, and linear-algebra view update together.</p>
+        </div>
+
+        <div class="builder-step-rail" role="tablist" aria-label="Network construction stages">
+          <button class="is-selected" data-build-stage="1"><span>01</span>Features → vector</button>
+          <button data-build-stage="2"><span>02</span>One neuron</button>
+          <button data-build-stage="3"><span>03</span>Bias</button>
+          <button data-build-stage="4"><span>04</span>Activation</button>
+          <button data-build-stage="5"><span>05</span>Hidden layer</button>
+          <button data-build-stage="6"><span>06</span>Feedforward</button>
+        </div>
+
+        <div class="builder-grid">
+          <div class="builder-stage">
+            <div class="builder-stage-heading"><div><p class="case-section-label">Object view</p><h3 id="builder-stage-title">Features become a vector.</h3></div><strong id="builder-stage-number">01 / 06</strong></div>
+            <svg id="builder-network" viewBox="0 0 820 530" role="img" aria-label="A progressively constructed neural network"></svg>
+            <p id="builder-stage-copy" class="builder-stage-copy">A model cannot read concepts directly. Each title property becomes a consistently ordered number.</p>
+          </div>
+
+          <aside class="builder-math">
+            <p class="case-section-label">Numbers underneath</p>
+            <div class="builder-equation"><span>Scalar view</span><strong id="builder-scalar">x₁ = 0.78</strong><p id="builder-scalar-copy">One feature is one number.</p></div>
+            <div class="builder-equation matrix"><span>Linear-algebra view</span><strong id="builder-matrix">x = [0.78, 0.64, 0.56]</strong><p id="builder-matrix-copy">The ordered feature values form a vector.</p></div>
+            <div class="builder-readout"><span>Current output</span><strong id="builder-output">—</strong><p id="builder-output-copy">No neuron exists yet.</p></div>
+          </aside>
+        </div>
+
+        <section class="builder-controls" aria-label="Interactive network controls">
+          <fieldset class="builder-features"><legend>A · Input features</legend><div id="builder-features"></div></fieldset>
+          <fieldset class="builder-weights" id="builder-weights-panel"><legend>B · Connection weights</legend><div id="builder-weights"></div></fieldset>
+          <fieldset class="builder-bias" id="builder-bias-panel"><legend>C · Bias</legend><input id="builder-bias" type="range" min="-100" max="100" value="-55" /><label for="builder-bias"><strong><span id="builder-bias-value">−0.55</span> bias</strong><span>Shift how much evidence the neuron needs.</span></label></fieldset>
+          <fieldset class="builder-activation" id="builder-activation-panel"><legend>D · Activation</legend><div class="segmented builder-activation-buttons"><button data-builder-activation="linear">Linear</button><button class="is-selected" data-builder-activation="relu">ReLU</button><button data-builder-activation="sigmoid">Sigmoid</button></div><p id="builder-activation-copy">ReLU keeps positive signals and suppresses negative ones.</p></fieldset>
+          <fieldset class="builder-width" id="builder-width-panel"><legend>E · Hidden neurons</legend><input id="builder-width" type="range" min="1" max="4" value="3" /><label for="builder-width"><strong><span id="builder-width-value">3</span> neurons</strong><span>Each neuron can learn a different numeric pattern.</span></label></fieldset>
+          <fieldset class="builder-forward" id="builder-forward-panel"><legend>F · Output layer</legend><button id="builder-forward" type="button">Run feedforward pass</button><p>Signals travel left to right using the network’s current parameters. Nothing learns during this pass.</p></fieldset>
+        </section>
+
+        <aside class="watch-panel builder-watch"><p class="case-section-label">What to discover</p><ul><li>Changing a feature changes the vector before it changes the network.</li><li>A weight controls both direction and strength: positive supports, negative opposes.</li><li>Bias is a learned offset, not another input feature.</li><li>Activation functions transform the weighted sum after bias is added.</li><li>A hidden layer repeats the same neuron calculation with different parameters.</li><li>Feedforward means using current parameters to calculate a prediction—not training them.</li></ul></aside>
+
+        <section class="builder-language" aria-labelledby="builder-language-title">
+          <div><p class="case-section-label">The same system, three languages</p><h2 id="builder-language-title">Object. Arithmetic. Algebra.</h2></div>
+          <div class="builder-language-grid">
+            <article><span>Object diagram</span><h3>Nodes and edges</h3><p>Nodes hold values. Edges carry values multiplied by weights.</p></article>
+            <article><span>Scalar arithmetic</span><h3>One operation at a time</h3><p><code>0.78 × 0.60</code> shows exactly what one connection contributes.</p></article>
+            <article><span>Linear algebra</span><h3>Many operations together</h3><p><code>z = w · x + b</code> compresses the repeated multiplications and additions.</p></article>
+          </div>
+        </section>
+      </section>
+    </main>
+    <footer class="site-footer"><p>Built with care and a little curiosity.</p><a href="https://github.com/jefflovell">@jefflovell</a></footer>
+  </body>
+</html>

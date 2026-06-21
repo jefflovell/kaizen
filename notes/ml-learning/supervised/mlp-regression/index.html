@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../../../../styles.css?v=12" />
+    <link rel="stylesheet" href="../../../../styles.css?v=13" />
     <script src="../../../../script.js" defer></script>
     <script src="mlp-regression.js?v=2" defer></script>
   </head>
@@ -29,6 +29,17 @@
         <p>How much of a newly released streaming title will viewers finish during its first week? Audience affinity matters—but its effect may change with awareness, release timing, runtime, tone, and social momentum.</p>
         <p>A <strong>multilayer perceptron (MLP)</strong> passes those features through hidden neurons. Each neuron learns a small transformation; together they can represent interactions that a single linear equation misses.</p>
       </section>
+
+      <nav class="neural-lesson-switch" aria-label="Neural network learning path">
+        <span>Neural-network path</span>
+        <div><a href="../build-neural-network/">1 · Build</a><a href="../train-neural-network/">2 · Train</a><a href="../mlp-regression/" aria-current="page">3 · Apply</a></div>
+      </nav>
+
+      <aside class="mlp-prerequisite">
+        <div><p class="case-section-label">Before the full lab</p><h2>Know the machine. Then train it.</h2></div>
+        <p>New to features, vectors, neurons, bias, activation, feedforward, loss, gradient descent, or backpropagation? The two foundation lessons build those ideas interactively before this applied MLP practicum.</p>
+        <div><a href="../build-neural-network/">Build the network</a><a href="../train-neural-network/">Learn how it trains</a></div>
+      </aside>
 
       <section class="learning-loop" aria-label="Neural network learning loop">
         <article><span>01</span><h2>Pass signals forward</h2><p>Every neuron combines incoming values, weights, and a bias.</p></article>
