@@ -8,9 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../../../../styles.css?v=13" />
+    <link rel="stylesheet" href="../../../../styles.css?v=19" />
     <script src="../../../../script.js" defer></script>
-    <script src="mlp-regression.js?v=2" defer></script>
+    <script src="mlp-regression.js?v=3" defer></script>
   </head>
   <body class="note-page">
     <header class="site-header">
@@ -49,6 +49,19 @@
 
       <section class="learning-intro supervised-intro"><p><strong>The question:</strong> Can hidden neurons learn when several promising signals become powerful only in combination?</p></section>
 
+      <section class="mlp-apply-workflow" aria-labelledby="mlp-workflow-title">
+        <div>
+          <p class="case-section-label">Applied practicum</p>
+          <h2 id="mlp-workflow-title">Use the network like a model builder.</h2>
+          <p>Build and Train explained the parts. This page asks what happens when you actually use those parts to explore predictions, capacity, and trust.</p>
+        </div>
+        <ol>
+          <li><span>01</span><strong>Load a title profile</strong><p>Start from a known pattern or push the sliders into a new combination.</p></li>
+          <li><span>02</span><strong>Choose capacity</strong><p>Toggle Linear/ReLU and adjust hidden neurons to change what patterns the network can represent.</p></li>
+          <li><span>03</span><strong>Train, then check</strong><p>Watch training loss and held-out loss together before trusting the number.</p></li>
+        </ol>
+      </section>
+
       <section class="mlp-lab-panel" aria-labelledby="mlp-lab-title">
         <div class="regularization-lab-heading">
           <p class="case-section-label">Streaming | First-week completion</p>
@@ -84,6 +97,16 @@
               <article><span>Epoch</span><strong id="mlp-epoch">0</strong></article>
               <article><span>Parameters</span><strong id="mlp-parameters">33</strong></article>
               <article><span>Held-out MSE</span><strong id="mlp-heldout">0</strong></article>
+            </div>
+            <div class="mlp-coach">
+              <span>Applied readout</span>
+              <strong id="mlp-coach-title">Ready to explore</strong>
+              <p id="mlp-coach-copy">Change features, load a challenge preset, or train an epoch to see what this MLP has learned.</p>
+              <dl>
+                <div><dt>Capacity</dt><dd id="mlp-capacity-state">Balanced</dd></div>
+                <div><dt>Generalization gap</dt><dd id="mlp-gap-state">0.0000</dd></div>
+                <div><dt>Current focus</dt><dd id="mlp-focus-state">Prediction</dd></div>
+              </dl>
             </div>
             <div class="mlp-inspector">
               <span>Selected hidden neuron</span><strong id="mlp-neuron-title">H1</strong>

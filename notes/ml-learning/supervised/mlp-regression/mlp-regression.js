@@ -48,7 +48,9 @@ const ui = {
   updateMath:document.querySelector("#mlp-update-math"), updateCopy:document.querySelector("#mlp-update-copy"),
   missionState:document.querySelector("#mlp-mission-state"), missionCopy:document.querySelector("#mlp-mission-copy"),
   challengeLabel:document.querySelector("#mlp-challenge-label"), trustState:document.querySelector("#mlp-trust-state"),
-  trustCopy:document.querySelector("#mlp-trust-copy"),
+  trustCopy:document.querySelector("#mlp-trust-copy"), coachTitle:document.querySelector("#mlp-coach-title"),
+  coachCopy:document.querySelector("#mlp-coach-copy"), capacityState:document.querySelector("#mlp-capacity-state"),
+  gapState:document.querySelector("#mlp-gap-state"), focusState:document.querySelector("#mlp-focus-state"),
 };
 
 function seededWeight(i,j){ return Math.sin((i+1)*7.31+(j+1)*3.17)*.42; }
@@ -165,6 +167,57 @@ function renderMission(){
     ? `When both inputs are high, ${state.activation==="relu"?"hidden neurons can create an interaction":"the linear stack can only add their effects"}.`
     : "One promising signal is present while the other is deliberately weak.";
 }
+function renderCoach(){
+  const trainLoss=mse(trainingData), heldLoss=mse(heldoutData), gap=heldLoss-trainLoss;
+  const capacity=state.hidden<=2?"Low capacity":state.hidden>=5?"High capacity":"Balanced capacity";
+  const gapText=`${gap>=0?"+":""}${gap.toFixed(4)}`;
+  ui.capacityState.textContent=capacity;
+  ui.gapState.textContent=gapText;
+
+  if(state.challenge){
+    const preset=presets[state.challenge];
+    ui.focusState.textContent=preset.trust==="unknown"?"Trust boundary":"Challenge preset";
+    ui.coachTitle.textContent=preset.trust==="unknown"?"Treat the exact number carefully.":"Inspect the evidence mix.";
+    ui.coachCopy.textContent=preset.trust==="unknown"
+      ? "This profile is outside the balanced examples used for training. The model still outputs a number, but the lesson is about uncertainty."
+      : "Use the neuron inspector to see which hidden pattern dominates this profile before trusting the prediction.";
+    return;
+  }
+
+  if(state.mission){
+    ui.focusState.textContent="Nonlinear interaction";
+    ui.coachTitle.textContent=state.activation==="relu"?"ReLU can form a combined signal.":"Linear mode can only add evidence.";
+    ui.coachCopy.textContent="Run the four mission buttons in both modes. The applied question is whether two weak signals become strong together.";
+    return;
+  }
+
+  if(state.epoch===0 && state.trainingStage===0){
+    ui.focusState.textContent="Prediction";
+    ui.coachTitle.textContent="Start by perturbing the inputs.";
+    ui.coachCopy.textContent="Move a feature or load a preset, then inspect which hidden neuron contributes most to the output.";
+    return;
+  }
+
+  if(state.trainingStage>0 && state.trainingStage<4){
+    ui.focusState.textContent="Training step";
+    ui.coachTitle.textContent="You are inside one update.";
+    ui.coachCopy.textContent="The trace is slowing down forward pass, loss, backpropagation, and the parameter update.";
+    return;
+  }
+
+  if(state.hidden>=5 && gap>.018){
+    ui.focusState.textContent="Overfitting watch";
+    ui.coachTitle.textContent="Capacity is helping practice more than held-out examples.";
+    ui.coachCopy.textContent="A wider network can memorize details. Compare the blue and red loss lines before adding more neurons.";
+    return;
+  }
+
+  ui.focusState.textContent=state.activation==="relu"?"Applied MLP":"Linear comparison";
+  ui.coachTitle.textContent=state.activation==="relu"?"Use capacity to learn interactions.":"This is the baseline comparison.";
+  ui.coachCopy.textContent=state.activation==="relu"
+    ? "Train an epoch, then check whether held-out loss moves with training loss. Good applied work watches both."
+    : "Linear mode is useful as a control: if ReLU does better, the hidden layer is learning nonlinear structure.";
+}
 function render(){
   state.selected=Math.min(state.selected,state.hidden-1);
   const result=currentMetrics();
@@ -173,7 +226,7 @@ function render(){
   ui.epoch.textContent=state.epoch; ui.parameters.textContent=8*state.hidden+1; ui.heldout.textContent=mse(heldoutData).toFixed(4);
   ui.hiddenOutput.textContent=state.hidden; ui.rateOutput.textContent=state.rate.toFixed(2);
   ui.features.querySelectorAll("[data-feature]").forEach(input=>{document.querySelector(`#feature-value-${input.dataset.feature}`).textContent=input.value;});
-  renderNetwork(result); renderInspector(result); renderChart(); renderTrace(); renderTrust(); renderMission();
+  renderNetwork(result); renderInspector(result); renderChart(); renderTrace(); renderTrust(); renderMission(); renderCoach();
 }
 function pulse(kind){state.pulse=kind;render();setTimeout(()=>{state.pulse="";render();},900);}
 function resetTrainingStage(){state.trainingStage=0;state.draft=null;}
