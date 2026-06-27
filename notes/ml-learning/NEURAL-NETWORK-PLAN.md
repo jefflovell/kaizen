@@ -1,7 +1,7 @@
 # Neural network learning plan
 
-Status: proposed for review. This document defines the taxonomy and the first
-lesson; it does not authorize implementation.
+Status: living plan. The Build a Neural Network foundation lesson now provides
+the tone and interaction pattern for the neural-network sequence.
 
 ## Taxonomy decision
 
@@ -116,6 +116,24 @@ By the end of the lesson, a learner should be able to explain:
 8. Architecture choices and training settings are hyperparameters.
 9. Lower training loss does not guarantee better performance on new examples.
 
+## Teaching-tone decision from Build lesson
+
+Carry forward the tone established in `supervised/build-neural-network/`:
+
+- Show the intimidating formal object early, then promise to decode it. The
+  learner should feel “I might actually understand this.”
+- Use vivid but precise explanations. Examples: “the model sees an ordered list
+  of numbers,” “weights decide how loudly a feature should speak,” “bias is a
+  learned starting offset,” and “feedforward predicts; it does not train.”
+- Keep analogies honest. Neural diagrams are a visual language for abstract
+  computation, not a claim about biological neurons or human thought.
+- State what has been simplified. In the streaming example, clean feature values
+  stand in for messy upstream behavior, embeddings, retrieval, ranking, context,
+  and feedback loops.
+- Preserve the boundary between building/evaluating a network and training one.
+  Build pages may mention training as future work, but should not teach loss,
+  gradients, or backpropagation as if they are already happening.
+
 ## Interactive lab
 
 ### Primary stage: signal flow
@@ -148,6 +166,18 @@ bias, pre-activation value, and activation.
 
 Avoid unconstrained manual editing of every weight in the first version. A
 single selected connection may be draggable as a focused experiment.
+
+For foundation labs, use the Build lesson’s staged pattern:
+
+1. **The diagram:** the visible object being assembled.
+2. **The numbers:** readouts for the individual calculation, vector or matrix
+   form, and current output.
+3. **What to notice:** a dynamic note that names the conceptual change at the
+   current step.
+4. **Symbol key:** a compact decoder for notation used in the active lab.
+
+Use precise state language. If no neuron or prediction exists yet, show
+`<undefined>` rather than a decorative dash.
 
 ### Live outputs
 

@@ -26,6 +26,27 @@ enough that the math and vocabulary are not hand-waved away.
 - When a concept first appears, explain what it is, how it works, and why it
   helps.
 
+### Current tone benchmark
+
+The preferred voice is polished but not bloodless: a curious teacher with enough
+formal confidence to show the intimidating object first, then enough generosity
+to decode it piece by piece.
+
+- Use a serious diagram, equation, or system artifact as a hook when it helps:
+  “this looks forbidding; by the end, each piece will have a job you can point
+  to.”
+- Keep the drama in service of clarity. A phrase like “a city of machinery” is
+  welcome when it helps the learner feel why a simplification exists.
+- Avoid long pontification. Compress the worldview into a few vivid sentences,
+  then return to the mechanism.
+- Prefer “the model does not see a title; it sees an ordered list of numbers”
+  over vague statements like “the model uses data.”
+- Name simplifications explicitly. Small teaching models are not toy because the
+  real system is simple; they are small so the mechanism can be seen.
+- Separate analogy from reality. Neural-network diagrams are useful symbols for
+  reasoning about an abstract machine; they are not how biological neurons work
+  or how humans think.
+
 ## Standard lesson shape
 
 1. Problem opener
@@ -56,6 +77,19 @@ response. Good controls include:
 
 The lab should include short instructions that say what to manipulate and what
 to notice. Avoid decorative controls that do not teach a mechanism.
+
+For multi-step labs, pair the visible system with compact guidance that changes
+as the learner moves:
+
+- a short “Try it” instruction naming the specific control to move
+- a “What to notice” note naming the conceptual change
+- a small symbol key when notation appears
+- readouts that use precise state language such as `<undefined>`, `z`, `a`,
+  prediction, residual, or loss instead of ambiguous placeholders
+
+Avoid generic labels like “view” when a more concrete label exists. Prefer “The
+diagram,” “The numbers,” “Individual feature,” “Title as feature vector,” or
+“Network output.”
 
 ## Math and notation standard
 
@@ -100,6 +134,16 @@ page still needs a visible first explanation.
 - Backlinks should move one level up the taxonomy, not skip parents.
 - If a shared style changes, bump the relevant CSS cache key on edited pages.
 
+When a lesson opens with a complex formal diagram, make it technically legible
+rather than decorative:
+
+- show the real object learners expect to encounter later, even if it looks
+  intimidating at first
+- include labels for layers, inputs, outputs, weights, and key equations
+- use ellipses to imply scale without drawing every node
+- then immediately explain that the lesson will decode the symbols one operation
+  at a time
+
 ## Analogy library
 
 Use varied examples so the section does not become one-note:
@@ -126,3 +170,9 @@ Neural nets are deep enough to deserve a small sequence:
 
 The sequence should build from neuron to network, and from object diagram to
 arithmetic to algebra.
+
+For the neural-network sequence, preserve the distinction between:
+
+- **Build:** representation and feedforward evaluation; no learning yet.
+- **Train:** loss, gradients, backpropagation, and parameter updates.
+- **Apply:** capacity, nonlinear fit, generalization, and overfitting.

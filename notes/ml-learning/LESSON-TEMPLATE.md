@@ -7,6 +7,9 @@ Use this structure for foundational algorithm lessons.
 - Open with a concrete question or real-world decision.
 - Explain what the algorithm contributes before introducing notation.
 - State whether the lesson predicts a category, number, ranking, action, or representation.
+- If the topic has an intimidating canonical diagram, equation, or artifact,
+  consider showing it early as a promise: the lesson will make this object
+  legible, not ask the reader to trust it.
 
 ## 2. Show the learning loop
 
@@ -17,6 +20,15 @@ Summarize the algorithm in three plain-language stages. These stages should alig
 - Let readers manipulate the examples, model, or model choice.
 - Show live state such as prediction, error, neighbors, depth, accuracy, or coefficients.
 - Include a short “What to watch” list that directs attention to meaningful changes.
+- For staged labs, include dynamic guidance per stage:
+  - a direct “Try it” instruction
+  - a compact “What to notice” note
+  - state labels that name exactly what exists now, such as `<undefined>`,
+    pre-activation `z`, activation `a`, prediction `ŷ`, residual, or loss
+
+Avoid generic “view” labels in lab panels. Name the object directly: “The
+diagram,” “The numbers,” “Individual feature,” “Feature vector,” “Network
+output,” “Prediction,” or “Loss.”
 
 ## 4. Explain how it is built
 
@@ -32,6 +44,13 @@ Each card must include:
 - A plain-English explanation tied to visible behavior.
 - Definitions for every symbol introduced.
 
+When the page moves from concrete object to arithmetic to algebra, make the
+translation explicit:
+
+1. The diagram shows what is connected.
+2. The arithmetic shows what one piece calculates.
+3. The algebra shows how many repeated calculations are written compactly.
+
 ### Notation accessibility rule
 
 On first use, write the symbol, how it is spoken, and what it means.
@@ -46,6 +65,10 @@ On first use, write the symbol, how it is spoken, and what it means.
 - `MSE` (Mean Squared Error): the average squared prediction error.
 
 Do not assume a reader can pronounce, type, or search for mathematical notation. Expand acronyms on first use and distinguish uppercase from lowercase Greek letters when their meanings differ.
+
+If notation appears inside an interactive lab, add a small visible symbol key
+near the readouts. It should decode only the symbols currently useful for the
+lab, not become a glossary dump.
 
 ## 5. Preserve the vocabulary
 
