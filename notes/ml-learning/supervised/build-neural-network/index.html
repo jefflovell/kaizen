@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Build a neural network interactively, from feature vectors and one neuron to a feedforward hidden layer." />
-    <title>Build a Neural Network | Kaizen</title>
+    <title>Building a Neural Network | Kaizen</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
@@ -21,12 +21,12 @@
     <main>
       <section class="note-hero">
         <div class="note-kicker"><a href="../">← Supervised learning</a><span>/</span><span>Neural-network foundations</span></div>
-        <div class="note-title"><h1>Build a Neural Network</h1><p class="key-idea">Start with real-world features, turn them into numbers, and assemble one complete prediction from the inside out.</p></div>
+        <div class="note-title"><h1>Building a Neural Network</h1><p class="key-idea">Start with human-readable descriptions of the real-world descriptions, turn them into data sets of of machine-readable numbers, and assemble one complete prediction from the inside out.</p></div>
       </section>
 
       <section class="supervised-overview">
-        <p>A neural network diagram can look like a mysterious web of circles and lines. It becomes much simpler when we build it one operation at a time.</p>
-        <p>The same object will grow throughout this lesson: features become a vector, the vector enters a neuron, bias and activation shape its response, and several neurons become a feedforward network.</p>
+        <p>To the uninitiated, a neural network diagram might look like an arcane pictogram of mysterious geometry and alchemical symbols. In reality, it is merely a visual learning aid to help reason about how data is passed around and transformed as it travels through a neural net. This is a common paradigm in computer science: taking abstract, mathematical ideas and comparing them to real world objects. We talk about queues and stacks, heaps and trees, addresses and memory, parents and children.  Neural networks are an extension of this ontology. This isn't the way neurons work, it's not how humans think. It is useful analogy to reason with other human beings about a complicated and abstract idea. That complexity is hidden as a circle with some lines attached to it and the assumption that all participants understand what it means (though this is frequently not the case). In this lesson we'll attempt to peel back some of that symbolism and expose what's actually happening under the hood one operation at a time.</p>
+        <p>Throughout this multi-part lab we will grow a classic neural network:  the <em>multi-layer perceptron</em>. MLPs form the core of Large Language Models like Claude, ChatGPT, Gemini and Grok. We will start with a set of real world features that describe an objec or idea we're interested in learning about. Those features become a mathematical vector. The vector enters a neuron, where bias and activation shape its response, and several neurons are then wired together to become a feed-forward network that allows us to make useful predictions about information we feed to it. </p>
       </section>
 
       <section class="builder-model-brief" aria-labelledby="builder-model-title">
@@ -35,8 +35,8 @@
           <h2 id="builder-model-title">One title. One audience. One prediction.</h2>
         </div>
         <div>
-          <p>This is a stripped-down <strong>regression model</strong>. Its example is a title paired with an audience cohort—such as “families who often finish animated adventures.” Its target is the percentage of exposed viewers expected to complete the title during its first week.</p>
-          <p>It is <strong>not</strong> an end-to-end recommender. A real system might retrieve thousands of candidate titles, then use a score like this as one input to ranking. We abstract that surrounding system away so we can inspect the neural-network math.</p>
+          <p>This is a stripped-down <strong>regression model</strong>. Its training example is a library title paired with an audience segment—such as “families who often finish animated adventures.” Its target is the percentage of exposed viewers (viewers who see the title) expected to complete the title during its first week.  In other words, how likely are you to click play if I put this in front of your face?</p>
+          <p>It is <strong>not</strong> an end-to-end recommender system. A real system will have an entire system to retrieve hundreds or thousands of candidate titles, then use a second ranking system to filter those candidates and use a simplified scorer like this as one of hundreds or thousands of inputs to ranking. Just as the diagram abstracts away the complexity of the system, here we abstract that surrounding system away so we can inspect the neural-network math.</p>
           <dl>
             <div><dt>Input unit</dt><dd>Title × audience cohort</dd></div>
             <div><dt>Prediction</dt><dd>First-week completion rate</dd></div>
@@ -52,11 +52,11 @@
 
       <section class="builder-lab-panel" aria-labelledby="builder-title">
         <div class="builder-language builder-language-intro">
-          <div><p class="case-section-label">The same system, three languages</p><h2 id="builder-title">Object. Arithmetic. Algebra.</h2><p>We will build one network three ways at once: as a diagram, as individual calculations, and as compact linear algebra.</p></div>
+          <div><p class="case-section-label">One system. Three different descriptions.</p><h2 id="builder-title">Object. Arithmetic. Algebra.</h2><p>We will build one network three ways at once: as an object diagram, as individual calculations, and as compact linear algebra.</p></div>
           <div class="builder-language-grid">
-            <article><span>Object</span><h3>Nodes and edges</h3><p>See where values travel.</p></article>
-            <article><span>Arithmetic</span><h3>One operation at a time</h3><p>See what every line calculates.</p></article>
-            <article><span>Algebra</span><h3>Many operations together</h3><p>See how vectors and matrices compress the work.</p></article>
+            <article><span>Object</span><h3>Nodes and edges</h3><p>The diagram is fundamentally a special form of <a href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)" aria-current="link to wikipedia">graph</a>. The circles are called nodes, or in this case "neurons" and the lines are called edges. Nodes hold some numerical value, and edges show which values are connected to each other.</p></article>
+            <article><span>Arithmetic</span><h3>One operation at a time</h3><p>In a neural net, the edges are called "weights" and show the strength of connection between different neurons (the nodes). Those neurons have an 'activation threshold' which controls how much signal they need to light up. There isn't really a line, it's just some basic arithmetic, the line symbolizes the signal.</p></article>
+            <article><span>Algebra</span><h3>Many operations together</h3><p>The real magic of a neural net is linear algebra. Formatting the numbers as we do:  feature vectors of real numbers and matricies of activations and weights allows special forms of addition and multiplication on vast amounts of data that can be compressed into a single numerical output without losing information. From thousands of inputs we can feed-forward to a useable prediction like "78% chance of click-through". </p></article>
           </div>
         </div>
 
