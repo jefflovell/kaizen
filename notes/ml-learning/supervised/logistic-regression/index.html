@@ -25,7 +25,7 @@
       </section>
       <section class="supervised-overview">
         <p>The perceptron gave us a first classifier: score the example, guess a side, and update the boundary after mistakes. Logistic regression keeps the straight-line score, but it adds an important layer of interpretation. Instead of only saying “this side or that side,” it squeezes the score into a probability between 0 and 1.</p>
-        <p>That matters when the decision has a cost. If a moderation model is 51% sure a message needs review, you may route it differently than a message at 97%. The boundary is still linear, but the readout becomes a calibrated-looking statement: how strongly does the current evidence favor the positive class?</p>
+        <p>That matters when the decision has a cost. If a moderation model is 51% sure a message needs review, you may route it differently than a message at 97%. The boundary is still linear, but the readout now says how far the example sits from that boundary in probability language. The useful question becomes: is this probability calibrated, or is it just a clean-looking number?</p>
       </section>
       <section class="learning-loop" aria-label="Logistic regression learning loop">
         <article><span>01</span><h2>Calculate a score</h2><p>Multiply features by weights, add the bias, and get one linear score <code>z</code>.</p></article>
@@ -36,12 +36,12 @@
         <div class="classifier-draft-copy">
           <p class="case-section-label">Draft lab | Message review</p>
           <h2 id="logistic-lab-title">A linear score becomes a probability.</h2>
-          <p>Try each case as if the model is deciding whether a message should be sent to human review. The features could include flagged words, sender history, link risk, and user reports. Logistic regression adds those signals into one score, then uses the sigmoid curve to make that score readable as probability.</p>
+          <p>Try each case as if the model is deciding whether a message should be sent to human review. The features could include flagged words, sender history, link risk, and user reports. Logistic regression gives each feature a learned weight, adds a learned bias offset, and produces one score. The sigmoid curve then makes that score readable as probability, so the model can support thresholds instead of only yes/no labels.</p>
           <div class="classifier-scenario-buttons">
             <button type="button" class="is-selected" data-demo-title="Clear review case" data-demo-prediction="Review · p = 0.94" data-demo-trust="Trust: high, if calibration holds" data-demo-copy="The score is far above the threshold, so small feature changes are unlikely to flip the class. The probability is useful only if similar examples were represented in training." data-demo-state="probability">High-risk message</button>
             <button type="button" data-demo-title="Near the threshold" data-demo-prediction="Review · p = 0.53" data-demo-trust="Trust: fragile" data-demo-copy="The class label says review, but the probability is close to the cutoff. This is where threshold choice matters more than the word “positive.”" data-demo-state="probability">Borderline promo</button>
             <button type="button" data-demo-title="Low-risk message" data-demo-prediction="No review · p = 0.08" data-demo-trust="Trust: high for familiar traffic" data-demo-copy="The score is far below the threshold. The model is not finding enough weighted evidence for the review class." data-demo-state="probability">Routine message</button>
-            <button type="button" data-demo-title="Unfamiliar pattern" data-demo-prediction="No review · p = 0.41" data-demo-trust="Trust: inspect" data-demo-copy="A probability can look precise even when the message is unlike the training examples. Calibration should be checked on held-out or recent examples." data-demo-state="probability">New scam style</button>
+            <button type="button" data-demo-title="Unfamiliar pattern" data-demo-prediction="No review · p = 0.41" data-demo-trust="Trust: inspect recent data" data-demo-copy="A probability can look precise even when the message is unlike the training examples. Calibration should be checked on held-out examples and recent traffic before treating 0.41 as stable." data-demo-state="probability">New scam style</button>
           </div>
         </div>
         <div class="classifier-draft-stage">

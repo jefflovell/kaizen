@@ -90,6 +90,14 @@ the next paragraph still has to name the concrete mechanism.
   live near the visual system they affect, and animations should reveal order or
   mechanism rather than act as decorative motion.
 
+### Publish-Then-Second-Pass Rule
+
+When a first draft is published and there is still useful context left in the
+chat, take a focused second pass before stopping. Use the user's revision
+prompts from the current work as the critique lens: remove vague polish, add the
+mechanism that makes the model useful, clarify what evidence earns trust, and
+keep broad rewrites for sections that are actively confusing.
+
 ## Standard lesson shape
 
 1. Problem opener
