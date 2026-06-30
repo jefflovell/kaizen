@@ -17,6 +17,23 @@ The lab teaches a perceptron learning a boundary from labeled examples. The
 reader should understand that a classifier scores an example, guesses a class,
 then updates after mistakes.
 
+The page now also acts as the first-pass classifier roadmap. Each planned model
+card should make a mechanism promise:
+
+- perceptron: score, guess a side, update the straight boundary after mistakes
+- logistic regression: convert a linear score into a probability and threshold
+- k-nearest neighbors: vote from nearby labeled examples
+- Naive Bayes: compare feature likelihoods by class
+- decision trees: route examples through feature questions to a labeled leaf
+- support vector classifier: find a boundary with a wide margin
+- ensembles: combine many imperfect decisions into a steadier vote
+- neural networks: bend the decision surface through hidden-layer
+  transformations
+
+Keep these cards as a roadmap until child pages exist. When child pages arrive,
+link the cards and keep this page focused on the classification task family plus
+the perceptron foundation.
+
 ## Current learning loop
 
 1. Train on labels.
@@ -49,8 +66,9 @@ cards as the standard evolves.
 
 ## Future update notes
 
-- This page is likely due for a pass after neural-network training, especially
-  to align card styling and notation language.
+- This page has received a first voice/mechanism pass after the neural-network
+  sequence. Future work should deepen the lab and styling, not revert it to a
+  generic catalog.
 - Planned classifier siblings include logistic regression, k-nearest neighbors,
   Naive Bayes, decision trees, support vector classifiers, ensembles, and
   neural networks.

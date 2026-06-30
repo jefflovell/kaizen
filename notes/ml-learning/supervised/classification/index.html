@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../../../../styles.css?v=6" />
+    <link rel="stylesheet" href="../../../../styles.css?v=45" />
     <script src="../../../../script.js" defer></script>
     <script src="classification.js?v=1" defer></script>
   </head>
@@ -48,25 +48,28 @@
         <div class="note-title">
           <h1 id="note-title">Classification</h1>
           <p class="key-idea">
-            Classification is the supervised learning task of assigning new
-            examples to categories learned from labeled examples.
+            Classification is the supervised learning task of turning measured
+            facts into a category decision.
           </p>
         </div>
       </section>
 
       <section class="supervised-overview">
         <p>
-          Classification is one of the two foundational supervised learning
-          tasks. It teaches a model which details about an example matter when
-          deciding which category it belongs to. The trained model that makes
-          those decisions is called a classifier.
+          Classification is the other half of the supervised-learning doorway.
+          Regression asks for a number. Classification asks for a decision:
+          spam or not spam, fraud or legitimate, churn risk or healthy account,
+          cyan or coral. The model still reads features, compares predictions
+          with known labels, and updates from mistakes, but the output is a
+          category instead of a numeric estimate.
         </p>
         <p>
-          Classifiers are useful whenever the answer is a category: deciding
-          whether an email is spam, identifying an object in a photo, detecting
-          fraud, or guessing whether a new example belongs to group A or group
-          B. Other supervised learning models solve different tasks, such as
-          regression models that predict numbers.
+          This first classifier is deliberately simple: a perceptron learns one
+          straight decision boundary. That line is not the end of
+          classification; it is the first object worth understanding. Once the
+          line makes sense, later classifiers can change the mechanism: estimate
+          probability, vote from neighbors, split through a tree, widen a
+          margin, or combine many weak decisions.
         </p>
       </section>
 
@@ -90,9 +93,9 @@
 
       <section class="learning-intro supervised-intro">
         <p>
-          <strong>Classification algorithms:</strong> Different model families
-          learn categories, neighborhoods, probabilities, or decision
-          boundaries in different ways.
+          <strong>Classification algorithms:</strong> Every classifier answers
+          the same category question, but each one earns trust through a
+          different mechanism.
         </p>
       </section>
 
@@ -100,42 +103,42 @@
         <article class="algo-card is-active">
           <span>01</span>
           <h2>Perceptron</h2>
-          <p>Correct mistakes to learn a straight decision boundary.</p>
+          <p>Score a point, guess a side, and move a straight boundary only when the guess is wrong.</p>
         </article>
         <article class="algo-card">
           <span>02</span>
           <h2>Logistic Regression</h2>
-          <p>Estimate the probability that an example belongs to a category.</p>
+          <p>Turn a linear score into a probability, then choose a class with a threshold.</p>
         </article>
         <article class="algo-card">
           <span>03</span>
           <h2>k-Nearest Neighbors</h2>
-          <p>Look at nearby examples and vote from the local neighborhood.</p>
+          <p>Find nearby labeled examples and let the local neighborhood vote.</p>
         </article>
         <article class="algo-card">
           <span>04</span>
           <h2>Naive Bayes</h2>
-          <p>Combine feature probabilities to compare likely categories.</p>
+          <p>Combine feature likelihoods to compare which category explains the evidence best.</p>
         </article>
         <article class="algo-card">
           <span>05</span>
           <h2>Decision Trees</h2>
-          <p>Split examples through a sequence of interpretable questions.</p>
+          <p>Ask a sequence of feature questions until an example lands in a labeled leaf.</p>
         </article>
         <article class="algo-card">
           <span>06</span>
           <h2>Support Vector Classifier</h2>
-          <p>Find a separating boundary with as much margin as possible.</p>
+          <p>Find a separating boundary and make the margin around it as wide as possible.</p>
         </article>
         <article class="algo-card">
           <span>07</span>
           <h2>Ensembles</h2>
-          <p>Combine trees or other models into a stronger classifier.</p>
+          <p>Combine many imperfect decisions so the final vote is steadier than one model alone.</p>
         </article>
         <article class="algo-card">
           <span>08</span>
           <h2>Neural Networks</h2>
-          <p>Stack transformations to learn complex decision surfaces.</p>
+          <p>Pass features through hidden layers so the boundary can bend when signals interact.</p>
         </article>
       </section>
 
@@ -217,15 +220,13 @@
               This interactive graph demonstrates a
               <a href="https://en.wikipedia.org/wiki/Perceptron" rel="noreferrer"
                 >perceptron</a
-              >, one of the earliest linear classification algorithms.
-              “Linear” means it tries to separate the two groups cleanly with
-              a single straight line. The line is the machine's current decision
-              boundary: points on one side are guessed as cyan, and points on the
-              other side are guessed as coral. Each point has an attached label.
-              If the machine guesses the wrong color because of the line's
-              position relative to the point, the position and slope of the line
-              are updated to attempt to put that point on the correct side of the
-              line.
+              >, one of the earliest linear classification algorithms. “Linear”
+              means it tries to separate the two groups with one straight line.
+              The line is the model's current decision boundary. Points on one
+              side are guessed as cyan; points on the other side are guessed as
+              coral. Each point has a known label. When the model guesses wrong,
+              the update changes the weights and bias so that the boundary moves
+              toward putting that example on the correct side.
             </p>
           </div>
 
