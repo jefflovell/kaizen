@@ -1,5 +1,5 @@
 const featureNames = ["Audience–title affinity", "Title awareness", "Tone preference match", "Release timing", "Runtime fit", "Social buzz"];
-const initialFeatures = [0.76, 0.62, 0.7, 0.58, 0.66, 0.54];
+const initialFeatures = [.84,.82,.78,.76,.74,.8];
 const interactionTarget = (x) => Math.max(.08, Math.min(.94,
   .12 + .46 * x[0] * x[1] + .14 * x[2] + .08 * x[3] + .1 * x[4] + .12 * x[5]));
 const trainingInputs = [
@@ -30,8 +30,8 @@ const mission = {
   together:{label:"Both high",x:[.92,.92,.5,.5,.5,.35]},
 };
 const state = {
-  features:[...initialFeatures], target:interactionTarget(initialFeatures), activation:"relu", hidden:4, rate:.03,
-  epoch:0, selected:0, pulse:"", history:[], trainingStage:0, draft:null, challenge:null, mission:null,
+  features:[...initialFeatures], target:interactionTarget(initialFeatures), activation:"linear", hidden:4, rate:.03,
+  epoch:0, selected:0, pulse:"", signal:null, signalRun:0, history:[], trainingStage:0, draft:null, challenge:"broad", mission:null,
 };
 let w1, b1, w2, b2;
 const ui = {
@@ -106,20 +106,32 @@ function buildFeatureControls(){
   ui.features.innerHTML=featureNames.map((name,i)=>`<label><span>${name}</span><strong id="feature-value-${i}">${Math.round(state.features[i]*100)}</strong><input type="range" min="0" max="100" value="${Math.round(state.features[i]*100)}" data-feature="${i}" /></label>`).join("");
 }
 function renderNetwork(result){
-  const inputX=105, hiddenX=405, outputX=675, inputYs=[62,140,218,296,374,452];
+  const inputX=132, hiddenX=405, outputX=675, inputYs=[62,140,218,296,374,452];
   const hiddenYs=Array.from({length:state.hidden},(_,i)=>70+i*(380/Math.max(1,state.hidden-1)));
   let edges="";
   for(let i=0;i<6;i++) for(let j=0;j<state.hidden;j++){
     const weight=w1[i][j], selected=j===state.selected;
-    edges+=`<line class="mlp-edge ${weight>=0?"positive":"negative"} ${state.pulse==="forward"?"is-pulsing":""} ${state.pulse==="backward"?"is-backward":""} ${selected?"is-inspected":""}" x1="${inputX}" y1="${inputYs[i]}" x2="${hiddenX}" y2="${hiddenYs[j]}" style="--edge-delay:${(i+j)*22}ms;stroke-width:${1+Math.abs(weight)*6}" />`;
+    const width=1+Math.abs(weight)*6, signal=state.signal?.input===i&&state.signal?.hidden===j&&!state.signal.output;
+    edges+=`<line class="mlp-edge ${weight>=0?"positive":"negative"} ${signal?"is-signal":""} ${state.signal?.backward?"is-backflash":""} ${state.pulse==="backward"?"is-backward":""} ${selected?"is-inspected":""}" x1="${inputX}" y1="${inputYs[i]}" x2="${hiddenX}" y2="${hiddenYs[j]}" style="--edge-delay:${(i+j)*22}ms;--base-width:${width}px;--signal-width:${width+2.2+Math.abs(weight)*5}px;stroke-width:${width}px" />`;
   }
   for(let j=0;j<state.hidden;j++){
     const weight=w2[j], selected=j===state.selected;
-    edges+=`<line class="mlp-edge ${weight>=0?"positive":"negative"} ${state.pulse==="forward"?"is-pulsing":""} ${state.pulse==="backward"?"is-backward":""} ${selected?"is-inspected":""}" x1="${hiddenX}" y1="${hiddenYs[j]}" x2="${outputX}" y2="256" style="--edge-delay:${160+j*35}ms;stroke-width:${1+Math.abs(weight)*7}" />`;
+    const width=1+Math.abs(weight)*7, signal=state.signal?.hidden===j&&state.signal.output;
+    edges+=`<line class="mlp-edge ${weight>=0?"positive":"negative"} ${signal?"is-signal":""} ${state.signal?.backward?"is-backflash":""} ${state.pulse==="backward"?"is-backward":""} ${selected?"is-inspected":""}" x1="${hiddenX}" y1="${hiddenYs[j]}" x2="${outputX}" y2="256" style="--edge-delay:${160+j*35}ms;--base-width:${width}px;--signal-width:${width+2.4+Math.abs(weight)*5}px;stroke-width:${width}px" />`;
   }
-  const inputs=inputYs.map((y,i)=>`<g class="mlp-node input"><circle cx="${inputX}" cy="${y}" r="25"/><text x="${inputX}" y="${y+4}">${Math.round(state.features[i]*100)}</text><text class="node-label" x="12" y="${y+4}">${featureNames[i]}</text></g>`).join("");
-  const hidden=hiddenYs.map((y,j)=>`<g class="mlp-node hidden ${j===state.selected?"is-selected":""}" data-neuron="${j}" role="button" tabindex="0"><circle cx="${hiddenX}" cy="${y}" r="31"/><text x="${hiddenX}" y="${y+4}">${result.a[j].toFixed(2)}</text><text class="node-label" x="${hiddenX}" y="${y+51}">H${j+1}</text></g>`).join("");
-  ui.svg.innerHTML=`<text class="layer-label" x="${inputX}" y="20">INPUT FEATURES</text><text class="layer-label" x="${hiddenX}" y="20">HIDDEN · ${state.activation.toUpperCase()}</text><text class="layer-label" x="${outputX}" y="20">OUTPUT</text>${edges}${inputs}${hidden}<g class="mlp-node output"><circle cx="${outputX}" cy="256" r="42"/><text x="${outputX}" y="252">${Math.round(result.prediction*100)}%</text><text class="node-label" x="${outputX}" y="276">ŷ</text></g>`;
+  const labelLines = {
+    "Audience–title affinity":["Audience–title","affinity"],
+    "Tone preference match":["Tone preference","match"],
+  };
+  const inputs=inputYs.map((y,i)=>{
+    const lines=labelLines[featureNames[i]]||[featureNames[i]];
+    const label=lines.map((line,index)=>`<tspan x="4" dy="${index?12:0}">${line}</tspan>`).join("");
+    const labelY=y-(lines.length-1)*6+4;
+    const charged=state.signal?.activeInputs?.includes(i)||state.signal?.backward;
+    return `<g class="mlp-node input ${state.signal?.input===i&&!state.signal.output?"is-signal":""} ${charged?"is-charged":""} ${state.signal?.backward?"is-backflash":""}"><circle cx="${inputX}" cy="${y}" r="25"/><text x="${inputX}" y="${y+4}">${Math.round(state.features[i]*100)}</text><text class="node-label" x="4" y="${labelY}">${label}</text></g>`;
+  }).join("");
+  const hidden=hiddenYs.map((y,j)=>`<g class="mlp-node hidden ${j===state.selected?"is-selected":""} ${state.signal?.hidden===j?"is-signal":""} ${state.signal?.activeHidden?.includes(j)||state.signal?.backward?"is-charged":""} ${state.signal?.backward?"is-backflash":""}" data-neuron="${j}" role="button" tabindex="0"><circle cx="${hiddenX}" cy="${y}" r="31"/><text x="${hiddenX}" y="${y+4}">${result.a[j].toFixed(2)}</text><text class="node-label" x="${hiddenX}" y="${y+51}">H${j+1}</text></g>`).join("");
+  ui.svg.innerHTML=`<text class="layer-label" x="${inputX}" y="20">INPUT FEATURES</text><text class="layer-label" x="${hiddenX}" y="20">HIDDEN · ${state.activation.toUpperCase()}</text><text class="layer-label" x="${outputX}" y="20">OUTPUT</text>${edges}${inputs}${hidden}<g class="mlp-node output ${state.signal?.output?"is-signal":""} ${state.signal?.activeOutput||state.signal?.backward?"is-charged":""} ${state.signal?.backward?"is-backflash":""}"><circle cx="${outputX}" cy="256" r="42"/><text x="${outputX}" y="252">${Math.round(result.prediction*100)}%</text><text class="node-label" x="${outputX}" y="276">ŷ</text></g>`;
 }
 function renderChart(){
   const ctx=ui.chart.getContext("2d"), width=ui.chart.width, height=ui.chart.height;
@@ -151,7 +163,7 @@ function renderTrace(){
   if(!state.draft){ui.updateMath.textContent="Choose “Start one-example training.”";ui.updateCopy.textContent="The selected equation will show old weight − η (eta) × gradient = new weight.";return;}
   const i=0,j=state.selected,old=state.draft.oldWeight,gradient=state.draft.gw1[i][j],next=old-state.rate*gradient;
   if(state.trainingStage<3){ui.updateMath.textContent=`Current selected weight: ${old.toFixed(4)}`;ui.updateCopy.textContent=state.trainingStage===1?"The forward pass used this weight to produce the prediction.":"Loss measures how far that prediction is from the target.";}
-  else {ui.updateMath.textContent=`${old.toFixed(4)} − ${state.rate.toFixed(2)} × (${gradient.toFixed(4)}) = ${next.toFixed(4)}`;ui.updateCopy.textContent=state.trainingStage===3?"The gradient assigns this connection its share of responsibility.":"The new value replaces the old weight.";}
+  else {ui.updateMath.textContent=`${old.toFixed(4)} − ${state.rate.toFixed(2)} × (${gradient.toFixed(4)}) = ${next.toFixed(4)}`;ui.updateCopy.textContent=state.trainingStage===3?"The gradient says how this connection would change the loss.":"The new value replaces the old weight.";}
 }
 function renderTrust(){
   if(!state.challenge){ui.challengeLabel.textContent="No preset selected";ui.trustState.textContent="Inside the familiar range";ui.trustCopy.textContent="The current feature mix resembles the examples used to train this teaching model.";return;}
@@ -167,19 +179,27 @@ function renderMission(){
     ? `When both inputs are high, ${state.activation==="relu"?"hidden neurons can create an interaction":"the linear stack can only add their effects"}.`
     : "One promising signal is present while the other is deliberately weak.";
 }
+function renderPresetButtons(){
+  document.querySelectorAll("[data-mission]").forEach(button=>{
+    button.classList.toggle("is-selected",state.mission===button.dataset.mission);
+  });
+  document.querySelectorAll("[data-preset]").forEach(button=>{
+    button.classList.toggle("is-selected",state.challenge===button.dataset.preset);
+  });
+}
 function renderCoach(){
   const trainLoss=mse(trainingData), heldLoss=mse(heldoutData), gap=heldLoss-trainLoss;
   const capacity=state.hidden<=2?"Low capacity":state.hidden>=5?"High capacity":"Balanced capacity";
   const gapText=`${gap>=0?"+":""}${gap.toFixed(4)}`;
   ui.capacityState.textContent=capacity;
-  ui.gapState.textContent=gapText;
+  ui.gapState.textContent=`held - train ${gapText}`;
 
   if(state.challenge){
     const preset=presets[state.challenge];
     ui.focusState.textContent=preset.trust==="unknown"?"Trust boundary":"Challenge preset";
     ui.coachTitle.textContent=preset.trust==="unknown"?"Treat the exact number carefully.":"Inspect the evidence mix.";
     ui.coachCopy.textContent=preset.trust==="unknown"
-      ? "This profile is outside the balanced examples used for training. The model still outputs a number, but the lesson is about uncertainty."
+      ? "This profile is outside the balanced examples used for training. The model still outputs a number, but the applied lesson is about when not to over-trust it."
       : "Use the neuron inspector to see which hidden pattern dominates this profile before trusting the prediction.";
     return;
   }
@@ -201,7 +221,7 @@ function renderCoach(){
   if(state.trainingStage>0 && state.trainingStage<4){
     ui.focusState.textContent="Training step";
     ui.coachTitle.textContent="You are inside one update.";
-    ui.coachCopy.textContent="The trace is slowing down forward pass, loss, backpropagation, and the parameter update.";
+    ui.coachCopy.textContent="The trace is slowing down the forward pass, squared error, gradient calculation, and parameter update.";
     return;
   }
 
@@ -226,9 +246,42 @@ function render(){
   ui.epoch.textContent=state.epoch; ui.parameters.textContent=8*state.hidden+1; ui.heldout.textContent=mse(heldoutData).toFixed(4);
   ui.hiddenOutput.textContent=state.hidden; ui.rateOutput.textContent=state.rate.toFixed(2);
   ui.features.querySelectorAll("[data-feature]").forEach(input=>{document.querySelector(`#feature-value-${input.dataset.feature}`).textContent=input.value;});
-  renderNetwork(result); renderInspector(result); renderChart(); renderTrace(); renderTrust(); renderMission(); renderCoach();
+  renderNetwork(result); renderInspector(result); renderChart(); renderTrace(); renderTrust(); renderMission(); renderPresetButtons(); renderCoach();
 }
 function pulse(kind){state.pulse=kind;render();setTimeout(()=>{state.pulse="";render();},900);}
+const wait=(ms)=>new Promise(resolve=>setTimeout(resolve,ms));
+async function runForwardSequence(){
+  const run=state.signalRun+1;
+  state.signalRun=run;
+  state.pulse="";
+  const activeInputs=[], activeHidden=[];
+  for(let i=0;i<6;i+=1){
+    activeInputs.push(i);
+    for(let j=0;j<state.hidden;j+=1){
+      if(state.signalRun!==run)return;
+      if(!activeHidden.includes(j)) activeHidden.push(j);
+      state.signal={input:i,hidden:j,output:false,activeInputs:[...activeInputs],activeHidden:[...activeHidden]};
+      render();
+      await wait(45);
+    }
+  }
+  let activeOutput=false;
+  for(let j=0;j<state.hidden;j+=1){
+    if(state.signalRun!==run)return;
+    activeOutput=true;
+    state.signal={hidden:j,output:true,activeInputs:[...activeInputs],activeHidden:[...activeHidden],activeOutput};
+    render();
+    await wait(52);
+  }
+  if(state.signalRun!==run)return;
+  state.signal={backward:true,activeInputs:[...activeInputs],activeHidden:[...activeHidden],activeOutput:true};
+  render();
+  await wait(150);
+  if(state.signalRun===run){
+    state.signal=null;
+    render();
+  }
+}
 function resetTrainingStage(){state.trainingStage=0;state.draft=null;}
 
 ui.features.addEventListener("input",e=>{const input=e.target.closest("[data-feature]");if(!input)return;state.features[Number(input.dataset.feature)]=Number(input.value)/100;state.target=interactionTarget(state.features);state.challenge=null;state.mission=null;resetTrainingStage();render();});
@@ -236,12 +289,12 @@ ui.svg.addEventListener("click",e=>{const node=e.target.closest("[data-neuron]")
 document.querySelectorAll("[data-activation]").forEach(button=>button.addEventListener("click",()=>{state.activation=button.dataset.activation;document.querySelectorAll("[data-activation]").forEach(item=>item.classList.toggle("is-selected",item===button));resetTrainingStage();render();}));
 ui.hidden.addEventListener("input",()=>{state.hidden=Number(ui.hidden.value);resetTrainingStage();render();});
 ui.rate.addEventListener("input",()=>{state.rate=Number(ui.rate.value)/100;resetTrainingStage();render();});
-document.querySelector("#mlp-forward").addEventListener("click",()=>pulse("forward"));
+document.querySelector("#mlp-forward").addEventListener("click",()=>runForwardSequence());
 document.querySelectorAll("[data-mission]").forEach(button=>button.addEventListener("click",()=>{state.mission=button.dataset.mission;state.challenge=null;setFeatures(mission[state.mission].x);resetTrainingStage();render();}));
 document.querySelectorAll("[data-preset]").forEach(button=>button.addEventListener("click",()=>{state.challenge=button.dataset.preset;state.mission=null;setFeatures(presets[state.challenge].x);resetTrainingStage();render();}));
 ui.step.addEventListener("click",()=>{
   if(state.trainingStage===0||state.trainingStage===4){
-    state.draft=gradients(state.features,state.target);state.draft.oldWeight=w1[0][state.selected];state.trainingStage=1;pulse("forward");return;
+    state.draft=gradients(state.features,state.target);state.draft.oldWeight=w1[0][state.selected];state.trainingStage=1;runForwardSequence();return;
   }
   if(state.trainingStage===1){state.trainingStage=2;render();return;}
   if(state.trainingStage===2){state.trainingStage=3;pulse("backward");return;}
@@ -249,8 +302,8 @@ ui.step.addEventListener("click",()=>{
 });
 document.querySelector("#mlp-epoch-button").addEventListener("click",()=>{trainingData.forEach(([x,y])=>trainExample(x,y));state.epoch+=1;state.history.push({train:mse(trainingData),held:mse(heldoutData)});resetTrainingStage();render();});
 document.querySelector("#mlp-reset").addEventListener("click",()=>{
-  state.features=[...initialFeatures];state.target=interactionTarget(initialFeatures);state.activation="relu";state.hidden=4;state.rate=.03;state.epoch=0;state.selected=0;state.history=[];state.challenge=null;state.mission=null;resetTrainingStage();
-  ui.hidden.value=4;ui.rate.value=3;document.querySelectorAll("[data-activation]").forEach(item=>item.classList.toggle("is-selected",item.dataset.activation==="relu"));
+  state.features=[...initialFeatures];state.target=interactionTarget(initialFeatures);state.activation="linear";state.hidden=4;state.rate=.03;state.epoch=0;state.selected=0;state.history=[];state.challenge="broad";state.mission=null;resetTrainingStage();
+  ui.hidden.value=4;ui.rate.value=3;document.querySelectorAll("[data-activation]").forEach(item=>item.classList.toggle("is-selected",item.dataset.activation==="linear"));
   resetWeights();buildFeatureControls();render();
 });
 resetWeights();buildFeatureControls();render();

@@ -67,6 +67,29 @@ to decode it piece by piece.
   reasoning about an abstract machine; they are not how biological neurons work
   or how humans think.
 
+### Applied lesson voice
+
+When a lesson follows a long conceptual sequence, let the page acknowledge the
+journey. A short recap can say what the reader already earned, then move into
+the applied problem with a little momentum. This is not license for vague hype:
+the next paragraph still has to name the concrete mechanism.
+
+- Use emotional continuity to orient the learner, not to replace explanation.
+  A memorable line or cultural reference can work when it marks a transition
+  from foundation to application.
+- After the tonal lift, return immediately to the applied question, the inputs,
+  the model choice, and the trust problem the learner will inspect.
+- Avoid “marketing copy” claims such as “powerful in combination” unless the
+  page says how the combination is represented. For neural nets, that usually
+  means hidden neurons combine weighted signals, apply an activation function,
+  and pass learned intermediate values forward.
+- Write “why this model?” as a tradeoff. A deeper model gives intermediate
+  places to combine signals, but the lesson should still ask when that
+  flexibility is trustworthy and when it is a liability.
+- Let labs feel like instruments. Readouts should be prominent, controls should
+  live near the visual system they affect, and animations should reveal order or
+  mechanism rather than act as decorative motion.
+
 ## Standard lesson shape
 
 1. Problem opener

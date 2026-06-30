@@ -34,6 +34,11 @@ Backlinks should preserve this hierarchy:
   - Current lesson anchor: perceptron / linear classification foundation.
   - Sibling models to expose carefully: logistic regression, k-nearest
     neighbors, support vector machines, decision trees, ensembles, neural nets.
+  - Next pass should keep the applied voice established in the neural-network
+    sequence: recap what the reader already knows, then make each classifier
+    answer an inspectable question about boundaries, probability, votes, or
+    margins. Avoid generic “more powerful model” framing unless the page shows
+    the mechanism that earns or weakens trust.
 
 ### Regression
 
@@ -73,9 +78,13 @@ models, create a broader neural-network hub.
 
 1. Tighten `train-neural-network/`.
 2. Revisit `mlp-regression/` after the training concepts have a foundation.
-3. Add a lightweight classification sibling when ready:
-   - logistic regression, or
-   - decision-tree classification.
+3. Add lightweight classification siblings when ready:
+   - logistic regression,
+   - decision-tree classification,
+   - k-nearest-neighbor classification,
+   - support-vector classification,
+   - random-forest classification, and
+   - gradient-boosted classification.
 4. Build unsupervised learning only after the supervised spine feels coherent.
 
 ## Planned neural-network mini-labs

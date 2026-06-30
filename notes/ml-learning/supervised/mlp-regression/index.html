@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="An interactive introduction to multilayer perceptron regression through streaming-title completion prediction." />
-    <title>Multilayer Perceptron Regression | Kaizen</title>
+    <meta name="description" content="Apply a multilayer perceptron to streaming-title completion prediction with nonlinear features, capacity, training loss, and held-out loss." />
+    <title>Applying a Neural Network | Kaizen</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../../../../styles.css?v=19" />
+    <link rel="stylesheet" href="../../../../styles.css?v=45" />
     <script src="../../../../script.js" defer></script>
-    <script src="mlp-regression.js?v=3" defer></script>
+    <script src="mlp-regression.js?v=9" defer></script>
   </head>
   <body class="note-page">
     <header class="site-header">
@@ -22,12 +22,14 @@
     <main>
       <section class="note-hero">
         <div class="note-kicker"><a href="../">← Supervised learning</a><span>/</span><span>Regression</span></div>
-        <div class="note-title"><h1>Multilayer Perceptron Regression</h1><p class="key-idea">A network of simple weighted units learns nonlinear interactions that one straight line cannot express.</p></div>
+        <div class="note-title"><h1>Applying a Neural Network</h1><p class="key-idea">Use a multilayer perceptron to test when nonlinear feature combinations earn trust, and when they only produce a confident-looking number.</p></div>
       </section>
 
       <section class="supervised-overview">
-        <p>How much of a newly released streaming title will exposed viewers in an audience cohort finish during its first week? Audience–title affinity matters—but its effect may change with title awareness, release timing, runtime, tone preference, and social momentum.</p>
-        <p>A <strong>multilayer perceptron (MLP)</strong> passes those features through hidden neurons. Each neuron learns a small transformation; together they can represent interactions that a single linear equation misses.</p>
+        <p>Congratulations! At this point, you have already done the hard work. In <a href="../build-neural-network/">Building a Neural Network</a>, you learned how raw facts become a feature vector, how weights and bias shape a neuron, and why hidden layers can move deep neural networks past simple one-step prediction into something that feels more human. In <a href="../train-neural-network/">Training a Neural Network</a>, you learned how the machine learns: using loss functions to update those parameters automatically, instead of requiring explicit hard-coding and constant human adjustment. In this lesson, we will finally stop bolting overnight parts from Japan onto the 2JZ and start living one quarter-mile at a time.</p>
+        <p>This page uses the same hardware that you've learned to ask an applied question: when does a neural network make a better numeric prediction than a straight-line model, and when is that prediction less trustworthy than it looks?</p>
+        <p>For example, in the real world we might ask, "How much of a newly released streaming title will this group of subscribers finish during its first week if we make sure to show it to them as soon as they open the app?" Audience–title affinity matters—but its effect may change significantly with title awareness, release timing, runtime, tone preference, and social momentum.</p>
+        <p>Unlike the <a href="../classification/">simple perceptron</a> we used for the first classification lesson, a <strong>multilayer perceptron (MLP)</strong> passes those features through additional, hidden layers of neurons. Each neuron in these hidden layers computes a weighted sum, adds a learned bias parameter, applies an activation strength, and sends its result forward. Together, those hidden activations can bend the signal to represent complex relationships between different features that a single linear equation misses, creating a prediction that feels richer and more nuanced, even on new data.</p>
       </section>
 
       <nav class="neural-lesson-switch" aria-label="Neural network learning path">
@@ -42,24 +44,95 @@
       </aside>
 
       <section class="learning-loop" aria-label="Neural network learning loop">
-        <article><span>01</span><h2>Pass signals forward</h2><p>Every neuron combines incoming values, weights, and a bias.</p></article>
-        <article><span>02</span><h2>Measure the loss</h2><p>Compare predicted completion with the known target.</p></article>
-        <article><span>03</span><h2>Send responsibility backward</h2><p>Backpropagation finds how each parameter contributed to the error.</p></article>
+        <article><span>01</span><h2>Run a feedforward pass</h2><p>Each hidden neuron calculates <code>z = Σ(wᵢxᵢ) + b</code>, applies an activation, and sends its value toward the prediction <code>ŷ</code>.</p></article>
+        <article><span>02</span><h2>Measure residual and loss</h2><p>Compare <code>ŷ</code> with the known target <code>y</code>. The residual shows the miss; squared error turns that miss into the loss used for this example.</p></article>
+        <article><span>03</span><h2>Backpropagate, then update</h2><p>Backpropagation calculates gradients for weights and biases. Gradient descent uses those gradients and the learning rate to change the parameters.</p></article>
       </section>
 
-      <section class="learning-intro supervised-intro"><p><strong>The question:</strong> Can hidden neurons learn when several promising signals become powerful only in combination?</p></section>
+      <section class="mlp-dnn-why" aria-labelledby="mlp-dnn-why-title">
+        <aside>
+          <span>Applied reason</span>
+          <h2 id="mlp-dnn-why-title">Why use a DNN at all?</h2>
+        </aside>
+        <div>
+          <p>A straight-line model is a good place to begin because it makes a clean promise: each feature gets one steady push on the prediction. More affinity pushes the number up by this much. More runtime pulls it down by that much. That simplicity is useful, but it can also become the whole problem.</p>
+          <p>Real audience behavior does not always move one feature at a time. Affinity may matter more after awareness is already high. A long runtime may hurt a casual comedy and barely matter for a prestige drama. Social momentum may amplify tone preference instead of adding a separate, tidy amount. Once signals start changing the meaning of other signals, a single straight line has no place to hold that intermediate relationship.</p>
+          <p>A deep neural network adds those intermediate places. Hidden neurons combine features, apply activation functions, and pass learned signals forward before the final prediction is made. Training adjusts the weights and bias terms so those combinations fit the examples used for updates, then held-out examples test whether the pattern still works on data the model did not train on.</p>
+          <p>That does not make a DNN magic, or automatically better than random forests, linear regression, or anything else in the toolbox. It just gives the model a different kind of flexibility: smoother than split rules, less rigid than one linear equation, and powerful enough to bend when the data really asks for a bend. The work of this page is to see when that extra flexibility is trustworthy and when it is a liability.</p>
+        </div>
+      </section>
 
       <section class="mlp-apply-workflow" aria-labelledby="mlp-workflow-title">
         <div>
           <p class="case-section-label">Applied practicum</p>
-          <h2 id="mlp-workflow-title">Use the network like a model builder.</h2>
-          <p>Build and Train explained the parts. This page asks what happens when you actually use those parts to explore predictions, capacity, and trust.</p>
+          <h2 id="mlp-workflow-title">Using the network like a data scientist.</h2>
+          <p>The lab below is not asking you to admire the neural network from a distance. Treat it like a small modeling workflow: choose a case, decide how much flexibility the model gets, train it, and then check whether the better-looking prediction is actually supported by held-out data.</p>
         </div>
         <ol>
-          <li><span>01</span><strong>Load a title profile</strong><p>Start from a known pattern or push the sliders into a new combination.</p></li>
-          <li><span>02</span><strong>Choose capacity</strong><p>Toggle Linear/ReLU and adjust hidden neurons to change what patterns the network can represent.</p></li>
-          <li><span>03</span><strong>Train, then check</strong><p>Watch training loss and held-out loss together before trusting the number.</p></li>
+          <li><span>01</span><strong>Define the case</strong><p>Load a title profile or move the feature sliders yourself. The target is first-week completion: the share of the exposed audience that finishes the title.</p></li>
+          <li><span>02</span><strong>Set the model's room to move</strong><p>Linear mode keeps the hidden layer from bending the signal. ReLU and extra hidden neurons give the model more ways to combine features before the final prediction.</p></li>
+          <li><span>03</span><strong>Train, then audit</strong><p>Training loss shows how well the model fits examples used for updates. Held-out MSE shows whether that fit survives on examples that did not update the weights.</p></li>
         </ol>
+      </section>
+
+      <section class="mlp-activation-primer" aria-labelledby="mlp-activation-title">
+        <div class="mlp-activation-copy">
+          <p class="case-section-label">Linear vs nonlinear</p>
+          <h2 id="mlp-activation-title">Choosing the right activation shape.</h2>
+          <p>Quick reminder from the Build lesson: <code>z</code> is the neuron's <strong>pre-activation value</strong>, the weighted sum before the activation function runs. <code>a</code> is the <strong>activation</strong>, the value that leaves the neuron and becomes input for the next layer. The activation function is the rule that turns <code>z</code> into <code>a</code>.</p>
+          <div class="mlp-activation-figures" aria-label="Activation function shape comparison">
+            <figure class="is-primary">
+              <svg viewBox="0 0 220 150" role="img" aria-label="Linear activation as a straight diagonal line">
+                <path class="activation-axis" d="M28 124H198M44 132V18" />
+                <path class="activation-line linear" d="M44 118L184 28" />
+                <text x="188" y="138">z</text>
+                <text x="20" y="24">a</text>
+              </svg>
+              <figcaption><strong>Linear</strong> <span><code>a = z</code>; the activation equals the pre-activation.</span></figcaption>
+            </figure>
+            <figure class="is-primary">
+              <svg viewBox="0 0 220 150" role="img" aria-label="ReLU activation as a flat line followed by a rising diagonal">
+                <path class="activation-axis" d="M28 124H198M44 132V18" />
+                <path class="activation-line relu" d="M44 112H104L184 32" />
+                <circle cx="104" cy="112" r="4" />
+                <text x="188" y="138">z</text>
+                <text x="20" y="24">a</text>
+              </svg>
+              <figcaption><strong>ReLU</strong> <span><code>a = max(0, z)</code>; negative <code>z</code> sends out zero.</span></figcaption>
+            </figure>
+            <figure>
+              <svg viewBox="0 0 220 150" role="img" aria-label="Leaky ReLU activation as a shallow negative slope followed by a rising diagonal">
+                <path class="activation-axis" d="M28 124H198M44 132V18" />
+                <path class="activation-line leaky" d="M44 120L104 112L184 32" />
+                <circle cx="104" cy="112" r="4" />
+                <text x="188" y="138">z</text>
+                <text x="20" y="24">a</text>
+              </svg>
+              <figcaption><strong>Leaky ReLU</strong> <span>A related gate that lets a small negative signal through.</span></figcaption>
+            </figure>
+            <figure>
+              <svg viewBox="0 0 220 150" role="img" aria-label="Sigmoid activation as an S-shaped compression curve">
+                <path class="activation-axis" d="M28 124H198M44 132V18" />
+                <path class="activation-line sigmoid" d="M42 116C70 116 78 104 91 82C107 54 118 36 146 34C166 33 178 31 190 28" />
+                <text x="188" y="138">z</text>
+                <text x="20" y="24">a</text>
+              </svg>
+              <figcaption><strong>Sigmoid</strong> <span>An S-shaped compressor that squashes values into a narrow range.</span></figcaption>
+            </figure>
+            <figure>
+              <svg viewBox="0 0 220 150" role="img" aria-label="Tanh activation as an S-shaped curve centered around zero">
+                <path class="activation-axis" d="M28 124H198M44 132V18" />
+                <path class="activation-line tanh" d="M42 116C68 116 80 104 94 86C111 64 122 46 148 36C168 28 181 28 190 27" />
+                <text x="188" y="138">z</text>
+                <text x="20" y="24">a</text>
+              </svg>
+              <figcaption><strong>Tanh</strong> <span>Another compressor, centered so outputs can be negative or positive.</span></figcaption>
+            </figure>
+          </div>
+          <p>If the activation is linear, the neuron passes its weighted sum through unchanged. That is useful as a control because it keeps the same network wiring while asking a simpler question: what can the features explain if every signal is allowed to push the prediction by a steady amount?</p>
+          <p>A nonlinear activation changes that rule. ReLU, for example, creates a hard bend at zero: weak or negative pre-activation values send out nothing, while positive values pass forward. That bend gives a hidden neuron a way to act like a learned threshold. Audience affinity might not matter much until awareness is high enough; after that point, the same affinity signal can begin to matter a lot.</p>
+          <p>The other shapes are here to make the choice visible. Leaky ReLU keeps a small signal alive below zero. Sigmoid and tanh compress strong values into flatter ends, which can be useful when a signal should saturate instead of growing forever. In this lab, we mainly compare the blue straight line with the purple ReLU bend because that contrast shows the core tradeoff: steady addition versus a learned place where the model can turn.</p>
+        </div>
       </section>
 
       <section class="mlp-lab-panel" aria-labelledby="mlp-lab-title">
@@ -72,31 +145,65 @@
         <section class="mlp-mission" aria-labelledby="mlp-mission-title">
           <div><p class="case-section-label">Guided experiment</p><h3 id="mlp-mission-title">Can two weak signals become strong together?</h3><p>Audience affinity alone is not enough. Awareness alone is not enough. Predict what happens when both are high, then compare a linear network with ReLU.</p></div>
           <ol>
-            <li><button type="button" data-mission="neither">Both low</button></li>
+            <li><button type="button" data-mission="together">Both high</button></li>
             <li><button type="button" data-mission="affinity">High affinity only</button></li>
             <li><button type="button" data-mission="awareness">High awareness only</button></li>
-            <li><button type="button" data-mission="together">Both high</button></li>
+            <li><button type="button" data-mission="neither">Both low</button></li>
           </ol>
           <div class="mlp-mission-result"><span>Current experiment</span><strong id="mlp-mission-state">Start with a prediction.</strong><p id="mlp-mission-copy">Try all four examples in Linear mode, then repeat with ReLU.</p></div>
         </section>
+
+        <section class="mlp-challenges" aria-labelledby="mlp-challenges-title">
+          <div><p class="case-section-label">Challenge the network</p><h3 id="mlp-challenges-title">A precise number is not the same as a trustworthy answer.</h3><p>Load a recognizable title profile—or an extreme combination unlike the training examples. Predict first, then inspect the result.</p></div>
+          <div class="mlp-challenge-buttons">
+            <button type="button" data-preset="broad">Broad appeal</button>
+            <button type="button" data-preset="niche">Devoted niche</button>
+            <button type="button" data-preset="campaign">Big campaign, poor fit</button>
+            <button type="button" data-preset="sleeper">Quiet sleeper</button>
+            <button type="button" data-preset="contradictory">Contradictory signals</button>
+            <button type="button" data-preset="extreme">Out-of-distribution extreme</button>
+          </div>
+          <aside><span id="mlp-challenge-label">No preset selected</span><strong id="mlp-trust-state">Inside the familiar range</strong><p id="mlp-trust-copy">The current feature mix resembles the examples used to train this teaching model.</p></aside>
+        </section>
+
+        <div class="mlp-metric-strip" aria-label="Current prediction metrics">
+          <div class="prediction-card"><span>Predicted completion ŷ (y-hat)</span><strong id="mlp-prediction">0%</strong></div>
+          <div class="mlp-stat-grid">
+            <article><span>Actual target y</span><strong id="mlp-target">0%</strong></article>
+            <article><span>Residual</span><strong id="mlp-residual">0</strong></article>
+            <article><span>Squared error</span><strong id="mlp-loss">0</strong></article>
+            <article><span>Epoch</span><strong id="mlp-epoch">0</strong></article>
+            <article><span>Parameters</span><strong id="mlp-parameters">33</strong></article>
+            <article><span>Held-out MSE</span><strong id="mlp-heldout">0</strong></article>
+          </div>
+        </div>
 
         <div class="mlp-lab-grid">
           <div class="mlp-stage">
             <div class="mlp-stage-header"><div><p class="case-section-label">Signal flow</p><h3>Inputs → hidden layer → prediction</h3></div><button id="mlp-forward" type="button">Run forward pass</button></div>
             <svg id="mlp-network" viewBox="0 0 760 520" role="img" aria-label="Six inputs connected to hidden neurons and one completion prediction"></svg>
             <div class="mlp-legend"><span><i class="positive"></i>Positive weight</span><span><i class="negative"></i>Negative weight</span><span>Thicker = stronger</span></div>
+            <div class="mlp-symbol-key">
+              <span>Symbol key</span>
+              <dl>
+                <div><dt>ŷ</dt><dd>prediction</dd></div>
+                <div><dt>y</dt><dd>known target</dd></div>
+                <div><dt>SE</dt><dd>one squared error</dd></div>
+                <div><dt>MSE</dt><dd>average squared error</dd></div>
+                <div><dt>η</dt><dd>learning rate</dd></div>
+              </dl>
+            </div>
+            <div class="mlp-feature-controls" id="mlp-features"></div>
+            <div class="mlp-capacity-controls">
+              <fieldset aria-labelledby="mlp-hidden-title"><span class="mlp-slider-title" id="mlp-hidden-title">Hidden neurons</span><input id="mlp-hidden-count" type="range" min="1" max="6" value="4" /><label for="mlp-hidden-count"><strong><span id="mlp-hidden-output">4</span> neurons</strong><span>More capacity can learn more detail.</span></label></fieldset>
+              <fieldset aria-labelledby="mlp-rate-title"><span class="mlp-slider-title" id="mlp-rate-title">Learning rate</span><input id="mlp-rate" type="range" min="1" max="10" value="3" /><label for="mlp-rate"><strong><span id="mlp-rate-output">0.03</span> η (eta)</strong><span>Step size for each weight update.</span></label></fieldset>
+            </div>
           </div>
 
           <aside class="mlp-readout">
-            <p class="case-section-label">Live prediction</p>
-            <div class="prediction-card"><span>Predicted completion ŷ (y-hat)</span><strong id="mlp-prediction">0%</strong></div>
-            <div class="mlp-stat-grid">
-              <article><span>Actual target y</span><strong id="mlp-target">0%</strong></article>
-              <article><span>Residual</span><strong id="mlp-residual">0</strong></article>
-              <article><span>MSE</span><strong id="mlp-loss">0</strong></article>
-              <article><span>Epoch</span><strong id="mlp-epoch">0</strong></article>
-              <article><span>Parameters</span><strong id="mlp-parameters">33</strong></article>
-              <article><span>Held-out MSE</span><strong id="mlp-heldout">0</strong></article>
+            <div class="mlp-model-controls">
+              <fieldset><legend>Activation function</legend><div class="segmented mlp-activation"><button class="is-selected" data-activation="linear">Linear</button><button data-activation="relu">ReLU</button></div><p>Linear is the control: no bend after <code>z</code>. ReLU uses <code>max(0, z)</code>, giving hidden neurons a nonlinear gate.</p></fieldset>
+              <fieldset class="mlp-training-actions"><legend>Training controls</legend><button id="mlp-step" type="button">Start one-example training</button><button id="mlp-epoch-button" type="button">Train one epoch</button><button id="mlp-reset" type="button">Reset</button></fieldset>
             </div>
             <div class="mlp-coach">
               <span>Applied readout</span>
@@ -117,34 +224,12 @@
           </aside>
         </div>
 
-        <section class="mlp-challenges" aria-labelledby="mlp-challenges-title">
-          <div><p class="case-section-label">Challenge the network</p><h3 id="mlp-challenges-title">A precise number is not the same as a trustworthy answer.</h3><p>Load a recognizable title profile—or an extreme combination unlike the training examples. Predict first, then inspect the result.</p></div>
-          <div class="mlp-challenge-buttons">
-            <button type="button" data-preset="broad">Broad appeal</button>
-            <button type="button" data-preset="niche">Devoted niche</button>
-            <button type="button" data-preset="campaign">Big campaign, poor fit</button>
-            <button type="button" data-preset="sleeper">Quiet sleeper</button>
-            <button type="button" data-preset="contradictory">Contradictory signals</button>
-            <button type="button" data-preset="extreme">Out-of-distribution extreme</button>
-          </div>
-          <aside><span id="mlp-challenge-label">No preset selected</span><strong id="mlp-trust-state">Inside the familiar range</strong><p id="mlp-trust-copy">The current feature mix resembles the examples used to train this teaching model.</p></aside>
-        </section>
-
-        <div class="mlp-feature-controls" id="mlp-features"></div>
-
-        <div class="mlp-model-controls">
-          <fieldset><legend>Activation function</legend><div class="segmented mlp-activation"><button data-activation="linear">Linear</button><button class="is-selected" data-activation="relu">ReLU</button></div><p>Without a nonlinear activation, stacked layers still collapse into one linear rule.</p></fieldset>
-          <fieldset><legend>Hidden neurons</legend><input id="mlp-hidden-count" type="range" min="1" max="6" value="4" /><label for="mlp-hidden-count"><strong><span id="mlp-hidden-output">4</span> neurons</strong><span>More capacity can learn more detail.</span></label></fieldset>
-          <fieldset><legend>Learning rate</legend><input id="mlp-rate" type="range" min="1" max="10" value="3" /><label for="mlp-rate"><strong><span id="mlp-rate-output">0.03</span> η (eta)</strong><span>Step size for each weight update.</span></label></fieldset>
-          <fieldset class="mlp-training-actions"><legend>Training controls</legend><button id="mlp-step" type="button">Start one-example training</button><button id="mlp-epoch-button" type="button">Train one epoch</button><button id="mlp-reset" type="button">Reset</button></fieldset>
-        </div>
-
         <section class="mlp-training-trace" aria-labelledby="mlp-trace-title">
-          <div><p class="case-section-label">One training example, slowed down</p><h3 id="mlp-trace-title">Backpropagation moves responsibility backward—not the network itself.</h3></div>
+          <div><p class="case-section-label">One training example, slowed down</p><h3 id="mlp-trace-title">Backpropagation computes gradients; the update changes parameters.</h3></div>
           <ol>
             <li id="mlp-trace-forward"><span>01</span><strong>Forward pass</strong><p>Calculate the current prediction.</p></li>
             <li id="mlp-trace-loss"><span>02</span><strong>Measure loss</strong><p>Compare prediction with target.</p></li>
-            <li id="mlp-trace-backward"><span>03</span><strong>Backpropagate</strong><p>Calculate each parameter’s responsibility.</p></li>
+            <li id="mlp-trace-backward"><span>03</span><strong>Backpropagate</strong><p>Calculate a gradient for each parameter.</p></li>
             <li id="mlp-trace-apply"><span>04</span><strong>Apply update</strong><p>Replace old parameters with adjusted values.</p></li>
           </ol>
           <div class="mlp-update-equation"><span>Selected connection update</span><strong id="mlp-update-math">Choose “Start one-example training.”</strong><p id="mlp-update-copy">The selected equation will show old weight − η (eta) × gradient = new weight.</p></div>
@@ -153,7 +238,7 @@
         <aside class="watch-panel mlp-watch"><p class="case-section-label">What to watch</p><ul><li>Toggle Linear and ReLU. Nonlinearity lets hidden neurons create conditional interactions.</li><li>Click a hidden neuron to inspect its weighted sum before and after activation.</li><li>Train one example to see a single correction; train an epoch to update across the full dataset.</li><li>More capacity lowers training loss, but held-out loss may stop improving first.</li></ul></aside>
 
         <section class="mechanics-section" aria-labelledby="mlp-mechanics-title">
-          <div class="mechanics-heading"><p class="case-section-label">How it is built</p><h2 id="mlp-mechanics-title">Combine. Activate. Learn backward.</h2><p>The lab uses one hidden layer and squared-error loss. Every visible prediction comes from these operations.</p></div>
+          <div class="mechanics-heading"><p class="case-section-label">How it is built</p><h2 id="mlp-mechanics-title">Combine. Activate. Update.</h2><p>The lab uses one hidden layer, squared error for a single selected profile, and Mean Squared Error (MSE) for training and held-out sets. Every visible prediction comes from these operations.</p></div>
           <div class="equation-grid">
             <article class="equation-card"><span>01 · Combine the inputs</span><div class="equation equation-compact">z = Σ(w<sub>i</sub>x<sub>i</sub>) + b</div><p><code>Σ</code> (“capital sigma”) means add the terms. <code>w<sub>i</sub></code> (“w sub i”) is a weight, <code>x<sub>i</sub></code> is input <code>i</code>, and <code>b</code> is the bias.</p></article>
             <article class="equation-card"><span>02 · Apply an activation</span><div class="equation equation-compact">a = ReLU(z) = max(0, z)</div><p><code>a</code> is the neuron’s activation. ReLU (Rectified Linear Unit) keeps positive values and turns negative values into zero.</p></article>
@@ -169,7 +254,7 @@
             <div><dt>Weight</dt><dd>A learned multiplier controlling the strength and direction of a connection.</dd></div>
             <div><dt>Bias</dt><dd>A learned offset that lets a neuron shift when it becomes active.</dd></div>
             <div><dt>Forward pass</dt><dd>Calculating activations from the inputs through to the prediction.</dd></div>
-            <div><dt>Backpropagation</dt><dd>Efficiently assigning loss responsibility backward through the network.</dd></div>
+            <div><dt>Backpropagation</dt><dd>The efficient backward pass that calculates gradients for the parameters.</dd></div>
             <div><dt>Gradient</dt><dd>The direction and sensitivity of change in the loss.</dd></div>
             <div><dt>Epoch</dt><dd>One training pass through every example in the training set.</dd></div>
             <div><dt>Hyperparameter</dt><dd>A setting chosen outside training, such as learning rate or hidden-neuron count.</dd></div>
