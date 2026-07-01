@@ -8,9 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../../../../styles.css?v=46" />
+    <link rel="stylesheet" href="../../../../styles.css?v=47" />
     <script src="../../../../script.js" defer></script>
-    <script src="../classifier-draft.js?v=1" defer></script>
+    <script src="logistic-regression.js?v=1" defer></script>
   </head>
   <body class="note-page">
     <header class="site-header">
@@ -32,29 +32,93 @@
         <article><span>02</span><h2>Squeeze to probability</h2><p>The sigmoid function turns <code>z</code> into <code>p</code>, a number between 0 and 1.</p></article>
         <article><span>03</span><h2>Choose a threshold</h2><p>Predict the positive class when the probability crosses the decision threshold.</p></article>
       </section>
-      <section class="classifier-draft-lab" data-classifier-demo aria-labelledby="logistic-lab-title">
-        <div class="classifier-draft-copy">
-          <p class="case-section-label">Draft lab | Message review</p>
-          <h2 id="logistic-lab-title">A linear score becomes a probability.</h2>
-          <p>Try each case as if the model is deciding whether a message should be sent to human review. The features could include flagged words, sender history, link risk, and user reports. Logistic regression gives each feature a learned weight, adds a learned bias offset, and produces one score. The sigmoid curve then makes that score readable as probability, so the model can support thresholds instead of only yes/no labels.</p>
-          <div class="classifier-scenario-buttons">
-            <button type="button" class="is-selected" data-demo-title="Clear review case" data-demo-prediction="Review · p = 0.94" data-demo-trust="Trust: high, if calibration holds" data-demo-copy="The score is far above the threshold, so small feature changes are unlikely to flip the class. The probability is useful only if similar examples were represented in training." data-demo-state="probability">High-risk message</button>
-            <button type="button" data-demo-title="Near the threshold" data-demo-prediction="Review · p = 0.53" data-demo-trust="Trust: fragile" data-demo-copy="The class label says review, but the probability is close to the cutoff. This is where threshold choice matters more than the word “positive.”" data-demo-state="probability">Borderline promo</button>
-            <button type="button" data-demo-title="Low-risk message" data-demo-prediction="No review · p = 0.08" data-demo-trust="Trust: high for familiar traffic" data-demo-copy="The score is far below the threshold. The model is not finding enough weighted evidence for the review class." data-demo-state="probability">Routine message</button>
-            <button type="button" data-demo-title="Unfamiliar pattern" data-demo-prediction="No review · p = 0.41" data-demo-trust="Trust: inspect recent data" data-demo-copy="A probability can look precise even when the message is unlike the training examples. Calibration should be checked on held-out examples and recent traffic before treating 0.41 as stable." data-demo-state="probability">New scam style</button>
-          </div>
+      <section class="classifier-production-lab logistic-lab" aria-labelledby="logistic-lab-title">
+        <div class="classifier-lab-heading">
+          <p class="case-section-label">Interactive lab | Message review</p>
+          <h2 id="logistic-lab-title">Move the evidence, then move the cutoff.</h2>
+          <p>Logistic regression gives each feature a learned weight, adds a learned bias offset, and produces one score <code>z</code>. The sigmoid curve turns that score into probability <code>p</code>. The threshold turns probability into an action.</p>
         </div>
-        <div class="classifier-draft-stage">
-          <div><p class="case-section-label">Model readout</p><h3 data-demo-title-output>Clear review case</h3></div>
-          <div class="classifier-visual" data-demo-visual data-state="probability"></div>
-          <div class="classifier-draft-readout">
-            <article><span>Prediction</span><strong data-demo-prediction-output>Review · p = 0.94</strong></article>
-            <article><span>Trust cue</span><strong data-demo-trust-output>Trust: high</strong></article>
-            <article><span>Mechanism</span><strong>sigmoid(z)</strong></article>
+
+        <div class="classifier-lab-grid">
+          <div class="classifier-lab-stage">
+            <div class="classifier-stage-header">
+              <div>
+                <p class="case-section-label">Sigmoid readout</p>
+                <h3>Linear evidence → probability</h3>
+              </div>
+              <button id="logistic-reset" type="button">Reset</button>
+            </div>
+            <svg id="logistic-chart" viewBox="0 0 720 430" role="img" aria-label="Sigmoid probability curve with current score and decision threshold"></svg>
+            <div class="classifier-symbol-key">
+              <span>Symbol key</span>
+              <dl>
+                <div><dt>z</dt><dd>linear score</dd></div>
+                <div><dt>p</dt><dd>probability</dd></div>
+                <div><dt>t</dt><dd>threshold</dd></div>
+                <div><dt>ŷ</dt><dd>predicted class</dd></div>
+              </dl>
+            </div>
           </div>
-          <p class="classifier-demo-note" data-demo-copy-output>The score is far above the threshold, so small feature changes are unlikely to flip the class.</p>
+
+          <aside class="classifier-lab-readout">
+            <div class="classifier-primary-metric">
+              <span>Predicted action ŷ (y-hat)</span>
+              <strong id="logistic-decision">Review</strong>
+            </div>
+            <div class="classifier-metric-grid">
+              <article><span>Probability p</span><strong id="logistic-probability">0%</strong></article>
+              <article><span>Linear score z</span><strong id="logistic-score">0.00</strong></article>
+              <article><span>Threshold t</span><strong id="logistic-threshold-readout">0.50</strong></article>
+              <article><span>Margin from cutoff</span><strong id="logistic-margin">0.00</strong></article>
+            </div>
+            <div class="classifier-trust-card">
+              <span>Trust check</span>
+              <strong id="logistic-trust-title">Clear review case</strong>
+              <p id="logistic-trust-copy">The probability is far from the threshold. The class is stable if this case resembles held-out examples.</p>
+            </div>
+          </aside>
         </div>
-        <aside class="watch-panel classifier-draft-watch"><p class="case-section-label">What to watch</p><ul><li>The boundary is still straight.</li><li>The score can become a probability instead of only a side.</li><li>The threshold turns probability into action.</li><li>Calibration asks whether probabilities match real frequencies.</li></ul></aside>
+
+        <div class="classifier-controls-panel">
+          <section>
+            <p class="case-section-label">Load a case</p>
+            <div class="classifier-preset-grid">
+              <button type="button" data-logistic-preset="highRisk">High-risk message</button>
+              <button type="button" data-logistic-preset="borderline">Borderline promo</button>
+              <button type="button" data-logistic-preset="routine">Routine message</button>
+              <button type="button" data-logistic-preset="novel">New scam style</button>
+            </div>
+          </section>
+          <section>
+            <p class="case-section-label">Set the review threshold</p>
+            <label class="classifier-slider">
+              <span>Threshold <strong id="logistic-threshold-label">0.50</strong></span>
+              <input id="logistic-threshold" type="range" min="10" max="90" value="50" />
+            </label>
+          </section>
+        </div>
+
+        <div class="classifier-feature-panel">
+          <label class="classifier-slider">
+            <span>Flagged-word signal <strong id="logistic-flagged-value">84</strong></span>
+            <input data-logistic-feature="flagged" type="range" min="0" max="100" value="84" />
+          </label>
+          <label class="classifier-slider">
+            <span>Sender risk <strong id="logistic-sender-value">72</strong></span>
+            <input data-logistic-feature="sender" type="range" min="0" max="100" value="72" />
+          </label>
+          <label class="classifier-slider">
+            <span>Link risk <strong id="logistic-link-value">88</strong></span>
+            <input data-logistic-feature="link" type="range" min="0" max="100" value="88" />
+          </label>
+          <label class="classifier-slider">
+            <span>User reports <strong id="logistic-reports-value">66</strong></span>
+            <input data-logistic-feature="reports" type="range" min="0" max="100" value="66" />
+          </label>
+        </div>
+
+        <aside class="watch-panel classifier-production-watch"><p class="case-section-label">What to watch</p><ul><li>Raising weighted evidence moves <code>z</code> to the right on the sigmoid curve.</li><li>The sigmoid converts that score into probability, but the curve flattens near 0 and 1.</li><li>The threshold controls the action. It does not retrain the model.</li><li>Trust comes from calibration on held-out or recent examples, not from a clean probability display.</li></ul></aside>
+
         <section class="mechanics-section">
           <div class="mechanics-heading"><p class="case-section-label">How it is built</p><h2>Logistic regression scores, squashes, and thresholds.</h2><p>The model is linear until the final probability conversion. Training usually minimizes log loss, which strongly penalizes confident wrong probabilities.</p></div>
           <div class="equation-grid">

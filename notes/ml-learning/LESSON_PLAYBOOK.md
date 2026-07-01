@@ -98,6 +98,16 @@ prompts from the current work as the critique lens: remove vague polish, add the
 mechanism that makes the model useful, clarify what evidence earns trust, and
 keep broad rewrites for sections that are actively confusing.
 
+### Classifier Lab Treatment
+
+Classifier pages may start with a shared stub interaction, but a production pass
+should replace placeholder visuals with a model-specific instrument. The lab
+should compute the state it displays: probabilities from scores, votes from
+neighbors, likelihood comparisons, split paths, margins, ensemble votes, or
+hidden-layer class scores. Avoid decorative shapes that merely imply a boundary
+or region. If a visual is simplified, say what it represents and keep the
+readouts tied to the actual lesson mechanism.
+
 ## Standard lesson shape
 
 1. Problem opener

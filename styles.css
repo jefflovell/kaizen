@@ -1469,6 +1469,361 @@ h1 {
   color: #fff;
 }
 
+.classifier-production-lab {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto 110px;
+  padding-top: 80px;
+  border-top: 1px solid var(--line);
+}
+
+.classifier-lab-heading {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 36px 48px;
+  align-items: end;
+  margin-bottom: 28px;
+}
+
+.classifier-lab-heading .case-section-label {
+  grid-column: 1 / -1;
+  margin-bottom: -18px;
+}
+
+.classifier-lab-heading h2 {
+  margin: 0;
+  font-size: clamp(2.35rem, 4.2vw, 4.4rem);
+  letter-spacing: -0.055em;
+  line-height: 0.96;
+}
+
+.classifier-lab-heading p:last-child {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.06rem;
+}
+
+.classifier-lab-heading code,
+.classifier-production-watch code {
+  padding: 1px 4px;
+  background: rgba(49, 85, 245, 0.08);
+  color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.classifier-lab-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(300px, 0.82fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.classifier-lab-grid > * {
+  min-width: 0;
+}
+
+.classifier-lab-stage,
+.classifier-lab-readout {
+  border: 2px solid var(--ink);
+}
+
+.classifier-lab-stage {
+  padding: 24px;
+  background: #07101f;
+  color: #fff;
+  box-shadow: 10px 10px 0 #a670ff;
+}
+
+.classifier-stage-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 12px;
+}
+
+.classifier-stage-header .case-section-label {
+  color: #9deeff;
+}
+
+.classifier-stage-header h3 {
+  margin: 6px 0 0;
+  font-size: clamp(1.45rem, 2.4vw, 2rem);
+  line-height: 1.02;
+}
+
+.classifier-stage-header button {
+  padding: 12px 16px;
+  border: 2px solid #fff;
+  background: var(--blue);
+  color: #fff;
+  font: 800 0.82rem var(--body);
+  cursor: pointer;
+}
+
+#logistic-chart {
+  display: block;
+  width: 100%;
+  min-height: 380px;
+}
+
+.classifier-axis,
+.classifier-gridline {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.5);
+  stroke-width: 2;
+}
+
+.classifier-gridline {
+  stroke: rgba(255, 255, 255, 0.14);
+}
+
+.logistic-curve {
+  fill: none;
+  stroke: #9deeff;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 10px rgba(157, 238, 255, 0.24));
+}
+
+.logistic-threshold-line {
+  fill: none;
+  stroke: #ffd45c;
+  stroke-width: 4;
+  stroke-dasharray: 10 8;
+}
+
+.logistic-score-line {
+  fill: none;
+  stroke: #ff755f;
+  stroke-width: 4;
+}
+
+.logistic-point {
+  fill: #ff755f;
+  stroke: #fff;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 10px rgba(255, 117, 95, 0.5));
+}
+
+.classifier-axis-label,
+.classifier-chart-label,
+.classifier-tick {
+  fill: rgba(255, 255, 255, 0.72);
+  font: 800 12px var(--body);
+}
+
+.classifier-axis-label {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.classifier-axis-y {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: rotate(-90deg);
+}
+
+.classifier-chart-label {
+  fill: #fff;
+  font-size: 15px;
+}
+
+.classifier-chart-label.threshold {
+  fill: #ffd45c;
+}
+
+.classifier-tick {
+  fill: rgba(255, 255, 255, 0.52);
+  font-size: 11px;
+  text-anchor: middle;
+}
+
+.classifier-symbol-key {
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid rgba(157, 238, 255, 0.32);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.classifier-symbol-key > span {
+  display: block;
+  color: #9deeff;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.classifier-symbol-key dl {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 10px 0 0;
+}
+
+.classifier-symbol-key div {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.classifier-symbol-key dt {
+  color: #fff;
+  font: 800 1rem var(--display);
+}
+
+.classifier-symbol-key dd {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 0.78rem;
+}
+
+.classifier-lab-readout {
+  display: grid;
+  gap: 14px;
+  padding: 22px;
+  background: #fff;
+  box-shadow: 10px 10px 0 #9deeff;
+}
+
+.classifier-primary-metric {
+  padding: 20px;
+  border: 2px solid var(--ink);
+  background:
+    linear-gradient(135deg, rgba(75, 243, 255, 0.18), rgba(166, 112, 255, 0.2)),
+    #fff;
+}
+
+.classifier-primary-metric span,
+.classifier-metric-grid span,
+.classifier-trust-card span {
+  display: block;
+  color: var(--blue);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.classifier-primary-metric strong {
+  display: block;
+  margin-top: 8px;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+}
+
+.classifier-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.classifier-metric-grid article {
+  padding: 16px;
+  border: 1px solid rgba(18, 24, 43, 0.22);
+  background: rgba(247, 246, 241, 0.72);
+}
+
+.classifier-metric-grid strong {
+  display: block;
+  margin-top: 8px;
+  font: 800 1.45rem var(--display);
+}
+
+.classifier-trust-card {
+  padding: 18px;
+  background: #07101f;
+  color: #fff;
+}
+
+.classifier-trust-card span {
+  color: #ffd45c;
+}
+
+.classifier-trust-card strong {
+  display: block;
+  margin: 8px 0;
+  font-size: 1.2rem;
+}
+
+.classifier-trust-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.92rem;
+}
+
+.classifier-controls-panel {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.classifier-controls-panel section,
+.classifier-feature-panel {
+  padding: 20px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  box-shadow: 8px 8px 0 rgba(166, 112, 255, 0.22);
+}
+
+.classifier-preset-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.classifier-preset-grid button {
+  min-height: 58px;
+  padding: 10px 12px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  color: var(--ink);
+  font: 800 0.78rem var(--body);
+  cursor: pointer;
+}
+
+.classifier-preset-grid button.is-selected {
+  background: var(--blue);
+  color: #fff;
+}
+
+.classifier-feature-panel {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+  box-shadow: 8px 8px 0 rgba(255, 117, 95, 0.22);
+}
+
+.classifier-slider {
+  display: block;
+}
+
+.classifier-slider span {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.classifier-slider strong {
+  color: var(--blue);
+}
+
+.classifier-slider input[type="range"] {
+  width: 100%;
+  margin-top: 14px;
+  accent-color: var(--blue);
+}
+
+.classifier-production-watch {
+  margin-top: 28px;
+}
+
 .tree-lab-panel {
   width: min(1200px, calc(100% - 48px));
   margin: 0 auto 110px;
@@ -4267,6 +4622,13 @@ h1 {
     grid-template-columns: 1fr;
   }
 
+  .classifier-lab-heading,
+  .classifier-lab-grid,
+  .classifier-controls-panel,
+  .classifier-feature-panel {
+    grid-template-columns: 1fr;
+  }
+
   .tree-lab-heading,
   .tree-lab-grid,
   .knn-lab-heading,
@@ -4320,6 +4682,9 @@ h1 {
 
   .classifier-scenario-buttons,
   .classifier-draft-readout,
+  .classifier-symbol-key dl,
+  .classifier-preset-grid,
+  .classifier-metric-grid,
   .classifier-next-nav {
     grid-template-columns: 1fr;
   }
@@ -4356,6 +4721,7 @@ h1 {
   .algo-grid,
   .lab-panel,
   .classifier-draft-lab,
+  .classifier-production-lab,
   .classifier-next-nav,
   .tree-lab-panel,
   .knn-lab-panel,
