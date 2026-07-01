@@ -1639,6 +1639,70 @@ h1 {
   filter: drop-shadow(0 0 10px rgba(49, 85, 245, 0.55));
 }
 
+.bayes-scoreboard {
+  display: grid;
+  gap: 14px;
+}
+
+.bayes-scoreboard article,
+.bayes-evidence-list article {
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.bayes-scoreboard span,
+.bayes-evidence-list span {
+  display: block;
+  color: #9deeff;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.bayes-scoreboard strong {
+  display: block;
+  margin: 7px 0 10px;
+  color: #fff;
+  font: 800 1.8rem var(--display);
+}
+
+.bayes-scoreboard i,
+.bayes-evidence-list i {
+  display: block;
+  height: 12px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.bayes-scoreboard b,
+.bayes-evidence-list b {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: #ff755f;
+  transition: width 180ms ease;
+}
+
+.bayes-scoreboard article:nth-child(2) b,
+.bayes-evidence-list .ham b {
+  background: #9deeff;
+}
+
+.bayes-evidence-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.bayes-evidence-list strong {
+  display: block;
+  margin: 5px 0 10px;
+  color: #fff;
+  font-size: 0.92rem;
+}
+
 .classifier-axis-label,
 .classifier-chart-label,
 .classifier-tick {
@@ -4718,6 +4782,7 @@ h1 {
   .classifier-symbol-key dl,
   .classifier-preset-grid,
   .classifier-metric-grid,
+  .bayes-evidence-list,
   .classifier-next-nav {
     grid-template-columns: 1fr;
   }

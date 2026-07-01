@@ -1,16 +1,96 @@
 <!doctype html>
 <html lang="en">
-  <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="A first-draft lesson on Naive Bayes classification: priors, likelihoods, posterior scores, and the independence assumption." /><title>Naive Bayes Classification | Kaizen</title><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" /><link rel="stylesheet" href="../../../../styles.css?v=46" /><script src="../../../../script.js" defer></script><script src="../classifier-draft.js?v=1" defer></script></head>
+  <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="A lesson on Naive Bayes classification: priors, likelihoods, posterior scores, and the independence assumption." /><title>Naive Bayes Classification | Kaizen</title><link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" /><link rel="stylesheet" href="../../../../styles.css?v=47" /><script src="../../../../script.js" defer></script><script src="naive-bayes-classification.js?v=1" defer></script></head>
   <body class="note-page">
     <header class="site-header"><a class="brand" href="../../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="sr-only">Toggle navigation</span><span></span><span></span></button><nav id="site-nav" class="site-nav" aria-label="Main navigation"><a href="../../../../#about">About</a><a href="../../../">Notes</a><a href="../../../../#work">Work</a><a href="../../../../#contact">Contact</a></nav></header>
     <main>
       <section class="note-hero"><div class="note-kicker"><a href="../classification/">← Classification</a><span>/</span><span>Classifier family</span></div><div class="note-title"><h1>Naive Bayes Classification</h1><p class="key-idea">Compare which class best explains the evidence by multiplying simple likelihoods.</p></div></section>
       <section class="supervised-overview"><p>Naive Bayes is fast because it makes a bold simplification. It estimates how often each feature appears in each class, then combines those feature likelihoods as if the features were independent once the class is known. That independence assumption is the “naive” part.</p><p>The simplification is often wrong in the literal world and still useful in the modeling world. Words in an email are not truly independent, but a spam filter can still learn that certain words, senders, and link patterns are much easier to explain under “spam” than under “not spam.” The model earns trust when those likelihood estimates come from enough representative examples.</p></section>
       <section class="learning-loop"><article><span>01</span><h2>Start with priors</h2><p>Estimate how common each class is before reading the features.</p></article><article><span>02</span><h2>Add likelihoods</h2><p>Ask how likely each feature is under each possible class.</p></article><article><span>03</span><h2>Compare classes</h2><p>Choose the class with the strongest combined evidence.</p></article></section>
-      <section class="classifier-draft-lab" data-classifier-demo>
-        <div class="classifier-draft-copy"><p class="case-section-label">Draft lab | Inbox triage</p><h2>Evidence stacks up class by class.</h2><p>A Naive Bayes spam filter does not understand a message the way a person does. It counts evidence. “Invoice,” “unsubscribe,” sender reputation, and link domain each contribute likelihood under spam and not-spam. The model then compares class scores. It is asking which label makes the observed evidence less surprising.</p><div class="classifier-scenario-buttons"><button type="button" class="is-selected" data-demo-title="Evidence points one way" data-demo-prediction="Spam · strong likelihood" data-demo-trust="Trust: strong familiar evidence" data-demo-copy="Several features are common in spam and uncommon in regular mail, so the combined score separates cleanly." data-demo-state="likelihood">Prize link</button><button type="button" data-demo-title="Ordinary business mail" data-demo-prediction="Not spam · strong likelihood" data-demo-trust="Trust: strong familiar evidence" data-demo-copy="The message uses common business terms without the features that usually push the spam score up." data-demo-state="likelihood">Invoice from vendor</button><button type="button" data-demo-title="Correlated clues" data-demo-prediction="Spam · maybe overcounted" data-demo-trust="Trust: inspect assumption" data-demo-copy="If multiple features are really the same underlying signal, the naive independence assumption can count that signal too many times." data-demo-state="likelihood">Repeated promo clues</button><button type="button" data-demo-title="Rare new phrase" data-demo-prediction="Not spam · sparse evidence" data-demo-trust="Trust: weak history" data-demo-copy="A feature the model has barely seen can make the likelihood estimate shaky. Smoothing prevents impossible zero scores, but it cannot invent real history." data-demo-state="likelihood">New slang scam</button></div></div>
-        <div class="classifier-draft-stage"><div><p class="case-section-label">Model readout</p><h3 data-demo-title-output></h3></div><div class="classifier-visual" data-demo-visual data-state="likelihood"></div><div class="classifier-draft-readout"><article><span>Prediction</span><strong data-demo-prediction-output></strong></article><article><span>Trust cue</span><strong data-demo-trust-output></strong></article><article><span>Mechanism</span><strong>class likelihood</strong></article></div><p class="classifier-demo-note" data-demo-copy-output></p></div>
-        <aside class="watch-panel classifier-draft-watch"><p class="case-section-label">What to watch</p><ul><li>Priors matter when evidence is weak.</li><li>Likelihoods are estimated separately for each class.</li><li>The independence assumption makes the math cheap.</li><li>Correlated features can make confidence too loud.</li></ul></aside>
+      <section class="classifier-production-lab bayes-lab" aria-labelledby="bayes-lab-title">
+        <div class="classifier-lab-heading">
+          <p class="case-section-label">Interactive lab | Inbox triage</p>
+          <h2 id="bayes-lab-title">Which class makes the evidence less surprising?</h2>
+          <p>Naive Bayes starts with a prior for each class, then multiplies feature likelihoods. In the lab we use log scores so the evidence can be shown as additive bars instead of tiny multiplied decimals.</p>
+        </div>
+
+        <div class="classifier-lab-grid">
+          <div class="classifier-lab-stage">
+            <div class="classifier-stage-header">
+              <div><p class="case-section-label">Class evidence</p><h3>Spam score vs. not-spam score</h3></div>
+              <button id="bayes-reset" type="button">Reset</button>
+            </div>
+            <div class="bayes-scoreboard" aria-label="Naive Bayes class score comparison">
+              <article>
+                <span>Spam explanation</span>
+                <strong id="bayes-spam-score">0.00</strong>
+                <i><b id="bayes-spam-bar"></b></i>
+              </article>
+              <article>
+                <span>Not-spam explanation</span>
+                <strong id="bayes-ham-score">0.00</strong>
+                <i><b id="bayes-ham-bar"></b></i>
+              </article>
+            </div>
+            <div id="bayes-evidence-list" class="bayes-evidence-list"></div>
+            <div class="classifier-symbol-key">
+              <span>Symbol key</span>
+              <dl>
+                <div><dt>P(y)</dt><dd>class prior</dd></div>
+                <div><dt>P(xᵢ|y)</dt><dd>likelihood</dd></div>
+                <div><dt>Π</dt><dd>multiply</dd></div>
+                <div><dt>ŷ</dt><dd>best class</dd></div>
+              </dl>
+            </div>
+          </div>
+
+          <aside class="classifier-lab-readout">
+            <div class="classifier-primary-metric">
+              <span>Predicted class ŷ (y-hat)</span>
+              <strong id="bayes-decision">Spam</strong>
+            </div>
+            <div class="classifier-metric-grid">
+              <article><span>Spam posterior</span><strong id="bayes-probability">0%</strong></article>
+              <article><span>Score gap</span><strong id="bayes-gap">0.00</strong></article>
+              <article><span>Spam prior</span><strong id="bayes-spam-prior">0.35</strong></article>
+              <article><span>Evidence count</span><strong id="bayes-evidence-count">4</strong></article>
+            </div>
+            <div class="classifier-trust-card">
+              <span>Trust check</span>
+              <strong id="bayes-trust-title">Familiar evidence</strong>
+              <p id="bayes-trust-copy">The features point in the same direction and are common enough to estimate.</p>
+            </div>
+          </aside>
+        </div>
+
+        <div class="classifier-controls-panel">
+          <section>
+            <p class="case-section-label">Load a message</p>
+            <div class="classifier-preset-grid">
+              <button type="button" data-bayes-preset="prize">Prize link</button>
+              <button type="button" data-bayes-preset="vendor">Vendor invoice</button>
+              <button type="button" data-bayes-preset="correlated">Repeated promo clues</button>
+              <button type="button" data-bayes-preset="rare">Rare new phrase</button>
+            </div>
+          </section>
+          <section>
+            <p class="case-section-label">Class base rate</p>
+            <label class="classifier-slider">
+              <span>Spam prior <strong id="bayes-prior-label">0.35</strong></span>
+              <input id="bayes-prior" type="range" min="5" max="80" value="35" />
+            </label>
+          </section>
+        </div>
+
+        <div class="classifier-feature-panel">
+          <label class="classifier-slider"><span>Prize language <strong id="bayes-prize-value">88</strong></span><input data-bayes-feature="prize" type="range" min="0" max="100" value="88" /></label>
+          <label class="classifier-slider"><span>Known sender <strong id="bayes-sender-value">18</strong></span><input data-bayes-feature="sender" type="range" min="0" max="100" value="18" /></label>
+          <label class="classifier-slider"><span>Risky link <strong id="bayes-link-value">84</strong></span><input data-bayes-feature="link" type="range" min="0" max="100" value="84" /></label>
+          <label class="classifier-slider"><span>Business terms <strong id="bayes-business-value">14</strong></span><input data-bayes-feature="business" type="range" min="0" max="100" value="14" /></label>
+        </div>
+
+        <aside class="watch-panel classifier-production-watch"><p class="case-section-label">What to watch</p><ul><li>Priors matter most when the feature evidence is weak.</li><li>Likelihoods are estimated separately for spam and not-spam.</li><li>The independence assumption can overcount correlated clues.</li><li>Smoothing prevents unseen features from erasing a class score.</li></ul></aside>
+
         <section class="mechanics-section"><div class="mechanics-heading"><p class="case-section-label">How it is built</p><h2>Naive Bayes compares explanations.</h2><p>The classifier scores each possible class by combining the class prior with the likelihood of the observed features under that class.</p></div><div class="equation-grid"><article class="equation-card"><span>01 · Prior</span><div class="equation">P(y)</div><p>The prior is how common class <code>y</code> is before looking at the current features.</p></article><article class="equation-card"><span>02 · Likelihoods</span><div class="equation">P(xᵢ | y)</div><p>This asks how often feature <code>xᵢ</code> appears when the class is <code>y</code>.</p></article><article class="equation-card"><span>03 · Compare scores</span><div class="equation equation-compact">ŷ = argmax P(y) Π P(xᵢ | y)</div><p><code>argmax</code> means choose the class with the largest score. <code>Π</code> (“capital pi”) means multiply the feature likelihoods.</p></article></div></section>
         <section class="terms-section"><div class="terms-heading"><p class="case-section-label">Key terms</p><h2>The vocabulary of evidence.</h2></div><dl class="term-grid"><div><dt>Prior</dt><dd>The starting probability of a class before reading the features.</dd></div><div><dt>Likelihood</dt><dd>How probable a feature is if a class were true.</dd></div><div><dt>Independence assumption</dt><dd>The simplifying claim that features can be combined separately within a class.</dd></div><div><dt>Smoothing</dt><dd>A small adjustment that prevents unseen features from making a class score zero.</dd></div></dl></section>
       </section>
