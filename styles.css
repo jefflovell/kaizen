@@ -1746,6 +1746,48 @@ h1 {
   fill: #fff;
 }
 
+.svc-boundary-line {
+  fill: none;
+  stroke: #ffd45c;
+  stroke-width: 5;
+  filter: drop-shadow(0 0 10px rgba(255, 212, 92, 0.35));
+}
+
+.svc-margin-line {
+  fill: none;
+  stroke: rgba(255, 212, 92, 0.62);
+  stroke-width: 3;
+  stroke-dasharray: 10 8;
+}
+
+.svc-point {
+  stroke: rgba(255, 255, 255, 0.72);
+  stroke-width: 2;
+  opacity: 0.82;
+}
+
+.svc-point.pass {
+  fill: #4bf3ff;
+}
+
+.svc-point.fail {
+  fill: #ff755f;
+}
+
+.svc-point.is-support {
+  stroke: #fff;
+  stroke-width: 5;
+  opacity: 1;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+}
+
+.svc-current {
+  fill: #fff;
+  stroke: #3155f5;
+  stroke-width: 6;
+  filter: drop-shadow(0 0 10px rgba(49, 85, 245, 0.55));
+}
+
 .classifier-axis-label,
 .classifier-chart-label,
 .classifier-tick {
