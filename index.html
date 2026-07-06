@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=65" />
     <script src="script.js" defer></script>
   </head>
   <body>
@@ -42,15 +42,45 @@
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
           <h1 id="hero-title">
-            Kaizen is a journey of
+            <span class="kaizen-mark">Kaizen</span> is a journey of
             <span class="highlight">improvement</span> one step at a time.
           </h1>
           <p>
-            A small corner of the internet for experiments, ideas, notes, and works in
-            progress.
+            Kaizen (改善) is Japanese for achieving a state of continuous
+            improvement. Popularized as the central business philosophy of the
+            Toyota Way, it is the practice of small, deliberate, and measurable
+            changes compounding into durable improvements.
+          </p>
+          <p>
+            This site is part of my practice of that philosophy: a constant,
+            work-in-progress collection of field notes and hard-won lessons,
+            professional philosophy and personal musings, experiments and
+            explainers attempting to demystify complex systems and build
+            intuitive mental models.
+          </p>
+          <p>
+            My goal is simple but challenging: to provide the resource I wish I
+            had for making complicated topics feel approachable while leaving
+            enough breadcrumbs for deeper exploration. In the process, I clarify
+            my own mental models, enrich my own understanding, and improve my
+            ability to communicate complex concepts to any audience.
+          </p>
+          <p>
+            My perspective is forged from years of work at move-fast-and-break-things
+            tech startups and lumbering Fortune 50 enterprise giants. I have
+            helped bring hundreds of products to market across music, film,
+            television, entertainment, B2B, and B2C in roles spanning technical
+            product management, software engineering, UI and UX design,
+            technical program management, machine learning, business operations,
+            and organizational design.
+          </p>
+          <p>
+            I hope you find value in the effort. Feel free to drop feedback and
+            requests on GitHub, and cheers to achieving kaizen on whatever
+            journey of improvement you are traveling.
           </p>
           <div class="hero-actions">
-            <a class="button" href="#work">See what I'm building</a>
+            <a class="button hero-button" href="#work">See what I'm building</a>
             <a class="text-link" href="https://github.com/jefflovell" rel="me">
               Say hello on GitHub <span aria-hidden="true">↗</span>
             </a>
@@ -70,7 +100,32 @@
       <section id="about" class="principles section">
         <div class="section-heading">
           <p>What happens here</p>
-          <h2>Good work grows through practice </h2>
+          <h2>Good work grows through practice</h2>
+          <svg class="practice-cycle" viewBox="0 0 300 300" role="img" aria-label="Build, learn, and share form a continuous practice loop">
+            <defs>
+              <marker id="cycle-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0L10 5L0 10Z"></path>
+              </marker>
+            </defs>
+            <circle class="cycle-guide" cx="150" cy="150" r="98"></circle>
+            <path class="cycle-ring cycle-one" d="M122 56A98 98 0 0 1 243 130"></path>
+            <path class="cycle-ring cycle-two" d="M228 196A98 98 0 0 1 84 214"></path>
+            <path class="cycle-ring cycle-three" d="M57 132A98 98 0 0 1 119 57"></path>
+            <g class="cycle-node cycle-build">
+              <circle cx="150" cy="52" r="34"></circle>
+              <text x="150" y="57">Build</text>
+            </g>
+            <g class="cycle-node cycle-learn">
+              <circle cx="235" cy="199" r="34"></circle>
+              <text x="235" y="204">Learn</text>
+            </g>
+            <g class="cycle-node cycle-share">
+              <circle cx="65" cy="199" r="34"></circle>
+              <text x="65" y="204">Share</text>
+            </g>
+            <text class="cycle-center" x="150" y="145">repeat</text>
+            <text class="cycle-center-sub" x="150" y="164">with intent</text>
+          </svg>
         </div>
         <div class="principle-list">
           <article>
@@ -101,41 +156,63 @@
         <div class="project-intro">
           <p>Field note 01</p>
           <h2>Machine learning, without all the heavy machinery.</h2>
+          <div class="epic-card" aria-label="Machine learning note epic">
+            <p class="case-section-label"><span class="issue-type-icon epic-icon" aria-hidden="true"></span>Epic</p>
+            <p>
+              As an ML novice, I want an approachable way to learn ML that allows me to explore it from various perspectives without hiding the technicals so that I can gain a practical foundation of the subject.
+            </p>
+            <dl>
+              <div><dt>Story Points</dt><dd>21</dd></div>
+              <div><dt>Status</dt><dd>IN PROGRESS</dd></div>
+              <div><dt>Assignee</dt><dd>Jeff Lovell</dd></div>
+            </dl>
+          </div>
         </div>
         <div class="project-detail">
-          <span class="status status-note"><i></i> Building the lab</span>
           <p>
-            A (hopefully) practical, interactive explainer of popular machine learning algorithms and paradigms to help build intuition and understanding.
+            The goal is not to make machine learning sound smaller than it is. The goal is to make the machinery visible without making the reader feel like they have wandered into a math textbook with locked doors.
+          </p>
+          <p>
+            Each note tries to start from the learner's side of the glass: what you may already know, what the model actually computes, where the shorthand comes from, and what to trust only after testing it.
           </p>
           <div class="project-links">
             <a class="button button-light" href="notes/ml-learning/">
-              Explore Machine Learning 
+              Explore Machine Learning
             </a>
           </div>
         </div>
       </section>
 
-      <section id="work" class="project section">
+      <section id="work" class="project project-signal section">
         <div class="project-intro">
           <p>Project 01</p>
           <h2>Signal Bloom</h2>
+          <div class="project-preview signal-preview" aria-hidden="true">
+            <div class="signal-grid"></div>
+            <div class="signal-wave"></div>
+            <span class="signal-shard shard-one"></span>
+            <span class="signal-shard shard-two"></span>
+            <span class="signal-shard shard-three"></span>
+            <span class="signal-shard shard-four"></span>
+            <span class="signal-label">Sound / Light / Input</span>
+          </div>
         </div>
         <div class="project-detail">
-          <span class="status"><i></i> Now live</span>
+          <span class="status"><i></i> Deployed to Prod</span>
           <p>
             A sound-reactive audio sampler and visualizer inspired by Patatap.
             Play it with a keyboard or the controls on screen.
           </p>
           <div class="project-links">
-            <a class="button button-light" href="projects/signal-bloom/">
-              Read the project summary
-            </a>
             <a
-              class="text-link"
+              class="button button-light"
               href="https://jefflovell.github.io/signal-bloom/"
               rel="noreferrer"
             >
-              Play it <span aria-hidden="true">↗</span>
+              Play it
+            </a>
+            <a class="text-link" href="projects/signal-bloom/">
+              Read the project summary
             </a>
           </div>
         </div>
@@ -144,23 +221,30 @@
         <div class="project-intro">
           <p>Project 02</p>
           <h2>Chromatic Lab</h2>
+          <div class="project-preview chromatic-preview" aria-hidden="true">
+            <span class="chromatic-choice choice-a"></span>
+            <span class="chromatic-choice choice-b"></span>
+            <span class="chromatic-target">RGB<br />144 / 208 / 74<small>Target sealed</small></span>
+            <span class="chromatic-choice choice-c"></span>
+            <span class="chromatic-choice choice-d"></span>
+          </div>
         </div>
         <div class="project-detail">
-          <span class="status"><i></i> Now live</span>
+          <span class="status"><i></i> Deployed to Prod</span>
           <p>
             A precision RGB color-training game with adaptive difficulty,
             timed modes, streaks, and detailed feedback.
           </p>
           <div class="project-links">
-            <a class="button button-light" href="projects/chromatic-lab/">
-              Read the project summary
-            </a>
             <a
-              class="text-link"
+              class="button button-light"
               href="https://jefflovell.github.io/chromatic-lab/"
               rel="noreferrer"
             >
-              Play it <span aria-hidden="true">↗</span>
+              Play it
+            </a>
+            <a class="text-link" href="projects/chromatic-lab/">
+              Read the project summary
             </a>
           </div>
         </div>
@@ -169,23 +253,32 @@
         <div class="project-intro">
           <p>Project 03</p>
           <h2>Game of Life</h2>
+          <div class="project-preview life-preview" aria-hidden="true">
+            <span class="life-cell cell-a"></span>
+            <span class="life-cell cell-b"></span>
+            <span class="life-cell cell-c"></span>
+            <span class="life-cell cell-d"></span>
+            <span class="life-cell cell-e"></span>
+            <span class="life-cell cell-f"></span>
+            <span class="life-label">B3 / S23 · Seed field</span>
+          </div>
         </div>
         <div class="project-detail">
-          <span class="status"><i></i> Now live</span>
+          <span class="status"><i></i> Deployed to Prod</span>
           <p>
             A neon Canvas 2D study of Conway's cellular automaton with classic
             seeds, adjustable grids, speed controls, and direct field drawing.
           </p>
           <div class="project-links">
-            <a class="button button-light" href="projects/game-of-life/">
-              Read the project summary
-            </a>
             <a
-              class="text-link"
+              class="button button-light"
               href="https://jefflovell.github.io/game-of-life/"
               rel="noreferrer"
             >
-              Play it <span aria-hidden="true">↗</span>
+              Play it
+            </a>
+            <a class="text-link" href="projects/game-of-life/">
+              Read the project summary
             </a>
           </div>
         </div>

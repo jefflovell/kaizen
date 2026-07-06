@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="../../styles.css?v=89" />
     <script src="../../script.js" defer></script>
   </head>
   <body class="note-page">
@@ -51,12 +51,35 @@
             feedback the system is allowed to learn from.
           </p>
         </div>
-        <div class="learning-orbit" aria-hidden="true">
-          <span class="orbit-dot dot-supervised">Labels</span>
-          <span class="orbit-dot dot-unsupervised">Structure</span>
-          <span class="orbit-dot dot-semi">Sparse labels</span>
-          <span class="orbit-dot dot-rl">Reward</span>
-          <span class="orbit-core">Data → behavior</span>
+        <div class="learning-map" aria-label="Four machine learning setups grouped by feedback signal">
+          <div class="learning-map-core">
+            <span>Training question</span>
+            <strong>What feedback does the system get?</strong>
+          </div>
+          <article class="learning-map-card map-supervised">
+            <span>01</span>
+            <h2>Supervised</h2>
+            <p>Examples arrive with known answers.</p>
+            <strong>Signal: labels</strong>
+          </article>
+          <article class="learning-map-card map-unsupervised">
+            <span>02</span>
+            <h2>Unsupervised</h2>
+            <p>No answer key. The model searches for structure.</p>
+            <strong>Signal: patterns</strong>
+          </article>
+          <article class="learning-map-card map-semi">
+            <span>03</span>
+            <h2>Semi-supervised</h2>
+            <p>A small answer key anchors a larger unlabeled set.</p>
+            <strong>Signal: sparse labels</strong>
+          </article>
+          <article class="learning-map-card map-rl">
+            <span>04</span>
+            <h2>Reinforcement</h2>
+            <p>Actions receive rewards or penalties over time.</p>
+            <strong>Signal: reward</strong>
+          </article>
         </div>
       </section>
 
@@ -68,10 +91,73 @@
         </p>
       </section>
 
+      <section class="learning-why" aria-labelledby="learning-why-title">
+        <div class="learning-why-frame">
+          <h2 id="learning-why-title">Why teach machines?</h2>
+          <p class="case-section-label">Because some useful rules are too hard to write by hand.</p>
+          <p>
+            Traditional software works beautifully when the rule is clear:
+            calculate tax, sort a list, reject a password that is too short. A
+            person can write the condition, the computer can follow it, and the
+            output is predictable. If the situation is stable and the logic is
+            known, programming the rule directly is usually the better tool.
+          </p>
+          <p>
+            Machine learning becomes useful when the rule exists, but is messy,
+            high-dimensional, or difficult to spell out. What makes an image
+            look like a dog? Which transaction looks unusual? Which customer is
+            likely to churn? Which sentence sounds angry, helpful, sarcastic, or
+            urgent? We may recognize the pattern, but writing every exception by
+            hand quickly becomes brittle. The model gives us a way to learn from
+            examples instead of pretending we can list every edge case up front.
+          </p>
+          <p>
+            So instead of hand-coding the rule, we provide examples and feedback.
+            The training process adjusts model parameters until the system
+            produces useful behavior by a measurable standard. That does not make
+            the model wise. It makes it a fitted tool for turning messy evidence
+            into a decision, prediction, grouping, or next action; useful when we
+            test it carefully, dangerous when we treat the output as magic.
+          </p>
+        </div>
+        <div class="learning-compare" aria-label="Programming compared with machine learning">
+          <article>
+            <strong>Programming</strong>
+            <span>Rules → output</span>
+            <p>A person writes the rule explicitly. The computer follows the instructions exactly as written.</p>
+            <dl>
+              <div>
+                <dt>Good at</dt>
+                <dd>Stable logic, clear constraints, predictable workflows, and systems where being exact matters more than adapting.</dd>
+              </div>
+              <div>
+                <dt>Tradeoff</dt>
+                <dd>Every edge case has to be anticipated, written, tested, and maintained by people.</dd>
+              </div>
+            </dl>
+          </article>
+          <article>
+            <strong>Machine learning</strong>
+            <span>Examples → adjusted parameters → output</span>
+            <p>The training process changes model settings until the output improves by a measurable standard.</p>
+            <dl>
+              <div>
+                <dt>Good at</dt>
+                <dd>Messy patterns, many signals at once, fuzzy boundaries, and problems where examples are easier to collect than rules are to write.</dd>
+              </div>
+              <div>
+                <dt>Tradeoff</dt>
+                <dd>The answer is learned from data, so it has to be measured, validated, and watched for confident-looking mistakes.</dd>
+              </div>
+            </dl>
+          </article>
+        </div>
+      </section>
+
       <section class="learning-basics">
         <div>
-          <p class="case-section-label">What “learning” means</p>
-          <h2>Machines do not learn the way people do.</h2>
+          <h2>What Learning Means</h2>
+          <p class="case-section-label">Machines do not learn the way people do.</p>
         </div>
         <div class="basics-copy">
           <p>
@@ -98,8 +184,8 @@
 
       <section class="learning-basics learning-timeline">
         <div>
-          <p class="case-section-label">Training vs. using</p>
-          <h2>There are three pieces people often blur together.</h2>
+          <h2>Training vs. Using</h2>
+          <p class="case-section-label">There are three pieces people often blur together.</p>
         </div>
         <div class="timeline-list">
           <article>
@@ -131,7 +217,10 @@
 
       <section class="learning-grid" aria-label="Types of machine learning">
         <article class="learning-card supervised">
-          <span>01</span>
+          <div class="card-meta">
+            <p class="case-section-label story-label"><span class="issue-type-icon story-icon" aria-hidden="true"></span>Story</p>
+            <span class="issue-chip status-progress">IN PROGRESS</span>
+          </div>
           <h2>Supervised Learning</h2>
           <p>
             This is learning with an answer key. The computer sees examples
@@ -156,7 +245,10 @@
         </article>
 
         <article class="learning-card unsupervised">
-          <span>02</span>
+          <div class="card-meta">
+            <p class="case-section-label story-label"><span class="issue-type-icon story-icon" aria-hidden="true"></span>Story</p>
+            <span class="issue-chip status-todo">TO DO</span>
+          </div>
           <h2>Unsupervised Learning</h2>
           <p>
             This is learning without an answer key. The computer reads a pile
@@ -180,7 +272,10 @@
         </article>
 
         <article class="learning-card semi">
-          <span>03</span>
+          <div class="card-meta">
+            <p class="case-section-label story-label"><span class="issue-type-icon story-icon" aria-hidden="true"></span>Story</p>
+            <span class="issue-chip status-todo">TO DO</span>
+          </div>
           <h2>Semi-Supervised Learning</h2>
           <p>
             This is learning with a small answer key and a much bigger pile of
@@ -204,7 +299,10 @@
         </article>
 
         <article class="learning-card reinforcement">
-          <span>04</span>
+          <div class="card-meta">
+            <p class="case-section-label story-label"><span class="issue-type-icon story-icon" aria-hidden="true"></span>Story</p>
+            <span class="issue-chip status-todo">TO DO</span>
+          </div>
           <h2>Reinforcement Learning</h2>
           <p>
             This is learning by trying things. A computer-controlled agent takes
@@ -230,8 +328,8 @@
 
       <section class="learning-summary">
         <div>
-          <p class="case-section-label">The practical split</p>
-          <h2>Ask what feedback exists.</h2>
+          <h2>The Practical Split</h2>
+          <p class="case-section-label">Ask what feedback exists.</p>
         </div>
         <div class="summary-list">
           <p>
