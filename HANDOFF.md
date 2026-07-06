@@ -1,10 +1,10 @@
-# Hello World Handoff
+# Kaizen Handoff
 
 ## Project
 
-- Local folder: `/Users/kaizen/Documents/hello-world`
-- GitHub repository: https://github.com/jefflovell/hello-world
-- Live site: https://jefflovell.github.io/hello-world/
+- Local folder: `/Users/kaizen/Documents/kaizen`
+- GitHub repository: https://github.com/jefflovell/kaizen
+- Live site: https://jefflovell.github.io/kaizen/
 - Deployment: GitHub Pages from `main`, repository root
 
 ## Current State
