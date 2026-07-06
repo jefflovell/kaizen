@@ -14,6 +14,12 @@ exists, what is planned, and how pages should relate to each other.
 
 The current build is focused on supervised learning.
 
+On the learning-types overview, treat each top-level regime as a Story ticket.
+Supervised learning is currently `IN PROGRESS`; unsupervised,
+semi-supervised, and reinforcement learning are `TO DO` roadmap cards. The
+unfinished cards should remain visibly present but lightly greyed so they read
+as planned work rather than active links.
+
 ## Supervised learning taxonomy
 
 Supervised learning splits into two foundational task types:

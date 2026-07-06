@@ -46,6 +46,22 @@ Interactive machine-learning lessons follow the
 under-the-hood mechanics, spoken notation, model-specific vocabulary, and
 responsive interaction checks.
 
+## Site style notes
+
+Kaizen should feel like field notes from a technical builder, not a generic
+course shell. The visual language is boxy, deliberate, and slightly playful:
+sharp bordered cards, key-color offset shadows, compact status chips, and
+plain-language headings with technical subtitles. Prefer flat color blocks and
+soft offset shadows over ornamental gradients. When color is doing semantic
+work, keep it consistent: blue for active/in-progress status, gold for Jira
+Story-style cards, grey for not-started roadmap work, cyan/coral for restrained
+accent treatment, and lavender/purple for Epic or connective emphasis.
+
+The teaching voice should be polished but concrete. It can carry personality,
+but the mechanism has to arrive before the slogan: define terms, name what
+changes, show what the learner can inspect, and avoid efficient-sounding copy
+that hides the math.
+
 ## Publish
 
 Push the repository to GitHub, then open **Settings → Pages** and choose:

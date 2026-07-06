@@ -19,6 +19,28 @@ The first version is a dependency-free static personal site built with:
 It includes a responsive hero, About/Work/Contact navigation, a three-part
 principles section, a current-project section, and a mobile navigation menu.
 
+Recent work renamed the project from `hello-world` to `kaizen` and moved the
+ML note pages toward a more explicit issue-card style: Epic surfaces use
+purple, Story surfaces use gold, active statuses use blue, shipped statuses use
+green, and not-started roadmap work uses light grey. The homepage and ML index
+now lean on sharp bordered cards, restrained soft shadows, and flat color
+blocks rather than decorative gradients for their own sake.
+
+## Style and Tone Baseline
+
+- Use the site palette as a system, not confetti: blue for active status and
+  technical labels, gold for Story-style learning cards, grey for `TO DO`,
+  cyan/coral for controlled accents, and lavender/purple for Epic or connective
+  emphasis.
+- Prefer flat blocks with soft offset shadows over heavy drop shadows, dark
+  callouts, or ornamental color bands.
+- Main section headings should be plain-language titles. Longer explanatory
+  lines belong underneath as larger blue all-caps subtitles, separated by a
+  restrained block divider.
+- Teaching prose should feel human and confident, but not vague. If a sentence
+  sounds polished while hiding the mechanism, slow it down and name the moving
+  parts.
+
 ## Verification
 
 - Desktop viewport checked at 1280x720

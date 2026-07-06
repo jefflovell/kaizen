@@ -10,6 +10,9 @@ Use this structure for foundational algorithm lessons.
 - If the topic has an intimidating canonical diagram, equation, or artifact,
   consider showing it early as a promise: the lesson will make this object
   legible, not ask the reader to trust it.
+- For major page sections, make the large heading the plain-language section
+  name. Put the longer explanatory sentence below it as a blue all-caps
+  subtitle. Do not use the subtitle as a tiny eyebrow above the heading.
 
 ## 2. Show the learning loop
 
@@ -83,3 +86,15 @@ Tooltips may later reinforce notation or provide reminders. They should not be t
 - Test the primary interaction and its visible state change.
 - Check desktop and mobile layouts for overflow, clipping, and unreadable notation.
 - Bump the shared stylesheet cache key when introducing shared lesson styles.
+
+## 7. Apply the site visual system
+
+- Use sharp bordered cards, stable spacing, and soft offset shadows.
+- Avoid broad decorative rewrites that do not teach a mechanism.
+- Prefer flat color blocks and subtle washes over busy gradients or heavy dark
+  callouts.
+- Keep status chips consistent: blue for in-progress/stage, green for prod,
+  grey for to-do, and fixed chip real estate so labels align.
+- Story-style roadmap cards use gold offset shadows. Epic-style surfaces use
+  purple/lavender. Cyan and coral are accents, not a license to decorate every
+  surface.

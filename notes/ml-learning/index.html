@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../../styles.css?v=89" />
+    <link rel="stylesheet" href="../../styles.css?v=94" />
     <script src="../../script.js" defer></script>
   </head>
   <body class="note-page">
@@ -158,6 +158,29 @@
         <div>
           <h2>What Learning Means</h2>
           <p class="case-section-label">Machines do not learn the way people do.</p>
+          <figure class="learning-tuning-visual" aria-label="Training adjusts model settings until predictions get closer to known answers">
+            <div class="tuning-examples">
+              <span>Practice examples</span>
+              <b>Known answer</b>
+              <b>Model guess</b>
+              <b>Miss</b>
+              <strong>Dog</strong>
+              <em>Cat</em>
+              <mark>Large</mark>
+              <strong>$350k</strong>
+              <em>$290k</em>
+              <mark>Medium</mark>
+              <strong>Spam</strong>
+              <em>Spam</em>
+              <mark>Small</mark>
+            </div>
+            <div class="tuning-knobs">
+              <span>Settings after practice</span>
+              <div><b>Feature weight</b><i style="--knob: 72%"></i></div>
+              <div><b>Bias offset</b><i style="--knob: 44%"></i></div>
+              <div><b>Decision threshold</b><i style="--knob: 61%"></i></div>
+            </div>
+          </figure>
         </div>
         <div class="basics-copy">
           <p>
@@ -186,6 +209,21 @@
         <div>
           <h2>Training vs. Using</h2>
           <p class="case-section-label">There are three pieces people often blur together.</p>
+          <div class="timeline-bridge">
+            <p>
+              In traditional programming, a person usually writes the rule first:
+              if this condition happens, do that thing. Machine learning changes
+              the order. We choose a learning algorithm, give it examples and a
+              way to measure better or worse, and let training adjust the model's
+              internal settings.
+            </p>
+            <p>
+              After training, the algorithm is no longer the part making a new
+              prediction. The trained model is. Inference is the moment that
+              tuned model reads a fresh example and applies the pattern it learned
+              without changing its settings again.
+            </p>
+          </div>
         </div>
         <div class="timeline-list">
           <article>
@@ -212,6 +250,28 @@
               example and produces an answer, score, grouping, or next action.
             </p>
           </article>
+        </div>
+      </section>
+
+      <section class="learning-summary">
+        <div>
+          <h2>The Practical Split</h2>
+          <p class="case-section-label">Ask what feedback exists.</p>
+        </div>
+        <div class="summary-list">
+          <p>
+            If every desired case has a clean answer, start with supervised
+            learning. If only some answers exist in your training data, or the
+            edges are messy, semi-supervised methods can stretch that labeled
+            set.
+          </p>
+          <p>
+            If there are no answers, or you do not quite know what you are
+            looking for yet, unsupervised learning can help you find hidden
+            structure in your data. If decisions change the next best step, then
+            reinforcement learning can help you build a model that naturally
+            maximizes your goal.
+          </p>
         </div>
       </section>
 
@@ -324,24 +384,6 @@
             </div>
           </dl>
         </article>
-      </section>
-
-      <section class="learning-summary">
-        <div>
-          <h2>The Practical Split</h2>
-          <p class="case-section-label">Ask what feedback exists.</p>
-        </div>
-        <div class="summary-list">
-          <p>
-            If every example has an answer, start supervised. If there are no
-            answers, look for unsupervised structure.
-          </p>
-          <p>
-            If only some answers exist, semi-supervised methods can stretch the
-            labeled set. If decisions change what happens next, reinforcement
-            learning is the frame.
-          </p>
-        </div>
       </section>
     </main>
 

@@ -1138,9 +1138,123 @@ h1 {
   margin-bottom: 0;
 }
 
+.learning-tuning-visual {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  align-items: stretch;
+  margin: 4px 0 0;
+  padding: 16px;
+  border: 2px solid var(--ink);
+  background:
+    linear-gradient(135deg, rgba(220, 216, 255, 0.28), rgba(255, 255, 255, 0.94) 62%),
+    #fff;
+  box-shadow: 7px 7px 0 rgba(75, 243, 255, 0.2);
+}
+
+.tuning-examples {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  min-width: 0;
+  border: 1px solid rgba(18, 24, 43, 0.18);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.tuning-examples span,
+.tuning-knobs > span {
+  grid-column: 1 / -1;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(18, 24, 43, 0.18);
+  color: var(--blue);
+  font-size: 0.66rem;
+  font-weight: 900;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.tuning-examples b,
+.tuning-examples strong,
+.tuning-examples em,
+.tuning-examples mark {
+  min-width: 0;
+  margin: 0;
+  padding: 9px 10px;
+  border-right: 1px solid rgba(18, 24, 43, 0.12);
+  border-bottom: 1px solid rgba(18, 24, 43, 0.12);
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-style: normal;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.tuning-examples em {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.tuning-examples mark {
+  background: transparent;
+  color: var(--coral);
+}
+
+.tuning-knobs {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  min-width: 0;
+  padding: 0 0 12px;
+  border: 1px solid rgba(18, 24, 43, 0.18);
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.tuning-knobs div {
+  display: grid;
+  gap: 8px;
+  padding: 0 12px;
+}
+
+.tuning-knobs b {
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.tuning-knobs i {
+  position: relative;
+  height: 10px;
+  background: rgba(18, 24, 43, 0.14);
+}
+
+.tuning-knobs i::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--knob);
+  background: rgba(75, 243, 255, 0.5);
+}
+
+.tuning-knobs i::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: var(--knob);
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  transform: translate(-50%, -50%);
+  box-shadow: 3px 3px 0 rgba(255, 117, 95, 0.22);
+}
+
 .learning-timeline {
   border-bottom: 1px solid var(--line);
   background: transparent;
+}
+
+.learning-timeline > div:first-child {
+  display: grid;
+  gap: 16px;
 }
 
 .timeline-list {
@@ -1148,17 +1262,46 @@ h1 {
   gap: 16px;
 }
 
+.timeline-bridge {
+  display: grid;
+  gap: 12px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.timeline-bridge p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.08rem;
+  line-height: 1.65;
+}
+
 .timeline-list article {
   display: grid;
   grid-template-columns: 52px 0.55fr 1fr;
   gap: 22px;
   align-items: start;
-  padding: 22px 0;
-  border-top: 1px solid var(--line);
+  padding: 20px 22px;
+  border: 2px solid var(--ink);
+  background:
+    linear-gradient(135deg, rgba(75, 243, 255, 0.14), rgba(255, 255, 255, 0.92) 58%),
+    #fff;
+  box-shadow: 6px 6px 0 rgba(75, 243, 255, 0.22);
 }
 
-.timeline-list article:last-child {
-  border-bottom: 1px solid var(--line);
+.timeline-list article:nth-child(2) {
+  background:
+    linear-gradient(135deg, rgba(220, 216, 255, 0.34), rgba(255, 255, 255, 0.92) 58%),
+    #fff;
+  box-shadow: 6px 6px 0 rgba(220, 216, 255, 0.52);
+}
+
+.timeline-list article:nth-child(3) {
+  background:
+    linear-gradient(135deg, rgba(255, 117, 95, 0.13), rgba(255, 255, 255, 0.94) 60%),
+    #fff;
+  box-shadow: 6px 6px 0 rgba(255, 117, 95, 0.18);
 }
 
 .timeline-list span {
@@ -6032,6 +6175,10 @@ h1 {
 
   .learning-basics {
     padding: 56px 0;
+  }
+
+  .learning-tuning-visual {
+    grid-template-columns: 1fr;
   }
 
   .timeline-list article {

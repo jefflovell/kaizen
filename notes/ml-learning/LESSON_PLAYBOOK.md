@@ -108,6 +108,38 @@ hidden-layer class scores. Avoid decorative shapes that merely imply a boundary
 or region. If a visual is simplified, say what it represents and keep the
 readouts tied to the actual lesson mechanism.
 
+### Section Heading Treatment
+
+Use section headings as the reader's plain-language map. The large black
+heading should name the section directly: "Why teach machines?", "What Learning
+Means", "Training vs. Using", "How it is built", or "Key terms." The longer
+explanatory line should sit below as a blue all-caps subtitle, not above as a
+tiny eyebrow.
+
+- The subtitle should be large enough to read as a technical deck line, not as
+  body copy.
+- A restrained block divider between the heading and subtitle can help, but it
+  should match the boxy site language: flat block, soft offset, no decorative
+  swooshes or busy gradients.
+- Avoid color-band blockquotes for core teaching copy. If a callout is needed,
+  use the shared bordered-card language with a soft wash or shadow.
+
+### Issue-Card Status Language
+
+The ML overview now uses a lightweight Jira-inspired metaphor for learning
+families and roadmap state. Keep it subtle and consistent:
+
+- Epic-style surfaces use purple/lavender.
+- Story-style learning-family cards use the gold offset shadow.
+- `IN PROGRESS` and `DEPLOYED TO STAGE` chips use blue.
+- `DEPLOYED TO PROD` chips use green.
+- `TO DO` chips use mid-light grey around `#999`.
+- Status chips should reserve the same width and height even when the text is
+  shorter, so rows do not visually wobble.
+- Not-started roadmap cards can use a very light grey background to signal
+  that they are not currently selectable, but they should not look disabled or
+  visually heavy.
+
 ## Standard lesson shape
 
 1. Problem opener
@@ -194,6 +226,13 @@ page still needs a visible first explanation.
 - Watch for overflow on equation cards, SVG labels, sliders, and mobile widths.
 - Backlinks should move one level up the taxonomy, not skip parents.
 - If a shared style changes, bump the relevant CSS cache key on edited pages.
+- Prefer flat blocks, sharp borders, and soft offset shadows over heavy drop
+  shadows. If a dark callout starts to dominate the page, consider a lighter
+  palette wash inside the existing bordered-card system.
+- Use gradients sparingly. They should clarify hierarchy or soften a surface,
+  not become the primary style. When the page starts to feel unlike the rest of
+  the site, return to bordered rectangles, key-color shadows, and restrained
+  accents.
 
 When a lesson opens with a complex formal diagram, make it technically legible
 rather than decorative:
