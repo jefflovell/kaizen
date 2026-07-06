@@ -782,6 +782,131 @@ h1 {
   color: var(--muted);
 }
 
+.field-note-ksp {
+  border-top: 1px solid rgb(255 255 255 / 12%);
+  background:
+    radial-gradient(circle at 22% 28%, rgba(75, 243, 255, 0.16), transparent 26%),
+    radial-gradient(circle at 82% 24%, rgba(255, 117, 95, 0.14), transparent 30%),
+    #07101a;
+  color: #edf7f8;
+}
+
+.field-note-ksp .project-intro > p,
+.field-note-ksp .project-detail > p {
+  color: rgba(237, 247, 248, 0.72);
+}
+
+.field-note-ksp .project-intro h2 {
+  max-width: 640px;
+  color: #edf7f8;
+}
+
+.field-note-ksp .button-light {
+  border-color: #edf7f8;
+  background: #edf7f8;
+  color: #07101a;
+  box-shadow: 5px 5px 0 #ff755f;
+}
+
+.field-note-ksp .button-light:hover,
+.field-note-ksp .button-light:focus-visible {
+  box-shadow: 2px 2px 0 #ff755f;
+}
+
+.status-under-construction i {
+  background: #ffd45c;
+  box-shadow: 0 0 0 5px rgba(255, 212, 92, 0.18);
+}
+
+.ksp-note-preview {
+  position: relative;
+  min-height: 320px;
+  margin-top: 34px;
+  overflow: hidden;
+  border: 1px solid rgba(237, 247, 248, 0.18);
+  border-radius: 8px;
+  background:
+    linear-gradient(rgba(75, 243, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(75, 243, 255, 0.055) 1px, transparent 1px),
+    radial-gradient(circle at 50% 52%, rgba(237, 247, 248, 0.08), transparent 8rem),
+    #060b11;
+  background-size: 34px 34px, 34px 34px, auto, auto;
+  box-shadow: 9px 9px 0 rgba(255, 117, 95, 0.18);
+}
+
+.ksp-note-preview span {
+  position: absolute;
+  display: block;
+}
+
+.ksp-planet {
+  top: 50%;
+  left: 50%;
+  width: 92px;
+  height: 92px;
+  border: 1px solid rgba(237, 247, 248, 0.24);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(237, 247, 248, 0.44), transparent 22px),
+    radial-gradient(circle at 65% 70%, rgba(12, 62, 58, 0.88), transparent 44px),
+    #4ec2b4;
+  box-shadow: 0 0 36px rgba(75, 243, 255, 0.28);
+  transform: translate(-50%, -50%);
+}
+
+.ksp-orbit,
+.ksp-transfer {
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ksp-orbit {
+  border: 2px solid #4bf3ff;
+  box-shadow: 0 0 18px rgba(75, 243, 255, 0.42);
+}
+
+.orbit-inner {
+  width: 146px;
+  height: 146px;
+}
+
+.orbit-outer {
+  width: 226px;
+  height: 226px;
+  border-color: #8ce66f;
+  box-shadow: 0 0 18px rgba(140, 230, 111, 0.34);
+}
+
+.ksp-transfer {
+  width: 216px;
+  height: 136px;
+  border: 3px dashed #ffd45c;
+  box-shadow: 0 0 22px rgba(255, 212, 92, 0.35);
+  transform: translate(-50%, -50%) rotate(-18deg);
+}
+
+.ksp-burn {
+  width: 0;
+  height: 0;
+  border-top: 11px solid transparent;
+  border-bottom: 11px solid transparent;
+  border-left: 32px solid #ff755f;
+  filter: drop-shadow(0 0 10px rgba(255, 117, 95, 0.8));
+}
+
+.burn-one {
+  top: calc(50% - 11px);
+  left: calc(50% + 94px);
+}
+
+.burn-two {
+  top: calc(50% - 11px);
+  left: calc(50% - 126px);
+  transform: rotate(180deg);
+}
+
 .status-note i {
   background: #4bf3ff;
   box-shadow: 0 0 0 5px rgba(75, 243, 255, 0.16);

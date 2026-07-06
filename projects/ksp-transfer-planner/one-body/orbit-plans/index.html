@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive Hohmann transfer planner for Kerbal Space Program circular orbit changes."
+    />
+    <title>KSP Transfer Planner | Kaizen</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <main class="planner-shell">
+      <header class="planner-header">
+        <a class="brand" href="../../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+        <div>
+          <h1>KSP Transfer Planner</h1>
+          <p>Hohmann burns for clean circular orbit changes.</p>
+        </div>
+      </header>
+
+      <section class="planner-grid" aria-label="Interactive Hohmann transfer planner">
+        <aside class="control-panel" aria-label="Mission inputs">
+          <div class="panel-heading">
+            <p>Flight Inputs</p>
+            <h2>Set the orbit</h2>
+          </div>
+
+          <label class="field-label" for="body-select">Body</label>
+          <select id="body-select" class="select-control">
+            <option value="kerbin">Kerbin</option>
+            <option value="mun">Mun</option>
+            <option value="minmus">Minmus</option>
+            <option value="duna">Duna</option>
+            <option value="eve">Eve</option>
+            <option value="moho">Moho</option>
+            <option value="ike">Ike</option>
+            <option value="jool">Jool</option>
+          </select>
+
+          <div class="slider-group">
+            <div class="slider-head">
+              <label for="start-altitude">Start orbit</label>
+              <output id="start-output" for="start-altitude">120 km</output>
+            </div>
+            <input id="start-altitude" type="range" min="70" max="3000" step="5" value="120" />
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-head">
+              <label for="target-altitude">Target orbit</label>
+              <output id="target-output" for="target-altitude">800 km</output>
+            </div>
+            <input id="target-altitude" type="range" min="70" max="3000" step="5" value="800" />
+          </div>
+
+          <div class="direction-toggle" aria-label="Transfer direction">
+            <button class="toggle-button active" type="button" data-preset="raise">Raise</button>
+            <button class="toggle-button" type="button" data-preset="lower">Lower</button>
+            <button class="toggle-button" type="button" data-preset="swap">Swap</button>
+          </div>
+
+          <div class="guidance">
+            <p class="guidance-label">Burn note</p>
+            <p id="burn-note">
+              Burn prograde at periapsis, coast to apoapsis, then circularize prograde.
+            </p>
+          </div>
+        </aside>
+
+        <section class="orbit-stage" aria-labelledby="diagram-title">
+          <div class="stage-topline">
+            <div>
+              <p>Transfer</p>
+              <h2 id="diagram-title">Kerbin Orbit Plot</h2>
+            </div>
+            <div class="legend" aria-label="Diagram legend">
+              <span><i class="current"></i> Start</span>
+              <span><i class="transfer"></i> Transfer</span>
+              <span><i class="target"></i> Target</span>
+            </div>
+          </div>
+          <canvas id="orbit-canvas" width="980" height="720" aria-label="Scaled orbit diagram"></canvas>
+          <div class="stage-footer">
+            <span id="body-radius">Radius 600 km</span>
+            <span id="body-mu">GM 3531.6 km^3/s^2</span>
+          </div>
+        </section>
+
+        <aside class="readout-panel" aria-label="Transfer results">
+          <div class="panel-heading">
+            <p>Readouts</p>
+            <h2>Burn plan</h2>
+          </div>
+
+          <div class="metric primary">
+            <span>Total delta-v</span>
+            <strong id="total-dv">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Delta-v 1</span>
+            <strong id="dv-one">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Delta-v 2</span>
+            <strong id="dv-two">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Transfer time</span>
+            <strong id="transfer-time">0m 00s</strong>
+          </div>
+          <div class="metric">
+            <span>Transfer angle</span>
+            <strong id="transfer-angle">180 deg</strong>
+          </div>
+
+          <dl class="orbit-facts">
+            <div>
+              <dt>Start velocity</dt>
+              <dd id="start-velocity">0 m/s</dd>
+            </div>
+            <div>
+              <dt>Target velocity</dt>
+              <dd id="target-velocity">0 m/s</dd>
+            </div>
+            <div>
+              <dt>Semi-major axis</dt>
+              <dd id="semi-major">0 km</dd>
+            </div>
+          </dl>
+        </aside>
+      </section>
+    </main>
+  </body>
+</html>

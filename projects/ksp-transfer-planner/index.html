@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A KSP orbital planning suite that teaches same-body orbit design through darkly playful mini lessons."
+    />
+    <title>KSP Transfer Planner | Orbit Design</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="home-shell">
+      <header class="home-header">
+        <a class="brand" href="../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+        <div class="home-title">
+          <p>One-body orbit design</p>
+          <h1>Pick the orbital mistake you would like to understand.</h1>
+          <div class="home-copy">
+            <p>
+              Practical KSP planners with real orbital mechanics under the hood
+              and just enough educational menace to make the lesson stick.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <section class="tool-grid" aria-label="Same-body orbit planning tools">
+        <article class="tool-card is-live" style="--accent: #5bd7eb">
+          <div class="orbit-art art-hohmann" aria-hidden="true">
+            <span class="planet"></span>
+            <span class="orbit one"></span>
+            <span class="orbit two"></span>
+            <span class="burn burn-a"></span>
+            <span class="burn burn-b"></span>
+          </div>
+          <p class="tool-type">Circular orbit raise / lower</p>
+          <h2>“Two burns, one orbit, and only a modest chance someone asks why re-entry is now a philosophical problem.”</h2>
+          <p>
+            This is how spacecraft tidy up their orbit after launch, raise into
+            a safer parking orbit, nudge a station back where it belongs, or
+            move satellites into the shell where they can start doing their job.
+          </p>
+          <a class="start-button" href="./one-body/orbit-plans/">Start planning</a>
+        </article>
+
+        <article class="tool-card" style="--accent: #8ce66f">
+          <div class="orbit-art art-inclination" aria-hidden="true">
+            <span class="planet"></span>
+            <span class="tilt tilt-a"></span>
+            <span class="tilt tilt-b"></span>
+            <span class="node"></span>
+          </div>
+          <p class="tool-type">Inclination change</p>
+          <h2>“Turn north after launch, they said. It’ll be fine, they said. The recovery team has requested fewer optimists in mission planning.”</h2>
+          <p>
+            Polar and high-inclination satellites sweep over more of the planet
+            as it spins underneath them, which makes them perfect for mapping,
+            weather, ice tracking, and the kind of observation everyone
+            pretends is mostly about clouds.
+          </p>
+          <span class="start-button is-disabled" aria-disabled="true">Start planning</span>
+        </article>
+
+        <article class="tool-card" style="--accent: #f7b84d">
+          <div class="orbit-art art-combined" aria-hidden="true">
+            <span class="planet"></span>
+            <span class="orbit one"></span>
+            <span class="tilt tilt-a"></span>
+            <span class="burn burn-a"></span>
+          </div>
+          <p class="tool-type">Combined transfer + plane change</p>
+          <h2>“Do the altitude change and plane change together, because if we’re going to waste fuel, we may as well call it vector math.”</h2>
+          <p>
+            Real missions rarely get perfect textbook moments, so flight
+            planners often blend altitude and plane changes into one burn to
+            save fuel, time, or whatever dignity remains in the propellant
+            budget.
+          </p>
+          <span class="start-button is-disabled" aria-disabled="true">Start planning</span>
+        </article>
+
+        <article class="tool-card" style="--accent: #ff6f4c">
+          <div class="orbit-art art-geostat" aria-hidden="true">
+            <span class="planet"></span>
+            <span class="orbit two"></span>
+            <span class="station"></span>
+            <span class="beam"></span>
+          </div>
+          <p class="tool-type">Geosynchronous / geostationary</p>
+          <h2>“Park politely above the same patch of dirt forever, for communications, weather, or the quiet geopolitical pressure of an orbital railgun throne.”</h2>
+          <p>
+            Geosynchronous satellites orbit once per planetary day, so they can
+            keep showing up over the same region for communications, weather
+            watching, broadcasting, and other why-is-that-thing-always-up-there
+            services.
+          </p>
+          <span class="start-button is-disabled" aria-disabled="true">Start planning</span>
+        </article>
+
+        <article class="tool-card" style="--accent: #77d7ff">
+          <div class="orbit-art art-resonant" aria-hidden="true">
+            <span class="planet"></span>
+            <span class="orbit two"></span>
+            <span class="dot dot-a"></span>
+            <span class="dot dot-b"></span>
+            <span class="dot dot-c"></span>
+          </div>
+          <p class="tool-type">Resonant orbit</p>
+          <h2>“Release satellites at mathematically pleasing intervals until the whole world wonders if the shape is intentional and the tracking station stops asking follow-up questions.”</h2>
+          <p>
+            Satellite constellations use orbital timing like a clockwork bead
+            necklace, spacing vehicles around a shared orbit so coverage appears
+            steady instead of clumped into one very expensive parade.
+          </p>
+          <span class="start-button is-disabled" aria-disabled="true">Start planning</span>
+        </article>
+
+        <article class="tool-card" style="--accent: #d8f36a">
+          <div class="orbit-art art-ground" aria-hidden="true">
+            <span class="planet"></span>
+            <span class="orbit one"></span>
+            <span class="track track-a"></span>
+            <span class="track track-b"></span>
+          </div>
+          <p class="tool-type">Repeat ground track</p>
+          <h2>“Fly over the same place again and again, because mass surveillance sounds better when you call it coverage.”</h2>
+          <p>
+            Repeat ground tracks let a satellite revisit the same places on a
+            schedule, which is useful for mapping change over time: crops,
+            storms, roads, glaciers, construction sites, and anything else that
+            gets nervous under a camera.
+          </p>
+          <span class="start-button is-disabled" aria-disabled="true">Start planning</span>
+        </article>
+
+        <article class="tool-card" style="--accent: #93a7ff">
+          <div class="orbit-art art-polar" aria-hidden="true">
+            <span class="planet"></span>
+            <span class="meridian"></span>
+            <span class="orbit vertical"></span>
+          </div>
+          <p class="tool-type">Polar mapping orbit</p>
+          <h2>“See the whole planet eventually, including the parts the mission brief described as ‘outside scope’ shortly before losing contact.”</h2>
+          <p>
+            A polar mapper eventually sees almost every latitude because the
+            planet rotates beneath its north-south path, turning one orbit track
+            into a slow peel of the whole world.
+          </p>
+          <span class="start-button is-disabled" aria-disabled="true">Start planning</span>
+        </article>
+
+        <article class="tool-card" style="--accent: #ff8585">
+          <div class="orbit-art art-retrograde" aria-hidden="true">
+            <span class="planet"></span>
+            <span class="orbit two"></span>
+            <span class="arrow"></span>
+          </div>
+          <p class="tool-type">Retrograde orbit</p>
+          <h2>“How expensive is spite? Very.”</h2>
+          <p>
+            Retrograde orbits move against the planet’s spin, which costs extra
+            energy but can be useful for special coverage, unusual science
+            goals, or missions that care more about geometry than politeness.
+          </p>
+          <span class="start-button is-disabled" aria-disabled="true">Start planning</span>
+        </article>
+
+        <article class="tool-card" style="--accent: #f2c15f">
+          <div class="orbit-art art-ellipse" aria-hidden="true">
+            <span class="planet"></span>
+            <span class="ellipse"></span>
+            <span class="hot-pass"></span>
+          </div>
+          <p class="tool-type">Elliptical orbit designer</p>
+          <h2>“Spend most of your time far away from your problems, then return to periapsis at a speed that suggests you should have just dealt with them like an adult.”</h2>
+          <p>
+            Elliptical orbits are useful when you want a spacecraft to dive
+            close for speed or science, then coast far away for time, coverage,
+            communications, or a dramatic pause before the next questionable
+            decision.
+          </p>
+          <span class="start-button is-disabled" aria-disabled="true">Start planning</span>
+        </article>
+
+        <article class="tool-card" style="--accent: #6edbff">
+          <div class="orbit-art art-molniya" aria-hidden="true">
+            <span class="planet"></span>
+            <span class="ellipse tall"></span>
+            <span class="dwell"></span>
+          </div>
+          <p class="tool-type">Molniya-style orbit</p>
+          <h2>“Linger dramatically over the high latitudes, because geostationary orbit refused to look north and Russia took that personally.”</h2>
+          <p>
+            Molniya-style orbits solve a real high-latitude problem:
+            geostationary satellites sit near the equator, so highly elliptical
+            tilted orbits can hang over northern or southern regions for much
+            longer each pass.
+          </p>
+          <span class="start-button is-disabled" aria-disabled="true">Start planning</span>
+        </article>
+
+        <article class="tool-card" style="--accent: #cda2ff">
+          <div class="orbit-art art-bielliptic" aria-hidden="true">
+            <span class="planet"></span>
+            <span class="orbit one"></span>
+            <span class="ellipse huge"></span>
+            <span class="paper"></span>
+          </div>
+          <p class="tool-type">Bi-elliptic transfer</p>
+          <h2>“What if we went absurdly far away first? Sometimes genius, usually a lot of paperwork and several very carefully worded press releases.”</h2>
+          <p>
+            A bi-elliptic transfer uses three burns and a very high apoapsis to
+            sometimes beat a Hohmann transfer on fuel for huge orbit changes,
+            proving that go-farther-first is occasionally not a terrible
+            sentence.
+          </p>
+          <span class="start-button is-disabled" aria-disabled="true">Start planning</span>
+        </article>
+
+        <article class="tool-card" style="--accent: #ffa45d">
+          <div class="orbit-art art-launch" aria-hidden="true">
+            <span class="planet"></span>
+            <span class="latitude"></span>
+            <span class="rocket"></span>
+          </div>
+          <p class="tool-type">Launch site assist</p>
+          <h2>“Launch from the right latitude and the planet helps. Launch from the wrong one and the planet becomes a very large, very smug physics professor.”</h2>
+          <p>
+            Launch sites get free sideways speed from the rotating planet, and
+            the amount depends on latitude and launch direction, which is why
+            equatorial launches are prized and high-latitude launches start
+            with a lecture from geometry.
+          </p>
+          <span class="start-button is-disabled" aria-disabled="true">Start planning</span>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
