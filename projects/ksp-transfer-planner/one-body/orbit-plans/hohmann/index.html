@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive Hohmann transfer planner for Kerbal Space Program circular orbit changes."
+    />
+    <title>KSP Transfer Planner | Kaizen</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css?v=2" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <main class="planner-shell">
+      <header class="planner-header">
+        <a class="brand" href="../../../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+        <div>
+          <h1>KSP Transfer Planner</h1>
+          <p>Hohmann burns for clean circular orbit changes.</p>
+        </div>
+      </header>
+
+      <section class="planner-grid" aria-label="Interactive Hohmann transfer planner">
+        <aside class="control-panel" aria-label="Mission inputs">
+          <div class="panel-heading">
+            <p>Flight Inputs</p>
+            <h2>Set the orbit</h2>
+          </div>
+
+          <label class="field-label" for="body-select">Body</label>
+          <select id="body-select" class="select-control">
+            <option value="kerbin">Kerbin</option>
+            <option value="mun">Mun</option>
+            <option value="minmus">Minmus</option>
+            <option value="duna">Duna</option>
+            <option value="eve">Eve</option>
+            <option value="moho">Moho</option>
+            <option value="ike">Ike</option>
+            <option value="jool">Jool</option>
+          </select>
+
+          <div class="slider-group">
+            <div class="slider-head">
+              <label for="start-altitude">Start orbit</label>
+              <output id="start-output" for="start-altitude">120 km</output>
+            </div>
+            <input id="start-altitude" type="range" min="70" max="3000" step="5" value="120" />
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-head">
+              <label for="target-altitude">Target orbit</label>
+              <output id="target-output" for="target-altitude">800 km</output>
+            </div>
+            <input id="target-altitude" type="range" min="70" max="3000" step="5" value="800" />
+          </div>
+
+          <div class="direction-toggle" aria-label="Transfer direction">
+            <button class="toggle-button active" type="button" data-preset="raise">Raise</button>
+            <button class="toggle-button" type="button" data-preset="lower">Lower</button>
+            <button class="toggle-button" type="button" data-preset="swap">Swap</button>
+          </div>
+
+          <div class="guidance">
+            <p class="guidance-label">Burn note</p>
+            <p id="burn-note">
+              Burn prograde at periapsis, coast to apoapsis, then circularize prograde.
+            </p>
+          </div>
+        </aside>
+
+        <section class="orbit-stage" aria-labelledby="diagram-title">
+          <div class="stage-topline">
+            <div>
+              <p>Transfer</p>
+              <h2 id="diagram-title">Kerbin Orbit Plot</h2>
+            </div>
+            <div class="legend" aria-label="Diagram legend">
+              <span><i class="current"></i> Start</span>
+              <span><i class="transfer"></i> Transfer</span>
+              <span><i class="target"></i> Target</span>
+            </div>
+          </div>
+          <canvas id="orbit-canvas" width="980" height="720" aria-label="Scaled orbit diagram"></canvas>
+          <div class="stage-footer">
+            <span id="body-radius">Radius 600 km</span>
+            <span id="body-mu">GM 3531.6 km^3/s^2</span>
+          </div>
+        </section>
+
+        <aside class="readout-panel" aria-label="Transfer results">
+          <div class="panel-heading">
+            <p>Readouts</p>
+            <h2>Burn plan</h2>
+          </div>
+
+          <div class="metric primary">
+            <span>Total delta-v</span>
+            <strong id="total-dv">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Delta-v 1</span>
+            <strong id="dv-one">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Delta-v 2</span>
+            <strong id="dv-two">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Transfer time</span>
+            <strong id="transfer-time">0m 00s</strong>
+          </div>
+          <div class="metric">
+            <span>Transfer angle</span>
+            <strong id="transfer-angle">180 deg</strong>
+          </div>
+
+          <dl class="orbit-facts">
+            <div>
+              <dt>Start velocity</dt>
+              <dd id="start-velocity">0 m/s</dd>
+            </div>
+            <div>
+              <dt>Target velocity</dt>
+              <dd id="target-velocity">0 m/s</dd>
+            </div>
+            <div>
+              <dt>Semi-major axis</dt>
+              <dd id="semi-major">0 km</dd>
+            </div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="lesson-panel" aria-labelledby="hohmann-lesson-title">
+        <div class="lesson-intro">
+          <p>Mini lesson</p>
+          <h2 id="hohmann-lesson-title">What is a Hohmann transfer?</h2>
+          <p>
+            A
+            <a href="https://en.wikipedia.org/wiki/Hohmann_transfer_orbit" rel="noreferrer"
+              >Hohmann transfer</a
+            >
+            is the classic two-burn way to move between two circular,
+            coplanar orbits around the same body. It is not magic, and it is
+            not every transfer. It is a very tidy trick: use one burn to make
+            an ellipse that just touches the target orbit, coast halfway
+            around, then use a second burn to make the new orbit circular.
+          </p>
+        </div>
+
+        <div class="lesson-grid">
+          <article>
+            <h3>Forever missing the ground</h3>
+            <p>
+              Think of orbit like throwing a ball so fast that Earth curves away
+              from it faster than gravity can force it to the ground. Without
+              atmosphere to slow it down, and without mountains to crash into,
+              the ball would free fall forever, moving fast enough to keep
+              missing the ground. If you want to go farther out, you need to go
+              faster. A prograde burn does not lift the ball straight up at the
+              burn; it speeds the ball up, stretching the travel path so the far
+              side of the orbit rises. You fall down farther past the horizon
+              because you are moving forward faster. Burn once to stretch the
+              orbit into an ellipse, coast to the raised side, then burn again
+              to stretch the original side and turn the ellipse back into a
+              circle.
+            </p>
+          </article>
+
+          <article>
+            <h3>Why it is useful</h3>
+            <p>
+              Hohmann transfers are usually fuel-efficient for clean circular
+              orbit changes. That matters because
+              <a href="https://en.wikipedia.org/wiki/Delta-v" rel="noreferrer">delta-v</a>
+              is your mission budget, and the
+              <a href="https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/ideal-rocket-equation/" rel="noreferrer"
+                >rocket equation</a
+              >
+              is where cheerful payload dreams go to become spreadsheets.
+            </p>
+          </article>
+
+          <article>
+            <h3>What to watch for</h3>
+            <ul>
+              <li>Burn 1 changes the opposite side of the orbit.</li>
+              <li>Burn 2 circularizes at apoapsis or periapsis.</li>
+              <li>The transfer angle is 180 degrees for this same-body case.</li>
+              <li>Long burns smear the maneuver across the orbit.</li>
+            </ul>
+          </article>
+
+          <article>
+            <h3>Eyeball it in KSP</h3>
+            <p>
+              For a raise, burn prograde until the apoapsis marker reaches the
+              target altitude. Coast there, then burn prograde again until the
+              periapsis rises to match. For a lower orbit, reverse the idea:
+              burn retrograde to drop the opposite side, coast, then circularize.
+            </p>
+          </article>
+
+          <article>
+            <h3>When not to use it</h3>
+            <p>
+              Do not worship the perfect Hohmann. If you need to dodge terrain,
+              rendezvous with a target, change inclination, land safely, or get
+              somewhere fast, a textbook transfer may be the wrong tool. Good
+              mission design balances fuel cost, time, precision, safety, and
+              payload capacity.
+            </p>
+          </article>
+
+          <article>
+            <h3>Pitfalls worth surviving</h3>
+            <ul>
+              <li>Do not start a long burn exactly at the node. Center it.</li>
+              <li>
+                Low
+                <a href="https://www.grc.nasa.gov/www/k-12/airplane/specimp.html" rel="noreferrer"
+                  >specific impulse</a
+                >
+                and low thrust can make forever burns.
+              </li>
+              <li>Do not confuse transfer angle with rendezvous phase angle.</li>
+              <li>Leave margin. KSP rewards confidence, then invoices it.</li>
+            </ul>
+          </article>
+        </div>
+
+        <aside class="lesson-callout">
+          <div>
+            <span>Don't let perfect win</span>
+            <p>
+              A clean Hohmann is a reference move, not a moral obligation. If
+              your orbit is close, your burn is short, and your mission still
+              works, that is planning. The goal is not to impress Walter
+              Hohmann. The goal is to arrive with fuel, payload, and a crew
+              that has not started naming snacks after failed prototypes.
+            </p>
+          </div>
+          <a href="https://science.nasa.gov/learn/basics-of-space-flight/chapter4-1/" rel="noreferrer"
+            >NASA: Basics of Space Flight trajectories</a
+          >
+        </aside>
+      </section>
+    </main>
+  </body>
+</html>

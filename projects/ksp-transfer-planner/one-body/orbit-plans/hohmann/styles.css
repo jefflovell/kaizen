@@ -346,6 +346,142 @@ input[type="range"] {
   text-align: right;
 }
 
+.lesson-panel {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.62fr) minmax(420px, 1.38fr);
+  gap: 18px;
+  margin-top: 18px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(91, 215, 235, 0.1), transparent 26rem),
+    radial-gradient(circle at 92% 26%, rgba(245, 180, 71, 0.08), transparent 26rem),
+    var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.lesson-intro {
+  align-self: start;
+  position: sticky;
+  top: 18px;
+}
+
+.lesson-intro > p:first-child {
+  margin: 0 0 8px;
+  color: var(--amber);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lesson-intro h2 {
+  margin: 0 0 16px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(2rem, 4vw, 4.2rem);
+  line-height: 0.95;
+}
+
+.lesson-intro p:last-child,
+.lesson-grid p,
+.lesson-grid li,
+.lesson-callout p {
+  color: var(--muted);
+  line-height: 1.62;
+}
+
+.lesson-panel a {
+  color: var(--text);
+  font-weight: 800;
+  text-decoration-color: color-mix(in srgb, var(--amber), transparent 35%);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.lesson-panel a:hover,
+.lesson-panel a:focus-visible {
+  color: var(--amber);
+}
+
+.lesson-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.lesson-grid article,
+.lesson-callout {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(8, 14, 20, 0.68);
+}
+
+.lesson-grid article {
+  padding: 18px;
+}
+
+.lesson-grid h3 {
+  margin: 0 0 10px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.13rem;
+  line-height: 1.12;
+}
+
+.lesson-grid p {
+  margin: 0;
+}
+
+.lesson-grid ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.lesson-grid li::marker {
+  color: var(--amber);
+}
+
+.lesson-callout {
+  grid-column: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 20px;
+  border-color: rgba(245, 180, 71, 0.34);
+  background: rgba(245, 180, 71, 0.08);
+}
+
+.lesson-callout span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--amber);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lesson-callout p {
+  max-width: 780px;
+  margin: 0;
+}
+
+.lesson-callout > a {
+  flex: 0 0 auto;
+  padding: 11px 13px;
+  border: 1px solid rgba(245, 180, 71, 0.42);
+  border-radius: 6px;
+  background: rgba(245, 180, 71, 0.1);
+  font-size: 0.78rem;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
 @media (max-width: 1120px) {
   .planner-grid {
     grid-template-columns: 1fr 1fr;
@@ -354,6 +490,18 @@ input[type="range"] {
   .orbit-stage {
     grid-column: 1 / -1;
     grid-row: 1;
+  }
+
+  .lesson-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .lesson-intro {
+    position: static;
+  }
+
+  .lesson-callout {
+    grid-column: auto;
   }
 }
 
@@ -384,5 +532,22 @@ input[type="range"] {
 
   #orbit-canvas {
     min-height: 360px;
+  }
+
+  .lesson-panel {
+    padding: 14px;
+  }
+
+  .lesson-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lesson-callout {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .lesson-callout > a {
+    width: 100%;
   }
 }

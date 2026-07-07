@@ -8,6 +8,13 @@ The first version focuses on same-body circular orbit changes. Later modes can a
 
 ## Repository Taxonomy
 
+Current route map:
+
+- `projects/ksp-transfer-planner/`: intro hub for KSP, orbital mechanics 101, key terms, and planner family selection.
+- `projects/ksp-transfer-planner/one-body/`: single-planet systems hub for local orbit planning, rendezvous, and captured satellite transfers.
+- `projects/ksp-transfer-planner/one-body/orbit-plans/`: same-body orbit design tool family hub.
+- `projects/ksp-transfer-planner/one-body/orbit-plans/hohmann/`: working Hohmann circular orbit raise/lower planner and mini-lesson.
+
 The project should organize captured, local-orbit problems under `one-body/`. In this context, the "one body" is the host body that defines the local system: Kerbin with Mun and Minmus, Duna with Ike, Jool with its moons, and so on.
 
 Initial one-body homes:

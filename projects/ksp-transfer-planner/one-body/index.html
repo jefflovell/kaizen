@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Single planet KSP planning tools for one host body, local rendezvous, and captured satellite transfers."
+    />
+    <title>KSP Transfer Planner | Single Planet Systems</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css?v=2" />
+  </head>
+  <body>
+    <main class="home-shell">
+      <header class="home-header">
+        <a class="brand" href="../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+        <div class="home-title">
+          <h1>Single Planet Systems</h1>
+          <h2>Start with one gravity well before inviting the Sun to ruin your schedule.</h2>
+          <div class="home-copy">
+            <p>
+              These tools treat one host body as home base: Kerbin and its
+              moons, Duna and Ike, Jool and its tiny administrative disasters.
+              Learn the local moves before trying to negotiate with the whole
+              solar system.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <section class="tool-grid family-grid" aria-label="Single planet planner categories">
+        <article class="tool-card is-live" style="--accent: #5bd7eb">
+          <div class="orbit-art art-hohmann" aria-hidden="true">
+            <span class="planet"></span>
+            <span class="orbit one"></span>
+            <span class="orbit two"></span>
+            <span class="burn burn-a"></span>
+            <span class="burn burn-b"></span>
+          </div>
+          <p class="tool-type">Orbit plans</p>
+          <h2>Shape, tilt, timing, and coverage around a single body.</h2>
+          <p>
+            Hohmann raises, elliptical orbits, inclination changes,
+            geosynchronous rails, repeat ground tracks, polar mapping,
+            Molniya-style loitering, and launch-site assists.
+          </p>
+          <a class="start-button" href="./orbit-plans/">Start planning</a>
+        </article>
+
+        <article class="tool-card" style="--accent: #8ce66f">
+          <div class="orbit-art art-rendezvous-family" aria-hidden="true">
+            <span class="planet"></span>
+            <span class="orbit two"></span>
+            <span class="dot dot-a"></span>
+            <span class="dot dot-b"></span>
+          </div>
+          <p class="tool-type">Rendezvous</p>
+          <h2>Meet another craft without turning the map view into performance art.</h2>
+          <p>
+            Target lead angles, phasing orbits, intercept geometry, and the
+            final matching burn. Phase angle lives here because now there is
+            actually something to meet.
+          </p>
+          <span class="start-button is-disabled" aria-disabled="true">Coming later</span>
+        </article>
+
+        <article class="tool-card" style="--accent: #f7b84d">
+          <div class="orbit-art art-satellite-family" aria-hidden="true">
+            <span class="planet origin"></span>
+            <span class="planet moon"></span>
+            <span class="ellipse"></span>
+            <span class="burn burn-a"></span>
+          </div>
+          <p class="tool-type">Satellite transfer</p>
+          <h2>Kerbin to Mun, Duna to Ike, and other captured-body field trips.</h2>
+          <p>
+            Transfers from a host-body parking orbit to a captured moon or
+            satellite: local phase angles, ejection burns, arrival speed,
+            capture burns, and all the polite lies we tell landers before
+            descent.
+          </p>
+          <span class="start-button is-disabled" aria-disabled="true">Coming later</span>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
