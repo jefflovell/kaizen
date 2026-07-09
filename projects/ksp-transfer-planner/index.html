@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=2" />
+    <link rel="stylesheet" href="./styles.css?v=3" />
   </head>
   <body>
     <main class="home-shell">
@@ -24,53 +24,98 @@
         <div class="home-title">
           <h1>Orbital Mechanics 101</h1>
           <h2>Kerbal Space Program teaches spaceflight the exciting way: by letting gravity grade your homework.</h2>
-          <div class="home-copy">
-            <p>
-              This is the front door for the planner suite: a quick mental map
-              of KSP, orbit vocabulary, and the kinds of mission problems each
-              family of tools is meant to solve.
-            </p>
-          </div>
         </div>
         <a
           class="official-hero"
           href="https://www.kerbalspaceprogram.com/"
           rel="noreferrer"
+          title="Visit the official website"
           aria-label="Visit the official Kerbal Space Program website"
         >
           <img
             src="./assets/ksp-press-kit-hero.png"
             alt="Kerbal Space Program press art showing Kerbals in space with a rocket and satellite"
           />
-          <span>Kerbal Space Program official site</span>
         </a>
       </header>
 
       <section class="intro-band" aria-labelledby="what-is-ksp">
         <div>
           <h2 id="what-is-ksp">What Is KSP?</h2>
-          <p class="section-tagline">A rocket game with suspiciously honest physics.</p>
+          <p class="section-tagline">A rocket builder and flight sim with wickedly honest physics.</p>
         </div>
-        <p>
-          Kerbal Space Program is a spaceflight sandbox where building the
-          rocket is only half the joke. The other half is learning that orbit is
-          not “going up.” Orbit is falling around a body fast enough that you
-          keep missing the ground. KSP is good at teaching this because it makes
-          you fly the mistake, watch the map, and then fix the mistake with a
-          burn you understand a little better than last time.
-        </p>
+        <div class="intro-copy">
+          <p>
+            Kerbal Space Program is an addictively fun sandbox spaceflight
+            simulator where building rockets is only half the chaos. Inside a
+            mission planner and builder that hits the same childhood circuit as
+            Lego, SimCity, and Minecraft, players end up learning real aerospace
+            engineering, orbital mechanics, and planetary astronomy concepts.
+            Usually by dooming their intrepid explorers to an endless parade of
+            macabre endings worthy of national headlines and Hollywood disaster
+            trailers.
+          </p>
+          <p>
+            If you, your kids, or the neighbor's labradoodle has even a passing
+            interest in spaceflight, engineering, or building things for the
+            sheer joy of watching them almost work, KSP is well worth a look.
+            It has a wickedly gallows sense of humor, as reflected in this
+            project, plus a slightly gentler than reality physics system with
+            forgiving saves and revert buttons. Enough fudge factor to learn
+            from catastrophe without making every maneuver feel like Apollo 13.
+          </p>
+          <p>
+            This site is here for the tricky bit: the whole flying through space
+            thing. Orbital mechanics becomes surprisingly intuitive once you get
+            a feel for the shapes, speeds, and timing, but the vocabulary can
+            make a simple orbit change sound like a classified weapons program.
+            These planners pair interactive calculators with plain-English
+            explanations, so the jargon turns back into a mental model you can
+            actually fly. If that scratches the itch, creators like Scott Manley
+            and Matt Lowne have deep catalogs for going from "wait, what is
+            apoapsis?" to "who says I can't build an orbital rail gun?"
+          </p>
+        </div>
       </section>
 
       <section class="glossary-preview" aria-labelledby="terms-title">
         <div class="section-head">
           <h2 id="terms-title">Key Terms</h2>
-          <p class="section-tagline">Words mission control keeps saying while pretending this is fine.</p>
+          <p class="section-tagline">Words Mission Control keeps repeating while gaslighting you that this many alarms is normal.</p>
           <a href="https://wiki.kerbalspaceprogram.com/wiki/Terminology" rel="noreferrer"
             >KSP terminology reference</a
           >
         </div>
         <div class="term-grid">
-          <article>
+          <article class="term-card has-visual">
+            <figure class="term-visual apoapsis-visual" aria-label="Apoapsis diagram showing a rocket approaching the highest point of an elliptical orbit around a planet">
+              <svg viewBox="0 0 320 210" role="img" aria-labelledby="apoapsis-visual-title">
+                <title id="apoapsis-visual-title">Apoapsis at 100,000 meters</title>
+                <defs>
+                  <radialGradient id="apoapsis-planet" cx="36%" cy="34%" r="62%">
+                    <stop offset="0%" stop-color="#9ff3e6" />
+                    <stop offset="58%" stop-color="#2c8a85" />
+                    <stop offset="100%" stop-color="#0b353c" />
+                  </radialGradient>
+                  <linearGradient id="apoapsis-trail" x1="170" y1="13" x2="252" y2="52" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#5bd7eb" stop-opacity="0" />
+                    <stop offset="45%" stop-color="#5bd7eb" stop-opacity="0.55" />
+                    <stop offset="100%" stop-color="#5bd7eb" stop-opacity="1" />
+                  </linearGradient>
+                </defs>
+                <rect width="320" height="210" rx="12" fill="#050a0f" />
+                <ellipse class="orbit-line" cx="160" cy="105" rx="112" ry="92" />
+                <path class="trajectory-highlight" d="M 169.76 13.35 A 112 92 0 0 1 251.75 52.23" />
+                <circle class="planet-body" cx="97" cy="105" r="34" />
+                <circle class="planet-shine" cx="85" cy="91" r="9" />
+                <circle class="apoapsis-node" cx="272" cy="105" r="5" />
+                <text class="apoapsis-label" x="222" y="136">Apoapsis</text>
+                <text class="apoapsis-height" x="226" y="154">100,000 m</text>
+                <g class="rocket-marker" transform="translate(252 52) rotate(50)">
+                  <polygon points="12,0 -9,-6 -5,0 -9,6" />
+                </g>
+              </svg>
+            </figure>
             <h3>Apoapsis</h3>
             <p>The highest point of your orbit. This is where you loiter, plan, and wonder why periapsis looks offended.</p>
           </article>
@@ -105,59 +150,65 @@
         </div>
       </section>
 
-      <section class="tool-grid family-grid" aria-label="Planner families">
-        <article class="tool-card is-live" style="--accent: #5bd7eb">
-          <div class="orbit-art art-hohmann" aria-hidden="true">
-            <span class="planet"></span>
-            <span class="orbit one"></span>
-            <span class="orbit two"></span>
-            <span class="burn burn-a"></span>
-            <span class="burn burn-b"></span>
-          </div>
-          <p class="tool-type">Single planet systems</p>
-          <h2>Orbit design around one host body and its captured satellites.</h2>
-          <p>
-            Kerbin orbit changes, Mun and Minmus transfers, Duna to Ike, relay
-            shells, polar scans, geostationary mischief, and the small local
-            problems that teach the big interplanetary ones.
-          </p>
-          <a class="start-button" href="./one-body/">Start here</a>
-        </article>
+      <section class="destination-band" aria-labelledby="planner-families-title">
+        <div class="section-head destination-head">
+          <h2 id="planner-families-title">Where to?</h2>
+          <p class="section-tagline">Pick your next publicly televised space program disaster.</p>
+        </div>
+        <div class="tool-grid family-grid" aria-label="Planner families">
+          <article class="tool-card is-live" style="--accent: #5bd7eb">
+            <div class="orbit-art art-hohmann" aria-hidden="true">
+              <span class="planet"></span>
+              <span class="orbit one"></span>
+              <span class="orbit two"></span>
+              <span class="burn burn-a"></span>
+              <span class="burn burn-b"></span>
+            </div>
+            <p class="tool-type">Single planet systems</p>
+            <h2>Orbit design around one host body and its captured satellites.</h2>
+            <p>
+              Kerbin orbit changes, Mun and Minmus transfers, Duna to Ike, relay
+              shells, polar scans, geostationary mischief, and the small local
+              problems that teach the big interplanetary ones.
+            </p>
+            <a class="start-button" href="./one-body/">Start here</a>
+          </article>
 
-        <article class="tool-card" style="--accent: #f7b84d">
-          <div class="orbit-art art-transfer-family" aria-hidden="true">
-            <span class="planet origin"></span>
-            <span class="planet destination"></span>
-            <span class="ellipse huge"></span>
-            <span class="burn burn-a"></span>
-          </div>
-          <p class="tool-type">Interplanetary transfers</p>
-          <h2>Kerbin to Duna, Eve, Jool, and the part where the Sun starts keeping score.</h2>
-          <p>
-            Transfer windows, planetary phase angles, ejection burns, arrival
-            velocity, capture, aerobraking, and eventually moon assists without
-            pretending the solar system is a polite spreadsheet.
-          </p>
-          <span class="start-button is-disabled" aria-disabled="true">Coming later</span>
-        </article>
+          <article class="tool-card" style="--accent: #f7b84d">
+            <div class="orbit-art art-transfer-family" aria-hidden="true">
+              <span class="planet origin"></span>
+              <span class="planet destination"></span>
+              <span class="ellipse huge"></span>
+              <span class="burn burn-a"></span>
+            </div>
+            <p class="tool-type">Interplanetary transfers</p>
+            <h2>Kerbin to Duna, Eve, Jool, and the part where the Sun starts keeping score.</h2>
+            <p>
+              Transfer windows, planetary phase angles, ejection burns, arrival
+              velocity, capture, aerobraking, and eventually moon assists without
+              pretending the solar system is a polite spreadsheet.
+            </p>
+            <span class="start-button is-disabled" aria-disabled="true">Coming later</span>
+          </article>
 
-        <article class="tool-card" style="--accent: #cda2ff">
-          <div class="orbit-art art-advanced-family" aria-hidden="true">
-            <span class="planet"></span>
-            <span class="ellipse tall"></span>
-            <span class="dot dot-a"></span>
-            <span class="dot dot-c"></span>
-            <span class="paper"></span>
-          </div>
-          <p class="tool-type">Advanced maneuvers</p>
-          <h2>Slingshots, gravity brakes, resonances, Lagrange-ish thinking, and other suspicious bargains.</h2>
-          <p>
-            The weird shelf: gravity assists, braking passes, resonance games,
-            low-energy paths, and the maneuvers that make sense only after the
-            simple burns have already humbled everyone involved.
-          </p>
-          <span class="start-button is-disabled" aria-disabled="true">Coming later</span>
-        </article>
+          <article class="tool-card" style="--accent: #cda2ff">
+            <div class="orbit-art art-advanced-family" aria-hidden="true">
+              <span class="planet"></span>
+              <span class="ellipse tall"></span>
+              <span class="dot dot-a"></span>
+              <span class="dot dot-c"></span>
+              <span class="paper"></span>
+            </div>
+            <p class="tool-type">Advanced maneuvers</p>
+            <h2>Slingshots, gravity brakes, resonances, Lagrange-ish thinking, and other Faustian bargains.</h2>
+            <p>
+              The weird shelf: gravity assists, braking passes, resonance games,
+              low-energy paths, and the maneuvers that make sense only after the
+              simple burns have already humbled everyone involved.
+            </p>
+            <span class="start-button is-disabled" aria-disabled="true">Coming later</span>
+          </article>
+        </div>
       </section>
     </main>
     <footer class="legal-footer">

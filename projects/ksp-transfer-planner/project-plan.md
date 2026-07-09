@@ -6,6 +6,8 @@ KSP Transfer Planner should become a small suite of focused orbital planning too
 
 The first version focuses on same-body circular orbit changes. Later modes can add rendezvous, moon transfers, interplanetary transfers, and maneuver execution support.
 
+Read `style-guide.md` before changing page copy, glossary cards, orbit diagrams, or planner visuals. Orbital drawings should be treated as technical drawings first, with KSP flavor layered only after the geometry is correct.
+
 ## Repository Taxonomy
 
 Current route map:

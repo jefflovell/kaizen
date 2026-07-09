@@ -178,20 +178,6 @@ body::before {
   transition: transform 200ms ease;
 }
 
-.official-hero span {
-  position: absolute;
-  z-index: 1;
-  right: 16px;
-  bottom: 14px;
-  left: 16px;
-  color: var(--text);
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-align: right;
-  text-transform: uppercase;
-}
-
 .official-hero:hover img,
 .official-hero:focus-visible img {
   transform: scale(1.025);
@@ -242,10 +228,15 @@ body::before {
 }
 
 .intro-band > p,
+.intro-copy p,
 .term-grid p {
   margin: 0;
   color: var(--muted);
   line-height: 1.65;
+}
+
+.intro-copy p + p {
+  margin-top: 14px;
 }
 
 .section-head {
@@ -307,15 +298,126 @@ body::before {
   background: rgba(8, 14, 20, 0.72);
 }
 
+.term-card.has-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .term-grid h3 {
   margin: 0 0 8px;
-  font-family: "Space Grotesk", sans-serif;
-  font-size: 1rem;
-  line-height: 1.1;
+  color: var(--amber);
+  font-family: var(--tech);
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.term-card.has-visual h3 {
+  margin: 0;
+}
+
+.term-visual {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(91, 215, 235, 0.22);
+  border-radius: 7px;
+  background: #050a0f;
+}
+
+.term-visual svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.term-visual rect {
+  fill:
+    color-mix(in srgb, #071018, transparent 6%);
+}
+
+.apoapsis-visual .orbit-line {
+  fill: none;
+  stroke: rgba(91, 215, 235, 0.55);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.apoapsis-visual .trajectory-highlight {
+  fill: none;
+  stroke: url("#apoapsis-trail");
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.apoapsis-visual .planet-body {
+  fill: url("#apoapsis-planet");
+  stroke: rgba(178, 255, 243, 0.35);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.apoapsis-visual .planet-shine {
+  fill: rgba(255, 255, 255, 0.18);
+}
+
+.apoapsis-visual .apoapsis-node {
+  fill: var(--amber);
+  stroke: #071018;
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+.apoapsis-visual .rocket-marker polygon {
+  fill: #ff704d;
+  stroke: #ffd7cc;
+  stroke-width: 1.25;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.apoapsis-visual text {
+  font-family: var(--tech);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.apoapsis-visual .apoapsis-label {
+  fill: var(--amber);
+  font-size: 18px;
+}
+
+.apoapsis-visual .apoapsis-height {
+  fill: rgba(235, 244, 245, 0.84);
+  font-size: 13px;
 }
 
 .family-grid .tool-card {
   min-height: 0;
+}
+
+.destination-band {
+  margin-top: 16px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(91, 215, 235, 0.06), transparent 34%),
+    linear-gradient(315deg, rgba(245, 180, 71, 0.07), transparent 36%),
+    rgba(7, 13, 19, 0.7);
+  box-shadow: var(--shadow);
+}
+
+.destination-head {
+  margin-bottom: 20px;
+}
+
+.destination-head .section-tagline {
+  max-width: 820px;
 }
 
 .tool-grid {
