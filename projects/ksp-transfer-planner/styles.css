@@ -338,7 +338,8 @@ body::before {
     color-mix(in srgb, #071018, transparent 6%);
 }
 
-.apoapsis-visual .orbit-line {
+.apoapsis-visual .orbit-line,
+.periapsis-visual .orbit-line {
   fill: none;
   stroke: rgba(91, 215, 235, 0.55);
   stroke-width: 1.4;
@@ -346,7 +347,8 @@ body::before {
   vector-effect: non-scaling-stroke;
 }
 
-.apoapsis-visual .trajectory-highlight {
+.apoapsis-visual .trajectory-highlight,
+.periapsis-visual .trajectory-highlight {
   fill: none;
   stroke: url("#apoapsis-trail");
   stroke-width: 3.2;
@@ -354,25 +356,37 @@ body::before {
   vector-effect: non-scaling-stroke;
 }
 
-.apoapsis-visual .planet-body {
+.periapsis-visual .trajectory-highlight {
+  stroke: url("#periapsis-trail");
+}
+
+.apoapsis-visual .planet-body,
+.periapsis-visual .planet-body {
   fill: url("#apoapsis-planet");
   stroke: rgba(178, 255, 243, 0.35);
   stroke-width: 1.5;
   vector-effect: non-scaling-stroke;
 }
 
-.apoapsis-visual .planet-shine {
+.periapsis-visual .planet-body {
+  fill: url("#periapsis-planet");
+}
+
+.apoapsis-visual .planet-shine,
+.periapsis-visual .planet-shine {
   fill: rgba(255, 255, 255, 0.18);
 }
 
-.apoapsis-visual .apoapsis-node {
+.apoapsis-visual .apoapsis-node,
+.periapsis-visual .periapsis-node {
   fill: var(--amber);
   stroke: #071018;
   stroke-width: 2;
   vector-effect: non-scaling-stroke;
 }
 
-.apoapsis-visual .rocket-marker polygon {
+.apoapsis-visual .rocket-marker polygon,
+.periapsis-visual .rocket-marker polygon {
   fill: #ff704d;
   stroke: #ffd7cc;
   stroke-width: 1.25;
@@ -380,20 +394,103 @@ body::before {
   vector-effect: non-scaling-stroke;
 }
 
-.apoapsis-visual text {
+.apoapsis-visual text,
+.periapsis-visual text {
   font-family: var(--tech);
   font-weight: 700;
   letter-spacing: 0;
 }
 
-.apoapsis-visual .apoapsis-label {
+.apoapsis-visual .apoapsis-label,
+.periapsis-visual .periapsis-label {
   fill: var(--amber);
   font-size: 18px;
 }
 
-.apoapsis-visual .apoapsis-height {
+.apoapsis-visual .apoapsis-height,
+.periapsis-visual .periapsis-height {
   fill: rgba(235, 244, 245, 0.84);
   font-size: 13px;
+}
+
+.prograde-visual .parking-orbit {
+  fill: none;
+  stroke: rgba(91, 215, 235, 0.36);
+  stroke-width: 1.35;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.prograde-visual .trajectory-highlight {
+  fill: none;
+  stroke: url("#prograde-trail-gradient");
+  stroke-width: 3;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.prograde-visual .trajectory-tail {
+  fill: none;
+  stroke: rgba(91, 215, 235, 0.72);
+  stroke-width: 5.5;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.prograde-visual .transfer-orbit {
+  fill: none;
+  stroke: url("#transfer-orbit-weight");
+  stroke-width: 2.2;
+  stroke-dasharray: 5 5;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.prograde-visual .planet-body {
+  fill: url("#prograde-planet");
+  stroke: rgba(178, 255, 243, 0.35);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.prograde-visual .planet-shine {
+  fill: rgba(255, 255, 255, 0.18);
+}
+
+.prograde-visual .burn-vector {
+  stroke: #4cff4c;
+  stroke-width: 4;
+  stroke-linecap: round;
+  marker-end: url("#prograde-arrow");
+  vector-effect: non-scaling-stroke;
+}
+
+.prograde-visual #prograde-arrow path {
+  fill: #4cff4c;
+}
+
+.prograde-visual .apoapsis-lift {
+  stroke: url("#apoapsis-lift-gradient");
+  stroke-width: 3;
+  stroke-linecap: round;
+  marker-end: url("#apoapsis-lift-arrow");
+  vector-effect: non-scaling-stroke;
+}
+
+.prograde-visual #apoapsis-lift-arrow path {
+  fill: var(--amber);
+}
+
+.prograde-visual .old-apoapsis {
+  fill: rgba(91, 215, 235, 0.75);
+}
+
+.prograde-visual .rocket-marker polygon {
+  fill: #ff704d;
+  stroke: #ffd7cc;
+  stroke-width: 1.25;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
 }
 
 .family-grid .tool-card {

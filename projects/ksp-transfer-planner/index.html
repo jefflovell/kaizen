@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=3" />
+    <link rel="stylesheet" href="./styles.css?v=4" />
   </head>
   <body>
     <main class="home-shell">
@@ -81,7 +81,7 @@
       <section class="glossary-preview" aria-labelledby="terms-title">
         <div class="section-head">
           <h2 id="terms-title">Key Terms</h2>
-          <p class="section-tagline">Words Mission Control keeps repeating while gaslighting you that this many alarms is normal.</p>
+          <p class="section-tagline">Words that Mission Control keeps repeating while gaslighting you that this many alarms is normal.</p>
           <a href="https://wiki.kerbalspaceprogram.com/wiki/Terminology" rel="noreferrer"
             >KSP terminology reference</a
           >
@@ -117,15 +117,90 @@
               </svg>
             </figure>
             <h3>Apoapsis</h3>
-            <p>The highest point of your orbit. This is where you loiter, plan, and wonder why periapsis looks offended.</p>
+            <p>The highest point of your orbit. This is where you loiter, plan, and wonder if you should have brought more fuel.</p>
           </article>
-          <article>
+          <article class="term-card has-visual">
+            <figure class="term-visual periapsis-visual" aria-label="Periapsis diagram showing a rocket approaching the lowest point of an elliptical orbit around a planet">
+              <svg viewBox="0 0 320 210" role="img" aria-labelledby="periapsis-visual-title">
+                <title id="periapsis-visual-title">Periapsis at 15,000 meters</title>
+                <defs>
+                  <radialGradient id="periapsis-planet" cx="36%" cy="34%" r="62%">
+                    <stop offset="0%" stop-color="#9ff3e6" />
+                    <stop offset="58%" stop-color="#2c8a85" />
+                    <stop offset="100%" stop-color="#0b353c" />
+                  </radialGradient>
+                  <linearGradient id="periapsis-trail" x1="151" y1="197" x2="68" y2="158" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#5bd7eb" stop-opacity="0" />
+                    <stop offset="45%" stop-color="#5bd7eb" stop-opacity="0.55" />
+                    <stop offset="100%" stop-color="#5bd7eb" stop-opacity="1" />
+                  </linearGradient>
+                </defs>
+                <rect width="320" height="210" rx="12" fill="#050a0f" />
+                <ellipse class="orbit-line" cx="160" cy="105" rx="112" ry="92" />
+                <path class="trajectory-highlight" d="M 150.24 196.65 A 112 92 0 0 1 68.25 157.77" />
+                <circle class="planet-body" cx="97" cy="105" r="34" />
+                <circle class="planet-shine" cx="85" cy="91" r="9" />
+                <circle class="periapsis-node" cx="48" cy="105" r="5" />
+                <text class="periapsis-label" x="24" y="54">Periapsis</text>
+                <text class="periapsis-height" x="24" y="72">15,000 m</text>
+                <g class="rocket-marker" transform="translate(68 158) rotate(-131)">
+                  <polygon points="12,0 -9,-6 -5,0 -9,6" />
+                </g>
+              </svg>
+            </figure>
             <h3>Periapsis</h3>
-            <p>The lowest point of your orbit. This is where speed gets spicy and terrain gets legally relevant.</p>
+            <p>The lowest point of your orbit. This is where speed gets spicy and terrain gets aggressively confrontational.</p>
           </article>
-          <article>
+          <article class="term-card has-visual">
+            <figure class="term-visual prograde-visual" aria-label="Prograde diagram showing a tangent burn raising apoapsis perpendicular to the burn direction">
+              <svg viewBox="0 0 320 210" role="img" aria-labelledby="prograde-visual-title">
+                <title id="prograde-visual-title">Prograde burn tangent to the orbit raises apoapsis</title>
+                <defs>
+                  <radialGradient id="prograde-planet" cx="36%" cy="34%" r="62%">
+                    <stop offset="0%" stop-color="#9ff3e6" />
+                    <stop offset="58%" stop-color="#2c8a85" />
+                    <stop offset="100%" stop-color="#0b353c" />
+                  </radialGradient>
+                  <linearGradient id="apoapsis-lift-gradient" x1="222" y1="112" x2="276" y2="112" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#5bd7eb" />
+                    <stop offset="100%" stop-color="#f5b447" />
+                  </linearGradient>
+                  <linearGradient id="prograde-trail-gradient" x1="105" y1="151" x2="98" y2="74" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#5bd7eb" stop-opacity="0.95" />
+                    <stop offset="56%" stop-color="#5bd7eb" stop-opacity="0.58" />
+                    <stop offset="100%" stop-color="#5bd7eb" stop-opacity="0.14" />
+                  </linearGradient>
+                  <linearGradient id="transfer-orbit-weight" x1="98" y1="112" x2="276" y2="112" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#5bd7eb" stop-opacity="0.36" />
+                    <stop offset="44%" stop-color="#5bd7eb" stop-opacity="0.52" />
+                    <stop offset="72%" stop-color="#f5b447" stop-opacity="0.78" />
+                    <stop offset="100%" stop-color="#f5b447" stop-opacity="0.96" />
+                  </linearGradient>
+                  <marker id="prograde-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                    <path d="M 0 0 L 10 5 L 0 10 z" />
+                  </marker>
+                  <marker id="apoapsis-lift-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+                    <path d="M 0 0 L 10 5 L 0 10 z" />
+                  </marker>
+                </defs>
+                <rect width="320" height="210" rx="12" fill="#050a0f" />
+                <image class="navball-marker" href="assets/prograde-marker.png" x="17" y="15" width="50" height="50" />
+                <ellipse class="transfer-orbit" cx="187" cy="112" rx="89" ry="85" />
+                <circle class="parking-orbit" cx="160" cy="112" r="62" />
+                <path class="trajectory-tail" d="M 105.34 141.18 A 62 62 0 0 1 98.50 104.15" />
+                <path class="trajectory-highlight" d="M 105.34 141.18 A 62 62 0 0 1 98.50 104.15 A 62 62 0 0 1 112.50 72.15" />
+                <circle class="planet-body" cx="160" cy="112" r="27" />
+                <circle class="planet-shine" cx="151" cy="102" r="7" />
+                <circle class="old-apoapsis" cx="222" cy="112" r="3" />
+                <line class="apoapsis-lift" x1="222" y1="112" x2="276" y2="112" />
+                <line class="burn-vector" x1="98" y1="98" x2="98" y2="49" />
+                <g class="rocket-marker" transform="translate(98 112) rotate(-90)">
+                  <polygon points="12,0 -9,-6 -5,0 -9,6" />
+                </g>
+              </svg>
+            </figure>
             <h3>Prograde</h3>
-            <p>Burn with your motion. It stretches the far side of the orbit and usually makes the map look more ambitious.</p>
+            <p>Burn with your motion, tangent to the path. The push goes sideways here; apoapsis climbs over there.</p>
           </article>
           <article>
             <h3>Retrograde</h3>
