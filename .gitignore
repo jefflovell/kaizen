@@ -2,3 +2,11 @@
 design-concept.png
 site-desktop.png
 site-mobile.png
+
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Local generated outputs
+tmp/
