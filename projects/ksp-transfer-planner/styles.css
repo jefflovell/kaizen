@@ -356,97 +356,193 @@ body::before {
 }
 
 .apoapsis-visual .tail-1,
-.periapsis-visual .tail-1 {
+.periapsis-visual .tail-1,
+.prograde-visual .tail-1,
+.retrograde-visual .tail-1,
+.radial-out-visual .tail-1,
+.radial-in-visual .tail-1,
+.normal-visual .tail-1,
+.anti-normal-visual .tail-1 {
   stroke-width: 0.5;
   stroke-opacity: 0.04;
 }
 
 .apoapsis-visual .tail-2,
-.periapsis-visual .tail-2 {
+.periapsis-visual .tail-2,
+.prograde-visual .tail-2,
+.retrograde-visual .tail-2,
+.radial-out-visual .tail-2,
+.radial-in-visual .tail-2,
+.normal-visual .tail-2,
+.anti-normal-visual .tail-2 {
   stroke-width: 0.7;
   stroke-opacity: 0.08;
 }
 
 .apoapsis-visual .tail-3,
-.periapsis-visual .tail-3 {
+.periapsis-visual .tail-3,
+.prograde-visual .tail-3,
+.retrograde-visual .tail-3,
+.radial-out-visual .tail-3,
+.radial-in-visual .tail-3,
+.normal-visual .tail-3,
+.anti-normal-visual .tail-3 {
   stroke-width: 0.9;
   stroke-opacity: 0.13;
 }
 
 .apoapsis-visual .tail-4,
-.periapsis-visual .tail-4 {
+.periapsis-visual .tail-4,
+.prograde-visual .tail-4,
+.retrograde-visual .tail-4,
+.radial-out-visual .tail-4,
+.radial-in-visual .tail-4,
+.normal-visual .tail-4,
+.anti-normal-visual .tail-4 {
   stroke-width: 1.1;
   stroke-opacity: 0.19;
 }
 
 .apoapsis-visual .tail-5,
-.periapsis-visual .tail-5 {
+.periapsis-visual .tail-5,
+.prograde-visual .tail-5,
+.retrograde-visual .tail-5,
+.radial-out-visual .tail-5,
+.radial-in-visual .tail-5,
+.normal-visual .tail-5,
+.anti-normal-visual .tail-5 {
   stroke-width: 1.3;
   stroke-opacity: 0.26;
 }
 
 .apoapsis-visual .tail-6,
-.periapsis-visual .tail-6 {
+.periapsis-visual .tail-6,
+.prograde-visual .tail-6,
+.retrograde-visual .tail-6,
+.radial-out-visual .tail-6,
+.radial-in-visual .tail-6,
+.normal-visual .tail-6,
+.anti-normal-visual .tail-6 {
   stroke-width: 1.55;
   stroke-opacity: 0.34;
 }
 
 .apoapsis-visual .tail-7,
-.periapsis-visual .tail-7 {
+.periapsis-visual .tail-7,
+.prograde-visual .tail-7,
+.retrograde-visual .tail-7,
+.radial-out-visual .tail-7,
+.radial-in-visual .tail-7,
+.normal-visual .tail-7,
+.anti-normal-visual .tail-7 {
   stroke-width: 1.8;
   stroke-opacity: 0.43;
 }
 
 .apoapsis-visual .tail-8,
-.periapsis-visual .tail-8 {
+.periapsis-visual .tail-8,
+.prograde-visual .tail-8,
+.retrograde-visual .tail-8,
+.radial-out-visual .tail-8,
+.radial-in-visual .tail-8,
+.normal-visual .tail-8,
+.anti-normal-visual .tail-8 {
   stroke-width: 2.05;
   stroke-opacity: 0.52;
 }
 
 .apoapsis-visual .tail-9,
-.periapsis-visual .tail-9 {
+.periapsis-visual .tail-9,
+.prograde-visual .tail-9,
+.retrograde-visual .tail-9,
+.radial-out-visual .tail-9,
+.radial-in-visual .tail-9,
+.normal-visual .tail-9,
+.anti-normal-visual .tail-9 {
   stroke-width: 2.35;
   stroke-opacity: 0.61;
 }
 
 .apoapsis-visual .tail-10,
-.periapsis-visual .tail-10 {
+.periapsis-visual .tail-10,
+.prograde-visual .tail-10,
+.retrograde-visual .tail-10,
+.radial-out-visual .tail-10,
+.radial-in-visual .tail-10,
+.normal-visual .tail-10,
+.anti-normal-visual .tail-10 {
   stroke-width: 2.65;
   stroke-opacity: 0.7;
 }
 
 .apoapsis-visual .tail-11,
-.periapsis-visual .tail-11 {
+.periapsis-visual .tail-11,
+.prograde-visual .tail-11,
+.retrograde-visual .tail-11,
+.radial-out-visual .tail-11,
+.radial-in-visual .tail-11,
+.normal-visual .tail-11,
+.anti-normal-visual .tail-11 {
   stroke-width: 2.95;
   stroke-opacity: 0.78;
 }
 
 .apoapsis-visual .tail-12,
-.periapsis-visual .tail-12 {
+.periapsis-visual .tail-12,
+.prograde-visual .tail-12,
+.retrograde-visual .tail-12,
+.radial-out-visual .tail-12,
+.radial-in-visual .tail-12,
+.normal-visual .tail-12,
+.anti-normal-visual .tail-12 {
   stroke-width: 3.25;
   stroke-opacity: 0.84;
 }
 
 .apoapsis-visual .tail-13,
-.periapsis-visual .tail-13 {
+.periapsis-visual .tail-13,
+.prograde-visual .tail-13,
+.retrograde-visual .tail-13,
+.radial-out-visual .tail-13,
+.radial-in-visual .tail-13,
+.normal-visual .tail-13,
+.anti-normal-visual .tail-13 {
   stroke-width: 3.55;
   stroke-opacity: 0.89;
 }
 
 .apoapsis-visual .tail-14,
-.periapsis-visual .tail-14 {
+.periapsis-visual .tail-14,
+.prograde-visual .tail-14,
+.retrograde-visual .tail-14,
+.radial-out-visual .tail-14,
+.radial-in-visual .tail-14,
+.normal-visual .tail-14,
+.anti-normal-visual .tail-14 {
   stroke-width: 3.85;
   stroke-opacity: 0.93;
 }
 
 .apoapsis-visual .tail-15,
-.periapsis-visual .tail-15 {
+.periapsis-visual .tail-15,
+.prograde-visual .tail-15,
+.retrograde-visual .tail-15,
+.radial-out-visual .tail-15,
+.radial-in-visual .tail-15,
+.normal-visual .tail-15,
+.anti-normal-visual .tail-15 {
   stroke-width: 4.15;
   stroke-opacity: 0.96;
 }
 
 .apoapsis-visual .tail-16,
-.periapsis-visual .tail-16 {
+.periapsis-visual .tail-16,
+.prograde-visual .tail-16,
+.retrograde-visual .tail-16,
+.radial-out-visual .tail-16,
+.radial-in-visual .tail-16,
+.normal-visual .tail-16,
+.anti-normal-visual .tail-16 {
   stroke-width: 4.5;
   stroke-opacity: 0.98;
 }
@@ -522,83 +618,15 @@ body::before {
 }
 
 .prograde-visual .orbit-tail,
-.retrograde-visual .orbit-tail {
+.retrograde-visual .orbit-tail,
+.radial-out-visual .orbit-tail,
+.radial-in-visual .orbit-tail,
+.normal-visual .orbit-tail,
+.anti-normal-visual .orbit-tail {
   fill: none;
   stroke: #5bd7eb;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
-}
-
-.prograde-visual .orbit-tail.tail-1,
-.retrograde-visual .orbit-tail.tail-1 {
-  stroke-width: 0.6;
-  stroke-opacity: 0.08;
-}
-
-.prograde-visual .orbit-tail.tail-2,
-.retrograde-visual .orbit-tail.tail-2 {
-  stroke-width: 0.8;
-  stroke-opacity: 0.14;
-}
-
-.prograde-visual .orbit-tail.tail-3,
-.retrograde-visual .orbit-tail.tail-3 {
-  stroke-width: 1;
-  stroke-opacity: 0.21;
-}
-
-.prograde-visual .orbit-tail.tail-4,
-.retrograde-visual .orbit-tail.tail-4 {
-  stroke-width: 1.25;
-  stroke-opacity: 0.29;
-}
-
-.prograde-visual .orbit-tail.tail-5,
-.retrograde-visual .orbit-tail.tail-5 {
-  stroke-width: 1.55;
-  stroke-opacity: 0.38;
-}
-
-.prograde-visual .orbit-tail.tail-6,
-.retrograde-visual .orbit-tail.tail-6 {
-  stroke-width: 1.85;
-  stroke-opacity: 0.48;
-}
-
-.prograde-visual .orbit-tail.tail-7,
-.retrograde-visual .orbit-tail.tail-7 {
-  stroke-width: 2.15;
-  stroke-opacity: 0.58;
-}
-
-.prograde-visual .orbit-tail.tail-8,
-.retrograde-visual .orbit-tail.tail-8 {
-  stroke-width: 2.5;
-  stroke-opacity: 0.68;
-}
-
-.prograde-visual .orbit-tail.tail-9,
-.retrograde-visual .orbit-tail.tail-9 {
-  stroke-width: 2.85;
-  stroke-opacity: 0.78;
-}
-
-.prograde-visual .orbit-tail.tail-10,
-.retrograde-visual .orbit-tail.tail-10 {
-  stroke-width: 3.25;
-  stroke-opacity: 0.87;
-}
-
-.prograde-visual .orbit-tail.tail-11,
-.retrograde-visual .orbit-tail.tail-11 {
-  stroke-width: 3.7;
-  stroke-opacity: 0.94;
-}
-
-.prograde-visual .orbit-tail.tail-12,
-.retrograde-visual .orbit-tail.tail-12 {
-  stroke-width: 4.2;
-  stroke-opacity: 0.98;
 }
 
 .prograde-visual .navball-badge rect,
@@ -715,6 +743,7 @@ body::before {
 
 .retrograde-visual .result-vector {
   stroke: url("#retrograde-result-gradient");
+  stroke-width: 3;
 }
 
 .radial-out-visual .burn-vector,
@@ -722,19 +751,65 @@ body::before {
   marker-end: url("#radial-out-arrow");
 }
 
+.radial-out-visual .result-vector {
+  stroke: url("#radial-out-result-gradient");
+  stroke-width: 3;
+}
+
 .radial-in-visual .burn-vector,
 .radial-in-visual .result-vector {
   marker-end: url("#radial-in-arrow");
 }
 
-.normal-visual .burn-vector,
-.normal-visual .result-vector {
-  marker-end: url("#normal-arrow");
+.radial-in-visual .result-vector {
+  stroke: url("#radial-in-result-gradient");
+  stroke-width: 3;
 }
 
-.anti-normal-visual .burn-vector,
-.anti-normal-visual .result-vector {
+.normal-visual .burn-vector {
+  marker-end: url("#normal-burn-arrow");
+  stroke-linecap: butt;
+}
+
+.normal-visual .translation-vector {
+  marker-end: url("#normal-arrow");
+  stroke-linecap: butt;
+}
+
+.normal-visual .translation-vector {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: butt;
+  vector-effect: non-scaling-stroke;
+}
+
+.normal-visual .translation-left {
+  stroke: url("#normal-left-translation-gradient");
+}
+
+.normal-visual .translation-right {
+  stroke: url("#normal-right-translation-gradient");
+}
+
+.anti-normal-visual .burn-vector {
+  marker-end: url("#anti-normal-burn-arrow");
+  stroke-linecap: butt;
+}
+
+.anti-normal-visual .translation-vector {
   marker-end: url("#anti-normal-arrow");
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: butt;
+  vector-effect: non-scaling-stroke;
+}
+
+.anti-normal-visual .translation-left {
+  stroke: url("#anti-normal-left-translation-gradient");
+}
+
+.anti-normal-visual .translation-right {
+  stroke: url("#anti-normal-right-translation-gradient");
 }
 
 .burn-direction-visual .planet-body {
@@ -763,25 +838,22 @@ body::before {
   fill: url("#anti-normal-planet");
 }
 
-.anti-normal-visual .current-plane {
-  stroke: rgba(91, 215, 235, 0.36);
-  stroke-width: 2.2;
+.anti-normal-visual .anti-normal-current-orbit,
+.anti-normal-visual .anti-normal-current-front-orbit {
+  fill: none;
+  stroke: rgba(91, 215, 235, 0.56);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
 }
 
-.anti-normal-visual .changed-plane {
-  stroke: var(--burn-color);
-  stroke-width: 2.2;
-  stroke-dasharray: 5 5;
-}
-
-.normal-visual .current-plane {
-  stroke: rgba(91, 215, 235, 0.36);
-}
-
-.normal-visual .saturn-ring {
-  stroke: var(--burn-color);
-  stroke-width: 2.2;
-  stroke-dasharray: 5 5;
+.normal-visual .normal-equatorial-orbit,
+.normal-visual .normal-front-orbit {
+  fill: none;
+  stroke: rgba(91, 215, 235, 0.56);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
 }
 
 .burn-direction-visual .planet-shine {
@@ -930,6 +1002,224 @@ body::before {
     radial-gradient(circle at 50% 55%, rgba(255, 255, 255, 0.05), transparent 7rem),
     #071018;
   background-size: 28px 28px, 28px 28px, auto, auto;
+}
+
+.family-diagram {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.family-diagram .family-orbit,
+.family-diagram .family-transfer-path,
+.family-diagram .family-tail,
+.family-diagram .family-phase-spoke,
+.family-diagram .family-burn-vector,
+.family-diagram .advanced-reference-orbit,
+.family-diagram .advanced-atmosphere,
+.family-diagram .advanced-trajectory {
+  vector-effect: non-scaling-stroke;
+}
+
+.family-diagram .family-orbit {
+  fill: none;
+  stroke: rgba(91, 215, 235, 0.44);
+  stroke-width: 1.25;
+}
+
+.family-diagram .family-target-orbit,
+.family-diagram .family-destination-orbit {
+  stroke-dasharray: 5 5;
+  stroke-opacity: 0.72;
+}
+
+.family-diagram .family-transfer-path {
+  fill: none;
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+  stroke-linecap: round;
+}
+
+.family-single .family-transfer-path {
+  stroke: rgba(91, 215, 235, 0.56);
+}
+
+.family-interplanetary .family-transfer-path,
+.family-interplanetary .family-destination-orbit {
+  stroke: rgba(247, 184, 77, 0.54);
+}
+
+.family-diagram .family-body,
+.family-diagram .family-moon,
+.family-diagram .family-sun,
+.family-diagram .family-origin-planet,
+.family-diagram .family-destination-planet,
+.family-diagram .advanced-assist-body {
+  stroke: rgba(237, 247, 248, 0.3);
+  stroke-width: 1.25;
+  vector-effect: non-scaling-stroke;
+}
+
+.family-diagram .family-shine {
+  fill: rgba(255, 255, 255, 0.2);
+}
+
+.family-diagram .family-node {
+  fill: #f7b84d;
+  stroke: #071018;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.family-diagram .family-burn-vector {
+  stroke: #ff704d;
+  stroke-width: 2.6;
+  stroke-linecap: butt;
+}
+
+.family-diagram .family-craft polygon {
+  fill: #ff704d;
+  stroke: #ffd7cc;
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.family-diagram .family-tail {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.family-single .family-tail {
+  stroke: #5bd7eb;
+}
+
+.family-interplanetary .family-tail {
+  stroke: #f7b84d;
+}
+
+.family-diagram .family-tail-1 {
+  stroke-width: 0.5;
+  stroke-opacity: 0.04;
+}
+
+.family-diagram .family-tail-2 {
+  stroke-width: 0.7;
+  stroke-opacity: 0.08;
+}
+
+.family-diagram .family-tail-3 {
+  stroke-width: 0.9;
+  stroke-opacity: 0.13;
+}
+
+.family-diagram .family-tail-4 {
+  stroke-width: 1.1;
+  stroke-opacity: 0.19;
+}
+
+.family-diagram .family-tail-5 {
+  stroke-width: 1.3;
+  stroke-opacity: 0.26;
+}
+
+.family-diagram .family-tail-6 {
+  stroke-width: 1.55;
+  stroke-opacity: 0.34;
+}
+
+.family-diagram .family-tail-7 {
+  stroke-width: 1.8;
+  stroke-opacity: 0.43;
+}
+
+.family-diagram .family-tail-8 {
+  stroke-width: 2.05;
+  stroke-opacity: 0.52;
+}
+
+.family-diagram .family-tail-9 {
+  stroke-width: 2.35;
+  stroke-opacity: 0.61;
+}
+
+.family-diagram .family-tail-10 {
+  stroke-width: 2.65;
+  stroke-opacity: 0.7;
+}
+
+.family-diagram .family-tail-11 {
+  stroke-width: 2.95;
+  stroke-opacity: 0.78;
+}
+
+.family-diagram .family-tail-12 {
+  stroke-width: 3.25;
+  stroke-opacity: 0.84;
+}
+
+.family-diagram .family-tail-13 {
+  stroke-width: 3.55;
+  stroke-opacity: 0.89;
+}
+
+.family-diagram .family-tail-14 {
+  stroke-width: 3.85;
+  stroke-opacity: 0.93;
+}
+
+.family-diagram .family-tail-15 {
+  stroke-width: 4.15;
+  stroke-opacity: 0.96;
+}
+
+.family-diagram .family-tail-16 {
+  stroke-width: 4.5;
+  stroke-opacity: 0.98;
+}
+
+.family-interplanetary .family-phase-spoke {
+  stroke: rgba(247, 184, 77, 0.2);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+}
+
+.family-advanced .advanced-reference-orbit {
+  fill: none;
+  stroke: rgba(205, 162, 255, 0.25);
+  stroke-width: 1.1;
+  stroke-dasharray: 5 6;
+}
+
+.family-advanced .advanced-reference-wide {
+  stroke: rgba(91, 215, 235, 0.18);
+  stroke-dasharray: 3 7;
+}
+
+.family-advanced .advanced-atmosphere {
+  fill: none;
+  stroke: rgba(255, 24, 176, 0.42);
+  stroke-width: 1.3;
+  stroke-dasharray: 3 3;
+}
+
+.family-advanced .advanced-trajectory {
+  fill: none;
+  stroke: url("#advanced-trajectory-gradient");
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.family-advanced .advanced-foreground-pass {
+  stroke-width: 2.8;
+}
+
+.family-advanced .advanced-close-node {
+  fill: #ff18b0;
+  stroke: #071018;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
 }
 
 .orbit-art span {
