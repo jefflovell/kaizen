@@ -304,6 +304,49 @@ body::before {
   gap: 10px;
 }
 
+.term-card.orbit-hero-card.has-visual {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
+  gap: 24px;
+  align-items: stretch;
+  padding: 18px;
+}
+
+.orbit-hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px 12px 10px 4px;
+}
+
+.orbit-hero-copy .orbit-hero-kicker {
+  margin: 0 0 10px;
+  color: #8ce66f;
+  font-family: var(--tech);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.term-card.orbit-hero-card h3 {
+  margin: 0 0 14px;
+  font-size: clamp(1.45rem, 2vw, 2.05rem);
+  line-height: 1.05;
+}
+
+.orbit-hero-copy p:not(.orbit-hero-kicker) {
+  max-width: 48ch;
+  margin: 0;
+  font-size: clamp(0.98rem, 1.15vw, 1.13rem);
+  line-height: 1.58;
+}
+
+.orbit-hero-copy p + p:not(.orbit-hero-kicker) {
+  margin-top: 14px;
+}
+
 .term-grid h3 {
   margin: 0 0 8px;
   color: var(--amber);
@@ -337,6 +380,449 @@ body::before {
   fill:
     color-mix(in srgb, #071018, transparent 6%);
 }
+
+.definition-visual .definition-reference-orbit,
+.definition-visual .definition-reference-line {
+  fill: none;
+  stroke: rgba(91, 215, 235, 0.42);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.definition-visual .definition-planet-body,
+.definition-visual .definition-secondary-body {
+  stroke: rgba(178, 255, 243, 0.35);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.definition-visual .definition-planet-shine,
+.definition-visual .definition-secondary-shine {
+  fill: rgba(255, 255, 255, 0.18);
+}
+
+.definition-visual .orbit-tail {
+  fill: none;
+  stroke: #5bd7eb;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.definition-visual .tail-1 { stroke-width: 0.5; stroke-opacity: 0.04; }
+.definition-visual .tail-2 { stroke-width: 0.7; stroke-opacity: 0.08; }
+.definition-visual .tail-3 { stroke-width: 0.9; stroke-opacity: 0.13; }
+.definition-visual .tail-4 { stroke-width: 1.1; stroke-opacity: 0.19; }
+.definition-visual .tail-5 { stroke-width: 1.3; stroke-opacity: 0.26; }
+.definition-visual .tail-6 { stroke-width: 1.55; stroke-opacity: 0.34; }
+.definition-visual .tail-7 { stroke-width: 1.8; stroke-opacity: 0.43; }
+.definition-visual .tail-8 { stroke-width: 2.05; stroke-opacity: 0.52; }
+.definition-visual .tail-9 { stroke-width: 2.35; stroke-opacity: 0.61; }
+.definition-visual .tail-10 { stroke-width: 2.65; stroke-opacity: 0.7; }
+.definition-visual .tail-11 { stroke-width: 2.95; stroke-opacity: 0.78; }
+.definition-visual .tail-12 { stroke-width: 3.25; stroke-opacity: 0.84; }
+.definition-visual .tail-13 { stroke-width: 3.55; stroke-opacity: 0.89; }
+.definition-visual .tail-14 { stroke-width: 3.85; stroke-opacity: 0.93; }
+.definition-visual .tail-15 { stroke-width: 4.15; stroke-opacity: 0.96; }
+.definition-visual .tail-16 { stroke-width: 4.5; stroke-opacity: 0.98; }
+
+.definition-visual .definition-craft polygon {
+  fill: #ff704d;
+  stroke: #ffd7cc;
+  stroke-width: 1.25;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.definition-visual .definition-label {
+  font-family: var(--tech);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.orbit-hero-visual .orbit-sequence-path {
+  fill: none;
+  stroke-width: 1.8;
+  stroke-dasharray: 4 6;
+  stroke-linecap: round;
+  stroke-opacity: 0.72;
+  vector-effect: non-scaling-stroke;
+}
+
+.orbit-hero-visual .launch-path { stroke: #f5b447; }
+.orbit-hero-visual .insertion-path { stroke: #5bd7eb; }
+.orbit-hero-visual .circular-path { stroke: #8ce66f; }
+.orbit-hero-visual .transfer-path { stroke: #ff18b0; }
+.orbit-hero-visual .gravity-brake-path { stroke: #ffe95b; }
+.orbit-hero-visual .free-return-path { stroke: #a96bff; }
+.orbit-hero-visual .reentry-path { stroke: #d9f2f7; }
+.orbit-hero-visual .launch-surface-path { stroke-opacity: 0.96; }
+
+.orbit-hero-visual .sequence-tail.launch-tail { stroke: #f5b447; }
+.orbit-hero-visual .sequence-tail.insertion-tail { stroke: #5bd7eb; }
+.orbit-hero-visual .sequence-tail.circular-tail { stroke: #8ce66f; }
+.orbit-hero-visual .sequence-tail.transfer-tail { stroke: #ff18b0; }
+.orbit-hero-visual .sequence-tail.gravity-brake-tail { stroke: #ffe95b; }
+.orbit-hero-visual .sequence-tail.free-return-tail { stroke: #a96bff; }
+.orbit-hero-visual .sequence-tail.reentry-tail { stroke: #d9f2f7; }
+
+.orbit-hero-visual .orbit-sequence-burn,
+.orbit-hero-visual .orbit-sequence-gravity {
+  fill: none;
+  stroke-linecap: butt;
+  vector-effect: non-scaling-stroke;
+}
+
+.orbit-hero-visual .orbit-sequence-burn {
+  stroke-width: 3.2;
+}
+
+.orbit-hero-visual .launch-burn {
+  stroke: #f5b447;
+  marker-end: url("#orbit-hero-launch-arrow");
+}
+
+.orbit-hero-visual .insertion-burn {
+  stroke: #5bd7eb;
+  marker-end: url("#orbit-hero-insertion-arrow");
+}
+
+.orbit-hero-visual .circular-burn {
+  stroke: #8ce66f;
+  marker-end: url("#orbit-hero-circular-arrow");
+}
+
+.orbit-hero-visual .transfer-burn {
+  stroke: #ff18b0;
+  marker-end: url("#orbit-hero-transfer-arrow");
+}
+
+.orbit-hero-visual .orbit-sequence-gravity {
+  stroke: #f5b447;
+  stroke-width: 1.8;
+  marker-end: url("#orbit-hero-gravity-arrow");
+}
+
+.orbit-hero-visual .launch-label { fill: #f5b447; }
+.orbit-hero-visual .insertion-label { fill: #5bd7eb; }
+.orbit-hero-visual .circular-label { fill: #8ce66f; }
+.orbit-hero-visual .transfer-label,
+.orbit-hero-visual .intercept-label { fill: #ff18b0; }
+.orbit-hero-visual .gravity-brake-label { fill: #ffe95b; }
+.orbit-hero-visual .free-return-label { fill: #a96bff; }
+.orbit-hero-visual .reentry-label { fill: #d9f2f7; }
+.orbit-hero-visual .body-label { fill: rgba(226, 242, 245, 0.78); }
+.orbit-hero-visual .gravity-label {
+  fill: #f5b447;
+  font-size: 10px;
+}
+
+.delta-v-visual .velocity-vector {
+  stroke-width: 2.5;
+  stroke-linecap: butt;
+  vector-effect: non-scaling-stroke;
+}
+
+.delta-v-visual .delta-v-orbit {
+  fill: none;
+  stroke: #8ce66f;
+  stroke-width: 1.9;
+  stroke-dasharray: 4 5;
+  stroke-linecap: round;
+  stroke-opacity: 0.72;
+  vector-effect: non-scaling-stroke;
+}
+
+.delta-v-visual .current-velocity {
+  stroke: #5bd7eb;
+  marker-end: url("#delta-v-current-arrow");
+}
+
+.delta-v-visual .result-velocity {
+  stroke: #8ce66f;
+  marker-end: url("#delta-v-result-arrow");
+}
+
+.delta-v-visual .delta-v-vector {
+  stroke: #f5b447;
+  marker-end: url("#delta-v-change-arrow");
+}
+
+.delta-v-visual .current-label { fill: #5bd7eb; }
+.delta-v-visual .result-label { fill: #8ce66f; }
+.delta-v-visual .delta-label { fill: #f5b447; }
+
+.inclination-visual .equatorial-plane,
+.inclination-visual .inclined-plane,
+.inclination-visual .plane-ray,
+.inclination-visual .inclination-angle {
+  fill: none;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.inclination-visual .equatorial-plane {
+  stroke: rgba(91, 215, 235, 0.58);
+  stroke-width: 1.4;
+}
+
+.inclination-visual .inclined-plane {
+  stroke: #ff18b0;
+  stroke-width: 2;
+  stroke-dasharray: 5 5;
+}
+
+.inclination-visual .plane-ray {
+  stroke-width: 1;
+  stroke-dasharray: 3 5;
+  opacity: 0.42;
+}
+
+.inclination-visual .equator-ray { stroke: #5bd7eb; }
+.inclination-visual .orbit-ray { stroke: #ff18b0; }
+
+.inclination-visual .inclination-angle {
+  stroke: var(--amber);
+  stroke-width: 2.5;
+}
+
+.inclination-visual .inclination-value { fill: var(--amber); }
+.inclination-visual .equator-label { fill: #5bd7eb; }
+.inclination-visual .orbit-label { fill: #ff18b0; }
+
+.transfer-definition-visual .target-orbit-definition {
+  stroke-dasharray: 5 5;
+  stroke-opacity: 0.72;
+}
+
+.transfer-definition-visual .transfer-conic {
+  fill: none;
+  stroke: rgba(245, 180, 71, 0.7);
+  stroke-width: 1.8;
+  stroke-dasharray: 4 4;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.transfer-definition-visual .transfer-return {
+  fill: none;
+  stroke: #f5b447;
+  stroke-width: 1.8;
+  stroke-dasharray: 4 4;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.transfer-definition-visual .return-1 { stroke-opacity: 0.70; }
+.transfer-definition-visual .return-2 { stroke-opacity: 0.66; }
+.transfer-definition-visual .return-3 { stroke-opacity: 0.61; }
+.transfer-definition-visual .return-4 { stroke-opacity: 0.56; }
+.transfer-definition-visual .return-5 { stroke-opacity: 0.50; }
+.transfer-definition-visual .return-6 { stroke-opacity: 0.44; }
+.transfer-definition-visual .return-7 { stroke-opacity: 0.38; }
+.transfer-definition-visual .return-8 { stroke-opacity: 0.32; }
+.transfer-definition-visual .return-9 { stroke-opacity: 0.27; }
+.transfer-definition-visual .return-10 { stroke-opacity: 0.22; }
+.transfer-definition-visual .return-11 { stroke-opacity: 0.18; }
+.transfer-definition-visual .return-12 { stroke-opacity: 0.14; }
+.transfer-definition-visual .return-13 { stroke-opacity: 0.10; }
+.transfer-definition-visual .return-14 { stroke-opacity: 0.075; }
+.transfer-definition-visual .return-15 { stroke-opacity: 0.055; }
+.transfer-definition-visual .return-16 { stroke-opacity: 0.035; }
+
+.transfer-definition-visual .orbit-tail {
+  stroke: #f5b447;
+}
+
+.transfer-definition-visual .transfer-node {
+  fill: var(--amber);
+  stroke: #071018;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.transfer-definition-visual .transfer-burn {
+  stroke: #ff704d;
+  stroke-width: 3;
+  stroke-linecap: butt;
+  marker-end: url("#transfer-burn-arrow");
+  vector-effect: non-scaling-stroke;
+}
+
+.transfer-definition-visual .burn-label,
+.transfer-definition-visual .transfer-label {
+  fill: var(--amber);
+}
+
+.soi-visual .soi-parent-orbit,
+.soi-visual .soi-boundary,
+.soi-visual .soi-trajectory {
+  fill: none;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.soi-visual .soi-parent-orbit {
+  stroke: rgba(91, 215, 235, 0.3);
+  stroke-width: 1.25;
+  stroke-dasharray: 4 6;
+}
+
+.soi-visual .soi-boundary {
+  stroke: rgba(245, 180, 71, 0.72);
+  stroke-width: 1.8;
+  stroke-dasharray: 4 5;
+}
+
+.soi-visual .soi-trajectory {
+  stroke-width: 2.8;
+}
+
+.soi-visual .parent-centric-path { stroke: #5bd7eb; }
+.soi-visual .moon-centric-path { stroke: #f5b447; }
+
+.soi-visual .soi-crossing-node {
+  fill: var(--amber);
+  stroke: #071018;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.soi-visual .soi-label { fill: var(--amber); }
+.soi-visual .parent-label { fill: #5bd7eb; }
+
+.twr-visual .twr-planet {
+  stroke: rgba(178, 255, 243, 0.32);
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.twr-visual .twr-force {
+  stroke-width: 3.2;
+  stroke-linecap: butt;
+  vector-effect: non-scaling-stroke;
+}
+
+.twr-visual .thrust-force {
+  stroke: #8ce66f;
+  marker-end: url("#twr-thrust-arrow");
+}
+
+.twr-visual .weight-force {
+  stroke: #f5b447;
+  marker-end: url("#twr-weight-arrow");
+}
+
+.twr-visual .launch-nose,
+.twr-visual .launch-fin,
+.twr-visual .launch-bell {
+  fill: rgba(255, 112, 77, 0.3);
+  stroke: #ff704d;
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.twr-visual .launch-body {
+  fill: rgba(91, 215, 235, 0.12);
+  stroke: #5bd7eb;
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+
+.twr-visual .launch-window {
+  fill: var(--amber);
+  stroke: #071018;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.twr-visual .twr-com-node {
+  fill: var(--amber);
+  stroke: #071018;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.twr-visual .thrust-label { fill: #8ce66f; }
+.twr-visual .weight-label,
+.twr-visual .twr-value { fill: var(--amber); }
+
+.isp-visual .isp-thrust {
+  stroke: #8ce66f;
+  stroke-width: 3;
+  stroke-linecap: butt;
+  marker-end: url("#isp-thrust-arrow");
+  vector-effect: non-scaling-stroke;
+}
+
+.isp-visual .isp-tank {
+  fill: rgba(91, 215, 235, 0.08);
+  stroke: rgba(91, 215, 235, 0.72);
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+
+.isp-visual .isp-fuel {
+  fill: rgba(245, 180, 71, 0.58);
+  stroke: rgba(245, 180, 71, 0.82);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.isp-visual .isp-flow {
+  stroke: var(--amber);
+  stroke-linecap: butt;
+  vector-effect: non-scaling-stroke;
+}
+
+.isp-visual .high-flow { stroke-width: 4.2; }
+.isp-visual .low-flow { stroke-width: 1.8; }
+
+.isp-visual .isp-bell {
+  fill: rgba(255, 112, 77, 0.24);
+  stroke: #ff704d;
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.isp-visual .isp-formula,
+.isp-visual .isp-flow-label { fill: var(--amber); }
+.isp-visual .isp-force-label { fill: #8ce66f; }
+.isp-visual .isp-column-label { fill: #5bd7eb; }
+
+.orbital-node-visual .node-current-orbit,
+.orbital-node-visual .node-reference-orbit {
+  fill: none;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.orbital-node-visual .node-current-orbit {
+  stroke: rgba(91, 215, 235, 0.62);
+  stroke-width: 1.5;
+}
+
+.orbital-node-visual .node-reference-orbit {
+  stroke: #ff18b0;
+  stroke-width: 1.8;
+  stroke-dasharray: 5 5;
+  stroke-opacity: 0.76;
+}
+
+.orbital-node-visual .node-marker {
+  stroke: #071018;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.orbital-node-visual .active-node { fill: var(--amber); }
+.orbital-node-visual .inactive-node { fill: rgba(91, 215, 235, 0.72); }
+.orbital-node-visual .reference-label { fill: #ff18b0; }
+.orbital-node-visual .active-node-label { fill: var(--amber); }
+.orbital-node-visual .inactive-node-label { fill: rgba(91, 215, 235, 0.82); }
 
 .apoapsis-visual .orbit-line,
 .periapsis-visual .orbit-line {
@@ -1546,6 +2032,16 @@ body::before {
 
   .term-grid {
     grid-template-columns: 1fr;
+  }
+
+  .term-card.orbit-hero-card.has-visual {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 15px;
+  }
+
+  .orbit-hero-copy {
+    padding: 4px 2px 2px;
   }
 
   .tool-grid {

@@ -205,6 +205,195 @@ These cards use KSP navball marker colors for the burn/result/delta color family
 - Layering: full current and target ellipses; planet and shine; current and target foreground halves; rotated orbital tail; both translation vectors; south burn; craft last.
 - Forbidden: pointing translation arrows toward the inclined poles, treating the horizontal midline as current, changing the shared `94×6` orbit proportions, moving the craft off the shared node, or crowding the marker badge.
 
+## Additional Definition Cards
+
+These glossary cards use the standard `0 0 320 210` viewBox without navball badges. They extend the same technical-drawing language with explicit vector, plane, conic, and patched-conic constructions.
+
+### Orbit Hero
+
+- Layout role: full-width glossary hero with the technical SVG occupying the left two column units and the narrative title/copy occupying the right column unit. The taller SVG grows with the lengthened copy. On narrow screens, stack the complete SVG above the copy.
+- ViewBox: `0 0 560 460`.
+- View: top-down teaching sequence from surface launch through orbital insertion and circularization, followed by a hot-pink outbound transfer, a yellow close lunar gravity brake, a purple free return, and a separate white atmospheric re-entry patch.
+- Primary body: teal planet `cx=180`, `cy=255`, `r=48`, with shine at `(164,238)`, `r=10`.
+- Secondary body: desaturated teal-gray Moon `cx=445`, `cy=210`, `r=24`, with shine at `(437,202)`, `r=6`.
+- Launch trajectory: amber dotted cubic `M 180 303 C 180 360 88 335 88 255`. It begins at the due-south surface point `(180,303)`, leaves along the local vertical, follows a shallow, balanced parabolic sweep below and left of the planet, remains fully inside the insertion ellipse, and ends at insertion node `A=(88,255)` with an exact northbound tangent.
+- Insertion trajectory: cyan dotted ellipse `cx=205`, `cy=255`, `rx=117`, `ry=114.29`. The planet is its left focus because `sqrt(117^2 - 114.29^2)` is approximately `25`, and `205 - 25 = 180`. Node `A=(88,255)` is periapsis; circularization node `B=(322,255)` is apoapsis.
+- Circularized trajectory: green dotted circle `cx=180`, `cy=255`, `r=142`. It is tangent to the insertion ellipse at shared node `B=(322,255)` and carries a final coast craft at `C=(180,113)` to show the completed orbit.
+- Surface-launch craft: `translate(180 303) rotate(90)`, located at the exact due-south surface point and tangent to the first launch control point. Its amber burn runs from `(180,316)` to `(180,350)` and creates the amber launch segment.
+- Insertion craft: `translate(88 255) rotate(-90)`. Its cyan burn runs from `(88,242)` to `(88,198)` and creates the cyan insertion ellipse.
+- Circularization craft: `translate(322 255) rotate(90)`. Its green burn runs from `(322,268)` to `(322,312)` and creates the green circular orbit.
+- Trans-lunar craft: `translate(180 113) rotate(0)`, tangent to the completed circular orbit. Its yellow burn runs from `(194,113)` to `(232,113)` and creates the transfer segment.
+- Lunar transfer: hot-pink dotted path `M 180 113 C 260 113 321.25 146 365 179`. It is the first half of the single underlying cubic `M 180 113 C 340 113 425 245 445 245`, split at `t=0.5` by de Casteljau subdivision. It leaves the completed circular orbit with an exact rightward tangent, remains outside the green parking circle, and ends at the Moon-dominance intercept craft `(365,179)` without an elbow or curvature reset.
+- Gravity brake: yellow dotted path `M 365 179 C 408.75 212 435 245 445 245 A 35 35 0 0 0 469.75 185.25`. The first cubic is the second half of the same subdivided transfer cubic, so position, tangent, and curvature are mathematically continuous at the hot-pink/yellow handoff. It eases into an exact rightward tangent at lunar-flyby entry `(445,245)`, matching the `r=35` Moon-centered arc, and ends at the yellow-to-purple patch craft `(469.75,185.25)`. The Moon's `r=24` surface retains `11` viewBox units of closest-altitude clearance.
+- Free return: purple dotted path `M 469.75 185.25 A 35 35 0 0 0 414.69 192.5 C 347.46 308.94 285.35 330 240 330`. It continues on the same `r=35` lunar circle across the upper-left flyby, then leaves the Moon on the arc's exact terminal tangent and sweeps down-left as one broad, monotonic return curve. The cubic stays outside the planet and flattens into a leftward tangent at the purple-to-white patch `(240,330)`. The yellow-to-purple patch at `(469.75,185.25)` remains an unpowered phase-color handoff.
+- Atmospheric re-entry: white dotted path `M 240 330 C 194.65 330 166.06 308.94 146.06 288.94`. It begins with the same leftward tangent as the purple return, tightens continuously toward the planet, and meets the lower-left surface near `135deg` with an exact local surface tangent. The purple and white cubics share both tangent vector `(-45.35,0)` and second-difference vector `(16.76,-21.06)` at their patch, removing every reversal, kink, and chicane while preserving the different phase colors.
+- Lunar/intercept craft snapshots: place the transfer intercept craft at `translate(365 179) rotate(37.03)`, tangent to the shared subdivided cubic at the exact hot-pink/yellow handoff. Preserve `translate(445 245) rotate(0)` at the flyby bottom, `translate(480 210) rotate(-90)` at the flyby right, `translate(469.75 185.25) rotate(-135)` at the transfer/free-return color patch, and `translate(414.69 192.5) rotate(120)` on the purple free-return tail. None carries a burn vector because the lunar brake is unpowered.
+- Gravity vectors: retain three Earth-pointing cues at launch `(180,290)→(180,276)`, insertion `(101,255)→(130,255)`, and trans-lunar departure `(180,126)→(180,185)`. Remove the gravity vector from the hot-pink intercept craft. Preserve the Moon-pointing vector attached to the purple free-return craft: draw it beneath the craft from its center `(414.69,192.5)` to the Moon's upper-left surface `(424.22,198.0)`, so the overlaid craft hides the stem origin and the arrow tip stops exactly at the body boundary. Keep right limb `(479,210)→(469,210)` and lower limb `(445,244)→(445,234)`. The free-return `g` may sit over the Moon's upper-left quadrant.
+- Directional tails: every base trajectory remains dotted. Overlay exactly 16 contiguous approved tail segments in each of seven visible phases: launch, insertion, circular orbit, hot-pink transfer, yellow gravity brake, purple free return, and white atmospheric re-entry. The hot-pink transfer tail samples its revised cubic from `t=0.12` through `t=1.00` and ends at intercept `(365,179)`. The yellow gravity-brake tail runs around the Moon-centered arc from `(445,245)` through the right limb to `(469.75,185.25)`, ending at the pre-free-return craft. Preserve the purple lunar-arc tail unchanged. Resample the white re-entry cubic into 16 contiguous segments from patch `(240,330)` through surface contact `(146.06,288.94)`. All seven tails use the shared `0.5px`/`0.04` to `4.5px`/`0.98` progression, for `112` hero tail segments total.
+- Labels: use `1 LAUNCH`, `2 INSERT`, `3 CIRCULARIZE`, `4 TRANSFER`, `5 GRAVITY BRAKE`, `6 FREE RETURN`, and `7 RE-ENTRY`. Place `4 TRANSFER` at `(210,96)`, directly above and close to its burn arrow. Center hot-pink `INTERCEPT` at `(365,147)`, above the intercept craft. Place `5 GRAVITY BRAKE` in the Moon's southeast quadrant between the south-pole and east-equator craft at `(488,268)` with centered alignment. Place `6 FREE RETURN` at `(350,295)`, adjacent to but clear of the rebuilt purple trajectory and still above `3 CIRCULARIZE`. Keep `7 RE-ENTRY` at `(215,352)`, below its white arc. Keep body identifiers and small amber `g` labels subordinate.
+- Color mapping: launch uses amber `#f5b447`; insertion uses cyan `#5bd7eb`; circularized orbit uses green `#8ce66f`; lunar transfer, its burn, tail, label, and intercept use icon hot pink `#ff18b0`; free return uses purple `#a96bff`; atmospheric re-entry uses white-blue `#d9f2f7`; all gravity vectors use amber; every craft uses the established orange chevron.
+- Layering: seven dotted trajectory phases; planet and Moon; surface-emergent launch path; seven colored directional tails; all gravity and burn vectors; nine craft snapshots; labels last.
+- Forbidden marks: solid base trajectories, body intersections, corners or tangent discontinuities at patched-conic joins, a burn tick at the unpowered lunar flyby, gravity arrows pointed away from their active center, mismatched burn/next-segment colors, a focus-incorrect insertion ellipse, a circularization circle that misses node `B`, or decorative stars.
+- Card-size render notes: preserve the full `560×460` scene at every breakpoint. All seven trajectory phases must remain separable, the Moon must stay visually secondary to the planet, and labels, arrows, and nine craft snapshots must remain individually legible at desktop and distinguishable at mobile card size.
+
+### Delta-v
+
+- View: top-down local orbit with a velocity-vector addition triangle at the craft.
+- Marker badge reservation: none; the left half is reserved for the local orbit and the right half for the vector construction.
+- Current geometry: blue circle `cx=80`, `cy=110`, `r=58`.
+- Delta geometry: green dotted osculating ellipse `cx=114.00`, `cy=113.06`, `rx=75.72`, `ry=67.63`, rotated `5.15deg` around its center. It passes through the burn point `(80,52)`, is tangent there to `v2`, has the planet at its left focus to rounding, and extends the far side to approximately `r=109.9` from the planet versus the original `r=58`.
+- Body/focus geometry: teal body `cx=80`, `cy=110`, `r=29` with a shine at `(70,100)`, `r=7`.
+- Craft position: `translate(80 52)` at the top of the current circle.
+- Craft rotation: `0deg`, nose pointing right along the positive tangent.
+- Current velocity vector: cyan line from `(94,52)` to `(176,52)`.
+- Result velocity vector: green line from `(94,52)` to `(177.64,15.92)`. In current-circular-speed units it represents `v_t=1.02` and outward radial speed `v_r=0.44`, producing a clearly readable `23.34deg` flight-path angle.
+- Delta-v vector: amber line from the tip of `v1` at `(176,52)` to the tip of `v2` at `(177.64,15.92)`, closing the vector-addition triangle. Its magnitude is `36.12` display units, or `0.44` of the `82`-unit circular-speed vector.
+- Orbit derivation: with normalized `r=1`, `mu=1`, and `v=(1.02,0.44)`, the post-burn ellipse has `a=1.3055r`, `e=0.4506`, `rp=0.7172r`, and `ra=1.8938r`. Scaling by the displayed `r=58` gives `a=75.72`, `b=67.63`, and the stated center/rotation. The new periapsis remains about `12.6` viewBox units above the `r=29` body surface.
+- Motion cue: 16 contiguous current-orbit segments from `t=170deg` to `t=270deg`, ending at the craft and using the approved orbital-tail taper.
+- Labels: `v1` above the cyan vector, `v2` above the green vector, and `Δv` beside the amber joining vector.
+- Color mapping: reference orbit and `v1` use cyan; `v2` uses marker green `#8ce66f`; `delta-v` uses amber `#f5b447`; craft uses the established orange chevron.
+- Layering: reference orbit and dotted delta orbit; body and shine; motion cue; vector triangle; craft and labels last.
+- Forbidden marks: fuel gauges, disconnected arrows, vectors that do not share exact endpoints, a changed orbit that misses the burn point, or an ellipse whose tangent disagrees with `v2`.
+- Card-size render notes: keep all three arrowheads and labels above `y=62`; the vector triangle must remain visually separate from the body, and the delta orbit must stay within the `320×210` plotting field.
+
+### Inclination
+
+- View: equatorial edge-on plane comparison, using the established shallow Saturn-ring convention.
+- Marker badge reservation: none; the full plotting field is available.
+- Current/original geometry: cyan equatorial ellipse `cx=160`, `cy=105`, `rx=105`, `ry=14` plus a faint reference ray from `(160,105)` to `(246,105)`.
+- Comparison geometry: hot-pink orbit with the same `105×14` ellipse, rotated `-28deg` around the body center `(160,105)`, plus a faint plane ray from `(160,105)` to `(235.93,64.63)`.
+- Delta geometry: no maneuver or target orbit; this card measures the static angular separation between the original equatorial plane and the inclined comparison plane.
+- Body/focus geometry: teal body `cx=160`, `cy=105`, `r=28`, with shine at `(151,95)`, `r=7`.
+- Craft position: `translate(160 119)` at the foreground midpoint of the cyan original ellipse.
+- Craft rotation: `0deg`, nose pointing right along the original-orbit tangent. This avoids placing the craft at a perspective-compressed side vertex where the local tangent appears to point orthogonally into deep space.
+- Burn vector: none.
+- Result vector: none.
+- Inclination measure: amber circular arc of radius `73` from `(233,105)` to `(224.46,70.73)`, labeled `i = 28°`; this angle is measured between the two plane rays.
+- Motion cue: 16 contiguous segments on the cyan original `105×14` ellipse from `t=190deg` down to `t=90deg`, ending at the foreground craft and using the approved taper without a rotation transform.
+- Depth layering: draw both complete ellipses and both plane rays behind the body; draw the body; redraw each lower/front half with `M 265 105 A 105 14 0 0 1 55 105`, applying the `-28deg` transform only to the current orbit; draw the angle, tail, and craft above those layers.
+- Labels: `EQUATOR` beside the horizontal ray and `ORBIT` beside the inclined ray, with colors matching their geometry.
+- Color mapping: original equatorial orbit and its tail use cyan; inclined comparison orbit uses exact hot pink `#ff18b0`; angle and value use amber; craft uses the established orange chevron.
+- Forbidden marks: concentric top-down circles, orbit planes that do not share the same center, a plane-change burn arrow, or rear orbit arms drawn over the body.
+- Card-size render notes: keep the angle wedge outside the body and the `ORBIT` label clear of the craft.
+
+### Transfer Orbit
+
+- View: top-down local Hohmann transfer between two circular orbits.
+- Marker badge reservation: none.
+- Current geometry: cyan parking circle `cx=115`, `cy=110`, `r=47`.
+- Delta geometry: cyan dashed target circle `cx=115`, `cy=110`, `r=88`.
+- Transfer geometry: amber ellipse centered `(94.5,110)`, `rx=67.5`, `ry=64.3`. Its strong upper half runs from the inner-orbit departure `(162,110)` to the outer-orbit arrival `(27,110)`. The primary at `(115,110)` is the ellipse's right focus, because `sqrt(67.5^2 - 64.3^2)` is approximately `20.5`.
+- Un-circularized return: complete the lower half from burn `2` at `(27,110)` back toward burn `1` at `(162,110)` with 16 contiguous amber arc segments spanning `t=-180deg` through `t=-360deg`. Keep the stroke geometry on the same transfer ellipse and fade opacity progressively from `0.70` at burn `2` to `0.035` approaching burn `1`. This shows the offset ellipse the craft will continue following if burn `2` is skipped; it is not a second trajectory or a decorative loop.
+- Body/focus geometry: teal primary `cx=115`, `cy=110`, `r=28`, with shine at `(106,100)`, `r=7`.
+- Craft position: `translate(71.41 49.58)`, on the transfer ellipse at `t=-110deg`.
+- Craft rotation: `160.9deg`, tangent down and left toward outer-orbit arrival.
+- Burn vector: departure burn from `(162,108)` to `(162,75)`, tangent upward at the inner-orbit right vertex; arrival circularization burn from `(27,112)` to `(27,145)`, tangent downward at the outer-orbit left vertex.
+- Result vector: none; the complete transfer conic itself is the result, with the faded return half communicating the failure-to-circularize case.
+- Motion cue: 16 contiguous transfer-ellipse segments from `t=-10deg` down to `t=-110deg`, ending at the craft and using the approved taper in amber.
+- Nodes: amber departure node at `(162,110)`, arrival node at `(27,110)`, each `r=3.5`.
+- Labels: compact amber `1` and `2` labels beside departure and arrival burns; `TRANSFER` follows the empty upper-right area without crossing the craft.
+- Color mapping: circular reference orbits use cyan; target orbit is dashed; transfer path and transfer tail use amber; burns and craft use established orange.
+- Layering: circular orbits, faded lower return, and strong upper transfer half; body and shine; nodes and burn vectors; transfer tail; craft and labels last.
+- Forbidden marks: a transfer ellipse centered on the body, a return path that does not join burns `2` and `1` on the same ellipse, a path that is not tangent at both nodes, arrows pointing radially, or a transfer path passing through the body.
+- Card-size render notes: outer orbit remains inside `x=27..203`, leaving the right side as negative space for the transfer label; neither burn arrow clips the frame.
+
+### Sphere of Influence
+
+- View: top-down patched-conic handoff from a parent-dominated region into and back out of a moon's sphere of influence.
+- Marker badge reservation: none.
+- Current geometry: faint cyan moon-orbit arc centered on the parent at `(66,106)` with `r=159`, passing through the moon at `(225,106)`.
+- Delta geometry: one tangent-continuous trajectory split only for color at the SOI crossings. Inbound parent-centric segment: `M 18 160 C 75 155 125 145 167.36 127.85`. Moon-centric segment: `M 167.36 127.85 C 190 118.69 184 82 213 70 C 244 57 272 87 262 116 C 258 130 266 138 274 143`. Outbound parent-centric segment: `M 274 143 C 285 150 294 160 306 174`.
+- Body/focus geometry: teal parent `cx=66`, `cy=106`, `r=26`; gray-green moon `cx=225`, `cy=105`, `r=16`; dashed amber SOI boundary `cx=225`, `cy=105`, `r=62`.
+- Craft position: `translate(167.36 127.85)` exactly on the inbound SOI crossing.
+- Craft rotation: `-22deg`, matching the shared terminal/start tangent of the inbound and moon-centric cubic segments.
+- Burn vector: none; an SOI crossing does not itself require a burn.
+- Result vector: none; the smoothly curving patched conic communicates the gravity handoff.
+- Motion cue: none. The split trajectory colors and tangent-aligned craft provide direction without adding a generic tail to a non-orbital transit line.
+- Color mapping: parent-centric path and moon reference orbit use cyan; moon-centric path and SOI boundary use amber; craft uses established orange.
+- Continuity and clearance: entry tangents `(42.36,-17.15)` and `(22.64,-9.16)` are collinear to rounding; exit tangents `(8,5)` and `(11,7)` are collinear to rounding. The moon-centric curve stays outside the moon's `r=16` body.
+- Labels: `SOI` sits inside the boundary near its upper-right edge; `PARENT` labels the teal primary without crossing the trajectory.
+- Layering: parent orbit and SOI boundary; full trajectory; parent and moon bodies; crossing node; craft and labels last.
+- Forbidden marks: a hard trajectory kink at the SOI boundary, a burn arrow at either crossing, a path through either body, gravity-force rays, or rendering the SOI as a solid physical shell.
+- Card-size render notes: the SOI circle remains fully inside the frame at `x=163..287`, `y=43..167`; the escape endpoint at `(306,174)` leaves arrowhead-free edge clearance.
+
+### Thrust-to-weight Ratio
+
+- View: side-on launch force diagram immediately above a curved planetary horizon.
+- Marker badge reservation: none.
+- Current geometry: vertical launch stack centered at `x=160`, spanning nose `y=64` through engine bell `y=145`; curved teal body is a circle `cx=160`, `cy=288`, `r=140`, placing the surface horizon at `y=148`.
+- Delta geometry: none; this is a static force comparison at the instant before liftoff.
+- Body/focus geometry: planet gradient fills the lower horizon; the vehicle center of mass is represented by a small amber node at `(160,104)`.
+- Craft position: custom vertical launch-stack component centered on `(160,105)` with nose cone, body, fins, and engine bell.
+- Craft rotation: vertical, nose up.
+- Thrust vector: green arrow at `x=128` from `(128,141)` to `(128,60)`, length `81`.
+- Weight vector: amber arrow at `x=192` from `(192,82)` to `(192,147)`, length `65`.
+- Ratio: the displayed vector-length ratio is `81/65 = 1.246`, labeled `T/W = 1.25`; it communicates a craft whose available thrust exceeds local weight without pretending to include drag or steering losses.
+- Motion cue: none.
+- Labels: `THRUST` beside the upward vector, `WEIGHT` beside the downward vector, and `T/W = 1.25` in the upper-right plotting area.
+- Color mapping: thrust uses marker green `#8ce66f`; weight and ratio use amber; craft outline and engine use the established orange/cyan technical palette.
+- Layering: planet horizon; force vectors; launch stack; center-of-mass node and labels last.
+- Forbidden marks: an orbit, a velocity vector, a thrust arrow shorter than the weight arrow for the displayed ratio, or copy implying that `T/W > 1` guarantees an efficient ascent.
+- Card-size render notes: keep both arrowheads clear of the frame and keep the engine bell visibly above the horizon.
+
+### Specific Impulse (Isp)
+
+- View: side-by-side engine-efficiency comparison at equal thrust and equal elapsed burn time.
+- Marker badge reservation: none.
+- Current geometry: low-Isp engine column centered at `x=96`; high-Isp engine column centered at `x=224`.
+- Delta geometry: both engines produce equal `84`-unit green thrust vectors, while the low-Isp engine uses a `4.2px` propellant-flow stroke and the high-Isp engine uses a `1.8px` stroke. After the same illustrated burn interval, the low-Isp tank retains `27` vertical units of fuel and the high-Isp tank retains `42`.
+- Body/focus geometry: none.
+- Craft position: two reusable tank/feed/engine-bell assemblies. Left tank `x=76`, `y=48`, `w=40`, `h=52`; right tank `x=204`, `y=48`, `w=40`, `h=52`. Engine bells open downward from `y=116` to `y=140`.
+- Craft rotation: both engine assemblies point down, producing vehicle thrust upward.
+- Thrust vectors: equal green arrows at `x=58` and `x=262`, each from `y=140` to `y=56`.
+- Propellant-flow vectors: amber feed line from `(96,100)` to `(96,116)` at `4.2px`; matching line from `(224,100)` to `(224,116)` at `1.8px`.
+- Formula: `Isp = F / (mass-flow × g0)` centered at `(160,25)`. The comparison holds `F` constant, so lower mass flow means higher Isp.
+- Motion cue: none.
+- Labels: `LOW ISP` and `HIGH ISP` below the bells; `mass-flow HIGH` and `mass-flow LOW` beneath those labels; each equal thrust vector is labeled `F`.
+- Color mapping: thrust uses green `#8ce66f`; propellant and formula use amber; tank and engine outlines use cyan/orange.
+- Layering: thrust arrows; tanks and fuel fills; feed lines; engine bells; formula and labels last.
+- Forbidden marks: unequal thrust arrows, a larger flow rate on the high-Isp side, units of force for Isp, or copy implying that high Isp automatically means high thrust.
+- Card-size render notes: formula remains above both tanks and all labels remain inside `y=190`.
+
+### Ascending Node
+
+- View: oblique dual-plane orbit view in which the current and reference orbits share exactly two opposite intersection nodes.
+- Marker badge reservation: none.
+- Current geometry: cyan ellipse `cx=160`, `cy=105`, `rx=104`, `ry=52`.
+- Reference geometry: hot-pink dashed ellipse `cx=160`, `cy=105`, `rx=104`, `ry=16`. The two ellipses intersect only at the shared left and right vertices.
+- Delta geometry: none; the card identifies a node rather than showing a plane-change result.
+- Body/focus geometry: teal body `cx=160`, `cy=105`, `r=27`, with shine at `(151,95)`, `r=7`.
+- Craft position: `translate(264 105)` on the right shared node.
+- Craft rotation: `-90deg`, tangent upward on the current orbit as it crosses from below the reference plane to above it.
+- Burn vector: none; crossing a node does not itself imply a burn.
+- Result vector: none.
+- Motion cue: 16 contiguous current-orbit segments from `t=100deg` down to `t=0deg`, ending at the right node and using the approved taper. The tail approaches from below the reference plane, making the northbound crossing explicit.
+- Nodes: active ascending node at `(264,105)`, amber `r=5`; opposite descending node at `(56,105)`, dim cyan `r=3.5`.
+- Depth layering: draw both complete ellipses behind the body; draw the body; redraw each lower/front half with `M 264 105 A 104 ry 0 0 1 56 105`; then draw tail, nodes, labels, and craft.
+- Labels: active `AN` beside the right node; subordinate `DN` beside the left node; `REFERENCE` follows the hot-pink plane in the upper-left clear area.
+- Color mapping: current orbit and tail use cyan; reference plane uses hot pink `#ff18b0`; active node and label use amber; craft uses established orange.
+- Forbidden marks: more than two intersections, a craft off either node, a downward-pointing craft at the active ascending node, or a burn arrow with no maneuver being taught.
+- Card-size render notes: node labels remain outside both orbit strokes and the active node/craft stay inside `x=280`.
+
+### Descending Node
+
+- View: exact vertical mirror of the ascending-node motion cue on the same oblique dual-plane geometry.
+- Marker badge reservation: none.
+- Current geometry: cyan ellipse `cx=160`, `cy=105`, `rx=104`, `ry=52`.
+- Reference geometry: hot-pink dashed ellipse `cx=160`, `cy=105`, `rx=104`, `ry=16`, sharing only the two opposite vertices with the current orbit.
+- Delta geometry: none; the card identifies a node rather than showing a plane-change result.
+- Body/focus geometry: teal body `cx=160`, `cy=105`, `r=27`, with shine at `(151,95)`, `r=7`.
+- Craft position: `translate(264 105)` on the right shared node.
+- Craft rotation: `90deg`, tangent downward on the current orbit as it crosses from above the reference plane to below it.
+- Burn vector: none.
+- Result vector: none.
+- Motion cue: 16 contiguous current-orbit segments from `t=-100deg` up to `t=0deg`, ending at the right node and using the approved taper. The tail approaches from above the reference plane, making the southbound crossing explicit.
+- Nodes: active descending node at `(264,105)`, amber `r=5`; opposite ascending node at `(56,105)`, dim cyan `r=3.5`.
+- Depth layering: full current and reference ellipses; body and shine; lower/front orbit halves; upper approach tail; nodes, labels, and craft last.
+- Labels: active `DN` beside the right node; subordinate `AN` beside the left node; `REFERENCE` in the same fixed position as the ascending-node card.
+- Color mapping: identical to ascending node so direction, tail position, node labels, and craft orientation are the only variables.
+- Forbidden marks: geometry that is not a mirror of ascending node, a craft pointing north at the active descending node, more than two plane intersections, or an unrequested burn vector.
+- Card-size render notes: preserve the exact ascending-node composition and label anchors for side-by-side comparison.
+
 ## New Card Template
 
 Copy this section before adding or revising a technical diagram:
