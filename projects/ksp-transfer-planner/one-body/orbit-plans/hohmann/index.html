@@ -7,32 +7,36 @@
       name="description"
       content="An interactive Hohmann transfer planner for Kerbal Space Program circular orbit changes."
     />
-    <title>KSP Transfer Planner | Kaizen</title>
+    <title>Hohmann Transfer Lab | KSP Transfer Planner</title>
     <link rel="icon" href="data:," />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css?v=2" />
-    <script src="./app.js" defer></script>
+    <link rel="stylesheet" href="./styles.css?v=4" />
+    <script src="./app.js?v=8" defer></script>
   </head>
   <body>
     <main class="planner-shell">
       <header class="planner-header">
         <a class="brand" href="../../../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
-        <div>
-          <h1>KSP Transfer Planner</h1>
-          <p>Hohmann burns for clean circular orbit changes.</p>
+        <div class="planner-title">
+          <p class="tool-type">One-body lab // Hohmann transfer</p>
+          <h1>Hohmann Transfer Lab</h1>
+          <p>
+            Two burns, one elegant ellipse, and several opportunities to discover the node was
+            behind you.
+          </p>
         </div>
       </header>
 
       <section class="planner-grid" aria-label="Interactive Hohmann transfer planner">
         <aside class="control-panel" aria-label="Mission inputs">
           <div class="panel-heading">
-            <p>Flight Inputs</p>
-            <h2>Set the orbit</h2>
+            <p>01 // Flight inputs</p>
+            <h2>Set the orbit.</h2>
           </div>
 
           <label class="field-label" for="body-select">Body</label>
@@ -80,7 +84,7 @@
         <section class="orbit-stage" aria-labelledby="diagram-title">
           <div class="stage-topline">
             <div>
-              <p>Transfer</p>
+              <p>02 // Transfer plot</p>
               <h2 id="diagram-title">Kerbin Orbit Plot</h2>
             </div>
             <div class="legend" aria-label="Diagram legend">
@@ -98,8 +102,8 @@
 
         <aside class="readout-panel" aria-label="Transfer results">
           <div class="panel-heading">
-            <p>Readouts</p>
-            <h2>Burn plan</h2>
+            <p>03 // Readouts</p>
+            <h2>Burn plan.</h2>
           </div>
 
           <div class="metric primary">
@@ -142,7 +146,7 @@
 
       <section class="lesson-panel" aria-labelledby="hohmann-lesson-title">
         <div class="lesson-intro">
-          <p>Mini lesson</p>
+          <p>Flight manual // Please pretend you read this first</p>
           <h2 id="hohmann-lesson-title">What is a Hohmann transfer?</h2>
           <p>
             A

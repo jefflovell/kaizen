@@ -33,6 +33,18 @@ const els = {
 
 const ctx = els.canvas.getContext("2d");
 let activePreset = "raise";
+const maneuverGreen = "#4cff4c";
+const maneuverMarkers = {
+  prograde: loadManeuverMarker("/assets/prograde-marker.png"),
+  retrograde: loadManeuverMarker("/assets/retrograde-marker.png"),
+};
+
+function loadManeuverMarker(source) {
+  const image = new Image();
+  image.addEventListener("load", render, { once: true });
+  image.src = source;
+  return image;
+}
 
 function circularVelocity(mu, radius) {
   return Math.sqrt(mu / radius);
@@ -131,39 +143,79 @@ function drawOrbit(result) {
   const targetRadius = result.r2 * scale;
   const semiMajor = result.a * scale;
   const ellipseMinor = Math.sqrt(result.r1 * result.r2) * scale;
-  const ellipseCenterOffset = ((result.r2 - result.r1) / 2) * scale;
+  const ellipseCenterOffset = ((result.r1 - result.r2) / 2) * scale;
   const ellipseCenterX = center.x + ellipseCenterOffset;
 
   ctx.clearRect(0, 0, width, height);
 
   drawRings(center, Math.max(startRadius, targetRadius));
+  drawCircle(center, startRadius, "#5bd7eb");
+  drawCircle(center, targetRadius, "#8ce66f");
+  drawTransferEllipse(ellipseCenterX, center.y, semiMajor, ellipseMinor);
   drawBody(center, bodyRadius, result.body.name);
-  drawCircle(center, startRadius, "#5bd7eb", 2.5);
-  drawCircle(center, targetRadius, "#83e67b", 2.5);
-  drawTransferEllipse(ellipseCenterX, center.y, semiMajor, ellipseMinor, result.outward);
-  drawBurnMarker(center.x + startRadius, center.y, result.outward ? "prograde" : "retrograde", "Burn 1");
-  drawBurnMarker(center.x - targetRadius, center.y, result.outward ? "prograde" : "retrograde", "Burn 2");
-  drawAltitudeLabel(
-    center.x + startRadius * 0.76,
-    center.y + startRadius * 0.35,
-    `Start ${formatKm(result.startAlt)}`,
-    "#5bd7eb",
-    "left"
+
+  drawOrbitTail(center.x, center.y, startRadius, startRadius, 100, 0, "#5bd7eb");
+  drawOrbitTail(ellipseCenterX, center.y, semiMajor, ellipseMinor, -80, -180, "#f5b447");
+
+  drawBurnAssembly(
+    center.x + startRadius,
+    center.y,
+    -90,
+    result.outward ? -90 : 90,
+    "BURN 1",
+    formatVelocity(result.dv1),
+    result.outward ? "prograde" : "retrograde",
+    1
   );
-  drawAltitudeLabel(
-    center.x - targetRadius * 0.58,
-    center.y - targetRadius * 0.32,
-    `Target ${formatKm(result.targetAlt)}`,
-    "#83e67b",
-    "right"
+  drawBurnAssembly(
+    center.x - targetRadius,
+    center.y,
+    90,
+    result.outward ? 90 : -90,
+    "BURN 2",
+    formatVelocity(result.dv2),
+    result.outward ? "prograde" : "retrograde",
+    -1
   );
+  if (result.outward) {
+    drawAltitudeLabel(
+      center.x + startRadius * 0.76,
+      center.y + startRadius * 0.35,
+      `Start ${formatKm(result.startAlt)}`,
+      "#5bd7eb",
+      "left"
+    );
+    drawAltitudeLabel(
+      center.x - targetRadius * 0.58,
+      center.y - targetRadius * 0.32,
+      `Target ${formatKm(result.targetAlt)}`,
+      "#8ce66f",
+      "right"
+    );
+  } else {
+    drawAltitudeLabel(
+      center.x - startRadius * 0.42,
+      center.y + startRadius * 0.68,
+      `Start ${formatKm(result.startAlt)}`,
+      "#5bd7eb",
+      "right"
+    );
+    drawAltitudeLabel(
+      center.x + targetRadius * 0.54,
+      center.y - targetRadius * 0.58,
+      `Target ${formatKm(result.targetAlt)}`,
+      "#8ce66f",
+      "left"
+    );
+  }
 }
 
 function drawRings(center, radius) {
   ctx.save();
-  ctx.strokeStyle = "rgba(180, 208, 220, 0.08)";
+  ctx.strokeStyle = "rgba(91, 215, 235, 0.09)";
   ctx.lineWidth = 1;
-  for (let i = 0.45; i <= 1.15; i += 0.18) {
+  ctx.setLineDash([2, 7]);
+  for (let i = 0.42; i <= 1.16; i += 0.185) {
     ctx.beginPath();
     ctx.arc(center.x, center.y, radius * i, 0, Math.PI * 2);
     ctx.stroke();
@@ -189,68 +241,186 @@ function drawBody(center, radius, name) {
   ctx.beginPath();
   ctx.arc(center.x, center.y, radius, 0, Math.PI * 2);
   ctx.fill();
-  ctx.strokeStyle = "rgba(237, 247, 248, 0.22)";
+  ctx.strokeStyle = "rgba(178, 255, 243, 0.35)";
   ctx.lineWidth = 1.5;
   ctx.stroke();
-  ctx.fillStyle = "rgba(237, 247, 248, 0.78)";
-  ctx.font = "700 12px DM Sans";
+  ctx.fillStyle = "rgba(226, 242, 245, 0.8)";
+  ctx.font = "700 12px 'Courier Prime', monospace";
   ctx.textAlign = "center";
-  ctx.fillText(name, center.x, center.y + 4);
+  ctx.fillText(name.toUpperCase(), center.x, center.y + 4);
   ctx.restore();
 }
 
-function drawCircle(center, radius, color, lineWidth) {
+function drawCircle(center, radius, color) {
   ctx.save();
   ctx.strokeStyle = color;
-  ctx.lineWidth = lineWidth;
-  ctx.shadowColor = color;
-  ctx.shadowBlur = 12;
+  ctx.lineWidth = 1.8;
+  ctx.globalAlpha = 0.68;
+  ctx.setLineDash([4, 6]);
+  ctx.lineCap = "round";
   ctx.beginPath();
   ctx.arc(center.x, center.y, radius, 0, Math.PI * 2);
   ctx.stroke();
   ctx.restore();
 }
 
-function drawTransferEllipse(x, y, rx, ry, outward) {
+function drawTransferEllipse(x, y, rx, ry) {
   ctx.save();
   ctx.strokeStyle = "#f5b447";
-  ctx.lineWidth = 3;
-  ctx.setLineDash([12, 10]);
-  ctx.shadowColor = "rgba(245, 180, 71, 0.9)";
-  ctx.shadowBlur = 14;
+  ctx.lineWidth = 1.5;
+  ctx.globalAlpha = 0.18;
+  ctx.setLineDash([4, 6]);
+  ctx.lineCap = "round";
   ctx.beginPath();
   ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2);
   ctx.stroke();
+
+  ctx.lineWidth = 2.1;
+  ctx.globalAlpha = 0.78;
+  ctx.beginPath();
+  ctx.ellipse(x, y, rx, ry, 0, 0, -Math.PI, true);
+  ctx.stroke();
+
   ctx.setLineDash([]);
+  ctx.globalAlpha = 1;
   ctx.fillStyle = "#f5b447";
-  ctx.font = "700 11px DM Sans";
+  ctx.font = "700 11px 'Courier Prime', monospace";
   ctx.textAlign = "center";
-  ctx.fillText(outward ? "apoapsis coast" : "periapsis coast", x, y - ry - 12);
+  ctx.fillText("COAST // 180°", x, y - ry - 13);
   ctx.restore();
 }
 
-function drawBurnMarker(x, y, direction, label) {
-  const sign = direction === "prograde" ? 1 : -1;
-  const labelX = clamp(x + sign * 36, 42, els.canvas.getBoundingClientRect().width - 42);
-  const labelY = sign > 0 ? y - 13 : y + 23;
+const tailWidths = [0.5, 0.7, 0.9, 1.1, 1.3, 1.55, 1.8, 2.05, 2.35, 2.65, 2.95, 3.25, 3.55, 3.85, 4.15, 4.5];
+const tailOpacities = [0.04, 0.08, 0.13, 0.19, 0.26, 0.34, 0.43, 0.52, 0.61, 0.7, 0.78, 0.84, 0.89, 0.93, 0.96, 0.98];
+
+function drawOrbitTail(x, y, rx, ry, startDegrees, endDegrees, color) {
+  const steps = tailWidths.length;
+  const span = endDegrees - startDegrees;
+
   ctx.save();
-  ctx.translate(x, y);
-  ctx.fillStyle = "#ff704d";
-  ctx.strokeStyle = "#ff704d";
-  ctx.lineWidth = 2;
-  ctx.shadowColor = "rgba(255, 112, 77, 0.75)";
-  ctx.shadowBlur = 10;
+  ctx.strokeStyle = color;
+  ctx.lineCap = "round";
+  ctx.setLineDash([]);
+
+  for (let index = 0; index < steps; index += 1) {
+    const start = (startDegrees + (span * index) / steps) * (Math.PI / 180);
+    const end = (startDegrees + (span * (index + 1)) / steps) * (Math.PI / 180);
+    ctx.globalAlpha = tailOpacities[index];
+    ctx.lineWidth = tailWidths[index];
+    ctx.beginPath();
+    ctx.ellipse(x, y, rx, ry, 0, start, end, span < 0);
+    ctx.stroke();
+  }
+
+  ctx.restore();
+}
+
+function drawBurnAssembly(x, y, craftRotation, vectorRotation, label, deltaV, maneuverType, side) {
+  drawBurnVector(x, y, vectorRotation, maneuverGreen);
+
+  ctx.save();
+  ctx.fillStyle = maneuverGreen;
   ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.lineTo(sign * 28, -8);
-  ctx.lineTo(sign * 28, 8);
+  ctx.arc(x, y, 3.2, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+
+  drawCraft(x, y, craftRotation);
+
+  const canvasWidth = els.canvas.getBoundingClientRect().width;
+  const deltaLabel = `Δv ${deltaV}`;
+
+  ctx.save();
+  ctx.font = "700 11px 'Courier Prime', monospace";
+  const labelWidth = Math.max(ctx.measureText(label).width, ctx.measureText(deltaLabel).width);
+  ctx.restore();
+
+  const iconOffset = 34;
+  const iconHalf = 15;
+  const margin = 10;
+  const groupHalf = Math.max(iconHalf, labelWidth / 2);
+  let iconSide = side;
+  let iconX = x + iconSide * iconOffset;
+
+  if (iconX - groupHalf < margin || iconX + groupHalf > canvasWidth - margin) {
+    iconSide *= -1;
+    iconX = x + iconSide * iconOffset;
+  }
+
+  iconX = clamp(iconX, margin + groupHalf, canvasWidth - margin - groupHalf);
+  const noteAbove = label === "BURN 1";
+
+  drawManeuverIcon(iconX, y, maneuverType);
+
+  ctx.save();
+  ctx.fillStyle = maneuverGreen;
+  ctx.font = "700 11px 'Courier Prime', monospace";
+  ctx.textAlign = "center";
+  ctx.fillText(label, iconX, y + (noteAbove ? -25 : 26));
+  ctx.fillText(deltaLabel, iconX, y + (noteAbove ? -13 : 38));
+  ctx.restore();
+}
+
+function drawManeuverIcon(centerX, centerY, maneuverType) {
+  const size = 30;
+  const left = centerX - size / 2;
+  const top = centerY - size / 2;
+  const marker = maneuverMarkers[maneuverType];
+
+  if (marker?.complete && marker.naturalWidth > 0) {
+    ctx.save();
+    ctx.globalAlpha = 0.96;
+    ctx.drawImage(marker, left, top, size, size);
+    ctx.restore();
+  }
+}
+
+function drawBurnVector(x, y, rotation, color) {
+  const radians = (rotation * Math.PI) / 180;
+  const point = (distance, offset = 0) => ({
+    x: x + Math.cos(radians) * distance - Math.sin(radians) * offset,
+    y: y + Math.sin(radians) * distance + Math.cos(radians) * offset,
+  });
+  const stemStart = point(11);
+  const stemEnd = point(38);
+  const tip = point(45);
+  const backA = point(33, -5);
+  const backB = point(33, 5);
+
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.fillStyle = color;
+  ctx.lineWidth = 3;
+  ctx.lineCap = "butt";
+  ctx.beginPath();
+  ctx.moveTo(stemStart.x, stemStart.y);
+  ctx.lineTo(stemEnd.x, stemEnd.y);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(tip.x, tip.y);
+  ctx.lineTo(backA.x, backA.y);
+  ctx.lineTo(backB.x, backB.y);
   ctx.closePath();
   ctx.fill();
-  ctx.fillStyle = "rgba(237, 247, 248, 0.86)";
-  ctx.font = "700 11px DM Sans";
-  ctx.textAlign = "center";
-  ctx.setTransform(window.devicePixelRatio || 1, 0, 0, window.devicePixelRatio || 1, 0, 0);
-  ctx.fillText(label, labelX, labelY);
+  ctx.restore();
+}
+
+function drawCraft(x, y, rotation) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate((rotation * Math.PI) / 180);
+  ctx.fillStyle = "#ff704d";
+  ctx.strokeStyle = "#ffd7cc";
+  ctx.lineWidth = 1.25;
+  ctx.lineJoin = "round";
+  ctx.beginPath();
+  ctx.moveTo(12, 0);
+  ctx.lineTo(-9, -7);
+  ctx.lineTo(-5, 0);
+  ctx.lineTo(-9, 7);
+  ctx.closePath();
+  ctx.fill();
+  ctx.stroke();
   ctx.restore();
 }
 
@@ -258,7 +428,7 @@ function drawAltitudeLabel(x, y, text, color, align) {
   const width = els.canvas.getBoundingClientRect().width;
   ctx.save();
   ctx.fillStyle = color;
-  ctx.font = "700 12px DM Sans";
+  ctx.font = "700 11px 'Courier Prime', monospace";
   const textWidth = ctx.measureText(text).width;
   const padding = 12;
   const minX = align === "right" ? textWidth + padding : padding;
