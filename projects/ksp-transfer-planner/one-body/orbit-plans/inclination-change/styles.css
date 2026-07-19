@@ -1,0 +1,56 @@
+:root {
+  --pink: #ff18b0;
+}
+
+body {
+  background:
+    radial-gradient(circle at 16% 12%, rgba(91, 215, 235, 0.14), transparent 28rem),
+    radial-gradient(circle at 88% 4%, rgba(255, 24, 176, 0.12), transparent 26rem),
+    radial-gradient(circle at 70% 86%, rgba(245, 180, 71, 0.08), transparent 28rem),
+    linear-gradient(135deg, #05080c 0%, #0b1118 55%, #06090d 100%);
+}
+
+.legend .target {
+  color: var(--pink);
+}
+
+.legend .node-key {
+  color: var(--amber);
+  background-image: none;
+  border-radius: 50%;
+  width: 7px;
+  height: 7px;
+  box-shadow: 0 0 0 1px currentColor;
+}
+
+.metric:nth-of-type(3) strong,
+.metric:nth-of-type(4) strong {
+  color: var(--pink);
+}
+
+.lesson-grid strong {
+  color: var(--text);
+  font-family: var(--tech);
+}
+
+.direction-toggle {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.range-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: -2px;
+  color: var(--dim);
+  font-family: var(--tech);
+  font-size: 0.62rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 760px) {
+  .toggle-button {
+    padding-inline: 4px;
+    font-size: 0.7rem;
+  }
+}

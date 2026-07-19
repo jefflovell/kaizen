@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive KSP inclination-change planner for circular orbits."
+    />
+    <title>Inclination Change Lab | KSP Transfer Planner</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../hohmann/styles.css?v=4" />
+    <link rel="stylesheet" href="./styles.css?v=3" />
+    <script src="./app.js?v=3" defer></script>
+  </head>
+  <body>
+    <main class="planner-shell">
+      <header class="planner-header">
+        <a class="brand" href="../../../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+        <div class="planner-title">
+          <p class="tool-type">One-body lab // Plane change</p>
+          <h1>Inclination Change Lab</h1>
+          <p>
+            Rotate the orbit without changing its altitude, then watch the fuel budget file a formal
+            complaint.
+          </p>
+        </div>
+      </header>
+
+      <section class="planner-grid" aria-label="Interactive inclination-change planner">
+        <aside class="control-panel" aria-label="Mission inputs">
+          <div class="panel-heading">
+            <p>01 // Flight inputs</p>
+            <h2>Set the plane.</h2>
+          </div>
+
+          <label class="field-label" for="body-select">Body</label>
+          <select id="body-select" class="select-control">
+            <option value="kerbin">Kerbin</option>
+            <option value="mun">Mun</option>
+            <option value="minmus">Minmus</option>
+            <option value="duna">Duna</option>
+            <option value="eve">Eve</option>
+            <option value="moho">Moho</option>
+            <option value="ike">Ike</option>
+            <option value="jool">Jool</option>
+          </select>
+
+          <div class="slider-group">
+            <div class="slider-head">
+              <label for="orbit-altitude">Orbit altitude</label>
+              <output id="altitude-output" for="orbit-altitude">120 km</output>
+            </div>
+            <input id="orbit-altitude" type="range" min="70" max="3000" step="5" value="120" />
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-head">
+              <label for="current-inclination">Current inclination</label>
+              <output id="current-output" for="current-inclination">0°</output>
+            </div>
+            <input id="current-inclination" type="range" min="-180" max="180" step="1" value="0" />
+            <div class="range-scale" aria-hidden="true"><span>−180°</span><span>0°</span><span>+180°</span></div>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-head">
+              <label for="target-inclination">Target inclination</label>
+              <output id="target-output" for="target-inclination">+30°</output>
+            </div>
+            <input id="target-inclination" type="range" min="-180" max="180" step="1" value="30" />
+            <div class="range-scale" aria-hidden="true"><span>−180°</span><span>0°</span><span>+180°</span></div>
+          </div>
+
+          <div class="direction-toggle" aria-label="Plane-change node">
+            <button class="toggle-button active" type="button" data-node="ascending">AN node</button>
+            <button class="toggle-button" type="button" data-node="descending">DN node</button>
+          </div>
+
+          <div class="guidance">
+            <p class="guidance-label">Burn note</p>
+            <p id="burn-note">Burn normal at the ascending node to rotate the plane +30°.</p>
+          </div>
+        </aside>
+
+        <section class="orbit-stage" aria-labelledby="diagram-title">
+          <div class="stage-topline">
+            <div>
+              <p>02 // Plane plot</p>
+              <h2 id="diagram-title">Kerbin Plane Plot</h2>
+            </div>
+            <div class="legend" aria-label="Diagram legend">
+              <span><i class="current"></i> Current plane</span>
+              <span><i class="target"></i> Target plane</span>
+              <span><i class="node-key"></i> Shared nodes</span>
+            </div>
+          </div>
+          <canvas
+            id="orbit-canvas"
+            width="980"
+            height="720"
+            aria-label="Projected inclination-change orbit diagram"
+          ></canvas>
+          <div class="stage-footer">
+            <span id="body-radius">Radius 600 km</span>
+            <span id="body-mu">GM 3531.6 km^3/s^2</span>
+          </div>
+        </section>
+
+        <aside class="readout-panel" aria-label="Plane-change results">
+          <div class="panel-heading">
+            <p>03 // Readouts</p>
+            <h2>Burn plan.</h2>
+          </div>
+
+          <div class="metric primary">
+            <span>Plane-change delta-v</span>
+            <strong id="total-dv">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Inclination change</span>
+            <strong id="delta-inclination">0°</strong>
+          </div>
+          <div class="metric">
+            <span>Burn direction</span>
+            <strong id="burn-direction">Normal</strong>
+          </div>
+          <div class="metric">
+            <span>Selected node</span>
+            <strong id="selected-node">Ascending</strong>
+          </div>
+
+          <dl class="orbit-facts">
+            <div>
+              <dt>Orbital speed</dt>
+              <dd id="orbital-speed">0 m/s</dd>
+            </div>
+            <div>
+              <dt>Orbital period</dt>
+              <dd id="orbital-period">0m 00s</dd>
+            </div>
+            <div>
+              <dt>Orbital radius</dt>
+              <dd id="orbital-radius">0 km</dd>
+            </div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="lesson-panel" aria-labelledby="inclination-lesson-title">
+        <div class="lesson-intro">
+          <p>Flight manual // Read before turning north</p>
+          <h2 id="inclination-lesson-title">What is a plane change?</h2>
+          <p>
+            Inclination is the angle between an orbit and its reference plane. A plane-change burn
+            rotates the velocity vector at a node while keeping the spacecraft at the same place.
+            The orbit pivots around the line joining the ascending and descending nodes; it does not
+            climb to a new altitude just because the map view became dramatic.
+          </p>
+        </div>
+
+        <div class="lesson-grid">
+          <article>
+            <h3>The node is the hinge</h3>
+            <p>
+              The old and new planes intersect at two points. Burn at one of those nodes so your
+              current position belongs to both orbits. Burning elsewhere is how a clean geometry
+              lesson becomes an expensive three-dimensional apology.
+            </p>
+          </article>
+
+          <article>
+            <h3>Why speed hurts</h3>
+            <p>
+              For equal-speed circular orbits, the cost is
+              <strong>2v sin(Δi/2)</strong>. The faster you are moving, the more velocity must be
+              turned. That is why plane changes are usually cheaper high in the orbit, where speed
+              is lower and Mission Control has more time to stare at the remaining fuel.
+            </p>
+          </article>
+
+          <article>
+            <h3>Normal versus anti-normal</h3>
+            <ul>
+              <li>Normal points toward the navball's north pole.</li>
+              <li>Anti-normal points toward the south pole.</li>
+              <li>The correct marker flips when you use the opposite node.</li>
+              <li>It also flips when the signed plane rotation reverses.</li>
+            </ul>
+          </article>
+
+          <article>
+            <h3>Eyeball it in KSP</h3>
+            <p>
+              Add a maneuver at the AN or DN marker, then pull normal or anti-normal until the
+              target inclination is reached. Watch the opposite node collapse toward zero degrees;
+              if it grows, congratulations, you selected the correct axis with inspiring confidence
+              and the wrong sign.
+            </p>
+          </article>
+
+          <article>
+            <h3>Launch into it first</h3>
+            <p>
+              The cheapest plane change is the one you never perform. Launch azimuth and launch-site
+              latitude can place much of the required inclination into the ascent, paid for while
+              you were already spending fuel and alarming everyone near the space center.
+            </p>
+          </article>
+
+          <article>
+            <h3>Model limits</h3>
+            <ul>
+              <li>This lab assumes an instantaneous burn in a circular orbit.</li>
+              <li>The signed scale describes rotation around this displayed node line; KSP reports inclination from 0° to 180°.</li>
+              <li>It changes plane only; altitude and orbital speed magnitude stay fixed.</li>
+              <li>Large real burns should be centered on the node.</li>
+              <li>Combined altitude and plane changes can cost less than separate burns.</li>
+            </ul>
+          </article>
+        </div>
+
+        <aside class="lesson-callout">
+          <div>
+            <span>Plane-change survival rule</span>
+            <p>
+              Change planes where you are slow, combine the turn with another burn when practical,
+              and launch closer to the plane you wanted in the first place. Delta-v is not angry;
+              it is simply keeping receipts.
+            </p>
+          </div>
+          <a href="https://wiki.kerbalspaceprogram.com/wiki/Maneuver_node" rel="noreferrer"
+            >KSP Wiki: Maneuver nodes</a
+          >
+        </aside>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive geosynchronous and geostationary orbit planner for Kerbal Space Program."
+    />
+    <title>Synchronous Orbit Lab | KSP Transfer Planner</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../hohmann/styles.css?v=4" />
+    <link rel="stylesheet" href="./styles.css?v=1" />
+    <script src="./app.js?v=1" defer></script>
+  </head>
+  <body>
+    <main class="planner-shell">
+      <header class="planner-header">
+        <a class="brand" href="../../../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+        <div class="planner-title">
+          <p class="tool-type">One-body lab // Orbital timing</p>
+          <h1>Synchronous Orbit Lab</h1>
+          <p>
+            Match the planet's clock, then decide whether you need to visit the same longitude or
+            merely wave at it with suspicious regularity.
+          </p>
+        </div>
+      </header>
+
+      <section class="planner-grid" aria-label="Interactive synchronous orbit planner">
+        <aside class="control-panel" aria-label="Mission inputs">
+          <div class="panel-heading">
+            <p>01 // Flight inputs</p>
+            <h2>Match the clock.</h2>
+          </div>
+
+          <label class="field-label" for="body-select">Body</label>
+          <select id="body-select" class="select-control">
+            <option value="kerbin">Kerbin</option>
+            <option value="mun">Mun</option>
+            <option value="minmus">Minmus</option>
+            <option value="duna">Duna</option>
+            <option value="eve">Eve</option>
+            <option value="moho">Moho</option>
+            <option value="ike">Ike</option>
+            <option value="jool">Jool</option>
+          </select>
+
+          <div class="slider-group">
+            <div class="slider-head">
+              <label for="parking-altitude">Parking altitude</label>
+              <output id="parking-output" for="parking-altitude">120 km</output>
+            </div>
+            <input id="parking-altitude" type="range" min="70" max="3000" step="5" value="120" />
+          </div>
+
+          <div class="field-label mode-label">Target behavior</div>
+          <div class="direction-toggle two-up" aria-label="Target behavior">
+            <button class="toggle-button active" type="button" data-mode="stationary">Stationary</button>
+            <button class="toggle-button" type="button" data-mode="synchronous">Synchronous</button>
+          </div>
+
+          <div class="slider-group plane-slider is-locked" id="inclination-group">
+            <div class="slider-head">
+              <label for="target-inclination">Target inclination</label>
+              <output id="inclination-output" for="target-inclination">0°</output>
+            </div>
+            <input id="target-inclination" type="range" min="-180" max="180" step="1" value="0" disabled />
+            <div class="signed-scale" aria-hidden="true"><span>-180°</span><span>0°</span><span>+180°</span></div>
+          </div>
+
+          <div class="node-control is-locked" id="node-group">
+            <div class="field-label node-label">Arrival node</div>
+            <div class="direction-toggle two-up" aria-label="Arrival node">
+              <button class="toggle-button active" type="button" data-node="an" disabled>AN</button>
+              <button class="toggle-button" type="button" data-node="dn" disabled>DN</button>
+            </div>
+          </div>
+
+          <div class="guidance">
+            <p class="guidance-label">Burn note</p>
+            <p id="burn-note">Raise apoapsis to the synchronous rail, then circularize prograde.</p>
+          </div>
+        </aside>
+
+        <section class="orbit-stage" aria-labelledby="diagram-title">
+          <div class="stage-topline">
+            <div>
+              <p>02 // Clock-matched plot</p>
+              <h2 id="diagram-title">Kerbin Stationary Transfer</h2>
+            </div>
+            <div class="legend" aria-label="Diagram legend">
+              <span><i class="current"></i> Parking</span>
+              <span><i class="transfer"></i> Transfer</span>
+              <span><i class="target"></i> Synchronous</span>
+              <span><i class="plane"></i> Plane component</span>
+              <span><i class="soi"></i> SOI</span>
+            </div>
+          </div>
+          <canvas id="orbit-canvas" width="980" height="720" aria-label="Projected synchronous orbit diagram"></canvas>
+          <div class="stage-footer">
+            <span id="body-radius">Radius 600 km</span>
+            <span id="body-period">Sidereal day 5h 59m 09s</span>
+          </div>
+        </section>
+
+        <aside class="readout-panel" aria-label="Synchronous orbit results">
+          <div class="panel-heading">
+            <p>03 // Readouts</p>
+            <h2>Clock lock.</h2>
+          </div>
+
+          <div class="metric primary" id="status-metric">
+            <span>Target status</span>
+            <strong id="target-status">STABLE</strong>
+          </div>
+          <div class="metric sync-altitude">
+            <span>Synchronous altitude</span>
+            <strong id="sync-altitude">2,863 km</strong>
+          </div>
+          <div class="metric">
+            <span>Total transfer</span>
+            <strong id="total-dv">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Burn 1 // Injection</span>
+            <strong id="dv-one">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Burn 2 // Arrival</span>
+            <strong id="dv-two">0 m/s</strong>
+          </div>
+
+          <dl class="orbit-facts">
+            <div><dt>Orbital period</dt><dd id="orbit-period">0h 00m 00s</dd></div>
+            <div><dt>Target speed</dt><dd id="target-speed">0 m/s</dd></div>
+            <div><dt>Target inclination</dt><dd id="target-inclination-readout">0°</dd></div>
+            <div><dt>SOI margin</dt><dd id="soi-margin">0 km</dd></div>
+            <div><dt>Arrival node</dt><dd id="arrival-node">—</dd></div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="lesson-panel" aria-labelledby="sync-lesson-title">
+        <div class="lesson-intro">
+          <p>Flight manual // Same clock, different consequences</p>
+          <h2 id="sync-lesson-title">What actually stays still?</h2>
+          <p>
+            <strong>Geosynchronous means the orbit matches the body's sidereal day.</strong> The
+            satellite returns to the same place in its schedule after one rotation, but it may roam
+            north, south, east, or west in between. <strong>Geostationary is the special case that
+            actually stays over one longitude:</strong> synchronous, circular, equatorial, and
+            prograde. Same clock; very different promise to the people aiming antennas at it.
+          </p>
+        </div>
+
+        <div class="lesson-grid four-up">
+          <article>
+            <h3>Same day, not same place</h3>
+            <p>
+              Every synchronous orbit uses the same period and semi-major axis. Inclination makes
+              the craft wander north and south; eccentricity makes it speed up, slow down, and wander
+              east and west. It comes back after one sidereal day, but your dish may spend the hours
+              between appointments staring into space and reconsidering its career.
+            </p>
+          </article>
+          <article>
+            <h3>Stationary: hold this longitude</h3>
+            <p>
+              Use a stationary orbit when one satellite must remain continuously visible from the
+              same equatorial region. Around Kerbin, that makes a good relay anchor above the KSC,
+              an always-on link for an equatorial base, or one fixed corner of a three-satellite
+              network. Circular, equatorial, prograde, and synchronous are all mandatory.
+            </p>
+          </article>
+          <article>
+            <h3>Synchronous: repeat the coverage</h3>
+            <p>
+              Use an inclined synchronous orbit when repeating geometry matters more than hovering.
+              It can revisit high-latitude bases on the same daily schedule, alternate coverage with
+              other relays, or create predictable communication windows. The map-view ground track
+              becomes a figure eight: useful rhythm, not continuous service.
+            </p>
+          </article>
+          <article>
+            <h3>Pick the promise</h3>
+            <p>
+              Need one dish pointed at one relay all day? Choose stationary. Need a relay to return
+              over the same base every day after roaming elsewhere? Choose synchronous. Need polar
+              coverage without gaps? Use multiple craft or a different orbit family; one inclined
+              synchronous satellite cannot be everywhere just because the schedule is tidy.
+            </p>
+          </article>
+        </div>
+
+        <div class="lesson-callout">
+          <span>Kerbal field note</span>
+          <p>
+            Practical test: warp through one sidereal day in map view. A stationary relay remains
+            over the same terrain the entire time. A merely synchronous relay moves across the map
+            and returns at the end. If it never returns, the period is wrong. If the calculated rail
+            lies outside the SOI, the body has declined to participate regardless of antenna size.
+          </p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
