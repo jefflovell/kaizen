@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive combined orbital transfer and plane-change planner for Kerbal Space Program."
+    />
+    <title>Combined Transfer + Plane Change Lab | KSP Transfer Planner</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../hohmann/styles.css?v=4" />
+    <link rel="stylesheet" href="./styles.css?v=1" />
+    <script src="./app.js?v=1" defer></script>
+  </head>
+  <body>
+    <main class="planner-shell">
+      <header class="planner-header">
+        <a class="brand" href="../../../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+        <div class="planner-title">
+          <p class="tool-type">One-body lab // Combined maneuver</p>
+          <h1>Combined Transfer + Plane Change Lab</h1>
+          <p>
+            Change altitude and plane in one arrival burn, because the fuel budget has already
+            started drafting its resignation letter.
+          </p>
+        </div>
+      </header>
+
+      <section class="planner-grid" aria-label="Interactive combined transfer and plane-change planner">
+        <aside class="control-panel" aria-label="Mission inputs">
+          <div class="panel-heading">
+            <p>01 // Flight inputs</p>
+            <h2>Set both orbits.</h2>
+          </div>
+
+          <label class="field-label" for="body-select">Body</label>
+          <select id="body-select" class="select-control">
+            <option value="kerbin">Kerbin</option>
+            <option value="mun">Mun</option>
+            <option value="minmus">Minmus</option>
+            <option value="duna">Duna</option>
+            <option value="eve">Eve</option>
+            <option value="moho">Moho</option>
+            <option value="ike">Ike</option>
+            <option value="jool">Jool</option>
+          </select>
+
+          <div class="slider-group">
+            <div class="slider-head">
+              <label for="start-altitude">Start altitude</label>
+              <output id="start-output" for="start-altitude">120 km</output>
+            </div>
+            <input id="start-altitude" type="range" min="70" max="3000" step="5" value="120" />
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-head">
+              <label for="target-altitude">Target altitude</label>
+              <output id="target-output" for="target-altitude">800 km</output>
+            </div>
+            <input id="target-altitude" type="range" min="70" max="3000" step="5" value="800" />
+          </div>
+
+          <div class="slider-group plane-slider">
+            <div class="slider-head">
+              <label for="current-plane">Current plane</label>
+              <output id="current-plane-output" for="current-plane">0°</output>
+            </div>
+            <input id="current-plane" type="range" min="-180" max="180" step="1" value="0" />
+            <div class="signed-scale" aria-hidden="true"><span>-180°</span><span>0°</span><span>+180°</span></div>
+          </div>
+
+          <div class="slider-group plane-slider">
+            <div class="slider-head">
+              <label for="target-plane">Target plane</label>
+              <output id="target-plane-output" for="target-plane">30°</output>
+            </div>
+            <input id="target-plane" type="range" min="-180" max="180" step="1" value="30" />
+            <div class="signed-scale" aria-hidden="true"><span>-180°</span><span>0°</span><span>+180°</span></div>
+          </div>
+
+          <div class="field-label node-label">Arrival node</div>
+          <div class="direction-toggle two-up" aria-label="Arrival node">
+            <button class="toggle-button active" type="button" data-node="an">AN</button>
+            <button class="toggle-button" type="button" data-node="dn">DN</button>
+          </div>
+
+          <div class="guidance">
+            <p class="guidance-label">Burn note</p>
+            <p id="burn-note">Inject prograde, coast to apoapsis, then combine prograde and normal.</p>
+          </div>
+        </aside>
+
+        <section class="orbit-stage" aria-labelledby="diagram-title">
+          <div class="stage-topline">
+            <div>
+              <p>02 // Combined plot</p>
+              <h2 id="diagram-title">Kerbin Vector Plot</h2>
+            </div>
+            <div class="legend" aria-label="Diagram legend">
+              <span><i class="current"></i> Current</span>
+              <span><i class="transfer"></i> Transfer</span>
+              <span><i class="target"></i> Target</span>
+              <span><i class="plane"></i> Plane component</span>
+            </div>
+          </div>
+          <canvas id="orbit-canvas" width="980" height="720" aria-label="Projected combined maneuver diagram"></canvas>
+          <div class="stage-footer">
+            <span id="body-radius">Radius 600 km</span>
+            <span id="body-mu">GM 3531.6 km^3/s^2</span>
+          </div>
+        </section>
+
+        <aside class="readout-panel" aria-label="Combined maneuver results">
+          <div class="panel-heading">
+            <p>03 // Readouts</p>
+            <h2>Burn plan.</h2>
+          </div>
+
+          <div class="metric primary">
+            <span>Combined plan</span>
+            <strong id="total-dv">0 m/s</strong>
+          </div>
+          <div class="metric savings">
+            <span>Fuel saved vs separate</span>
+            <strong id="savings">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Burn 1 // Injection</span>
+            <strong id="dv-one">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Burn 2 // Combined</span>
+            <strong id="dv-two">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Separate at target</span>
+            <strong id="separate-dv">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Plane rotation</span>
+            <strong id="plane-delta">0°</strong>
+          </div>
+
+          <dl class="orbit-facts">
+            <div><dt>Transfer time</dt><dd id="transfer-time">0m 00s</dd></div>
+            <div><dt>Arrival speed</dt><dd id="arrival-speed">0 m/s</dd></div>
+            <div><dt>Target speed</dt><dd id="target-speed">0 m/s</dd></div>
+            <div><dt>Arrival node</dt><dd id="arrival-node">AN</dd></div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="lesson-panel" aria-labelledby="combined-lesson-title">
+        <div class="lesson-intro">
+          <p>Flight manual // One burn, two axes, zero excuses</p>
+          <h2 id="combined-lesson-title">Why combine the burns?</h2>
+          <p>
+            A combined maneuver changes speed and direction at the same instant. Because those
+            velocity changes are vectors, the required burn is the diagonal of the component
+            triangle—not the full length of both sides added together. Mission Control calls this
+            efficiency. The fuel tank calls it a temporary stay of execution.
+          </p>
+        </div>
+
+        <div class="lesson-grid four-up">
+          <article>
+            <h3>The vector triangle</h3>
+            <p>
+              The green component changes your speed along the orbit. The hot-pink component
+              rotates the velocity vector into the new plane. Burn them together and the engine
+              follows the resultant between them, spending less delta-v than two independent burns.
+            </p>
+          </article>
+          <article>
+            <h3>Slow is merciful</h3>
+            <p>
+              Plane changes get cheaper as orbital speed falls. For an orbit raise, apoapsis is
+              both the circularization point and the slow end of the transfer, making it the natural
+              place to tilt the plane while everyone still has propellant to argue about.
+            </p>
+          </article>
+          <article>
+            <h3>The node is the hinge</h3>
+            <p>
+              Perform the combined burn where the old transfer plane intersects the target plane.
+              Choose AN or DN to flip the normal-axis instruction; the ideal delta-v is the same,
+              but the navball marker absolutely is not, and KSP notices these details at speed.
+            </p>
+          </article>
+          <article>
+            <h3>What this model assumes</h3>
+            <p>
+              The calculator assumes instantaneous burns, circular start and target orbits, and a
+              target-plane node exactly at transfer arrival. Long burns, eccentric starting orbits,
+              and missed nodes require proper mission planning instead of louder optimism.
+            </p>
+          </article>
+        </div>
+
+        <div class="lesson-callout">
+          <span>Kerbal field note</span>
+          <p>
+            Create the arrival node, add the tangential component first, then pull normal or
+            anti-normal until the target orbit and node line agree. If the maneuver gizmo looks like
+            a frightened sea urchin, pause before adding another handle.
+          </p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
