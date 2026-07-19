@@ -1,0 +1,154 @@
+:root {
+  --pink: #ff18b0;
+  --soi: #ff6f4c;
+}
+
+.planner-grid {
+  grid-template-columns: minmax(245px, 300px) minmax(500px, 1fr) minmax(245px, 300px);
+}
+
+.orbit-stage {
+  min-height: 730px;
+}
+
+.direction-toggle.two-up {
+  grid-template-columns: repeat(2, 1fr);
+  margin-bottom: 24px;
+}
+
+.mode-label,
+.node-label {
+  margin-bottom: 8px;
+}
+
+.plane-slider .slider-head output {
+  color: var(--pink);
+}
+
+.plane-slider input[type="range"] {
+  accent-color: var(--pink);
+}
+
+.plane-slider.is-locked {
+  opacity: 0.46;
+}
+
+.node-control.is-locked {
+  opacity: 0.46;
+}
+
+.plane-slider.is-locked input,
+.node-control.is-locked button {
+  cursor: not-allowed;
+}
+
+.signed-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: -2px;
+  color: var(--dim);
+  font-family: var(--tech);
+  font-size: 0.64rem;
+  font-weight: 700;
+}
+
+.legend .target,
+.sync-altitude strong {
+  color: var(--green);
+}
+
+.legend .plane {
+  color: var(--pink);
+}
+
+.legend .soi {
+  color: var(--soi);
+}
+
+.metric.is-invalid {
+  border-color: color-mix(in srgb, var(--soi), transparent 42%);
+  background: color-mix(in srgb, var(--soi), transparent 91%);
+}
+
+.metric.is-invalid strong,
+.orbit-facts dd#soi-margin {
+  color: var(--soi);
+}
+
+.lesson-grid.four-up {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (max-width: 1180px) {
+  .planner-grid {
+    grid-template-columns: minmax(220px, 285px) minmax(440px, 1fr);
+  }
+
+  .readout-panel {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0 18px;
+  }
+
+  .readout-panel .panel-heading,
+  .readout-panel .orbit-facts {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 880px) {
+  .planner-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .orbit-stage {
+    order: -1;
+    min-height: 620px;
+  }
+
+  .readout-panel {
+    display: block;
+  }
+
+  .lesson-grid.four-up {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .planner-shell {
+    width: min(100% - 20px, 1500px);
+  }
+
+  .planner-header {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .planner-title h1 {
+    font-size: clamp(1.8rem, 10vw, 3rem);
+  }
+
+  .orbit-stage {
+    min-height: 560px;
+  }
+
+  #orbit-canvas {
+    min-height: 410px;
+  }
+
+  .stage-topline {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .legend {
+    justify-content: flex-start;
+  }
+
+  .lesson-grid.four-up {
+    grid-template-columns: 1fr;
+  }
+}
