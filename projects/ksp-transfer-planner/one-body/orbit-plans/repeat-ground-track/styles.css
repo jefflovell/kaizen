@@ -1,0 +1,155 @@
+:root {
+  --track: #5bd7eb;
+  --tail: #d8f36a;
+  --node: #ff18b0;
+  --unsafe: #ff6f4c;
+}
+
+.planner-grid {
+  grid-template-columns: minmax(245px, 300px) minmax(500px, 1fr) minmax(245px, 300px);
+}
+
+.orbit-stage {
+  min-height: 730px;
+}
+
+#ground-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 490px;
+}
+
+.signed-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: -2px;
+  color: var(--dim);
+  font-family: var(--tech);
+  font-size: 0.64rem;
+  font-weight: 700;
+}
+
+.inclination-slider .slider-head output {
+  color: var(--pink, #ff18b0);
+}
+
+.inclination-slider input[type="range"] {
+  accent-color: var(--pink, #ff18b0);
+}
+
+.legend .track,
+.target-altitude strong {
+  color: var(--track);
+}
+
+.legend .tail {
+  color: var(--tail);
+}
+
+.legend .node {
+  color: var(--node);
+}
+
+.legend .unsafe {
+  color: var(--unsafe);
+}
+
+.metric.is-invalid {
+  border-color: color-mix(in srgb, var(--unsafe), transparent 42%);
+  background: color-mix(in srgb, var(--unsafe), transparent 91%);
+}
+
+.metric.is-invalid strong,
+.target-altitude strong.is-invalid {
+  color: var(--unsafe);
+}
+
+.lesson-grid.four-up {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (max-width: 1400px) {
+  .stage-topline {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .legend {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 1180px) {
+  .planner-grid {
+    grid-template-columns: minmax(220px, 285px) minmax(440px, 1fr);
+  }
+
+  .readout-panel {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0 18px;
+  }
+
+  .readout-panel .panel-heading,
+  .readout-panel .orbit-facts {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 880px) {
+  .planner-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .orbit-stage {
+    order: -1;
+    min-height: 620px;
+  }
+
+  .readout-panel {
+    display: block;
+  }
+
+  .lesson-grid.four-up {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .planner-shell {
+    width: min(100% - 20px, 1500px);
+  }
+
+  .planner-header {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .planner-title h1 {
+    font-size: clamp(1.72rem, 9.4vw, 2.85rem);
+  }
+
+  .orbit-stage {
+    min-height: 560px;
+  }
+
+  #ground-canvas {
+    min-height: 410px;
+  }
+
+  .stage-topline {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .legend {
+    justify-content: flex-start;
+  }
+
+  .lesson-grid.four-up {
+    grid-template-columns: 1fr;
+  }
+}

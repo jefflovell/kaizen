@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive repeat-ground-track orbit planner for Kerbal Space Program."
+    />
+    <title>Repeat Ground Track Lab | KSP Transfer Planner</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../hohmann/styles.css?v=4" />
+    <link rel="stylesheet" href="./styles.css?v=1" />
+    <script src="./app.js?v=1" defer></script>
+  </head>
+  <body>
+    <main class="planner-shell">
+      <header class="planner-header">
+        <a class="brand" href="../../../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+        <div class="planner-title">
+          <p class="tool-type">One-body lab // Surface revisit geometry</p>
+          <h1>Repeat Ground Track Lab</h1>
+          <p>
+            Pick an orbital rhythm that brings the spacecraft back over the same terrain after a
+            known number of laps, because “we saw it once” is not a robust mapping strategy.
+          </p>
+        </div>
+      </header>
+
+      <section class="planner-grid" aria-label="Interactive repeat ground track planner">
+        <aside class="control-panel" aria-label="Mission inputs">
+          <div class="panel-heading">
+            <p>01 // Flight inputs</p>
+            <h2>Schedule the revisit.</h2>
+          </div>
+
+          <label class="field-label" for="body-select">Body</label>
+          <select id="body-select" class="select-control">
+            <option value="kerbin">Kerbin</option>
+            <option value="mun">Mun</option>
+            <option value="minmus">Minmus</option>
+            <option value="duna">Duna</option>
+            <option value="eve">Eve</option>
+            <option value="moho">Moho</option>
+            <option value="ike">Ike</option>
+            <option value="jool">Jool</option>
+          </select>
+
+          <div class="slider-group">
+            <div class="slider-head">
+              <label for="orbit-count">Orbits per cycle</label>
+              <output id="orbit-output" for="orbit-count">6 orbits</output>
+            </div>
+            <input id="orbit-count" type="range" min="1" max="24" step="1" value="6" />
+            <div class="signed-scale" aria-hidden="true"><span>1</span><span>12</span><span>24</span></div>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-head">
+              <label for="day-count">Body rotations</label>
+              <output id="day-output" for="day-count">1 day</output>
+            </div>
+            <input id="day-count" type="range" min="1" max="8" step="1" value="1" />
+            <div class="signed-scale" aria-hidden="true"><span>1</span><span>4</span><span>8</span></div>
+          </div>
+
+          <div class="slider-group inclination-slider">
+            <div class="slider-head">
+              <label for="inclination">Inclination</label>
+              <output id="inclination-output" for="inclination">70°</output>
+            </div>
+            <input id="inclination" type="range" min="0" max="180" step="1" value="70" />
+            <div class="signed-scale" aria-hidden="true"><span>0°</span><span>90°</span><span>180°</span></div>
+          </div>
+
+          <div class="guidance">
+            <p class="guidance-label">Planning note</p>
+            <p id="orbit-note">Six inclined passes close after one Kerbin day, revisiting the same longitude pattern every 5h 59m.</p>
+          </div>
+        </aside>
+
+        <section class="orbit-stage" aria-labelledby="diagram-title">
+          <div class="stage-topline">
+            <div>
+              <p>02 // Surface trace</p>
+              <h2 id="diagram-title">Kerbin 6:1 Repeat Track</h2>
+            </div>
+            <div class="legend" aria-label="Diagram legend">
+              <span><i class="track"></i> Ground track</span>
+              <span><i class="tail"></i> Direction tail</span>
+              <span><i class="node"></i> Repeat node</span>
+              <span><i class="unsafe"></i> Invalid</span>
+            </div>
+          </div>
+          <canvas id="ground-canvas" width="980" height="720" aria-label="Equirectangular repeating ground track diagram"></canvas>
+          <div class="stage-footer">
+            <span id="body-period">Sidereal day 5h 59m 09s</span>
+            <span id="cycle-footer">Cycle 6 orbits / 1 day</span>
+          </div>
+        </section>
+
+        <aside class="readout-panel" aria-label="Repeat ground track results">
+          <div class="panel-heading">
+            <p>03 // Readouts</p>
+            <h2>Coverage rhythm.</h2>
+          </div>
+
+          <div class="metric primary" id="status-metric">
+            <span>Orbit status</span>
+            <strong id="orbit-status">TRACK VALID</strong>
+          </div>
+          <div class="metric target-altitude">
+            <span>Required altitude</span>
+            <strong id="target-altitude">0 km</strong>
+          </div>
+          <div class="metric">
+            <span>Effective repeat</span>
+            <strong id="effective-ratio">6 : 1</strong>
+          </div>
+          <div class="metric">
+            <span>Repeat interval</span>
+            <strong id="repeat-interval">0h 00m 00s</strong>
+          </div>
+          <div class="metric">
+            <span>Longitude step</span>
+            <strong id="longitude-step">60° west</strong>
+          </div>
+
+          <dl class="orbit-facts">
+            <div><dt>Orbital period</dt><dd id="orbital-period">0h 00m 00s</dd></div>
+            <div><dt>Orbital speed</dt><dd id="orbital-speed">0 m/s</dd></div>
+            <div><dt>Latitude band</dt><dd id="latitude-band">±70°</dd></div>
+            <div><dt>Track spacing</dt><dd id="track-spacing">60°</dd></div>
+            <div><dt>Direction</dt><dd id="orbit-direction">Prograde</dd></div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="lesson-panel" aria-labelledby="ground-lesson-title">
+        <div class="lesson-intro">
+          <p>Flight manual // Same planet, same footprints</p>
+          <h2 id="ground-lesson-title">Repeat does not mean stationary</h2>
+          <p>
+            A repeat-ground-track orbit synchronizes two clocks: orbital revolutions and body
+            rotations. The spacecraft crosses many different longitudes during the cycle, then the
+            entire pattern closes and starts again. It revisits a route, not one permanent parking
+            space; the distinction matters to both cartographers and increasingly irritated antenna
+            operators.
+          </p>
+        </div>
+
+        <div class="lesson-grid four-up">
+          <article>
+            <h3>The ratio sets altitude</h3>
+            <p>
+              Six orbits per Kerbin day means each lap must last exactly one-sixth of the sidereal
+              rotation period. Kepler then determines one circular radius. Altitude is the result,
+              not another free slider you can move until the answer becomes emotionally convenient.
+            </p>
+          </article>
+          <article>
+            <h3>Inclination sets reach</h3>
+            <p>
+              A circular orbit reaches latitudes equal to its effective inclination. A 70° orbit
+              covers between 70° north and south; a polar orbit can cross every latitude. Changing
+              inclination changes the shape of the trace but not the repeat timing or altitude.
+            </p>
+          </article>
+          <article>
+            <h3>The pattern must close</h3>
+            <p>
+              After each lap, planetary rotation shifts the next pass westward. When the orbit and
+              rotation counts are whole numbers, the final pass returns to the first node. If both
+              counts share a divisor, the actual pattern closes early and Mission Control has been
+              padding the schedule with duplicate laps.
+            </p>
+          </article>
+          <article>
+            <h3>What this is good for</h3>
+            <p>
+              Use repeat tracks for KerbNet surveys, resource scanners, predictable relay passes,
+              or revisiting the same landing corridor under similar geometry. It is excellent when
+              change over time matters and less excellent when you urgently need coverage during
+              the eleven hours between scheduled appearances.
+            </p>
+          </article>
+        </div>
+
+        <div class="lesson-callout">
+          <span>Kerbal field note</span>
+          <p>
+            Use the body's sidereal rotation period, not the time shown by a sunrise. Set the orbit,
+            let it run through the full reduced cycle, and compare the first and last equator
+            crossing in map view. If they miss, the period is wrong; if the map is rotating because
+            somebody grabbed the camera, the experiment is temporarily inconclusive.
+          </p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
