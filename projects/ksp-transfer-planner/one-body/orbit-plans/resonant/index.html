@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive resonant-orbit constellation deployment planner for Kerbal Space Program."
+    />
+    <title>Resonant Orbit Lab | KSP Transfer Planner</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../hohmann/styles.css?v=4" />
+    <link rel="stylesheet" href="./styles.css?v=1" />
+    <script src="./app.js?v=2" defer></script>
+  </head>
+  <body>
+    <main class="planner-shell">
+      <header class="planner-header">
+        <a class="brand" href="../../../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+        <div class="planner-title">
+          <p class="tool-type">One-body lab // Constellation deployment</p>
+          <h1>Resonant Orbit Lab</h1>
+          <p>
+            Turn one launch into an evenly spaced relay network by repeatedly arriving at the same
+            release point while the satellites politely spread out somewhere else.
+          </p>
+        </div>
+      </header>
+
+      <section class="planner-grid" aria-label="Interactive resonant orbit planner">
+        <aside class="control-panel" aria-label="Mission inputs">
+          <div class="panel-heading">
+            <p>01 // Flight inputs</p>
+            <h2>Build the necklace.</h2>
+          </div>
+
+          <label class="field-label" for="body-select">Body</label>
+          <select id="body-select" class="select-control">
+            <option value="kerbin">Kerbin</option>
+            <option value="mun">Mun</option>
+            <option value="minmus">Minmus</option>
+            <option value="duna">Duna</option>
+            <option value="eve">Eve</option>
+            <option value="moho">Moho</option>
+            <option value="ike">Ike</option>
+            <option value="jool">Jool</option>
+          </select>
+
+          <div class="slider-group">
+            <div class="slider-head">
+              <label for="target-altitude">Final orbit altitude</label>
+              <output id="altitude-output" for="target-altitude">800 km</output>
+            </div>
+            <input id="target-altitude" type="range" min="70" max="4000" step="5" value="800" />
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-head">
+              <label for="satellite-count">Satellites</label>
+              <output id="count-output" for="satellite-count">5 craft</output>
+            </div>
+            <input id="satellite-count" type="range" min="2" max="12" step="1" value="5" />
+            <div class="signed-scale count-scale" aria-hidden="true"><span>2</span><span>7</span><span>12</span></div>
+          </div>
+
+          <div class="field-label mode-label">Phasing orbit</div>
+          <div class="direction-toggle two-up" aria-label="Phasing orbit">
+            <button class="toggle-button active" type="button" data-phasing="inner" aria-pressed="true">Inner</button>
+            <button class="toggle-button" type="button" data-phasing="outer" aria-pressed="false">Outer</button>
+          </div>
+
+          <div class="guidance">
+            <p class="guidance-label">Deployment note</p>
+            <p id="burn-note">Enter the shorter-period phasing orbit, release one craft per lap, and circularize each satellite prograde.</p>
+          </div>
+        </aside>
+
+        <section class="orbit-stage" aria-labelledby="diagram-title">
+          <div class="stage-topline">
+            <div>
+              <p>02 // Phasing plot</p>
+              <h2 id="diagram-title">Kerbin 4:5 Inner Resonance</h2>
+            </div>
+            <div class="legend" aria-label="Diagram legend">
+              <span><i class="target"></i> Final orbit</span>
+              <span><i class="transfer"></i> Carrier orbit</span>
+              <span><i class="fleet"></i> Deployed craft</span>
+              <span><i class="unsafe"></i> Limit</span>
+            </div>
+          </div>
+          <canvas id="orbit-canvas" width="980" height="720" aria-label="Projected resonant deployment diagram"></canvas>
+          <div class="stage-footer">
+            <span id="body-radius">Radius 600 km</span>
+            <span id="target-period-footer">Target period 1h 00m 00s</span>
+          </div>
+        </section>
+
+        <aside class="readout-panel" aria-label="Resonant orbit results">
+          <div class="panel-heading">
+            <p>03 // Readouts</p>
+            <h2>Release cadence.</h2>
+          </div>
+
+          <div class="metric primary" id="status-metric">
+            <span>Phasing status</span>
+            <strong id="target-status">SAFE</strong>
+          </div>
+          <div class="metric resonance-ratio">
+            <span>Period resonance</span>
+            <strong id="resonance-ratio">4 : 5</strong>
+          </div>
+          <div class="metric">
+            <span id="apsis-label">Phasing periapsis</span>
+            <strong id="phasing-apsis">0 km</strong>
+          </div>
+          <div class="metric">
+            <span>Each satellite burn</span>
+            <strong id="satellite-dv">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Spacing campaign</span>
+            <strong id="campaign-time">0h 00m 00s</strong>
+          </div>
+
+          <dl class="orbit-facts">
+            <div><dt>Target period</dt><dd id="target-period">0h 00m 00s</dd></div>
+            <div><dt>Release interval</dt><dd id="release-interval">0h 00m 00s</dd></div>
+            <div><dt>Slot separation</dt><dd id="slot-angle">72°</dd></div>
+            <div><dt>Carrier injection</dt><dd id="carrier-dv">0 m/s</dd></div>
+            <div><dt>Campaign Δv*</dt><dd id="campaign-dv">0 m/s</dd></div>
+          </dl>
+          <p class="budget-footnote">*One carrier injection plus circularization for the remaining constellation slots.</p>
+        </aside>
+      </section>
+
+      <section class="lesson-panel" aria-labelledby="resonance-lesson-title">
+        <div class="lesson-intro">
+          <p>Flight manual // Weaponized punctuality</p>
+          <h2 id="resonance-lesson-title">Why the satellites spread out</h2>
+          <p>
+            A resonant orbit changes the carrier's period while preserving one shared deployment
+            point with the final circular orbit. Every time the carrier returns to that point, the
+            satellites already deployed have moved one exact slot farther around the circle. The
+            carrier keeps the appointment; everybody else uses the time to stop standing in a pile.
+          </p>
+        </div>
+
+        <div class="lesson-grid four-up">
+          <article>
+            <h3>Inner runs fast</h3>
+            <p>
+              The inner phasing orbit has a shorter period. For five satellites it uses a 4:5
+              resonance, returning after the target orbit advances four-fifths of a lap. Each
+              released craft burns prograde at apoapsis to join the final circle. Check periapsis
+              before discovering that your clockwork relay dispenser is also an atmosphere probe.
+            </p>
+          </article>
+          <article>
+            <h3>Outer runs slow</h3>
+            <p>
+              The outer option uses a 6:5 resonance for five satellites. The carrier takes longer,
+              so each released craft circularizes retrograde at periapsis. This costs similar
+              velocity but trades the low-altitude hazard for a higher orbit and a longer campaign.
+            </p>
+          </article>
+          <article>
+            <h3>One slot per lap</h3>
+            <p>
+              Leave one satellite in the final orbit, move the carrier onto the resonant ellipse,
+              then release and circularize one craft every carrier lap. After the final release,
+              the constellation is evenly spaced by 360° divided by the craft count—assuming nobody
+              fat-fingered time warp during the thirty-second window.
+            </p>
+          </article>
+          <article>
+            <h3>What this is good for</h3>
+            <p>
+              Use resonance to build relay rings, evenly timed scanner passes, or navigation
+              constellations from one launch stack. It replaces eyeballing separation with orbital
+              timing, which is useful because “that looks like about seventy-two degrees” is not a
+              recognized unit at Mission Control.
+            </p>
+          </article>
+        </div>
+
+        <div class="lesson-callout">
+          <span>Kerbal field note</span>
+          <p>
+            The burn shown is the ideal impulse at the shared apsis. In KSP, decouple first, switch
+            to the released satellite, circularize at the node, and return to the carrier before it
+            wanders away. Name the craft before deployment unless “Relay Probe” repeated twelve
+            times is the constellation-management experience you were hoping for.
+          </p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
