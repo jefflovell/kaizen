@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive polar mapping orbit planner for Kerbal Space Program."
+    />
+    <title>Polar Mapping Lab | KSP Transfer Planner</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../hohmann/styles.css?v=4" />
+    <link rel="stylesheet" href="./styles.css?v=1" />
+    <script src="./app.js?v=1" defer></script>
+  </head>
+  <body>
+    <main class="planner-shell">
+      <header class="planner-header">
+        <a class="brand" href="../../../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+        <div class="planner-title">
+          <p class="tool-type">One-body lab // Planetary survey design</p>
+          <h1>Polar Mapping Lab</h1>
+          <p>
+            Build a near-polar survey orbit and let the planet rotate beneath it until every
+            longitude has been inspected, catalogued, and added to a report nobody budgeted time
+            to read.
+          </p>
+        </div>
+      </header>
+
+      <section class="planner-grid" aria-label="Interactive polar mapping orbit planner">
+        <aside class="control-panel" aria-label="Mission inputs">
+          <div class="panel-heading">
+            <p>01 // Flight inputs</p>
+            <h2>Peel the planet.</h2>
+          </div>
+
+          <label class="field-label" for="body-select">Body</label>
+          <select id="body-select" class="select-control">
+            <option value="kerbin">Kerbin</option>
+            <option value="mun">Mun</option>
+            <option value="minmus">Minmus</option>
+            <option value="duna">Duna</option>
+            <option value="eve">Eve</option>
+            <option value="moho">Moho</option>
+            <option value="ike">Ike</option>
+            <option value="jool">Jool</option>
+          </select>
+
+          <div class="slider-group">
+            <div class="slider-head">
+              <label for="orbit-altitude">Circular altitude</label>
+              <output id="altitude-output" for="orbit-altitude">250 km</output>
+            </div>
+            <input id="orbit-altitude" type="range" min="80" max="2500" step="5" value="250" />
+            <div class="signed-scale" aria-hidden="true"><span id="altitude-min">80 km</span><span id="altitude-mid">1,290</span><span id="altitude-max">2,500 km</span></div>
+          </div>
+
+          <div class="slider-group inclination-slider">
+            <div class="slider-head">
+              <label for="inclination">Inclination</label>
+              <output id="inclination-output" for="inclination">90°</output>
+            </div>
+            <input id="inclination" type="range" min="60" max="120" step="1" value="90" />
+            <div class="signed-scale" aria-hidden="true"><span>60°</span><span>90°</span><span>120°</span></div>
+          </div>
+
+          <div class="slider-group swath-slider">
+            <div class="slider-head">
+              <label for="scanner-swath">Scanner swath</label>
+              <output id="swath-output" for="scanner-swath">10°</output>
+            </div>
+            <input id="scanner-swath" type="range" min="2" max="40" step="1" value="10" />
+            <div class="signed-scale" aria-hidden="true"><span>2°</span><span>20°</span><span>40°</span></div>
+          </div>
+
+          <div class="guidance">
+            <p class="guidance-label">Planning note</p>
+            <p id="mapping-note">A true polar orbit reaches both caps while Kerbin rotates new terrain beneath each pass.</p>
+          </div>
+        </aside>
+
+        <section class="orbit-stage" aria-labelledby="diagram-title">
+          <div class="stage-topline">
+            <div>
+              <p>02 // Coverage plot</p>
+              <h2 id="diagram-title">Kerbin Polar Survey</h2>
+            </div>
+            <div class="legend" aria-label="Diagram legend">
+              <span><i class="swath"></i> Scanner swath</span>
+              <span><i class="track"></i> Ground track</span>
+              <span><i class="tail"></i> Direction tail</span>
+              <span><i class="gap"></i> Open gap</span>
+            </div>
+          </div>
+          <canvas id="mapping-canvas" width="980" height="720" aria-label="Equirectangular polar mapping coverage diagram"></canvas>
+          <div class="stage-footer">
+            <span id="body-period">Sidereal day 5h 59m 09s</span>
+            <span id="pass-footer">Showing 12 survey orbits</span>
+          </div>
+        </section>
+
+        <aside class="readout-panel" aria-label="Polar mapping results">
+          <div class="panel-heading">
+            <p>03 // Readouts</p>
+            <h2>Survey cadence.</h2>
+          </div>
+
+          <div class="metric primary" id="status-metric">
+            <span>Coverage status</span>
+            <strong id="coverage-status">GLOBAL COVERAGE</strong>
+          </div>
+          <div class="metric latitude-metric">
+            <span>Latitude reach</span>
+            <strong id="latitude-reach">±90°</strong>
+          </div>
+          <div class="metric">
+            <span>Estimated map time</span>
+            <strong id="mapping-time">0h 00m 00s</strong>
+          </div>
+          <div class="metric">
+            <span>Required passes</span>
+            <strong id="required-passes">0 crossings</strong>
+          </div>
+          <div class="metric">
+            <span>Longitude peel</span>
+            <strong id="longitude-peel">0° west / orbit</strong>
+          </div>
+
+          <dl class="orbit-facts">
+            <div><dt>Orbital period</dt><dd id="orbital-period">0h 00m 00s</dd></div>
+            <div><dt>Orbital speed</dt><dd id="orbital-speed">0 m/s</dd></div>
+            <div><dt>Swath at equator</dt><dd id="swath-width">0 km</dd></div>
+            <div><dt>Largest open gap</dt><dd id="open-gap">0°</dd></div>
+            <div><dt>Direction</dt><dd id="orbit-direction">Polar</dd></div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="lesson-panel" aria-labelledby="mapping-lesson-title">
+        <div class="lesson-intro">
+          <p>Flight manual // Orbital vegetable peeler</p>
+          <h2 id="mapping-lesson-title">The orbit stays put. The map moves.</h2>
+          <p>
+            A polar orbital plane is nearly fixed in inertial space while the body turns beneath
+            it. Each north-south lap therefore crosses a different longitude. Given enough time
+            and enough scanner width, those passes peel the surface into mapped strips—assuming the
+            probe survives the traditional transition from “fully autonomous” to “why is it not
+            responding?”
+          </p>
+        </div>
+
+        <div class="lesson-grid four-up">
+          <article>
+            <h3>Inclination sets latitude</h3>
+            <p>
+              A 90° orbit crosses both poles. An 80° orbit stops at 80° north and south unless the
+              scanner is wide enough to see the remaining caps sideways. Near-polar is not a
+              synonym for global when the last ten degrees are where the anomaly lives.
+            </p>
+          </article>
+          <article>
+            <h3>Altitude sets the peel</h3>
+            <p>
+              Higher circular orbits take longer, so the body rotates farther beneath each lap.
+              That changes the longitude spacing between tracks. Altitude therefore controls both
+              orbital cadence and how aggressively the survey pattern walks west.
+            </p>
+          </article>
+          <article>
+            <h3>Swath closes the gaps</h3>
+            <p>
+              The centerline is only where the spacecraft passes; the instrument maps a strip on
+              either side. This planner waits until the largest equatorial gap fits inside one full
+              swath instead of dividing 360° by a hopeful number and declaring science complete.
+            </p>
+          </article>
+          <article>
+            <h3>What this is good for</h3>
+            <p>
+              Use polar survey orbits for biome hunting, resource scans, KerbNet coverage, or
+              proving that the suspiciously smooth patch near the pole was absolutely intentional
+              and not a terrain-generation conversation nobody wants to reopen.
+            </p>
+          </article>
+        </div>
+
+        <div class="lesson-callout">
+          <span>Kerbal field note</span>
+          <p>
+            The swath control is a generic surface-angle model, not a promise about one particular
+            scanner part. Match it to your instrument and acceptable overlap, then verify the first
+            few tracks in map view before time-warping through the entire mission and discovering
+            the probe was mounted upside down.
+          </p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
