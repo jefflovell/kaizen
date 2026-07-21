@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive bi-elliptic transfer planner and Hohmann comparison for Kerbal Space Program."
+    />
+    <title>Bi-Elliptic Transfer Lab | KSP Transfer Planner</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../hohmann/styles.css?v=4" />
+    <link rel="stylesheet" href="./styles.css?v=1" />
+    <script src="./app.js?v=1" defer></script>
+  </head>
+  <body>
+    <main class="planner-shell">
+      <header class="planner-header">
+        <a class="brand" href="../../../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+        <div class="planner-title">
+          <p class="tool-type">One-body lab // Three-burn transfer</p>
+          <h1>Bi-Elliptic Transfer Lab</h1>
+          <p>
+            Go much farther away than necessary, burn again, and return to discover whether
+            orbital mechanics has rewarded your genius or merely made the snacks run out.
+          </p>
+        </div>
+      </header>
+
+      <section class="planner-grid" aria-label="Interactive bi-elliptic transfer planner">
+        <aside class="control-panel" aria-label="Mission inputs">
+          <div class="panel-heading">
+            <p>01 // Transfer inputs</p>
+            <h2>Take the long way.</h2>
+          </div>
+
+          <label class="field-label" for="body-select">Body</label>
+          <select id="body-select" class="select-control">
+            <option value="kerbin">Kerbin</option>
+            <option value="mun">Mun</option>
+            <option value="minmus">Minmus</option>
+            <option value="duna">Duna</option>
+            <option value="eve">Eve</option>
+            <option value="moho">Moho</option>
+            <option value="ike">Ike</option>
+            <option value="jool">Jool</option>
+          </select>
+
+          <div class="field-label mode-label">Transfer direction</div>
+          <div class="direction-toggle two-up" aria-label="Transfer direction">
+            <button class="toggle-button active" type="button" data-direction="raise">Raise</button>
+            <button class="toggle-button" type="button" data-direction="lower">Lower</button>
+          </div>
+
+          <div class="slider-group start-slider">
+            <div class="slider-head">
+              <label for="start-altitude">Start orbit</label>
+              <output id="start-output" for="start-altitude">100 km</output>
+            </div>
+            <input id="start-altitude" type="range" min="75" max="25000" step="5" value="100" />
+            <div class="signed-scale" aria-hidden="true"><span id="start-min">75 km</span><span>START</span><span id="start-max">25,000 km</span></div>
+          </div>
+
+          <div class="slider-group target-slider">
+            <div class="slider-head">
+              <label for="target-altitude">Target orbit</label>
+              <output id="target-output" for="target-altitude">9,900 km</output>
+            </div>
+            <input id="target-altitude" type="range" min="75" max="25000" step="5" value="9900" />
+            <div class="signed-scale" aria-hidden="true"><span id="target-min">75 km</span><span>TARGET</span><span id="target-max">25,000 km</span></div>
+          </div>
+
+          <div class="slider-group apo-slider">
+            <div class="slider-head">
+              <label for="intermediate-altitude">Intermediate apoapsis</label>
+              <output id="intermediate-output" for="intermediate-altitude">62,520 km</output>
+            </div>
+            <input id="intermediate-altitude" type="range" min="10000" max="76825" step="5" value="62520" />
+            <div class="signed-scale" aria-hidden="true"><span id="intermediate-min">10,000 km</span><span>AP</span><span id="intermediate-max">76,825 km</span></div>
+          </div>
+
+          <div class="guidance">
+            <p class="guidance-label">Planning note</p>
+            <p id="transfer-note">Bi-elliptic wins a little fuel and loses a heroic amount of time.</p>
+          </div>
+        </aside>
+
+        <section class="orbit-stage" aria-labelledby="diagram-title">
+          <div class="stage-topline">
+            <div>
+              <p>02 // Three-burn plot</p>
+              <h2 id="diagram-title">Kerbin Bi-Elliptic Raise</h2>
+            </div>
+            <div class="legend" aria-label="Diagram legend">
+              <span><i class="start-key"></i> Start</span>
+              <span><i class="first-key"></i> Ellipse 1</span>
+              <span><i class="second-key"></i> Ellipse 2</span>
+              <span><i class="target-key"></i> Target</span>
+              <span><i class="burn-key"></i> Burn vector</span>
+            </div>
+          </div>
+          <canvas id="orbit-canvas" width="980" height="720" aria-label="Bi-elliptic transfer with two tangent ellipses and three burn nodes"></canvas>
+          <div class="stage-footer">
+            <span id="body-soi">SOI 84,159 km</span>
+            <span>Display radii compressed // Calculations physical</span>
+          </div>
+        </section>
+
+        <aside class="readout-panel" aria-label="Bi-elliptic transfer results">
+          <div class="panel-heading">
+            <p>03 // Readouts</p>
+            <h2>Long-way invoice.</h2>
+          </div>
+
+          <div class="metric primary" id="status-metric">
+            <span>Fuel verdict</span>
+            <strong id="fuel-verdict">BI-ELLIPTIC WINS</strong>
+          </div>
+          <div class="metric">
+            <span>Bi-elliptic total</span>
+            <strong id="bi-total">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Hohmann total</span>
+            <strong id="hohmann-total">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span id="difference-label">Fuel saved</span>
+            <strong id="fuel-difference">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Bi-elliptic coast</span>
+            <strong id="coast-time">0h 00m 00s</strong>
+          </div>
+
+          <dl class="orbit-facts">
+            <div><dt>Burn 1</dt><dd id="dv-one">0 m/s</dd></div>
+            <div><dt>Burn 2</dt><dd id="dv-two">0 m/s</dd></div>
+            <div><dt>Burn 3</dt><dd id="dv-three">0 m/s</dd></div>
+            <div><dt>Radius ratio</dt><dd id="radius-ratio">1.00×</dd></div>
+            <div><dt>Time vs Hohmann</dt><dd id="time-penalty">+0h 00m</dd></div>
+            <div><dt>SOI margin</dt><dd id="soi-margin">0 km</dd></div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="lesson-panel" aria-labelledby="bielliptic-lesson-title">
+        <div class="lesson-intro">
+          <p>Flight manual // Cheapest is not shortest</p>
+          <h2 id="bielliptic-lesson-title">Why go past the destination?</h2>
+          <p>
+            A bi-elliptic transfer joins two half-ellipses at one very high apoapsis. The first burn
+            leaves the starting circle, the second reshapes the far side to meet the target circle,
+            and the third circularizes. Moving that middle burn far from the body makes velocity
+            cheap to change—but turns the mission clock into an archaeological record.
+          </p>
+        </div>
+
+        <div class="lesson-grid four-up">
+          <article>
+            <h3>Three burns, two ellipses</h3>
+            <p>
+              Burn 1 raises the shared apoapsis. Burn 2 changes the opposite apsis until the second
+              ellipse touches the target orbit. Burn 3 circularizes there. Every burn is tangent;
+              nobody hangs a hard left in space because the diagram ran out of room.
+            </p>
+          </article>
+          <article>
+            <h3>The high burn is cheap</h3>
+            <p>
+              Orbital speed is lowest at the shared apoapsis. A small change there can move the
+              opposite apsis by an enormous amount, which is the Oberth effect's quieter,
+              spreadsheet-loving cousin.
+            </p>
+          </article>
+          <article>
+            <h3>11.94 is not a coupon</h3>
+            <p>
+              The famous radius ratio near 11.94 describes the limiting case as the intermediate
+              apoapsis goes extremely far away. A finite apoapsis can still lose to Hohmann. This
+              lab compares the actual burns instead of granting victory by slogan.
+            </p>
+          </article>
+          <article>
+            <h3>Time sends the invoice</h3>
+            <p>
+              Two long half-orbits can take vastly longer than one Hohmann coast. Saving a handful
+              of meters per second is less thrilling when the crew has eaten the backup snacks and
+              begun treating the life-support manual as speculative fiction.
+            </p>
+          </article>
+        </div>
+
+        <div class="lesson-callout">
+          <div>
+            <span>Kerbal field note</span>
+            <p>
+              This idealized planner assumes instantaneous tangential burns, circular coplanar
+              endpoints, and a one-body patched-conic world. Long burns, rendezvous timing,
+              perturbations, and crossing the sphere of influence remain available to ruin the
+              meeting in more advanced ways.
+            </p>
+          </div>
+          <a href="https://ntrs.nasa.gov/api/citations/19900016737/downloads/19900016737.pdf" rel="noreferrer">NASA transfer study</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
