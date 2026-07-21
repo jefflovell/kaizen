@@ -1,0 +1,164 @@
+:root {
+  --ellipse: #f5b447;
+  --entry: #5bd7eb;
+  --optional: #8ce66f;
+  --maneuver: #4cff4c;
+  --unsafe: #ff6f4c;
+}
+
+.planner-grid {
+  grid-template-columns: minmax(245px, 300px) minmax(500px, 1fr) minmax(245px, 300px);
+}
+
+.orbit-stage {
+  min-height: 730px;
+}
+
+#orbit-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+}
+
+.signed-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: -2px;
+  color: var(--dim);
+  font-family: var(--tech);
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+
+.peri-slider .slider-head output {
+  color: var(--burn);
+}
+
+.peri-slider input[type="range"] {
+  accent-color: var(--burn);
+}
+
+.apo-slider .slider-head output {
+  color: var(--ellipse);
+}
+
+.apo-slider input[type="range"] {
+  accent-color: var(--ellipse);
+}
+
+.mode-label {
+  margin-bottom: 8px;
+}
+
+.entry-toggle {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.legend .entry { color: var(--entry); }
+.legend .ellipse-key { color: var(--ellipse); }
+.legend .optional { color: var(--optional); }
+.legend .burn-key { color: var(--maneuver); }
+
+.metric.is-invalid {
+  border-color: color-mix(in srgb, var(--unsafe), transparent 42%);
+  background: color-mix(in srgb, var(--unsafe), transparent 91%);
+}
+
+.metric.is-invalid strong,
+.orbit-facts dd.is-invalid {
+  color: var(--unsafe);
+}
+
+.lesson-grid.four-up {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.lesson-panel {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.lesson-intro {
+  position: static;
+  max-width: 1100px;
+}
+
+.lesson-callout {
+  grid-column: auto;
+}
+
+@media (max-width: 1400px) {
+  .stage-topline {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .legend {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 1180px) {
+  .planner-grid {
+    grid-template-columns: minmax(220px, 285px) minmax(440px, 1fr);
+  }
+
+  .readout-panel {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0 18px;
+  }
+
+  .readout-panel .panel-heading,
+  .readout-panel .orbit-facts {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 880px) {
+  .planner-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .orbit-stage {
+    order: -1;
+    min-height: 650px;
+  }
+
+  .readout-panel {
+    display: block;
+  }
+
+  .lesson-grid.four-up {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .planner-shell {
+    width: min(100% - 20px, 1500px);
+  }
+
+  .planner-header {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .planner-title h1 {
+    font-size: clamp(1.68rem, 9vw, 2.8rem);
+  }
+
+  .orbit-stage {
+    min-height: 620px;
+  }
+
+  #orbit-canvas {
+    min-height: 455px;
+  }
+
+  .lesson-grid.four-up {
+    grid-template-columns: 1fr;
+  }
+}
