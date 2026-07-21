@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive retrograde-orbit launch-cost planner for Kerbal Space Program."
+    />
+    <title>Retrograde Orbit Lab | KSP Transfer Planner</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../hohmann/styles.css?v=4" />
+    <link rel="stylesheet" href="./styles.css?v=1" />
+    <script src="./app.js?v=1" defer></script>
+  </head>
+  <body>
+    <main class="planner-shell">
+      <header class="planner-header">
+        <a class="brand" href="../../../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+        <div class="planner-title">
+          <p class="tool-type">One-body lab // Against the spin</p>
+          <h1>Retrograde Orbit Lab</h1>
+          <p>
+            Aim west, decline the planet’s complimentary velocity, and calculate exactly how much
+            delta-v spite costs before explaining the mission architecture to Finance.
+          </p>
+        </div>
+      </header>
+
+      <section class="planner-grid" aria-label="Interactive retrograde-orbit planner">
+        <aside class="control-panel" aria-label="Mission inputs">
+          <div class="panel-heading">
+            <p>01 // Flight inputs</p>
+            <h2>Choose violence.</h2>
+          </div>
+
+          <label class="field-label" for="body-select">Body</label>
+          <select id="body-select" class="select-control">
+            <option value="kerbin">Kerbin</option>
+            <option value="mun">Mun</option>
+            <option value="minmus">Minmus</option>
+            <option value="duna">Duna</option>
+            <option value="eve">Eve</option>
+            <option value="moho">Moho</option>
+            <option value="ike">Ike</option>
+            <option value="jool">Jool</option>
+          </select>
+
+          <div class="slider-group">
+            <div class="slider-head">
+              <label for="orbit-altitude">Circular altitude</label>
+              <output id="altitude-output" for="orbit-altitude">120 km</output>
+            </div>
+            <input id="orbit-altitude" type="range" min="80" max="2500" step="5" value="120" />
+            <div class="signed-scale" aria-hidden="true"><span id="altitude-min">80 km</span><span id="altitude-mid">1,290</span><span id="altitude-max">2,500 km</span></div>
+          </div>
+
+          <div class="slider-group inclination-slider">
+            <div class="slider-head">
+              <label for="inclination">Target inclination</label>
+              <output id="inclination-output" for="inclination">180°</output>
+            </div>
+            <input id="inclination" type="range" min="90" max="180" step="1" value="180" />
+            <div class="signed-scale" aria-hidden="true"><span>90° polar</span><span>135°</span><span>180° retro</span></div>
+          </div>
+
+          <div class="slider-group latitude-slider">
+            <div class="slider-head">
+              <label for="launch-latitude">Launch latitude</label>
+              <output id="latitude-output" for="launch-latitude">0°</output>
+            </div>
+            <input id="launch-latitude" type="range" min="0" max="60" step="1" value="0" />
+            <div class="signed-scale" aria-hidden="true"><span>Equator</span><span>30°</span><span>60°</span></div>
+          </div>
+
+          <div class="guidance">
+            <p class="guidance-label">Launch note</p>
+            <p id="launch-note">Launch due west for a 180° orbit. Kerbin will provide free velocity in precisely the wrong direction.</p>
+          </div>
+        </aside>
+
+        <section class="orbit-stage" aria-labelledby="diagram-title">
+          <div class="stage-topline">
+            <div>
+              <p>02 // Rotation-debt plot</p>
+              <h2 id="diagram-title">Kerbin Retrograde Insertion</h2>
+            </div>
+            <div class="legend" aria-label="Diagram legend">
+              <span><i class="equator"></i> Equator</span>
+              <span><i class="target"></i> Retrograde orbit</span>
+              <span><i class="spin"></i> Body rotation</span>
+              <span><i class="burn-key"></i> Launch vector</span>
+            </div>
+          </div>
+          <canvas id="orbit-canvas" width="980" height="720" aria-label="Projected retrograde orbit and launch-cost comparison"></canvas>
+          <div class="stage-footer">
+            <span id="body-period">Sidereal day 5h 59m 09s</span>
+            <span>Idealized vacuum insertion comparison</span>
+          </div>
+        </section>
+
+        <aside class="readout-panel" aria-label="Retrograde orbit results">
+          <div class="panel-heading">
+            <p>03 // Readouts</p>
+            <h2>Spite invoice.</h2>
+          </div>
+
+          <div class="metric primary" id="status-metric">
+            <span>Ideal retrograde insertion</span>
+            <strong id="retrograde-dv">0 m/s</strong>
+          </div>
+          <div class="metric penalty-metric">
+            <span>Rotation penalty</span>
+            <strong id="rotation-penalty">+0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Mirrored prograde baseline</span>
+            <strong id="prograde-dv">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Launch heading</span>
+            <strong id="launch-heading">270° west</strong>
+          </div>
+
+          <dl class="orbit-facts">
+            <div><dt>Circular speed</dt><dd id="orbital-speed">0 m/s</dd></div>
+            <div><dt>Surface rotation</dt><dd id="surface-speed">0 m/s east</dd></div>
+            <div><dt>Orbital period</dt><dd id="orbital-period">0h 00m 00s</dd></div>
+            <div><dt>Reachable inclination</dt><dd id="reachable-range">0°–180°</dd></div>
+            <div><dt>Direction</dt><dd id="orbit-direction">Retrograde</dd></div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="lesson-panel" aria-labelledby="retrograde-lesson-title">
+        <div class="lesson-intro">
+          <p>Flight manual // Rotational tax assessment</p>
+          <h2 id="retrograde-lesson-title">The planet was already helping. You said no.</h2>
+          <p>
+            A rotating launch site already has eastward inertial velocity. Launching prograde keeps
+            that gift; launching retrograde must cancel it and then build the same speed westward.
+            The orbit itself is perfectly respectable. The invoice is for arguing with the ground
+            before you ever leave it.
+          </p>
+        </div>
+
+        <div class="lesson-grid four-up">
+          <article>
+            <h3>Inclination includes direction</h3>
+            <p>
+              Zero degrees is equatorial prograde, 90° is polar, and anything beyond 90° is
+              retrograde. At 180° the orbital plane is still equatorial, but the spacecraft travels
+              west while the surface turns east beneath it.
+            </p>
+          </article>
+          <article>
+            <h3>Latitude limits the launch</h3>
+            <p>
+              A direct launch cannot reach an inclination closer to the equator than the launch
+              site’s latitude. The retrograde mirror is bounded the same way: from 90° up to
+              180° minus latitude. Beyond that, launch into a reachable plane and pay for a plane
+              change later.
+            </p>
+          </article>
+          <article>
+            <h3>What the penalty means</h3>
+            <p>
+              The rotation penalty compares this westbound insertion with an otherwise identical
+              eastbound orbit mirrored across 90°. It isolates the cost of rejecting surface
+              rotation; gravity drag, aerodynamic drag, steering, and all other ascent-shaped panic
+              are deliberately excluded.
+            </p>
+          </article>
+          <article>
+            <h3>Why do it anyway?</h3>
+            <p>
+              Retrograde geometry can support unusual rendezvous, coverage, contracts, and
+              role-playing decisions made by administrators who saw “high relative velocity” and
+              assumed that meant the mission was going faster in a productive sense.
+            </p>
+          </article>
+        </div>
+
+        <div class="lesson-callout">
+          <span>Kerbal field note</span>
+          <p>
+            This is a clean velocity-vector comparison at orbital insertion, not a full ascent
+            simulator. Add your normal launch losses—and a generous allowance for realizing the
+            heading was east after staging the boosters—to estimate the actual mission budget.
+          </p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

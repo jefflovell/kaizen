@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive elliptical-orbit designer for Kerbal Space Program."
+    />
+    <title>Elliptical Orbit Lab | KSP Transfer Planner</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../hohmann/styles.css?v=4" />
+    <link rel="stylesheet" href="./styles.css?v=1" />
+    <script src="./app.js?v=1" defer></script>
+  </head>
+  <body>
+    <main class="planner-shell">
+      <header class="planner-header">
+        <a class="brand" href="../../../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+        <div class="planner-title">
+          <p class="tool-type">One-body lab // Apsis architecture</p>
+          <h1>Elliptical Orbit Lab</h1>
+          <p>
+            Put periapsis where the speed becomes alarming, put apoapsis where the waiting becomes
+            philosophical, and decide whether circularization is really necessary today.
+          </p>
+        </div>
+      </header>
+
+      <section class="planner-grid" aria-label="Interactive elliptical-orbit designer">
+        <aside class="control-panel" aria-label="Mission inputs">
+          <div class="panel-heading">
+            <p>01 // Orbit inputs</p>
+            <h2>Pull the oval.</h2>
+          </div>
+
+          <label class="field-label" for="body-select">Body</label>
+          <select id="body-select" class="select-control">
+            <option value="kerbin">Kerbin</option>
+            <option value="mun">Mun</option>
+            <option value="minmus">Minmus</option>
+            <option value="duna">Duna</option>
+            <option value="eve">Eve</option>
+            <option value="moho">Moho</option>
+            <option value="ike">Ike</option>
+            <option value="jool">Jool</option>
+          </select>
+
+          <div class="slider-group peri-slider">
+            <div class="slider-head">
+              <label for="periapsis-altitude">Periapsis altitude</label>
+              <output id="periapsis-output" for="periapsis-altitude">100 km</output>
+            </div>
+            <input id="periapsis-altitude" type="range" min="-150" max="795" step="5" value="100" />
+            <div class="signed-scale" aria-hidden="true"><span id="periapsis-min">−150 km</span><span>PE</span><span id="periapsis-max">795 km</span></div>
+          </div>
+
+          <div class="slider-group apo-slider">
+            <div class="slider-head">
+              <label for="apoapsis-altitude">Apoapsis altitude</label>
+              <output id="apoapsis-output" for="apoapsis-altitude">800 km</output>
+            </div>
+            <input id="apoapsis-altitude" type="range" min="105" max="15000" step="5" value="800" />
+            <div class="signed-scale" aria-hidden="true"><span id="apoapsis-min">105 km</span><span>AP</span><span id="apoapsis-max">15,000 km</span></div>
+          </div>
+
+          <div class="field-label mode-label">Entry strategy</div>
+          <div class="direction-toggle entry-toggle" aria-label="Ellipse entry point">
+            <button class="toggle-button active" type="button" data-entry="periapsis">Enter at PE</button>
+            <button class="toggle-button" type="button" data-entry="apoapsis">Enter at AP</button>
+          </div>
+
+          <div class="guidance">
+            <p class="guidance-label">Burn note</p>
+            <p id="burn-note">Burn prograde at periapsis to enter the ellipse. Circularization at apoapsis is optional.</p>
+          </div>
+        </aside>
+
+        <section class="orbit-stage" aria-labelledby="diagram-title">
+          <div class="stage-topline">
+            <div>
+              <p>02 // Apsis plot</p>
+              <h2 id="diagram-title">Kerbin Ellipse</h2>
+            </div>
+            <div class="legend" aria-label="Diagram legend">
+              <span><i class="entry"></i> Entry circle</span>
+              <span><i class="ellipse-key"></i> Designed ellipse</span>
+              <span><i class="optional"></i> Optional circle</span>
+              <span><i class="burn-key"></i> Burn vector</span>
+            </div>
+          </div>
+          <canvas id="orbit-canvas" width="980" height="720" aria-label="Scaled elliptical orbit diagram with apsis burns"></canvas>
+          <div class="stage-footer">
+            <span id="body-radius">Radius 600 km</span>
+            <span id="body-soi">SOI 84,159 km</span>
+          </div>
+        </section>
+
+        <aside class="readout-panel" aria-label="Elliptical orbit results">
+          <div class="panel-heading">
+            <p>03 // Readouts</p>
+            <h2>Apsis invoice.</h2>
+          </div>
+
+          <div class="metric primary" id="status-metric">
+            <span>Orbit status</span>
+            <strong id="orbit-status">BOUND ELLIPSE</strong>
+          </div>
+          <div class="metric">
+            <span id="entry-burn-label">Entry burn at PE</span>
+            <strong id="entry-dv">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span id="exit-burn-label">Optional circularize at AP</span>
+            <strong id="exit-dv">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Total if circularized</span>
+            <strong id="total-dv">0 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Coast to opposite apsis</span>
+            <strong id="coast-time">0h 00m 00s</strong>
+          </div>
+
+          <dl class="orbit-facts">
+            <div><dt>Periapsis speed</dt><dd id="periapsis-speed">0 m/s</dd></div>
+            <div><dt>Apoapsis speed</dt><dd id="apoapsis-speed">0 m/s</dd></div>
+            <div><dt>Orbital period</dt><dd id="orbital-period">0h 00m 00s</dd></div>
+            <div><dt>Semi-major axis</dt><dd id="semi-major">0 km</dd></div>
+            <div><dt>Eccentricity</dt><dd id="eccentricity">0.000</dd></div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="lesson-panel" aria-labelledby="ellipse-lesson-title">
+        <div class="lesson-intro">
+          <p>Flight manual // The long way around</p>
+          <h2 id="ellipse-lesson-title">One orbit, two very different neighborhoods.</h2>
+          <p>
+            Periapsis and apoapsis are not two destinations connected by a line; they are the
+            nearest and farthest points of one continuous free-fall path. Set both and the rest of
+            the ellipse follows: its size, shape, period, and the speed at which the terrain team
+            begins using phrases like “unacceptably proximal.”
+          </p>
+        </div>
+
+        <div class="lesson-grid four-up">
+          <article>
+            <h3>Periapsis is fast</h3>
+            <p>
+              Falling inward converts gravitational potential into speed. The craft reaches its
+              maximum velocity at periapsis, which makes close science passes exciting and terrain
+              clearance discussions suddenly very specific.
+            </p>
+          </article>
+          <article>
+            <h3>Apoapsis is slow</h3>
+            <p>
+              The same craft crawls at apoapsis and spends more of every orbit near the high end.
+              That dwell time is useful for communications and observation, or for postponing the
+              return to the consequences waiting at periapsis.
+            </p>
+          </article>
+          <article>
+            <h3>The second burn is optional</h3>
+            <p>
+              Burn once from a circular orbit and the ellipse is already a complete orbit. The
+              opposite burn shown here circularizes only if the mission wants to abandon the
+              ellipse. Skip it and the spacecraft keeps cycling between the selected apsides.
+            </p>
+          </article>
+          <article>
+            <h3>Mind the boundaries</h3>
+            <p>
+              A periapsis below the surface is an impact trajectory. A periapsis inside an
+              atmosphere is an aerobraking pass—or a re-entry, depending on how convincingly the
+              heat shield was described in the parts list. An apoapsis outside the SOI is not a
+              stable one-body ellipse.
+            </p>
+          </article>
+        </div>
+
+        <div class="lesson-callout">
+          <span>Kerbal field note</span>
+          <p>
+            Burn direction changes the opposite apsis. Prograde at periapsis raises apoapsis;
+            retrograde at apoapsis lowers periapsis. If the wrong marker starts moving, stop pulling
+            the handle and reconsider the strongly held belief that map view was facing north.
+          </p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
