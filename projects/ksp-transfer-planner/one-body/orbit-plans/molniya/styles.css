@@ -1,0 +1,172 @@
+:root {
+  --molniya: #f5b447;
+  --entry: #5bd7eb;
+  --dwell: #ff18b0;
+  --maneuver: #4cff4c;
+  --unsafe: #ff6f4c;
+}
+
+.planner-grid {
+  grid-template-columns: minmax(245px, 300px) minmax(500px, 1fr) minmax(245px, 300px);
+}
+
+.orbit-stage {
+  min-height: 700px;
+}
+
+#orbit-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 520px;
+}
+
+.signed-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: -2px;
+  color: var(--dim);
+  font-family: var(--tech);
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+
+.mode-label {
+  margin-bottom: 8px;
+}
+
+.direction-toggle.three-up {
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 24px;
+}
+
+.direction-toggle.two-up {
+  grid-template-columns: repeat(2, 1fr);
+  margin-bottom: 24px;
+}
+
+.peri-slider .slider-head output {
+  color: var(--molniya);
+}
+
+.peri-slider input[type="range"] {
+  accent-color: var(--molniya);
+}
+
+.inclination-slider .slider-head output,
+.latitude-slider .slider-head output {
+  color: var(--dwell);
+}
+
+.inclination-slider input[type="range"],
+.latitude-slider input[type="range"] {
+  accent-color: var(--dwell);
+}
+
+.legend .entry { color: var(--entry); }
+.legend .ellipse-key { color: var(--molniya); }
+.legend .dwell { color: var(--dwell); }
+.legend .burn-key { color: var(--maneuver); }
+
+.metric.is-invalid {
+  border-color: color-mix(in srgb, var(--unsafe), transparent 42%);
+  background: color-mix(in srgb, var(--unsafe), transparent 91%);
+}
+
+.metric.is-invalid strong,
+.orbit-facts dd.is-invalid {
+  color: var(--unsafe);
+}
+
+.lesson-panel {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.lesson-intro {
+  position: static;
+  max-width: 1120px;
+}
+
+.lesson-grid.four-up {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.lesson-callout {
+  grid-column: auto;
+}
+
+@media (max-width: 1400px) {
+  .stage-topline {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .legend {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 1180px) {
+  .planner-grid {
+    grid-template-columns: minmax(220px, 285px) minmax(440px, 1fr);
+  }
+
+  .readout-panel {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0 18px;
+  }
+
+  .readout-panel .panel-heading,
+  .readout-panel .orbit-facts {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 880px) {
+  .planner-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .orbit-stage {
+    order: -1;
+    min-height: 650px;
+  }
+
+  .readout-panel {
+    display: block;
+  }
+
+  .lesson-grid.four-up {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .planner-shell {
+    width: min(100% - 20px, 1500px);
+  }
+
+  .planner-header {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .planner-title h1 {
+    font-size: clamp(1.65rem, 8.7vw, 2.7rem);
+  }
+
+  .orbit-stage {
+    min-height: 620px;
+  }
+
+  #orbit-canvas {
+    min-height: 450px;
+  }
+
+  .lesson-grid.four-up {
+    grid-template-columns: 1fr;
+  }
+}
