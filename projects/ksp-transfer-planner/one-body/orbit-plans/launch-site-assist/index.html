@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An interactive KSP launch-site geometry and rotational-assist planner."
+    />
+    <title>Launch Site Assist Lab | KSP Transfer Planner</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../hohmann/styles.css?v=4" />
+    <link rel="stylesheet" href="./styles.css?v=2" />
+    <script src="./app.js?v=2" defer></script>
+  </head>
+  <body>
+    <main class="planner-shell">
+      <header class="planner-header">
+        <a class="brand" href="../../../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+        <div class="planner-title">
+          <p class="tool-type">One-body lab // Launch geometry</p>
+          <h1>Launch Site Assist Lab</h1>
+          <p>
+            Pick the latitude, pick the plane, and discover whether the rotating planet is giving
+            you free velocity or charging interest on every meter per second.
+          </p>
+        </div>
+      </header>
+
+      <section class="planner-grid" aria-label="Interactive launch-site geometry planner">
+        <aside class="control-panel" aria-label="Launch geometry inputs">
+          <div class="panel-heading">
+            <p>01 // Mission inputs</p>
+            <h2>Choose your hill.</h2>
+          </div>
+
+          <div class="field-label mode-label">Launch source</div>
+          <div class="direction-toggle two-up" aria-label="Launch source">
+            <button class="toggle-button active" type="button" data-mode="site">Kerbin sites</button>
+            <button class="toggle-button" type="button" data-mode="custom">Custom base</button>
+          </div>
+
+          <div id="site-field">
+            <label class="field-label" for="site-select">Launch site</label>
+            <select id="site-select" class="select-control">
+              <option value="ksc">KSC Launch Pad</option>
+              <option value="dessert">Dessert Launch Site</option>
+              <option value="woomerang">Woomerang</option>
+              <option value="cove">Cove Launch Site</option>
+              <option value="glacier">Glacier Lake</option>
+            </select>
+          </div>
+
+          <div id="body-field" hidden>
+            <label class="field-label" for="body-select">Body</label>
+            <select id="body-select" class="select-control">
+              <option value="kerbin">Kerbin</option>
+              <option value="mun">Mun</option>
+              <option value="minmus">Minmus</option>
+              <option value="duna">Duna</option>
+              <option value="eve">Eve</option>
+              <option value="moho">Moho</option>
+              <option value="ike">Ike</option>
+              <option value="jool">Jool // no surface</option>
+            </select>
+          </div>
+
+          <div class="slider-group latitude-slider">
+            <div class="slider-head">
+              <label for="latitude">Launch latitude</label>
+              <output id="latitude-output" for="latitude">0.1° S</output>
+            </div>
+            <input id="latitude" type="range" min="-90" max="90" step="0.1" value="-0.1" disabled />
+            <div class="signed-scale" aria-hidden="true"><span>90° S</span><span>EQUATOR</span><span>90° N</span></div>
+          </div>
+
+          <div class="slider-group altitude-slider">
+            <div class="slider-head">
+              <label for="altitude">Parking altitude</label>
+              <output id="altitude-output" for="altitude">100 km</output>
+            </div>
+            <input id="altitude" type="range" min="75" max="25000" step="5" value="100" />
+            <div class="signed-scale" aria-hidden="true"><span id="altitude-min">75 km</span><span>CIRCULAR</span><span id="altitude-max">25,000 km</span></div>
+          </div>
+
+          <div class="slider-group inclination-slider">
+            <div class="slider-head">
+              <label for="inclination">Target inclination</label>
+              <output id="inclination-output" for="inclination">0.1°</output>
+            </div>
+            <input id="inclination" type="range" min="0" max="180" step="0.1" value="0.1" />
+            <div class="signed-scale" aria-hidden="true"><span>0° PRO</span><span>90° POLAR</span><span>180° RETRO</span></div>
+          </div>
+
+          <div class="field-label mode-label">Equator crossing</div>
+          <div class="direction-toggle two-up" aria-label="Equator crossing direction">
+            <button class="toggle-button active" type="button" data-node="north">Northbound</button>
+            <button class="toggle-button" type="button" data-node="south">Southbound</button>
+          </div>
+
+          <div class="guidance">
+            <p class="guidance-label">Planning note</p>
+            <p id="launch-note">The equator is doing free work. Please try not to aim west.</p>
+          </div>
+        </aside>
+
+        <section class="orbit-stage" aria-labelledby="diagram-title">
+          <div class="stage-topline">
+            <div>
+              <p>02 // Plane geometry</p>
+              <h2 id="diagram-title">KSC // 0.1° Target Plane</h2>
+            </div>
+            <div class="legend" aria-label="Diagram legend">
+              <span><i class="latitude-key"></i> Latitude</span>
+              <span><i class="target-key"></i> Target plane</span>
+              <span id="dogleg-legend" hidden><i class="reachable-key"></i> First plane</span>
+              <span><i class="rotation-key"></i> Surface spin</span>
+              <span><i class="ascent-key"></i> Ideal heading</span>
+            </div>
+          </div>
+          <canvas id="orbit-canvas" width="980" height="720" aria-label="Launch latitude, target orbital plane, ascent heading, and velocity triangle"></canvas>
+          <div class="stage-footer">
+            <span id="site-coordinates">0.097° S // 74.558° W</span>
+            <span>Ideal plane geometry // Not an ascent profile</span>
+          </div>
+        </section>
+
+        <aside class="readout-panel" aria-label="Launch geometry results">
+          <div class="panel-heading">
+            <p>03 // Readouts</p>
+            <h2>Rotation invoice.</h2>
+          </div>
+
+          <div class="metric primary" id="status-metric">
+            <span>Plane access</span>
+            <strong id="access-status">DIRECT LAUNCH</strong>
+          </div>
+          <div class="metric">
+            <span id="heading-label">Ideal heading</span>
+            <strong id="launch-heading">090.0°</strong>
+          </div>
+          <div class="metric">
+            <span id="credit-label">Rotational credit</span>
+            <strong id="rotation-credit">+175 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Surface spin speed</span>
+            <strong id="surface-speed">175 m/s</strong>
+          </div>
+          <div class="metric">
+            <span>Circular orbit speed</span>
+            <strong id="orbit-speed">2,246 m/s</strong>
+          </div>
+
+          <dl class="orbit-facts">
+            <div><dt id="second-heading-label">Second heading</dt><dd id="second-heading">090.0°</dd></div>
+            <div><dt>Along-track spin</dt><dd id="along-track">+175 m/s</dd></div>
+            <div><dt>Cross-track spin</dt><dd id="cross-track">0 m/s</dd></div>
+            <div><dt>Rocket-relative speed</dt><dd id="rocket-speed">2,071 m/s</dd></div>
+            <div><dt>Direct inclination band</dt><dd id="inclination-band">0.1°–179.9°</dd></div>
+            <div><dt>Site availability</dt><dd id="site-availability">Stock</dd></div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="lesson-panel" aria-labelledby="launch-lesson-title">
+        <div class="lesson-intro">
+          <p>Flight manual // The planet is already moving</p>
+          <h2 id="launch-lesson-title">Latitude chooses the planes. Longitude chooses the appointment.</h2>
+          <p>
+            A launch site rides east with its rotating body. Near the equator that surface velocity
+            can become almost pure prograde help. Farther north or south, the same eastward motion
+            sits at an angle to many target planes: some helps, some must be cancelled, and some
+            inclinations cannot be reached directly from that latitude at all.
+          </p>
+        </div>
+
+        <div class="lesson-grid four-up">
+          <article>
+            <h3>Latitude sets the floor</h3>
+            <p>
+              A direct launch cannot reach a prograde inclination smaller than the site's absolute
+              latitude. You can wait for the right node, but no amount of scheduling persuades
+              geometry to move the launch pad south.
+            </p>
+          </article>
+          <article>
+            <h3>Longitude sets the clock</h3>
+            <p>
+              Longitude does not change the size of the rotational boost. It changes when the
+              desired orbital plane passes over the site—which is Mission Control language for
+              “the launch window was eleven seconds ago.”
+            </p>
+          </article>
+          <article>
+            <h3>Rotation is a vector</h3>
+            <p>
+              Eastward surface speed only helps in proportion to the launch direction. A
+              retrograde target first asks you to cancel the free eastward velocity, then invoice
+              the rocket for the velocity it actually wanted.
+            </p>
+          </article>
+          <article>
+            <h3>Other worlds still spin</h3>
+            <p>
+              Custom bases use the selected body's radius and sidereal day. Eve may offer a little
+              rotational credit while the atmosphere takes your vehicle, confidence, and the last
+              healthy branch of your family tree.
+            </p>
+          </article>
+        </div>
+
+        <div class="lesson-callout">
+          <div>
+            <span>Kerbal field note</span>
+            <p>
+              This is ideal launch geometry and horizontal rotational credit—not total ascent
+              delta-v. Gravity loss, drag, steering loss, terrain, thrust-to-weight ratio, and
+              whatever structural event just occurred remain your responsibility.
+            </p>
+          </div>
+          <a href="https://ntrs.nasa.gov/api/citations/19720021185/downloads/19720021185.pdf" rel="noreferrer">NASA launch-azimuth reference</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
