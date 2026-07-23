@@ -36,13 +36,34 @@
       <section class="tool-grid" aria-label="Same-body orbit planning tools">
         <article class="tool-card is-live" style="--accent: #5bd7eb">
           <div class="orbit-art art-hohmann" aria-hidden="true">
-            <span class="planet"></span>
-            <span class="orbit one"></span>
-            <span class="orbit two"></span>
-            <span class="burn burn-a"></span>
-            <span class="burn burn-b"></span>
+            <svg class="planner-card-art" viewBox="0 0 320 190" focusable="false">
+              <text class="planner-kicker" x="18" y="21">01 / TWO-IMPULSE TRANSFER</text>
+              <circle class="planner-reference planner-cyan" cx="160" cy="103" r="48" />
+              <circle class="planner-reference planner-green" cx="160" cy="103" r="76" />
+              <ellipse class="planner-reference planner-amber" cx="146" cy="103" rx="62" ry="60.4" />
+              <path class="planner-path planner-amber" d="M 208 103 A 62 60.4 0 0 0 84 103" />
+              <circle class="planner-body" cx="160" cy="103" r="24" />
+              <circle class="planner-shine" cx="152" cy="95" r="6" />
+              <path class="planner-tail-source" data-tail-color="#5bd7eb" d="M160 151 C186.5 151 208 129.5 208 103" />
+              <g class="planner-burn">
+                <path d="M208 88 V68" />
+                <path class="planner-burn-tip" d="M208 62 l-5 9 h10 z" />
+              </g>
+              <g class="planner-burn">
+                <path d="M84 118 V138" />
+                <path class="planner-burn-tip" d="M84 144 l-5 -9 h10 z" />
+              </g>
+              <g class="planner-craft" transform="translate(208 103) rotate(-90)">
+                <polygon points="-11,-6 11,0 -11,6 -7,0" />
+              </g>
+              <g class="planner-craft planner-craft-secondary" transform="translate(84 103) rotate(90)">
+                <polygon points="-11,-6 11,0 -11,6 -7,0" />
+              </g>
+              <text class="planner-label planner-cyan-fill" x="216" y="94">BURN 1</text>
+              <text class="planner-label planner-green-fill" x="52" y="92">BURN 2</text>
+            </svg>
           </div>
-          <p class="tool-type">Circular orbit raise / lower</p>
+          <p class="tool-type">Hohmann transfer</p>
           <h2>“Two burns, one orbit, and only a modest chance someone asks why re-entry is now a philosophical problem.”</h2>
           <p>
             This is how spacecraft tidy up their orbit after launch, raise into
@@ -54,10 +75,29 @@
 
         <article class="tool-card is-live" style="--accent: #ff18b0">
           <div class="orbit-art art-inclination" aria-hidden="true">
-            <span class="planet"></span>
-            <span class="tilt tilt-a"></span>
-            <span class="tilt tilt-b"></span>
-            <span class="node"></span>
+            <svg class="planner-card-art" viewBox="0 0 320 190" focusable="false">
+              <text class="planner-kicker" x="18" y="21">02 / SHARED NODE AXIS</text>
+              <path class="planner-axis" d="M48 103 H272" />
+              <ellipse class="planner-reference planner-cyan" cx="160" cy="103" rx="88" ry="18" />
+              <ellipse class="planner-reference planner-pink" cx="160" cy="103" rx="88" ry="42" />
+              <circle class="planner-body" cx="160" cy="103" r="24" />
+              <circle class="planner-shine" cx="152" cy="95" r="6" />
+              <path class="planner-front planner-cyan" d="M72 103 A88 18 0 0 0 248 103" />
+              <path class="planner-front planner-pink" d="M72 103 A88 42 0 0 0 248 103" />
+              <path class="planner-tail-source" data-tail-color="#5bd7eb" d="M160 121 C208.6 121 248 112.94 248 103" />
+              <circle class="planner-node" cx="72" cy="103" r="3" />
+              <circle class="planner-node planner-node-active" cx="248" cy="103" r="4" />
+              <g class="planner-burn planner-burn-plane">
+                <path d="M248 91 V64" />
+                <path class="planner-burn-tip" d="M248 58 l-5 9 h10 z" />
+              </g>
+              <g class="planner-craft" transform="translate(248 103) rotate(-90)">
+                <polygon points="-11,-6 11,0 -11,6 -7,0" />
+              </g>
+              <text class="planner-label planner-pink-fill" x="253" y="86">NORMAL</text>
+              <text class="planner-label planner-cyan-fill" x="56" y="92">DN</text>
+              <text class="planner-label planner-pink-fill" x="252" y="119">AN</text>
+            </svg>
           </div>
           <p class="tool-type">Inclination change</p>
           <h2>“Turn north after launch, they said. It’ll be fine, they said. The recovery team has requested fewer optimists in mission planning.”</h2>
@@ -72,10 +112,34 @@
 
         <article class="tool-card is-live" style="--accent: #f7b84d">
           <div class="orbit-art art-combined" aria-hidden="true">
-            <span class="planet"></span>
-            <span class="orbit one"></span>
-            <span class="tilt tilt-a"></span>
-            <span class="burn burn-a"></span>
+            <svg class="planner-card-art" viewBox="0 0 320 190" focusable="false">
+              <text class="planner-kicker" x="18" y="21">03 / ALTITUDE + PLANE</text>
+              <ellipse class="planner-reference planner-cyan" cx="160" cy="103" rx="48" ry="17" />
+              <ellipse class="planner-reference planner-amber" cx="160" cy="103" rx="72" ry="25" />
+              <ellipse class="planner-reference planner-pink" cx="160" cy="103" rx="88" ry="31" transform="rotate(-18 160 103)" />
+              <path class="planner-path planner-amber" d="M160 128 A72 25 0 0 0 160 78" />
+              <circle class="planner-body" cx="160" cy="103" r="24" />
+              <circle class="planner-shine" cx="152" cy="95" r="6" />
+              <path class="planner-front planner-cyan" d="M112 103 A48 17 0 0 0 208 103" />
+              <path class="planner-front planner-pink" d="M72 103 A88 31 0 0 0 248 103" transform="rotate(-18 160 103)" />
+              <path class="planner-tail-source" data-tail-color="#5bd7eb" d="M112 103 C112 112.4 133.5 120 160 120" />
+              <g class="planner-burn">
+                <path d="M172 120 H194" />
+                <path class="planner-burn-tip" d="M200 120 l-9 -5 v10 z" />
+              </g>
+              <g class="planner-burn planner-burn-combined">
+                <path d="M172 75 L192 59" />
+                <path class="planner-burn-tip" d="M197 55 l-10 2 6 8 z" />
+              </g>
+              <g class="planner-craft" transform="translate(160 120)">
+                <polygon points="-11,-6 11,0 -11,6 -7,0" />
+              </g>
+              <g class="planner-craft planner-craft-secondary" transform="translate(160 78)">
+                <polygon points="-11,-6 11,0 -11,6 -7,0" />
+              </g>
+              <text class="planner-label planner-cyan-fill" x="177" y="139">BURN 1 / PROGRADE</text>
+              <text class="planner-label planner-pink-fill" x="200" y="54">BURN 2 / COMBINED</text>
+            </svg>
           </div>
           <p class="tool-type">Combined transfer + plane change</p>
           <h2>“Do the altitude change and plane change together, because if we’re going to waste fuel, we may as well call it vector math.”</h2>
@@ -90,10 +154,23 @@
 
         <article class="tool-card is-live" style="--accent: #ff6f4c">
           <div class="orbit-art art-geostat" aria-hidden="true">
-            <span class="planet"></span>
-            <span class="orbit two"></span>
-            <span class="station"></span>
-            <span class="beam"></span>
+            <svg class="planner-card-art" viewBox="0 0 320 190" focusable="false">
+              <text class="planner-kicker" x="18" y="21">04 / SIDEREAL LOCK</text>
+              <ellipse class="planner-reference planner-cyan" cx="160" cy="106" rx="50" ry="17" />
+              <ellipse class="planner-reference planner-green" cx="160" cy="106" rx="92" ry="31" />
+              <path class="planner-axis planner-datum" d="M188 106 H252" />
+              <circle class="planner-body" cx="160" cy="106" r="28" />
+              <circle class="planner-shine" cx="151" cy="96" r="7" />
+              <path class="planner-front planner-cyan" d="M110 106 A50 17 0 0 0 210 106" />
+              <path class="planner-front planner-green" d="M68 106 A92 31 0 0 0 252 106" />
+              <path class="planner-tail-source" data-tail-color="#8ce66f" d="M160 137 C210.81 137 252 123.12 252 106" />
+              <g class="planner-craft" transform="translate(252 106) rotate(-90)">
+                <polygon points="-11,-6 11,0 -11,6 -7,0" />
+              </g>
+              <path class="planner-signal" d="M246 91 q15 15 0 30 M239 84 q24 22 0 44" />
+              <text class="planner-label planner-green-fill" x="218" y="151">T = 1 SIDEREAL DAY</text>
+              <text class="planner-label planner-cyan-fill" x="123" y="87">EQUATOR</text>
+            </svg>
           </div>
           <p class="tool-type">Geosynchronous / geostationary</p>
           <h2>“Park politely above the same patch of dirt forever, for communications, weather, or the quiet geopolitical pressure of an orbital railgun throne.”</h2>
@@ -108,11 +185,26 @@
 
         <article class="tool-card is-live" style="--accent: #77d7ff">
           <div class="orbit-art art-resonant" aria-hidden="true">
-            <span class="planet"></span>
-            <span class="orbit two"></span>
-            <span class="dot dot-a"></span>
-            <span class="dot dot-b"></span>
-            <span class="dot dot-c"></span>
+            <svg class="planner-card-art" viewBox="0 0 320 190" focusable="false">
+              <text class="planner-kicker" x="18" y="21">05 / PHASE DEPLOYMENT</text>
+              <circle class="planner-reference planner-green" cx="160" cy="103" r="72" />
+              <ellipse class="planner-reference planner-amber" cx="175" cy="103" rx="57" ry="55" />
+              <path class="planner-path planner-amber" d="M118 103 A57 55 0 0 0 232 103" />
+              <circle class="planner-body" cx="160" cy="103" r="24" />
+              <circle class="planner-shine" cx="152" cy="95" r="6" />
+              <path class="planner-tail-source" data-tail-color="#f5b447" d="M175 158 C206.48 158 232 133.38 232 103" />
+              <circle class="planner-satellite" cx="196" cy="41" r="4" />
+              <circle class="planner-satellite" cx="124" cy="41" r="4" />
+              <circle class="planner-satellite" cx="88" cy="103" r="4" />
+              <circle class="planner-satellite" cx="124" cy="165" r="4" />
+              <circle class="planner-satellite" cx="196" cy="165" r="4" />
+              <g class="planner-craft" transform="translate(232 103) rotate(-90)">
+                <polygon points="-11,-6 11,0 -11,6 -7,0" />
+              </g>
+              <text class="planner-label planner-green-fill" x="224" y="88">RELEASE</text>
+              <text class="planner-label planner-amber-fill" x="196" y="162">3:2 CARRIER</text>
+              <path class="planner-phase" d="M160 103 L232 103 M160 103 L196 41 M160 103 L124 41 M160 103 L88 103 M160 103 L124 165 M160 103 L196 165" />
+            </svg>
           </div>
           <p class="tool-type">Resonant orbit</p>
           <h2>“Release satellites at mathematically pleasing intervals until the whole world wonders if the shape is intentional and the tracking station stops asking follow-up questions.”</h2>
@@ -126,10 +218,31 @@
 
         <article class="tool-card is-live" style="--accent: #d8f36a">
           <div class="orbit-art art-ground" aria-hidden="true">
-            <span class="planet"></span>
-            <span class="orbit one"></span>
-            <span class="track track-a"></span>
-            <span class="track track-b"></span>
+            <svg class="planner-card-art" viewBox="0 0 320 190" focusable="false">
+              <text class="planner-kicker" x="18" y="21">06 / BODY-FIXED REVISIT</text>
+              <defs>
+                <clipPath id="ground-track-globe-clip">
+                  <circle cx="160" cy="105" r="42" />
+                </clipPath>
+              </defs>
+              <circle class="planner-body" cx="160" cy="105" r="42" />
+              <g class="planner-graticule" clip-path="url(#ground-track-globe-clip)">
+                <path d="M118 88 H202 M118 105 H202 M118 122 H202" />
+                <ellipse cx="160" cy="105" rx="18" ry="42" />
+                <ellipse cx="160" cy="105" rx="34" ry="42" />
+              </g>
+              <circle class="planner-shine" cx="147" cy="91" r="8" />
+              <path class="planner-reference planner-cyan" d="M48 105 C55 55 69 55 76 105 S97 155 104 105 S125 55 132 105 S153 155 160 105 S181 55 188 105 S209 155 216 105 S237 55 244 105 S265 155 272 105" />
+              <path class="planner-tail-source" data-tail-color="#d8f36a" d="M188 105 C195 155 209 155 216 105" />
+              <circle class="planner-node planner-node-active" cx="216" cy="105" r="4" />
+              <g class="planner-craft" transform="translate(216 105) rotate(-82)">
+                <polygon points="-11,-6 11,0 -11,6 -7,0" />
+              </g>
+              <path class="planner-shift-arrow" d="M96 157 H142" />
+              <path class="planner-shift-tip" d="M88 157 l10 -5 v10 z" />
+              <text class="planner-label planner-pink-fill" x="222" y="98">REPEAT NODE</text>
+              <text class="planner-label planner-green-fill" x="102" y="174">Δλ / ORBIT</text>
+            </svg>
           </div>
           <p class="tool-type">Repeat ground track</p>
           <h2>“Fly over the same place again and again, because mass surveillance sounds better when you call it coverage.”</h2>
@@ -144,9 +257,30 @@
 
         <article class="tool-card is-live" style="--accent: #93a7ff">
           <div class="orbit-art art-polar" aria-hidden="true">
-            <span class="planet"></span>
-            <span class="meridian"></span>
-            <span class="orbit vertical"></span>
+            <svg class="planner-card-art" viewBox="0 0 320 190" focusable="false">
+              <text class="planner-kicker" x="18" y="21">07 / SUCCESSIVE SWATHS</text>
+              <defs>
+                <clipPath id="polar-globe-clip">
+                  <circle cx="160" cy="105" r="42" />
+                </clipPath>
+              </defs>
+              <ellipse class="planner-reference planner-cyan planner-rear" cx="160" cy="105" rx="28" ry="72" />
+              <circle class="planner-body" cx="160" cy="105" r="42" />
+              <g class="planner-graticule" clip-path="url(#polar-globe-clip)">
+                <path d="M118 88 H202 M118 105 H202 M118 122 H202" />
+                <ellipse cx="160" cy="105" rx="18" ry="42" />
+                <ellipse cx="160" cy="105" rx="34" ry="42" />
+                <path class="planner-swath" d="M136 63 C129 84 129 126 136 147 M148 63 C144 84 144 126 148 147 M160 63 V147 M172 63 C176 84 176 126 172 147 M184 63 C191 84 191 126 184 147" />
+              </g>
+              <circle class="planner-shine" cx="147" cy="91" r="8" />
+              <path class="planner-front planner-cyan" d="M160 177 C175.5 177 188 144.8 188 105 C188 65.2 175.5 33 160 33" />
+              <path class="planner-tail-source" data-tail-color="#5bd7eb" d="M160 177 C175.5 177 188 144.8 188 105" />
+              <g class="planner-craft" transform="translate(188 105) rotate(-90)">
+                <polygon points="-11,-6 11,0 -11,6 -7,0" />
+              </g>
+              <text class="planner-label planner-cyan-fill" x="202" y="111">NORTHBOUND</text>
+              <text class="planner-label planner-cyan-fill" x="62" y="161">POLAR PEEL / 5 PASSES</text>
+            </svg>
           </div>
           <p class="tool-type">Polar mapping orbit</p>
           <h2>“See the whole planet eventually, including the parts the mission brief described as ‘outside scope’ shortly before losing contact.”</h2>
@@ -160,9 +294,27 @@
 
         <article class="tool-card is-live" style="--accent: #ff8585">
           <div class="orbit-art art-retrograde" aria-hidden="true">
-            <span class="planet"></span>
-            <span class="orbit two"></span>
-            <span class="arrow"></span>
+            <svg class="planner-card-art" viewBox="0 0 320 190" focusable="false">
+              <text class="planner-kicker" x="18" y="21">08 / AGAINST BODY ROTATION</text>
+              <ellipse class="planner-reference planner-cyan" cx="160" cy="105" rx="94" ry="30" />
+              <circle class="planner-body" cx="160" cy="105" r="28" />
+              <circle class="planner-shine" cx="151" cy="95" r="7" />
+              <path class="planner-front planner-cyan" d="M66 105 C66 121.6 108 135 160 135 C212 135 254 121.6 254 105" />
+              <path class="planner-tail-source" data-tail-color="#5bd7eb" d="M254 105 C254 121.6 212 135 160 135" />
+              <path class="planner-spin" d="M140 110 Q160 124 180 109" />
+              <path class="planner-spin-tip" d="M185 105 l-12 2 7 8 z" />
+              <g class="planner-burn">
+                <path d="M148 135 H124" />
+                <path class="planner-burn-tip" d="M118 135 l9 -5 v10 z" />
+              </g>
+              <image href="../../assets/prograde-marker.png" x="92" y="126" width="18" height="18" />
+              <g class="planner-craft" transform="translate(160 135) rotate(180)">
+                <polygon points="-11,-6 11,0 -11,6 -7,0" />
+              </g>
+              <text class="planner-label planner-amber-fill" x="127" y="95">SPIN EAST</text>
+              <text class="planner-label planner-green-fill" x="64" y="151">PROGRADE</text>
+              <text class="planner-label planner-cyan-fill" x="185" y="151">CRAFT WEST</text>
+            </svg>
           </div>
           <p class="tool-type">Retrograde orbit</p>
           <h2>“How expensive is spite? Very.”</h2>
@@ -176,9 +328,26 @@
 
         <article class="tool-card is-live" style="--accent: #f2c15f">
           <div class="orbit-art art-ellipse" aria-hidden="true">
-            <span class="planet"></span>
-            <span class="ellipse"></span>
-            <span class="hot-pass"></span>
+            <svg class="planner-card-art" viewBox="0 0 320 190" focusable="false">
+              <text class="planner-kicker" x="18" y="21">09 / FOCUS-CORRECT CONIC</text>
+              <ellipse class="planner-reference planner-amber" cx="166" cy="104" rx="108" ry="58" />
+              <path class="planner-path planner-amber" d="M58 104 A108 58 0 0 0 274 104" />
+              <circle class="planner-body" cx="126" cy="104" r="24" />
+              <circle class="planner-shine" cx="118" cy="96" r="6" />
+              <path class="planner-tail-source" data-tail-color="#f5b447" d="M166 162 C106.35 162 58 136.03 58 104" />
+              <circle class="planner-node planner-node-active" cx="58" cy="104" r="4" />
+              <circle class="planner-node" cx="274" cy="104" r="3" />
+              <g class="planner-craft" transform="translate(58 104) rotate(-90)">
+                <polygon points="-11,-6 11,0 -11,6 -7,0" />
+              </g>
+              <g class="planner-craft planner-craft-secondary" transform="translate(274 104) rotate(90)">
+                <polygon points="-11,-6 11,0 -11,6 -7,0" />
+              </g>
+              <path class="planner-apsis-line" d="M58 104 H274" />
+              <text class="planner-label planner-pink-fill" x="42" y="89">PE</text>
+              <text class="planner-label planner-cyan-fill" x="274" y="89">AP</text>
+              <text class="planner-label planner-amber-fill" x="184" y="157">COAST = ½ PERIOD</text>
+            </svg>
           </div>
           <p class="tool-type">Elliptical orbit designer</p>
           <h2>“Spend most of your time far away from your problems, then return to periapsis at a speed that suggests you should have just dealt with them like an adult.”</h2>
@@ -193,9 +362,27 @@
 
         <article class="tool-card is-live" style="--accent: #6edbff">
           <div class="orbit-art art-molniya" aria-hidden="true">
-            <span class="planet"></span>
-            <span class="ellipse tall"></span>
-            <span class="dwell"></span>
+            <svg class="planner-card-art" viewBox="0 0 320 190" focusable="false">
+              <text class="planner-kicker" x="18" y="21">10 / HIGH-LATITUDE DWELL</text>
+              <ellipse class="planner-reference planner-amber" cx="160" cy="92" rx="56" ry="70" />
+              <path class="planner-path planner-pink" d="M120 49 C129 30 143 22 160 22 C177 22 191 30 200 49" />
+              <path class="planner-reference planner-cyan" d="M132 134 C132 149.46 144.54 162 160 162 C175.46 162 188 149.46 188 134" />
+              <circle class="planner-body" cx="160" cy="134" r="22" />
+              <circle class="planner-shine" cx="153" cy="127" r="6" />
+              <path class="planner-tail-source" data-tail-color="#5bd7eb" d="M132 134 C132 149.46 144.54 162 160 162" />
+              <g class="planner-burn">
+                <path d="M172 162 H198" />
+                <path class="planner-burn-tip" d="M204 162 l-9 -5 v10 z" />
+              </g>
+              <g class="planner-craft" transform="translate(160 162)">
+                <polygon points="-11,-6 11,0 -11,6 -7,0" />
+              </g>
+              <g class="planner-craft planner-craft-secondary" transform="translate(160 22) rotate(180)">
+                <polygon points="-11,-6 11,0 -11,6 -7,0" />
+              </g>
+              <text class="planner-label planner-pink-fill" x="205" y="42">DWELL</text>
+              <text class="planner-label planner-green-fill" x="211" y="166">PROGRADE</text>
+            </svg>
           </div>
           <p class="tool-type">Molniya-style orbit</p>
           <h2>“Linger dramatically over the high latitudes, because geostationary orbit refused to look north and Russia took that personally.”</h2>
@@ -210,10 +397,26 @@
 
         <article class="tool-card is-live" style="--accent: #cda2ff">
           <div class="orbit-art art-bielliptic" aria-hidden="true">
-            <span class="planet"></span>
-            <span class="orbit one"></span>
-            <span class="ellipse huge"></span>
-            <span class="paper"></span>
+            <svg class="planner-card-art" viewBox="0 0 320 190" focusable="false">
+              <text class="planner-kicker" x="18" y="21">11 / THREE-IMPULSE TRANSFER</text>
+              <circle class="planner-reference planner-cyan" cx="215" cy="104" r="38" />
+              <circle class="planner-reference planner-green" cx="215" cy="104" r="62" />
+              <ellipse class="planner-reference planner-amber" cx="138.5" cy="104" rx="114.5" ry="66" />
+              <ellipse class="planner-reference planner-pink" cx="150.5" cy="104" rx="126.5" ry="76" />
+              <path class="planner-path planner-amber" d="M253 104 A114.5 66 0 0 0 24 104" />
+              <path class="planner-path planner-pink" d="M24 104 A126.5 76 0 0 0 277 104" />
+              <circle class="planner-body" cx="215" cy="104" r="22" />
+              <circle class="planner-shine" cx="208" cy="97" r="6" />
+              <path class="planner-tail-source" data-tail-color="#5bd7eb" d="M215 142 C236 142 253 125 253 104" />
+              <g class="planner-burn"><path d="M253 90 V72" /><path class="planner-burn-tip" d="M253 66 l-5 9 h10 z" /></g>
+              <g class="planner-burn"><path d="M24 118 V136" /><path class="planner-burn-tip" d="M24 142 l-5 -9 h10 z" /></g>
+              <g class="planner-burn"><path d="M277 90 V72" /><path class="planner-burn-tip" d="M277 66 l-5 9 h10 z" /></g>
+              <g class="planner-craft" transform="translate(253 104) rotate(-90)"><polygon points="-11,-6 11,0 -11,6 -7,0" /></g>
+              <g class="planner-craft planner-craft-secondary" transform="translate(24 104) rotate(90)"><polygon points="-11,-6 11,0 -11,6 -7,0" /></g>
+              <g class="planner-craft planner-craft-secondary" transform="translate(277 104) rotate(-90)"><polygon points="-11,-6 11,0 -11,6 -7,0" /></g>
+              <text class="planner-label planner-amber-fill" x="34" y="153">HIGH AP</text>
+              <text class="planner-label planner-cyan-fill" x="235" y="160">1 → 2 → 3</text>
+            </svg>
           </div>
           <p class="tool-type">Bi-elliptic transfer</p>
           <h2>“What if we went absurdly far away first? Sometimes genius, usually a lot of paperwork and several very carefully worded press releases.”</h2>
@@ -228,9 +431,27 @@
 
         <article class="tool-card is-live" style="--accent: #ffa45d">
           <div class="orbit-art art-launch" aria-hidden="true">
-            <span class="planet"></span>
-            <span class="latitude"></span>
-            <span class="rocket"></span>
+            <svg class="planner-card-art" viewBox="0 0 320 190" focusable="false">
+              <text class="planner-kicker" x="18" y="21">12 / LAUNCH-PLANE GEOMETRY</text>
+              <ellipse class="planner-reference planner-pink" cx="160" cy="106" rx="96" ry="23" transform="rotate(-17 160 106)" />
+              <ellipse class="planner-reference planner-green" cx="160" cy="106" rx="96" ry="23" transform="rotate(17 160 106)" />
+              <ellipse class="planner-latitude" cx="160" cy="116" rx="39" ry="12" />
+              <circle class="planner-body" cx="160" cy="106" r="40" />
+              <circle class="planner-shine" cx="147" cy="93" r="8" />
+              <path class="planner-latitude-front" d="M121 116 A39 12 0 0 0 199 116" />
+              <path class="planner-tail-source" data-tail-color="#8ce66f" d="M82.27 70.87 A96 23 17 0 1 222.06 106.07" />
+              <path class="planner-spin planner-spin-cyan" d="M140 111 Q160 125 180 109" />
+              <path class="planner-spin-tip planner-spin-tip-cyan" d="M185 105 l-12 2 7 8 z" />
+              <path class="planner-dogleg" d="M222 94 V70" />
+              <path class="planner-dogleg-tip" d="M222 64 l-5 9 h10 z" />
+              <g class="planner-craft" transform="translate(222 106) rotate(28)">
+                <polygon points="-11,-6 11,0 -11,6 -7,0" />
+              </g>
+              <text class="planner-label planner-green-fill" x="64" y="61">1 FIRST PLANE</text>
+              <text class="planner-label planner-pink-fill" x="208" y="142">2 TARGET PLANE</text>
+              <text class="planner-label planner-pink-fill" x="232" y="71">ANTI-NORMAL</text>
+              <text class="planner-label planner-cyan-fill" x="146" y="104">EAST</text>
+            </svg>
           </div>
           <p class="tool-type">Launch site assist</p>
           <h2>“Launch from the right latitude and the planet helps. Launch from the wrong one and the planet becomes a very large, very smug physics professor.”</h2>
@@ -244,5 +465,6 @@
         </article>
       </section>
     </main>
+    <script src="../../planner-card-art.js?v=1"></script>
   </body>
 </html>
