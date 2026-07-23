@@ -1,0 +1,172 @@
+:root {
+  --latitude: #f5b447;
+  --target: #ff18b0;
+  --rotation: #5bd7eb;
+  --ascent: #8ce66f;
+  --unsafe: #ff6f4c;
+}
+
+.planner-grid {
+  grid-template-columns: minmax(255px, 310px) minmax(520px, 1fr) minmax(250px, 300px);
+}
+
+.orbit-stage {
+  min-height: 720px;
+}
+
+#orbit-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 520px;
+}
+
+.signed-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: -2px;
+  color: var(--dim);
+  font-family: var(--tech);
+  font-size: 0.62rem;
+  font-weight: 700;
+}
+
+.mode-label {
+  margin-bottom: 8px;
+}
+
+.direction-toggle.two-up {
+  grid-template-columns: repeat(2, 1fr);
+  margin-bottom: 24px;
+}
+
+.latitude-slider .slider-head output { color: var(--latitude); }
+.latitude-slider input[type="range"] { accent-color: var(--latitude); }
+.altitude-slider .slider-head output { color: var(--rotation); }
+.altitude-slider input[type="range"] { accent-color: var(--rotation); }
+.inclination-slider .slider-head output { color: var(--target); }
+.inclination-slider input[type="range"] { accent-color: var(--target); }
+
+input[type="range"]:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.legend .latitude-key { color: var(--latitude); }
+.legend .target-key { color: var(--target); }
+.legend .reachable-key { color: var(--ascent); }
+.legend .rotation-key { color: var(--rotation); }
+.legend .ascent-key { color: var(--ascent); }
+
+.metric.primary.is-dogleg,
+.metric.primary.is-no-surface {
+  border-color: color-mix(in srgb, var(--unsafe), transparent 42%);
+  background: color-mix(in srgb, var(--unsafe), transparent 91%);
+}
+
+.metric.primary.is-dogleg strong,
+.metric.primary.is-no-surface strong,
+.orbit-facts dd.is-invalid {
+  color: var(--unsafe);
+}
+
+.metric strong.is-penalty {
+  color: var(--unsafe);
+}
+
+.metric strong.is-dogleg-value {
+  color: var(--target);
+}
+
+.lesson-panel {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.lesson-intro {
+  position: static;
+  max-width: 1120px;
+}
+
+.lesson-grid.four-up {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.lesson-callout {
+  grid-column: auto;
+}
+
+@media (max-width: 1450px) {
+  .stage-topline {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .legend {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 1220px) {
+  .planner-grid {
+    grid-template-columns: minmax(230px, 290px) minmax(470px, 1fr);
+  }
+
+  .readout-panel {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0 18px;
+  }
+
+  .readout-panel .panel-heading,
+  .readout-panel .orbit-facts {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 900px) {
+  .planner-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .orbit-stage {
+    order: -1;
+    min-height: 650px;
+  }
+
+  .readout-panel {
+    display: block;
+  }
+
+  .lesson-grid.four-up {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .planner-shell {
+    width: min(100% - 20px, 1500px);
+  }
+
+  .planner-header {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .planner-title h1 {
+    font-size: clamp(1.55rem, 8.5vw, 2.6rem);
+  }
+
+  .orbit-stage {
+    min-height: 610px;
+  }
+
+  #orbit-canvas {
+    min-height: 440px;
+  }
+
+  .lesson-grid.four-up {
+    grid-template-columns: 1fr;
+  }
+}
