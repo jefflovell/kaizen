@@ -8,8 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../../../../styles.css?v=50" />
+    <link rel="stylesheet" href="../../../../styles.css?v=73" />
     <script src="../../../../script.js" defer></script>
+    <script src="../regression-navigation.js?v=1" defer></script>
     <script src="random-forest-regression.js?v=1" defer></script>
   </head>
   <body class="note-page">
@@ -27,6 +28,16 @@
         </div>
       </section>
 
+      <section class="lesson-context" aria-labelledby="forest-business-title">
+        <div class="lesson-context-heading"><p class="case-section-label">Business problem</p><h2 id="forest-business-title">How much energy will a home need tomorrow?</h2></div>
+        <div class="lesson-context-grid">
+          <article><span>Situation</span><p>Demand depends on interacting thresholds across temperature, occupancy, insulation, time, and solar generation.</p></article>
+          <article><span>Problem to solve</span><p>One deep tree can fit those interactions but overreact to quirks in one training sample.</p></article>
+          <article><span>Why a random forest</span><p>Many deliberately varied trees average away some instability while preserving nonlinear, threshold-based reasoning.</p></article>
+        </div>
+        <aside class="industry-context"><span>Industry context</span><strong>Production norm for tabular forecasting</strong><p>Random forests are strong, dependable choices for demand, pricing, revenue, and risk-exposure forecasts built from structured business data. They often beat neural networks on modest tables because they need less scaling and tuning and naturally capture threshold interactions.</p></aside>
+      </section>
+
       <section class="supervised-overview">
         <p>How much electricity will a home use during tomorrow’s heat wave? One decision tree might focus heavily on temperature. Another might split first on occupancy, time of day, insulation, or solar generation.</p>
         <p>A <strong>random forest</strong> trains many trees on different samples and feature choices, then averages their numeric predictions. Individual trees keep their useful nonlinear reasoning; averaging reduces the influence of any one tree’s peculiar opinion.</p>
@@ -41,7 +52,7 @@
       <section class="learning-intro supervised-intro"><p><strong>The question:</strong> Can a crowd of imperfect trees forecast tomorrow better than one highly confident tree?</p></section>
 
       <p class="algorithm-path-label">Suggested regression learning path</p>
-      <section class="algo-grid regression-menu" aria-label="Suggested regression learning path">
+      <section class="algo-grid regression-menu" data-regression-navigation data-current="forest" aria-label="Suggested regression learning path">
         <article class="algo-card"><span>01</span><h2>Linear Regression</h2><p>Fit a straight-line relationship between features and a number.</p><a class="algo-card-link" href="../linear-regression/">Explore linear regression</a></article>
         <article class="algo-card"><span>02</span><h2>Decision Trees</h2><p>Split the feature space into regions with different numeric estimates.</p><a class="algo-card-link" href="../decision-tree-regression/">Explore decision trees</a></article>
         <article class="algo-card"><span>03</span><h2>k-Nearest Neighbors</h2><p>Average the outcomes of nearby examples.</p><a class="algo-card-link" href="../knn-regression/">Explore k-NN</a></article>

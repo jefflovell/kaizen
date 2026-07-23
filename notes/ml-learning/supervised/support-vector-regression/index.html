@@ -8,8 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../../../../styles.css?v=50" />
+    <link rel="stylesheet" href="../../../../styles.css?v=73" />
     <script src="../../../../script.js" defer></script>
+    <script src="../regression-navigation.js?v=1" defer></script>
     <script src="support-vector-regression.js?v=1" defer></script>
   </head>
   <body class="note-page">
@@ -33,6 +34,16 @@
         </div>
       </section>
 
+      <section class="lesson-context" aria-labelledby="svr-business-title">
+        <div class="lesson-context-heading"><p class="case-section-label">Business problem</p><h2 id="svr-business-title">How precise must a pickup-time estimate be to stay useful?</h2></div>
+        <div class="lesson-context-grid">
+          <article><span>Situation</span><p>Traffic lights, elevators, and curb access create small arrival-time misses that riders barely notice.</p></article>
+          <article><span>Problem to solve</span><p>The model should ignore harmless noise while still learning from predictions that are meaningfully late or early.</p></article>
+          <article><span>Why support vector regression</span><p>An epsilon tube defines “close enough,” so only observations outside the tolerance have to pull on the fitted function.</p></article>
+        </div>
+        <aside class="industry-context"><span>Industry context</span><strong>Useful specialist for medium-sized datasets</strong><p>SVR can be strong when a meaningful error tolerance exists and the dataset is not enormous. It is less common at very large scale because training can be expensive, feature scaling is critical, and tree ensembles are often easier to tune on mixed tabular data.</p></aside>
+      </section>
+
       <section class="supervised-overview">
         <p>A rideshare app predicts that your driver will arrive in eight minutes. If the car arrives in seven or nine, the prediction was still useful. A model does not always need to chase every last minute of error.</p>
         <p>Support Vector Regression draws an <strong>ε-tube</strong> (“epsilon tube”) around its prediction. Here, an <strong>error</strong> is the vertical gap in minutes between the driver’s actual arrival time and the time predicted by the line. Errors inside the tube cost nothing. Unusually fast or slow arrivals outside its walls become <strong>support vectors</strong>—the observations that shape the final model.</p>
@@ -50,7 +61,7 @@
       </section>
 
       <p class="algorithm-path-label">Suggested regression learning path</p>
-      <section class="algo-grid regression-menu" aria-label="Suggested regression learning path">
+      <section class="algo-grid regression-menu" data-regression-navigation data-current="svr" aria-label="Suggested regression learning path">
         <article class="algo-card"><span>01</span><h2>Linear Regression</h2><p>Fit a straight-line relationship between features and a number.</p><a class="algo-card-link" href="../linear-regression/">Explore linear regression</a></article>
         <article class="algo-card"><span>02</span><h2>Decision Trees</h2><p>Split the feature space into regions with different numeric estimates.</p><a class="algo-card-link" href="../decision-tree-regression/">Explore decision tree regression</a></article>
         <article class="algo-card"><span>03</span><h2>k-Nearest Neighbors</h2><p>Average the outcomes of nearby examples instead of fitting one global rule.</p><a class="algo-card-link" href="../knn-regression/">Explore k-NN regression</a></article>

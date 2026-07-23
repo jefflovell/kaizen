@@ -204,9 +204,8 @@ function drawGrid() {
 
 function drawNeighborhood(selected) {
   const [qx, qy] = toCanvas(state.query);
-  const radius = selected.length
-    ? Math.max(...selected.map((title) => distance(title, state.query))) *
-      Math.min(plotWidth(), plotHeight())
+  const normalizedRadius = selected.length
+    ? Math.max(...selected.map((title) => distance(title, state.query)))
     : 0;
 
   ctx.fillStyle = "rgba(75, 243, 255, 0.06)";
@@ -214,7 +213,15 @@ function drawNeighborhood(selected) {
   ctx.lineWidth = 2;
   ctx.setLineDash([8, 7]);
   ctx.beginPath();
-  ctx.arc(qx, qy, radius, 0, Math.PI * 2);
+  ctx.ellipse(
+    qx,
+    qy,
+    normalizedRadius * plotWidth(),
+    normalizedRadius * plotHeight(),
+    0,
+    0,
+    Math.PI * 2,
+  );
   ctx.fill();
   ctx.stroke();
   ctx.setLineDash([]);

@@ -782,6 +782,67 @@ h1 {
   color: var(--muted);
 }
 
+.field-note-ml {
+  border-top-color: rgb(255 255 255 / 12%);
+  background:
+    radial-gradient(circle at 18% 32%, rgba(107, 69, 217, 0.24), transparent 28%),
+    radial-gradient(circle at 82% 24%, rgba(49, 85, 245, 0.16), transparent 30%),
+    linear-gradient(145deg, #17152f, #090d1d 72%);
+  color: #f4f3ff;
+}
+
+.field-note-ml .project-intro > p {
+  color: #b9a7ff;
+}
+
+.field-note-ml .project-intro h2 {
+  color: #d8ceff;
+  text-shadow: 0 0 28px rgba(166, 112, 255, 0.2);
+}
+
+.field-note-ml .project-detail > p {
+  color: rgba(237, 238, 250, 0.76);
+}
+
+.field-note-ml .epic-card {
+  border-color: rgba(216, 206, 255, 0.64);
+  background:
+    linear-gradient(145deg, rgba(107, 69, 217, 0.26), rgba(17, 20, 43, 0.96) 58%);
+  color: #f4f3ff;
+  box-shadow:
+    8px 8px 0 #6b45d9,
+    14px 14px 0 rgba(166, 112, 255, 0.18);
+}
+
+.field-note-ml .epic-card .case-section-label {
+  color: #d8ceff;
+}
+
+.field-note-ml .epic-card p:not(.case-section-label) {
+  color: #f0effa;
+}
+
+.field-note-ml .epic-card div {
+  border-top-color: rgba(255, 255, 255, 0.16);
+}
+
+.field-note-ml .epic-card dt {
+  color: #aeb3ca;
+}
+
+.field-note-ml .epic-card dd {
+  color: #fff;
+}
+
+.field-note-ml .button-light {
+  box-shadow: 5px 5px 0 #a670ff;
+}
+
+.field-note-ml .button-light:hover,
+.field-note-ml .button-light:focus-visible {
+  box-shadow: 2px 2px 0 #a670ff;
+}
+
 .field-note-ksp {
   border-top: 1px solid rgb(255 255 255 / 12%);
   background:
@@ -1779,6 +1840,189 @@ h1 {
   margin-top: 18px;
 }
 
+.lesson-context {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto 52px;
+  padding: 34px;
+  border: 2px solid var(--ink);
+  background:
+    linear-gradient(135deg, rgba(75, 243, 255, 0.12), transparent 54%),
+    #fff;
+  box-shadow: 8px 8px 0 rgba(255, 111, 89, 0.5);
+}
+
+.lesson-context-heading {
+  display: grid;
+  grid-template-columns: minmax(160px, 0.35fr) minmax(0, 1.65fr);
+  gap: 28px;
+  align-items: start;
+  padding-bottom: 28px;
+  border-bottom: 1px solid rgba(18, 24, 43, 0.2);
+}
+
+.lesson-context-heading .case-section-label {
+  margin: 6px 0 0;
+}
+
+.lesson-context-heading h2 {
+  margin: 0;
+  max-width: 900px;
+  font-size: clamp(2rem, 4.2vw, 4.4rem);
+  letter-spacing: -0.055em;
+  line-height: 0.96;
+}
+
+.lesson-context-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+}
+
+.lesson-context-grid article {
+  min-width: 0;
+  padding: 26px 24px 8px 0;
+}
+
+.lesson-context-grid article + article {
+  padding-left: 24px;
+  border-left: 1px solid rgba(18, 24, 43, 0.18);
+}
+
+.lesson-context-grid span,
+.industry-context > span,
+.nn-learning-foundations article > span,
+.algorithm-progression article > span {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--blue);
+  font-family: var(--display);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.lesson-context-grid p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.industry-context {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.35fr) minmax(220px, 0.45fr) minmax(0, 1.2fr);
+  gap: 24px;
+  align-items: start;
+  margin-top: 26px;
+  padding: 22px 24px;
+  border-left: 6px solid var(--blue);
+  background: var(--cream);
+}
+
+.industry-context > span {
+  margin: 3px 0 0;
+}
+
+.industry-context strong {
+  font-family: var(--display);
+  font-size: 1.05rem;
+  line-height: 1.2;
+}
+
+.industry-context p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.nn-learning-foundations {
+  width: min(1200px, calc(100% - 48px));
+  margin: 0 auto 74px;
+  padding: 34px;
+  border: 2px solid var(--ink);
+  background: #11182b;
+  color: #fff;
+  box-shadow: 8px 8px 0 #9deeff;
+}
+
+.nn-learning-foundations > header {
+  display: grid;
+  grid-template-columns: minmax(160px, 0.35fr) minmax(0, 1.65fr);
+  gap: 28px;
+  align-items: start;
+  margin-bottom: 28px;
+}
+
+.nn-learning-foundations > header .case-section-label {
+  margin: 6px 0 0;
+  color: #9deeff;
+}
+
+.nn-learning-foundations > header h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(2rem, 4vw, 4rem);
+  letter-spacing: -0.05em;
+  line-height: 0.98;
+}
+
+.algorithm-progression {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.algorithm-progression article {
+  position: relative;
+  min-width: 0;
+  padding: 22px 18px;
+}
+
+.algorithm-progression article + article {
+  border-left: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+.algorithm-progression article + article::before {
+  content: "→";
+  position: absolute;
+  top: 19px;
+  left: -8px;
+  padding: 0 2px;
+  background: #11182b;
+  color: #9deeff;
+  font-weight: 900;
+}
+
+.algorithm-progression article > span,
+.nn-learning-foundations article > span {
+  color: #9deeff;
+}
+
+.algorithm-progression h3,
+.nn-learning-foundations h3 {
+  margin: 0 0 10px;
+  color: #fff;
+  font-size: 1.15rem;
+}
+
+.algorithm-progression p,
+.nn-learning-foundations article p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.9rem;
+}
+
+.nn-learning-callouts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.nn-learning-callouts article {
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.05);
+}
+
 .dnn-overview {
   display: grid;
   grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
@@ -1984,7 +2228,7 @@ h1 {
 }
 
 .regression-menu .algo-card {
-  padding-top: 58px;
+  padding-top: 74px;
 }
 
 .regression-menu .algo-card::before {
@@ -2006,13 +2250,14 @@ h1 {
 }
 
 .regression-menu .algo-card::after {
-  content: "1.0.0";
+  content: "v1.2.0 - Lee Ramsey";
   position: absolute;
-  top: 45px;
+  top: 50px;
   right: 18px;
   color: var(--muted);
   font-size: 0.74rem;
   font-weight: 700;
+  line-height: 1;
 }
 
 .algorithm-path-label {
@@ -2061,6 +2306,18 @@ h1 {
   line-height: 1.05;
 }
 
+.algo-card h2 small {
+  display: block;
+  margin-top: 9px;
+  color: var(--blue);
+  font-family: var(--body);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
 .algo-card.is-active h2 {
   color: var(--blue);
 }
@@ -2080,6 +2337,55 @@ h1 {
   font-weight: 700;
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
+}
+
+.classifier-family-navigation {
+  display: block;
+}
+
+.classifier-path-label {
+  width: min(1200px, calc(100% - 48px));
+  margin: 38px auto -52px;
+}
+
+.classifier-nav-fallback {
+  display: block;
+  width: min(1200px, calc(100% - 48px));
+  margin: 36px auto;
+  color: var(--blue);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.algo-card-current {
+  align-self: flex-start;
+  margin-top: 18px;
+  color: var(--ink);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.classifier-card-release {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 7px;
+  text-align: right;
+}
+
+.classifier-card-version {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
 .classifier-draft-nav {
@@ -5298,6 +5604,41 @@ h1 {
   box-shadow: 10px 10px 0 var(--coral);
 }
 
+.decision-boundary-key {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 10px;
+  align-items: center;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.boundary-class,
+.boundary-line-key {
+  padding: 8px 10px;
+  border: 1px solid rgba(18, 24, 43, 0.2);
+}
+
+.boundary-coral {
+  background: rgba(255, 117, 95, 0.16);
+  color: #b23b2d;
+}
+
+.boundary-cyan {
+  background: rgba(75, 243, 255, 0.16);
+  color: #087c8a;
+}
+
+.boundary-line-key {
+  background: var(--ink);
+  color: #fff;
+}
+
 #classifier-canvas,
 #regression-canvas {
   display: block;
@@ -5334,6 +5675,66 @@ h1 {
   grid-template-columns: 1.3fr repeat(3, minmax(0, 1fr));
   gap: 12px;
   margin-top: 16px;
+}
+
+.method-note {
+  grid-column: 1 / -1;
+  margin-top: 64px;
+  padding: 38px;
+  border: 2px solid var(--ink);
+  background:
+    linear-gradient(135deg, rgba(166, 112, 255, 0.12), transparent 46%),
+    #fff;
+  box-shadow: 9px 9px 0 rgba(166, 112, 255, 0.26);
+}
+
+.method-note > div:first-child {
+  display: grid;
+  grid-template-columns: 0.72fr 1.28fr;
+  gap: 32px;
+  align-items: end;
+  margin-bottom: 28px;
+}
+
+.method-note h2 {
+  margin: 0;
+  font-size: clamp(2rem, 3.8vw, 3.8rem);
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.method-note-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.method-note-grid article {
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid rgba(18, 24, 43, 0.22);
+  background: rgba(247, 246, 241, 0.72);
+}
+
+.method-note-grid h3 {
+  margin-bottom: 12px;
+  font-size: 1.4rem;
+}
+
+.method-note-grid .equation {
+  min-height: 0;
+}
+
+.method-note-grid p,
+.method-note-footnote {
+  color: var(--muted);
+}
+
+.method-note-footnote {
+  margin: 22px 0 0;
+  padding-left: 14px;
+  border-left: 4px solid #6b45d9;
+  font-weight: 600;
 }
 
 .classifier-controls button,
@@ -6071,6 +6472,34 @@ h1 {
     grid-template-columns: 1fr;
   }
 
+  .mechanics-heading h2,
+  .mechanics-heading .case-section-label,
+  .mechanics-heading > p:last-child,
+  .terms-heading h2,
+  .terms-heading .case-section-label,
+  .terms-heading > p:last-child,
+  :where(
+    .classifier-lab-heading,
+    .tree-lab-heading,
+    .knn-lab-heading,
+    .regularization-lab-heading
+  ) > h2,
+  :where(
+    .classifier-lab-heading,
+    .tree-lab-heading,
+    .knn-lab-heading,
+    .regularization-lab-heading
+  ) > .case-section-label,
+  :where(
+    .classifier-lab-heading,
+    .tree-lab-heading,
+    .knn-lab-heading,
+    .regularization-lab-heading
+  ) > p:not(.case-section-label) {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
   .term-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -6619,6 +7048,36 @@ h1 {
 
   .classifier-tool {
     padding: 14px;
+  }
+
+  .decision-boundary-key {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .boundary-coral {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .boundary-cyan {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .boundary-line-key {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .method-note {
+    margin-top: 46px;
+    padding: 24px 18px;
+    box-shadow: 7px 7px 0 rgba(166, 112, 255, 0.26);
+  }
+
+  .method-note > div:first-child,
+  .method-note-grid {
+    grid-template-columns: 1fr;
   }
 
   .classifier-controls {
@@ -7863,4 +8322,57 @@ h1 {
 
 .mlp-training-trace {
   margin-top: 30px;
+}
+
+@media (max-width: 900px) {
+  .lesson-context-heading,
+  .nn-learning-foundations > header {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .lesson-context-grid,
+  .nn-learning-callouts {
+    grid-template-columns: 1fr;
+  }
+
+  .lesson-context-grid article,
+  .lesson-context-grid article + article {
+    padding: 22px 0;
+    border-left: 0;
+    border-bottom: 1px solid rgba(18, 24, 43, 0.18);
+  }
+
+  .industry-context {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .algorithm-progression {
+    grid-template-columns: 1fr;
+  }
+
+  .algorithm-progression article + article {
+    border-top: 1px solid rgba(255, 255, 255, 0.24);
+    border-left: 0;
+  }
+
+  .algorithm-progression article + article::before {
+    top: -11px;
+    left: 20px;
+    transform: rotate(90deg);
+  }
+}
+
+@media (max-width: 620px) {
+  .lesson-context,
+  .nn-learning-foundations {
+    width: min(100% - 32px, 1200px);
+    padding: 24px 18px;
+  }
+
+  .classifier-card-release {
+    align-items: flex-start;
+    text-align: left;
+  }
 }

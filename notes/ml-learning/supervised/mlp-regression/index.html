@@ -8,8 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../../../../styles.css?v=45" />
+    <link rel="stylesheet" href="../../../../styles.css?v=73" />
     <script src="../../../../script.js" defer></script>
+    <script src="../regression-navigation.js?v=1" defer></script>
     <script src="mlp-regression.js?v=9" defer></script>
   </head>
   <body class="note-page">
@@ -23,6 +24,16 @@
       <section class="note-hero">
         <div class="note-kicker"><a href="../">← Supervised learning</a><span>/</span><span>Regression</span></div>
         <div class="note-title"><h1>Applying a Neural Network</h1><p class="key-idea">Use a multilayer perceptron to test when nonlinear feature combinations earn trust, and when they only produce a confident-looking number.</p></div>
+      </section>
+
+      <section class="lesson-context" aria-labelledby="mlp-regression-business-title">
+        <div class="lesson-context-heading"><p class="case-section-label">Business problem</p><h2 id="mlp-regression-business-title">How much of a new title will subscribers finish?</h2></div>
+        <div class="lesson-context-grid">
+          <article><span>Situation</span><p>Completion depends on interactions among affinity, awareness, runtime, timing, tone, and social momentum.</p></article>
+          <article><span>Problem to solve</span><p>One fixed coefficient per feature cannot express cases where one signal changes the meaning of another.</p></article>
+          <article><span>Why a neural network</span><p>Hidden neurons can learn intermediate combinations, then use those representations to produce a flexible numeric estimate.</p></article>
+        </div>
+        <aside class="industry-context"><span>Industry context</span><strong>Powerful when scale or representation learning earns it</strong><p>Neural regressors are industry norms when inputs include images, audio, language, embeddings, or massive datasets. They are not the automatic winner for ordinary business tables: random forests and boosted trees often deliver better accuracy with less data, tuning, and compute.</p></aside>
       </section>
 
       <section class="supervised-overview">
@@ -47,6 +58,20 @@
         <article><span>01</span><h2>Run a feedforward pass</h2><p>Each hidden neuron calculates <code>z = Σ(wᵢxᵢ) + b</code>, applies an activation, and sends its value toward the prediction <code>ŷ</code>.</p></article>
         <article><span>02</span><h2>Measure residual and loss</h2><p>Compare <code>ŷ</code> with the known target <code>y</code>. The residual shows the miss; squared error turns that miss into the loss used for this example.</p></article>
         <article><span>03</span><h2>Backpropagate, then update</h2><p>Backpropagation calculates gradients for weights and biases. Gradient descent uses those gradients and the learning rate to change the parameters.</p></article>
+      </section>
+
+      <p class="algorithm-path-label">Suggested regression learning path</p>
+      <section class="algo-grid regression-menu" data-regression-navigation data-current="neural" aria-label="Suggested regression learning path">
+        <a class="classifier-nav-fallback" href="../linear-regression/">View regression lessons</a>
+      </section>
+
+      <section class="nn-learning-foundations" aria-labelledby="mlp-stages-title">
+        <header><p class="case-section-label">Ramsey's Reminder</p><h2 id="mlp-stages-title">Training changes the network. Inference uses it.</h2></header>
+        <div class="nn-learning-callouts">
+          <article><span>What is learned?</span><h3>Weights and biases</h3><p>These parameters control connection strength and activation offsets. Training searches for values that reduce numeric prediction error.</p></article>
+          <article><span>Training</span><h3>Learn from known targets</h3><p>Forward pass, loss, backpropagation, and optimizer updates repeat across labeled examples. The weights change during this stage.</p></article>
+          <article><span>Inference</span><h3>Predict with fixed weights</h3><p>Once trained, a new title makes one forward pass through the saved parameters. No learning happens unless the training process runs again.</p></article>
+        </div>
       </section>
 
       <section class="mlp-dnn-why" aria-labelledby="mlp-dnn-why-title">

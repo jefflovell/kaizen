@@ -108,6 +108,33 @@ hidden-layer class scores. Avoid decorative shapes that merely imply a boundary
 or region. If a visual is simplified, say what it represents and keep the
 readouts tied to the actual lesson mechanism.
 
+### Expert-review lessons
+
+Apply these checks across every algorithm page before calling the lesson
+finished:
+
+- **Name the visual encoding on the visual.** If a line is a decision boundary,
+  label it and show what each side predicts. If a radius, margin, residual, or
+  split line changes, say what controls that change.
+- **Lead with the most inspectable mental model.** Prefer local votes, visible
+  regions, or direct examples before an update rule whose notation adds a second
+  learning problem. For classification, k-NN is the current recommended first
+  algorithm; the perceptron is a later linear-boundary deep dive.
+- **Declare notation conventions.** Equivalent formulations can look different
+  because labels, loss functions, or intercept handling differ. State the
+  convention—such as `y ∈ {−1, +1}` versus `y ∈ {0, 1}`—next to the formula.
+- **Separate the model from the teaching optimizer.** If an interactive lab uses
+  epochs or gradient descent to reveal optimization, explain whether the model
+  also has a direct, closed-form, or alternate solver.
+- **Choose data that reveals inductive bias.** A perfectly monotonic dataset can
+  make every model look like a line. Include plateaus, reversals, clusters,
+  outliers, or overlapping regions when those structures are what the algorithm
+  is meant to handle.
+- **Distinguish meaningful motion from UI defects.** Keep semantic markers a
+  fixed size. When a neighborhood, margin, or uncertainty band should expand,
+  label why it changes and ensure the geometry uses the same coordinate system
+  as the underlying distance calculation.
+
 ### Section Heading Treatment
 
 Use section headings as the reader's plain-language map. The large black

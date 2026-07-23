@@ -8,15 +8,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../../../../styles.css?v=47" />
+    <link rel="stylesheet" href="../../../../styles.css?v=72" />
     <script src="../../../../script.js" defer></script>
+    <script src="../classifier-navigation.js?v=2" defer></script>
     <script src="knn-classification.js?v=1" defer></script>
   </head>
   <body class="note-page">
     <header class="site-header"><a class="brand" href="../../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav"><span class="sr-only">Toggle navigation</span><span></span><span></span></button><nav id="site-nav" class="site-nav" aria-label="Main navigation"><a href="../../../../#about">About</a><a href="../../../">Notes</a><a href="../../../../#work">Work</a><a href="../../../../#contact">Contact</a></nav></header>
     <main>
       <section class="note-hero"><div class="note-kicker"><a href="../classification/">← Classification</a><span>/</span><span>Classifier family</span></div><div class="note-title"><h1>k-Nearest Neighbors Classification</h1><p class="key-idea">Classify a new example by asking the labeled examples closest to it to vote.</p></div></section>
+      <section class="lesson-context" aria-labelledby="knn-classifier-business-title">
+        <div class="lesson-context-heading"><p class="case-section-label">Business problem</p><h2 id="knn-classifier-business-title">Which support queue should receive a new ticket?</h2></div>
+        <div class="lesson-context-grid">
+          <article><span>Situation</span><p>A support operation has thousands of resolved tickets with known routing labels.</p></article>
+          <article><span>Problem to solve</span><p>A new ticket needs a destination before anyone has manually reviewed it.</p></article>
+          <article><span>Why k-NN</span><p>If similar tickets should follow similar routes, nearby historical examples provide a concrete local vote.</p></article>
+        </div>
+        <aside class="industry-context"><span>Industry context</span><strong>Teaching baseline with selective production use</strong><p>k-NN is one of the clearest ways to learn classification and remains useful in retrieval, recommendation, and small reference systems. It is less often the default classifier at scale because every prediction can require a costly neighbor search and distance becomes unreliable in high-dimensional or poorly scaled data.</p></aside>
+      </section>
       <section class="supervised-overview"><p>k-nearest neighbors, usually shortened to k-NN, has almost no learned internal machinery. It stores labeled examples. When a new example arrives, the model measures distance, finds the <code>k</code> closest neighbors, and predicts the class that wins the local vote.</p><p>That makes k-NN concrete in a way beginners can see: the model is trusting local precedent. It is useful when similar examples really should receive similar labels, especially in pockets that a single straight boundary would miss. It becomes fragile when “nearby” is only a math accident caused by badly scaled or poorly chosen features.</p></section>
+      <nav class="classifier-family-navigation" data-classifier-navigation data-current="knn" aria-label="Classifier lesson navigation"><a class="classifier-nav-fallback" href="../classification/">View all classifiers</a></nav>
       <section class="learning-loop"><article><span>01</span><h2>Store examples</h2><p>Keep labeled training examples in feature space.</p></article><article><span>02</span><h2>Measure distance</h2><p>Find which examples are closest to the new point.</p></article><article><span>03</span><h2>Vote locally</h2><p>Predict the class most common among the nearest neighbors.</p></article></section>
       <section class="classifier-production-lab knn-lab" aria-labelledby="knn-lab-title">
         <div class="classifier-lab-heading">
@@ -100,7 +111,7 @@
         <section class="mechanics-section"><div class="mechanics-heading"><p class="case-section-label">How it is built</p><h2>k-NN turns similarity into a vote.</h2><p>The model’s “training” is mostly storing examples. The important design choices happen in the distance measure, feature scaling, and neighbor count.</p></div><div class="equation-grid"><article class="equation-card"><span>01 · Distance</span><div class="equation">d(x, xᵢ)</div><p>Measure how far the new feature vector <code>x</code> is from training example <code>xᵢ</code> (“x sub i”).</p></article><article class="equation-card"><span>02 · Neighbor set</span><div class="equation">Nₖ(x)</div><p><code>Nₖ</code> is the set of the <code>k</code> closest labeled examples.</p></article><article class="equation-card"><span>03 · Vote</span><div class="equation">ŷ = mode(yᵢ)</div><p>The predicted class <code>ŷ</code> is the most common label among the neighbors.</p></article></div></section>
         <section class="terms-section"><div class="terms-heading"><p class="case-section-label">Key terms</p><h2>The vocabulary of nearby.</h2></div><dl class="term-grid"><div><dt>k</dt><dd>The number of neighbors allowed to vote.</dd></div><div><dt>Distance metric</dt><dd>The formula that decides what “near” means.</dd></div><div><dt>Feature scaling</dt><dd>Putting features on comparable numeric ranges before distance is measured.</dd></div><div><dt>Local decision</dt><dd>A prediction based on nearby examples, not one global rule.</dd></div></dl></section>
       </section>
-      <nav class="classifier-next-nav"><a href="../logistic-regression/">Previous: logistic regression</a><a href="../naive-bayes-classification/">Next: Naive Bayes</a></nav>
+      <nav class="classifier-next-nav" aria-label="Continue through classifier lessons"><a href="../classification/">Previous: classification overview</a><a href="../decision-tree-classification/">Next: decision trees</a></nav>
     </main>
     <footer id="contact" class="site-footer"><p>Built with care and a little curiosity.</p><a href="https://github.com/jefflovell" rel="me">@jefflovell</a><a class="back-to-top" href="#" aria-label="Back to top">↑</a></footer>
   </body>
