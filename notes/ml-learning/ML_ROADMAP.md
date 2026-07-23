@@ -37,7 +37,10 @@ Backlinks should preserve this hierarchy:
 
 - `supervised/classification/`
   - Purpose: classification family overview.
-  - Current lesson anchor: perceptron / linear classification foundation.
+  - Recommended first algorithm: k-nearest neighbors, because distance and
+    local voting are inspectable before introducing a learned update rule.
+  - Perceptron remains an optional linear decision-boundary deep dive, with its
+    `−1/+1` label convention stated explicitly.
   - Child pages now exist for logistic regression, k-nearest
     neighbors, Naive Bayes, decision trees, support vector classification,
     ensemble classification, and neural-network classification.
@@ -81,17 +84,21 @@ models, create a broader neural-network hub.
 
 ## Recommended near-term order
 
-1. Tighten `train-neural-network/`.
-2. Revisit `mlp-regression/` after the training concepts have a foundation.
-3. Continue tightening the classifier sibling labs:
-   - logistic regression,
-   - k-nearest-neighbor classification,
-   - Naive Bayes classification,
-   - decision-tree classification,
-   - support-vector classification,
-   - ensemble classification, and
-   - neural-network classification.
-4. Build unsupervised learning only after the supervised spine feels coherent.
+1. Audit `knn-classification/` as the classification entry lesson: reduce
+   notation load, add guided experiments, and make scaling failure visible.
+2. Audit `decision-tree-classification/`: use overlapping or non-monotonic
+   regions that visibly reward recursive splits.
+3. Audit `logistic-regression/`: label probability contours, the threshold, and
+   the decision boundary as separate objects.
+4. Audit `naive-bayes-classification/`: make the independence assumption and
+   its failure mode inspectable, not merely stated.
+5. Audit `support-vector-classification/`: distinguish boundary, margin, and
+   support vectors directly on the chart.
+6. Audit the ensemble pages: expose disagreement among component models before
+   showing the aggregate.
+7. Tighten `train-neural-network/`, then revisit `mlp-regression/`; keep
+   optimizer choice separate from model definition.
+8. Build unsupervised learning only after the supervised spine feels coherent.
 
 ## Planned neural-network mini-labs
 

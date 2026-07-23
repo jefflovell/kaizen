@@ -18,7 +18,7 @@ const ui = {
 const state = {
   points: [],
   selectedClass: 1,
-  weights: { x: 0.2, y: -0.35, bias: 0 },
+  weights: { x: 0.45, y: 0, bias: 0 },
   learningRate: 0.18,
   cursor: 0,
   epoch: 0,
@@ -41,7 +41,7 @@ function seedPoints() {
     [-0.28, 0.42, 1],
     [0.3, -0.28, -1],
   ];
-  state.weights = { x: 0.2, y: -0.35, bias: 0 };
+  state.weights = { x: 0.45, y: 0, bias: 0 };
   state.cursor = 0;
   state.activeIndex = 0;
   state.epoch = 0;
@@ -122,6 +122,19 @@ function drawGrid() {
   ctx.fillStyle = "#07101f";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+  const cellSize = 24;
+  for (let x = 0; x < canvas.width; x += cellSize) {
+    for (let y = 0; y < canvas.height; y += cellSize) {
+      const featureX = ((x + cellSize / 2) / canvas.width) * 2 - 1;
+      const featureY = 1 - ((y + cellSize / 2) / canvas.height) * 2;
+      ctx.fillStyle =
+        predict([featureX, featureY]) === 1
+          ? "rgba(75, 243, 255, 0.075)"
+          : "rgba(255, 117, 95, 0.075)";
+      ctx.fillRect(x, y, cellSize, cellSize);
+    }
+  }
+
   ctx.strokeStyle = "rgba(75, 243, 255, 0.09)";
   ctx.lineWidth = 1;
   for (let x = 0; x <= canvas.width; x += 40) {
@@ -140,12 +153,32 @@ function drawGrid() {
 
 function drawBoundary() {
   const { x: wx, y: wy, bias } = state.weights;
-  if (Math.abs(wy) < 0.001) return;
+  const intersections = [];
+  const addIntersection = (point) => {
+    if (
+      point.every((value) => value >= -1.001 && value <= 1.001) &&
+      !intersections.some(
+        (existing) =>
+          Math.abs(existing[0] - point[0]) < 0.001 &&
+          Math.abs(existing[1] - point[1]) < 0.001,
+      )
+    ) {
+      intersections.push(point);
+    }
+  };
 
-  const leftY = -(wx * -1 + bias) / wy;
-  const rightY = -(wx * 1 + bias) / wy;
-  const [x1, y1] = toCanvas([-1, leftY]);
-  const [x2, y2] = toCanvas([1, rightY]);
+  if (Math.abs(wy) > 0.001) {
+    addIntersection([-1, -(wx * -1 + bias) / wy]);
+    addIntersection([1, -(wx * 1 + bias) / wy]);
+  }
+  if (Math.abs(wx) > 0.001) {
+    addIntersection([-(wy * -1 + bias) / wx, -1]);
+    addIntersection([-(wy * 1 + bias) / wx, 1]);
+  }
+  if (intersections.length < 2) return;
+
+  const [x1, y1] = toCanvas(intersections[0]);
+  const [x2, y2] = toCanvas(intersections[1]);
 
   ctx.strokeStyle = "#f7f6f1";
   ctx.lineWidth = 3;

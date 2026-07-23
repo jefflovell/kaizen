@@ -8,8 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../../../../styles.css?v=50" />
+    <link rel="stylesheet" href="../../../../styles.css?v=73" />
     <script src="../../../../script.js" defer></script>
+    <script src="../regression-navigation.js?v=1" defer></script>
     <script src="gradient-boosting-regression.js?v=1" defer></script>
   </head>
   <body class="note-page">
@@ -22,6 +23,16 @@
       <section class="note-hero">
         <div class="note-kicker"><a href="../">← Supervised learning</a><span>/</span><span>Regression</span></div>
         <div class="note-title"><h1>Gradient Boosting Regression</h1><p class="key-idea">Instead of averaging independent trees, boosting builds a sequence: each small tree corrects mistakes left by the current model.</p></div>
+      </section>
+
+      <section class="lesson-context" aria-labelledby="boost-business-title">
+        <div class="lesson-context-heading"><p class="case-section-label">Business problem</p><h2 id="boost-business-title">Can a rough demand forecast be improved one mistake at a time?</h2></div>
+        <div class="lesson-context-grid">
+          <article><span>Situation</span><p>A simple average misses hot occupied homes, efficient solar homes, and other recurring pockets of error.</p></article>
+          <article><span>Problem to solve</span><p>The forecasting team needs to capture subtle structured patterns without growing one enormous, brittle tree.</p></article>
+          <article><span>Why gradient boosting</span><p>Each small tree learns part of the remaining residual, so the model improves through controlled sequential corrections.</p></article>
+        </div>
+        <aside class="industry-context"><span>Industry context</span><strong>Often the tabular model to beat</strong><p>Gradient-boosted trees are industry norms for revenue forecasting, demand prediction, pricing, and other structured-data problems. They frequently outperform deep networks on tables, but learning rate, tree depth, leakage, and early stopping require careful validation.</p></aside>
       </section>
 
       <section class="supervised-overview">
@@ -38,7 +49,7 @@
       <section class="learning-intro supervised-intro"><p><strong>The question:</strong> Can a sequence of modest corrections turn a crude average into a precise energy forecast?</p></section>
 
       <p class="algorithm-path-label">Suggested regression learning path</p>
-      <section class="algo-grid regression-menu" aria-label="Suggested regression learning path">
+      <section class="algo-grid regression-menu" data-regression-navigation data-current="boosting" aria-label="Suggested regression learning path">
         <article class="algo-card"><span>01</span><h2>Linear Regression</h2><p>Fit a straight-line relationship between features and a number.</p><a class="algo-card-link" href="../linear-regression/">Explore linear regression</a></article>
         <article class="algo-card"><span>02</span><h2>Decision Trees</h2><p>Split the feature space into regions with numeric estimates.</p><a class="algo-card-link" href="../decision-tree-regression/">Explore decision trees</a></article>
         <article class="algo-card"><span>03</span><h2>k-Nearest Neighbors</h2><p>Average nearby examples.</p><a class="algo-card-link" href="../knn-regression/">Explore k-NN</a></article>

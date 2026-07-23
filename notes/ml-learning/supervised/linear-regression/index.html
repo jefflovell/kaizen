@@ -14,8 +14,9 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../../../../styles.css?v=50" />
+    <link rel="stylesheet" href="../../../../styles.css?v=73" />
     <script src="../../../../script.js" defer></script>
+    <script src="../regression-navigation.js?v=1" defer></script>
     <script src="linear-regression.js?v=2" defer></script>
   </head>
   <body class="note-page">
@@ -52,6 +53,19 @@
             numeric input and a numeric outcome.
           </p>
         </div>
+      </section>
+
+      <section class="lesson-context" aria-labelledby="linear-regression-business-title">
+        <div class="lesson-context-heading">
+          <p class="case-section-label">Business problem</p>
+          <h2 id="linear-regression-business-title">What should a used GPU cost?</h2>
+        </div>
+        <div class="lesson-context-grid">
+          <article><span>Situation</span><p>A marketplace has historical GPU prices and a comparable performance benchmark for each model.</p></article>
+          <article><span>Problem to solve</span><p>Buyers and sellers need a defensible baseline price for a new listing before quirks such as scarcity are considered.</p></article>
+          <article><span>Why linear regression</span><p>A fitted line summarizes the average numeric relationship and makes every predicted-price adjustment easy to inspect.</p></article>
+        </div>
+        <aside class="industry-context"><span>Industry context</span><strong>Industry-standard numeric baseline</strong><p>Linear regression remains normal in forecasting, pricing, measurement, and causal workflows because it is fast and explainable. Complex models should beat its held-out error by enough to justify losing that transparency.</p></aside>
       </section>
 
       <section class="supervised-overview">
@@ -125,7 +139,7 @@
       </section>
 
       <p class="algorithm-path-label">Suggested regression learning path</p>
-      <section class="algo-grid regression-menu" aria-label="Suggested regression learning path">
+      <section class="algo-grid regression-menu" data-regression-navigation data-current="linear" aria-label="Suggested regression learning path">
         <article class="algo-card is-active">
           <span>01</span>
           <h2>Linear Regression</h2>
@@ -265,6 +279,46 @@
             </ul>
           </aside>
         </div>
+
+        <aside class="method-note" aria-labelledby="linear-solver-note">
+          <div>
+            <p class="case-section-label">Nerd-out detail | Two ways to fit the same line</p>
+            <h2 id="linear-solver-note">Linear regression does not inherently need epochs.</h2>
+          </div>
+          <div class="method-note-grid">
+            <article>
+              <h3>Direct solution</h3>
+              <div class="equation equation-compact" aria-label="beta hat equals open parenthesis X transpose X close parenthesis inverse X transpose y">
+                β̂ = (X<sup>T</sup>X)<sup>−1</sup>X<sup>T</sup>y
+              </div>
+              <p>
+                Ordinary Least Squares has a closed-form solution when the
+                required matrix is invertible. With a small number of features,
+                a solver can obtain the best-fitting coefficients directly
+                (typically with numerically safer QR or SVD methods rather than
+                explicitly calculating an inverse).
+              </p>
+            </article>
+            <article>
+              <h3>Iterative solution</h3>
+              <div class="equation equation-compact" aria-label="beta becomes beta minus eta times the gradient of the loss">
+                β ← β − η∇L(β)
+              </div>
+              <p>
+                As the feature count grows, forming and factorizing the
+                feature-by-feature matrix becomes expensive in memory and
+                computation. Gradient-based and other iterative solvers avoid
+                that direct factorization and scale more naturally to large
+                problems.
+              </p>
+            </article>
+          </div>
+          <p class="method-note-footnote">
+            This lab deliberately uses batch gradient descent so you can watch
+            the line improve one pass at a time—not because epochs are required
+            by linear regression itself.
+          </p>
+        </aside>
 
         <section class="mechanics-section" aria-labelledby="linear-mechanics-title">
           <div class="mechanics-heading">

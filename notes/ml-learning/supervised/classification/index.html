@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="A practical introduction to classification algorithms with an interactive perceptron decision boundary."
+      content="A practical introduction to classification algorithms, beginning with k-nearest neighbors and an optional perceptron decision-boundary lab."
     />
     <title>Classification | Kaizen</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -14,9 +14,10 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../../../../styles.css?v=50" />
+    <link rel="stylesheet" href="../../../../styles.css?v=72" />
     <script src="../../../../script.js" defer></script>
-    <script src="classification.js?v=1" defer></script>
+    <script src="../classifier-navigation.js?v=2" defer></script>
+    <script src="classification.js?v=2" defer></script>
   </head>
   <body class="note-page">
     <header class="site-header">
@@ -54,6 +55,32 @@
         </div>
       </section>
 
+      <section class="lesson-context" aria-labelledby="perceptron-business-title">
+        <div class="lesson-context-heading">
+          <p class="case-section-label">Business problem</p>
+          <h2 id="perceptron-business-title">Can one consistent rule sort incoming cases?</h2>
+        </div>
+        <div class="lesson-context-grid">
+          <article>
+            <span>Situation</span>
+            <p>An operations team has labeled historical cases and measured features for each one.</p>
+          </article>
+          <article>
+            <span>Problem to solve</span>
+            <p>New cases need a fast binary decision without hand-writing every possible rule.</p>
+          </article>
+          <article>
+            <span>Why a perceptron</span>
+            <p>It makes learning visible: each mistake nudges one straight decision boundary toward a better separation.</p>
+          </article>
+        </div>
+        <aside class="industry-context">
+          <span>Industry context</span>
+          <strong>Foundational and learning-first</strong>
+          <p>The perceptron is historically important and excellent for understanding learned weights. Modern production teams more often choose logistic regression or a linear support-vector model because they provide probabilities, margins, and mature evaluation workflows.</p>
+        </aside>
+      </section>
+
       <section class="supervised-overview">
         <p>
           Classification is the other half of the supervised-learning doorway.
@@ -64,14 +91,23 @@
           category instead of a numeric estimate.
         </p>
         <p>
-          This first classifier is deliberately simple: a perceptron learns one
-          straight decision boundary. That line is not the end of
-          classification; it is the first object worth understanding. Once the
-          line makes sense, later classifiers can change the mechanism: estimate
-          probability, vote from neighbors, split through a tree, widen a
-          margin, or combine many weak decisions.
+          If this is your first classifier, start with k-nearest neighbors:
+          place a new example near labeled examples and let the local
+          neighborhood vote. It makes the input, evidence, and decision visible
+          without requiring a training rule first. Then return to the
+          perceptron lab below to see how a model can learn one global linear
+          boundary from mistakes.
         </p>
       </section>
+
+      <nav
+        class="classifier-family-navigation"
+        data-classifier-navigation
+        data-current="perceptron"
+        aria-label="Classifier lesson navigation"
+      >
+        <a class="classifier-nav-fallback" href="#classification-lab-title">Continue to the perceptron lesson</a>
+      </nav>
 
       <section class="learning-loop" aria-label="Classifier learning loop">
         <article>
@@ -99,60 +135,9 @@
         </p>
       </section>
 
-      <section class="algo-grid classification-menu" aria-label="Classification algorithms">
-        <article class="algo-card is-active">
-          <div class="card-meta"><span>01</span><span class="issue-chip status-stage">DEPLOYED TO STAGE</span></div>
-          <h2>Perceptron</h2>
-          <p>Score a point, guess a side, and move a straight boundary only when the guess is wrong.</p>
-          <a class="algo-card-link" href="#classification-lab-title">Current lesson</a>
-        </article>
-        <article class="algo-card">
-          <div class="card-meta"><span>02</span><span class="issue-chip status-stage">DEPLOYED TO STAGE</span></div>
-          <h2>Logistic Regression</h2>
-          <p>Turn a linear score into a probability, then choose a class with a threshold.</p>
-          <a class="algo-card-link" href="../logistic-regression/">Open first draft</a>
-        </article>
-        <article class="algo-card">
-          <div class="card-meta"><span>03</span><span class="issue-chip status-progress">IN PROGRESS</span></div>
-          <h2>k-Nearest Neighbors</h2>
-          <p>Find nearby labeled examples and let the local neighborhood vote.</p>
-          <a class="algo-card-link" href="../knn-classification/">Open first draft</a>
-        </article>
-        <article class="algo-card">
-          <div class="card-meta"><span>04</span><span class="issue-chip status-progress">IN PROGRESS</span></div>
-          <h2>Naive Bayes</h2>
-          <p>Combine feature likelihoods to compare which category explains the evidence best.</p>
-          <a class="algo-card-link" href="../naive-bayes-classification/">Open first draft</a>
-        </article>
-        <article class="algo-card">
-          <div class="card-meta"><span>05</span><span class="issue-chip status-progress">IN PROGRESS</span></div>
-          <h2>Decision Trees</h2>
-          <p>Ask a sequence of feature questions until an example lands in a labeled leaf.</p>
-          <a class="algo-card-link" href="../decision-tree-classification/">Open first draft</a>
-        </article>
-        <article class="algo-card">
-          <div class="card-meta"><span>06</span><span class="issue-chip status-progress">IN PROGRESS</span></div>
-          <h2>Support Vector Classifier</h2>
-          <p>Find a separating boundary and make the margin around it as wide as possible.</p>
-          <a class="algo-card-link" href="../support-vector-classification/">Open first draft</a>
-        </article>
-        <article class="algo-card">
-          <div class="card-meta"><span>07</span><span class="issue-chip status-progress">IN PROGRESS</span></div>
-          <h2>Ensembles</h2>
-          <p>Combine many imperfect decisions so the final vote is steadier than one model alone.</p>
-          <a class="algo-card-link" href="../ensemble-classification/">Open first draft</a>
-        </article>
-        <article class="algo-card">
-          <div class="card-meta"><span>08</span><span class="issue-chip status-progress">IN PROGRESS</span></div>
-          <h2>Neural Networks</h2>
-          <p>Pass features through hidden layers so the boundary can bend when signals interact.</p>
-          <a class="algo-card-link" href="../neural-network-classification/">Open first draft</a>
-        </article>
-      </section>
-
       <section class="lab-panel" aria-labelledby="classification-lab-title">
         <div class="lab-copy">
-          <p class="case-section-label">Supervised learning | Classification</p>
+          <p class="case-section-label">Optional deep dive | Linear classification</p>
           <h2 id="classification-lab-title">A perceptron learns a boundary.</h2>
           <div class="step-explainer">
             <p class="case-section-label">One training step</p>
@@ -164,7 +149,10 @@
             </ol>
             <code>if wrong: w ← w + ηyx; b ← b + ηy</code>
             <p>
-              An epoch is one full pass through every training point.
+              This page uses the common <code>y ∈ {−1, +1}</code> label
+              convention. Perceptrons written with <code>0/1</code> labels use
+              a different-looking update, but the same idea: only mistakes move
+              the boundary. An epoch is one full pass through every point.
             </p>
           </div>
           <div class="lab-readout" aria-label="Classifier status">
@@ -212,6 +200,11 @@
               height="520"
               aria-label="Interactive 2D classification canvas"
             ></canvas>
+            <div class="decision-boundary-key" aria-label="Decision boundary legend">
+              <span class="boundary-class boundary-coral">Coral side</span>
+              <span class="boundary-line-key">White line = decision boundary</span>
+              <span class="boundary-class boundary-cyan">Cyan side</span>
+            </div>
             <div class="classifier-controls" aria-label="Classifier controls">
               <div class="segmented" role="group" aria-label="Class to draw">
                 <button class="class-toggle is-selected" type="button" data-class="1">Cyan</button>
@@ -230,21 +223,24 @@
                 >perceptron</a
               >, one of the earliest linear classification algorithms. “Linear”
               means it tries to separate the two groups with one straight line.
-              The line is the model's current decision boundary. Points on one
-              side are guessed as cyan; points on the other side are guessed as
-              coral. Each point has a known label. When the model guesses wrong,
-              the update changes the weights and bias so that the boundary moves
-              toward putting that example on the correct side.
+              The line is the model's current <strong>decision boundary</strong>:
+              crossing it changes the predicted class. At reset, everything to
+              its left is predicted coral and everything to its right is
+              predicted cyan. Training can rotate or shift the line, but the
+              rule remains the same: the tinted half-plane on each side maps to
+              the class named in the legend. Each dot's color is its known
+              label, which may disagree with the background prediction.
             </p>
           </div>
 
           <aside class="watch-panel" aria-label="What to watch in the classifier">
             <p class="case-section-label">What to watch</p>
             <ul>
-              <li>Dots are labeled examples.</li>
-              <li>The white line is the decision boundary.</li>
+              <li>Dot color is the known training label.</li>
+              <li>The white line is the decision boundary: crossing it flips the guess.</li>
+              <li>The coral and cyan washes show the class predicted on each side.</li>
               <li>Score shows signed distance from the line.</li>
-              <li>Mistakes nudge the line toward better guesses.</li>
+              <li>A white ring marks a mislabeled side; mistakes move the line.</li>
             </ul>
           </aside>
         </div>
@@ -347,6 +343,10 @@
           </dl>
         </section>
       </section>
+      <nav class="classifier-next-nav" aria-label="Continue through classifier lessons">
+        <a href="../decision-tree-classification/">Previous: decision trees</a>
+        <a href="../logistic-regression/">Next: logistic regression</a>
+      </nav>
     </main>
 
     <footer id="contact" class="site-footer">

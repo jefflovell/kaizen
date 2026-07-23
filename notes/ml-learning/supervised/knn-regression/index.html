@@ -14,9 +14,10 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../../../../styles.css?v=50" />
+    <link rel="stylesheet" href="../../../../styles.css?v=73" />
     <script src="../../../../script.js" defer></script>
-    <script src="knn-regression.js?v=1" defer></script>
+    <script src="../regression-navigation.js?v=1" defer></script>
+    <script src="knn-regression.js?v=2" defer></script>
   </head>
   <body class="note-page">
     <header class="site-header">
@@ -47,6 +48,19 @@
             and averaging their outcomes.
           </p>
         </div>
+      </section>
+
+      <section class="lesson-context" aria-labelledby="knn-regression-business-title">
+        <div class="lesson-context-heading">
+          <p class="case-section-label">Business problem</p>
+          <h2 id="knn-regression-business-title">What engagement should we expect before a new title has history?</h2>
+        </div>
+        <div class="lesson-context-grid">
+          <article><span>Situation</span><p>A new streaming title has content features but no viewing behavior, creating a cold-start gap.</p></article>
+          <article><span>Problem to solve</span><p>The service needs an early numeric estimate before real audience data can replace the proxy.</p></article>
+          <article><span>Why k-NN regression</span><p>Similar known titles create a local reference set whose outcomes can be averaged into an intuitive first estimate.</p></article>
+        </div>
+        <aside class="industry-context"><span>Industry context</span><strong>Teaching model and local reference method</strong><p>k-NN makes similarity-based prediction easy to understand and can support retrieval or cold-start systems. It is rarely the default large-scale regressor because prediction requires neighbor search, feature scaling controls the answer, and “near” becomes less meaningful as dimensions grow.</p></aside>
       </section>
 
       <section class="supervised-overview">
@@ -91,7 +105,7 @@
       </section>
 
       <p class="algorithm-path-label">Suggested regression learning path</p>
-      <section class="algo-grid regression-menu" aria-label="Suggested regression learning path">
+      <section class="algo-grid regression-menu" data-regression-navigation data-current="knn" aria-label="Suggested regression learning path">
         <article class="algo-card">
           <span>01</span>
           <h2>Linear Regression</h2>
@@ -159,7 +173,13 @@
                 height="560"
                 aria-label="Interactive catalog similarity map"
               ></canvas>
-              <p class="knn-drag-note">Drag the cyan new-title point to change its neighbors.</p>
+              <p class="knn-drag-note">
+                Drag the cyan new-title point to change its neighbors. The
+                dashed annulus expands or contracts to reach the
+                <code>k</code>th closest title. A small annulus means similar
+                titles are packed nearby; a large one means the model must
+                reach farther and may be relying on weaker matches.
+              </p>
             </div>
 
             <div class="knn-control-panel">
@@ -211,7 +231,7 @@
           <ul>
             <li>Small k reacts strongly to individual titles.</li>
             <li>Large k produces smoother, more generic estimates.</li>
-            <li>The neighborhood changes for every query.</li>
+            <li>The dashed radius changes because local catalog density changes.</li>
             <li>Distance only works when features share a sensible scale.</li>
           </ul>
         </aside>

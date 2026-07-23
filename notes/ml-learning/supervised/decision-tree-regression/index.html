@@ -14,9 +14,10 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../../../../styles.css?v=50" />
+    <link rel="stylesheet" href="../../../../styles.css?v=73" />
     <script src="../../../../script.js" defer></script>
-    <script src="decision-tree-regression.js?v=3" defer></script>
+    <script src="../regression-navigation.js?v=1" defer></script>
+    <script src="decision-tree-regression.js?v=4" defer></script>
   </head>
   <body class="note-page">
     <header class="site-header">
@@ -49,6 +50,19 @@
         </div>
       </section>
 
+      <section class="lesson-context" aria-labelledby="tree-regression-business-title">
+        <div class="lesson-context-heading">
+          <p class="case-section-label">Business problem</p>
+          <h2 id="tree-regression-business-title">How should a nonlinear GPU market be divided into price regions?</h2>
+        </div>
+        <div class="lesson-context-grid">
+          <article><span>Situation</span><p>Performance tiers, shortages, and inventory gluts create jumps and plateaus that one smooth price line cannot represent.</p></article>
+          <article><span>Problem to solve</span><p>The marketplace needs different numeric estimates for meaningfully different regions of the market.</p></article>
+          <article><span>Why a regression tree</span><p>Threshold questions divide examples into regions, then each leaf predicts the average outcome for its region.</p></article>
+        </div>
+        <aside class="industry-context"><span>Industry context</span><strong>Interpretable foundation; ensembles for production</strong><p>A single regression tree is useful when stakeholders need a visible rule path, but it can be unstable and overfit easily. Random forests and boosted trees usually carry the same nonlinear strength into production with better accuracy and stability.</p></aside>
+      </section>
+
       <section class="supervised-overview">
         <p>
           Linear regression describes the whole market with one line. A
@@ -57,9 +71,11 @@
         </p>
         <p>
           This makes trees good at capturing jumps, plateaus, and other
-          nonlinear patterns. It also creates a danger: a deep tree can keep
-          splitting until it learns the quirks of individual listings instead
-          of the broader market.
+          nonlinear patterns—even when higher performance does not always mean
+          higher price. The synthetic market below includes tier jumps,
+          inventory gluts, and scarcity premiums so one smooth line is visibly
+          inadequate. A deep tree can still keep splitting until it learns
+          individual quirks instead of the broader regions.
         </p>
       </section>
 
@@ -89,7 +105,7 @@
       </section>
 
       <p class="algorithm-path-label">Suggested regression learning path</p>
-      <section class="algo-grid regression-menu" aria-label="Suggested regression learning path">
+      <section class="algo-grid regression-menu" data-regression-navigation data-current="tree" aria-label="Suggested regression learning path">
         <article class="algo-card">
           <span>01</span>
           <h2>Linear Regression</h2>
@@ -136,10 +152,12 @@
       <section class="tree-lab-panel" aria-labelledby="tree-lab-title">
         <div class="tree-lab-heading">
           <p class="case-section-label">Supervised learning | Regression</p>
-          <h2 id="tree-lab-title">A tree turns the market into price bands.</h2>
+          <h2 id="tree-lab-title">A tree turns a chaotic market into price regions.</h2>
           <p>
             Grow the model one split at a time. The chart and tree diagram show
-            the same decisions from two different angles.
+            the same decisions from two different angles. The teaching data is
+            intentionally non-monotonic: nearby performance ranges can occupy
+            very different price regimes.
           </p>
         </div>
 
@@ -149,7 +167,7 @@
               id="tree-regression-canvas"
               width="720"
               height="520"
-              aria-label="GPU performance and price chart with decision tree predictions"
+              aria-label="Non-monotonic GPU performance and price chart with decision tree prediction regions"
             ></canvas>
           </div>
 

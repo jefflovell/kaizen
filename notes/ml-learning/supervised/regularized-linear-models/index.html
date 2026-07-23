@@ -8,8 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../../../../styles.css?v=50" />
+    <link rel="stylesheet" href="../../../../styles.css?v=73" />
     <script src="../../../../script.js" defer></script>
+    <script src="../regression-navigation.js?v=1" defer></script>
     <script src="regularized-linear-models.js?v=1" defer></script>
   </head>
   <body class="note-page">
@@ -33,6 +34,16 @@
         </div>
       </section>
 
+      <section class="lesson-context" aria-labelledby="regularization-business-title">
+        <div class="lesson-context-heading"><p class="case-section-label">Business problem</p><h2 id="regularization-business-title">Which forecasting signals should the model trust?</h2></div>
+        <div class="lesson-context-grid">
+          <article><span>Situation</span><p>A streaming forecast has hundreds of overlapping signals, including noisy metadata and learned embeddings.</p></article>
+          <article><span>Problem to solve</span><p>An ordinary linear model can assign large weights to accidental training patterns that will not survive a new catalog.</p></article>
+          <article><span>Why regularization</span><p>Ridge shrinks unstable weights and Lasso can remove weak ones, trading a little training fit for stronger generalization.</p></article>
+        </div>
+        <aside class="industry-context"><span>Industry context</span><strong>Practical production extension of linear regression</strong><p>Regularized linear models are common when data has many correlated features, sparse inputs, or a strong need for fast and explainable predictions. They are often the right baseline before moving to ensembles or neural networks.</p></aside>
+      </section>
+
       <section class="supervised-overview">
         <p>Imagine predicting first-week completion for a new streaming title from hundreds of signals: tone, cast, franchise history, runtime, release timing, social buzz, and learned embeddings. Ordinary linear regression may assign confident weights to patterns that happened by accident in the training catalog.</p>
         <p>Each signal gets a <strong>coefficient</strong>: a learned weight describing how strongly—and in which direction—that feature changes the prediction. Regularization adds a cost for large coefficients. Ridge gently shrinks every weight; Lasso can remove weak features entirely. Both ask the model to explain the data with less complexity.</p>
@@ -49,7 +60,7 @@
       </section>
 
       <p class="algorithm-path-label">Suggested regression learning path</p>
-      <section class="algo-grid regression-menu" aria-label="Suggested regression learning path">
+      <section class="algo-grid regression-menu" data-regression-navigation data-current="regularized" aria-label="Suggested regression learning path">
         <article class="algo-card"><span>01</span><h2>Linear Regression</h2><p>Fit a straight-line relationship between features and a number.</p><a class="algo-card-link" href="../linear-regression/">Explore linear regression</a></article>
         <article class="algo-card"><span>02</span><h2>Decision Trees</h2><p>Split the feature space into regions with different numeric estimates.</p><a class="algo-card-link" href="../decision-tree-regression/">Explore decision tree regression</a></article>
         <article class="algo-card"><span>03</span><h2>k-Nearest Neighbors</h2><p>Average the outcomes of nearby examples instead of fitting one global rule.</p><a class="algo-card-link" href="../knn-regression/">Explore k-NN regression</a></article>
