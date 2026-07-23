@@ -38,11 +38,29 @@
       <section class="tool-grid family-grid" aria-label="Single planet planner categories">
         <article class="tool-card is-live" style="--accent: #5bd7eb">
           <div class="orbit-art art-hohmann" aria-hidden="true">
-            <span class="planet"></span>
-            <span class="orbit one"></span>
-            <span class="orbit two"></span>
-            <span class="burn burn-a"></span>
-            <span class="burn burn-b"></span>
+            <svg class="planner-card-art" viewBox="0 0 320 190" focusable="false">
+              <text class="planner-kicker" x="18" y="21">01 / LOCAL ORBIT GEOMETRY</text>
+              <ellipse class="planner-reference planner-cyan" cx="160" cy="105" rx="56" ry="20" />
+              <ellipse class="planner-reference planner-green" cx="160" cy="105" rx="92" ry="34" />
+              <ellipse class="planner-reference planner-pink" cx="160" cy="105" rx="82" ry="30" transform="rotate(-18 160 105)" />
+              <path class="planner-axis" d="M48 105 H272" />
+              <circle class="planner-body" cx="160" cy="105" r="25" />
+              <circle class="planner-shine" cx="152" cy="97" r="6" />
+              <path class="planner-front planner-cyan" d="M104 105 A56 20 0 0 0 216 105" />
+              <path class="planner-front planner-green" d="M68 105 A92 34 0 0 0 252 105" />
+              <path class="planner-tail-source" data-tail-color="#5bd7eb" d="M104 105 C104 116 129 125 160 125" />
+              <g class="planner-burn">
+                <path d="M174 125 H198" />
+                <path class="planner-burn-tip" d="M204 125 l-9 -5 v10 z" />
+              </g>
+              <g class="planner-craft" transform="translate(160 125)">
+                <polygon points="-11,-6 11,0 -11,6 -7,0" />
+              </g>
+              <text class="planner-label planner-cyan-fill" x="92" y="91">CURRENT</text>
+              <text class="planner-label planner-green-fill" x="230" y="151">ALTITUDE</text>
+              <text class="planner-label planner-pink-fill" x="218" y="72">PLANE</text>
+              <text class="planner-label planner-green-fill" x="207" y="129">PROGRADE</text>
+            </svg>
           </div>
           <p class="tool-type">Orbit plans</p>
           <h2>Shape, tilt, timing, and coverage around a single body.</h2>
@@ -56,10 +74,32 @@
 
         <article class="tool-card" style="--accent: #8ce66f">
           <div class="orbit-art art-rendezvous-family" aria-hidden="true">
-            <span class="planet"></span>
-            <span class="orbit two"></span>
-            <span class="dot dot-a"></span>
-            <span class="dot dot-b"></span>
+            <svg class="planner-card-art" viewBox="0 0 320 190" focusable="false">
+              <text class="planner-kicker" x="18" y="21">02 / PHASE + INTERCEPT</text>
+              <ellipse class="planner-reference planner-green" cx="160" cy="105" rx="92" ry="34" />
+              <ellipse class="planner-reference planner-amber" cx="160" cy="105" rx="62" ry="23" />
+              <path class="planner-phase" d="M160 105 V128 M160 105 H252" />
+              <path class="planner-phase planner-phase-angle" d="M160 81 A24 24 0 0 1 184 105" />
+              <circle class="planner-body" cx="160" cy="105" r="25" />
+              <circle class="planner-shine" cx="152" cy="97" r="6" />
+              <path class="planner-front planner-green" d="M68 105 A92 34 0 0 0 252 105" />
+              <path class="planner-front planner-amber" d="M98 105 A62 23 0 0 0 222 105" />
+              <path class="planner-tail-source" data-tail-color="#f5b447" d="M98 105 C98 117.7 125.8 128 160 128" />
+              <g class="planner-burn">
+                <path d="M174 128 H198" />
+                <path class="planner-burn-tip" d="M204 128 l-9 -5 v10 z" />
+              </g>
+              <g class="planner-craft" transform="translate(160 128)">
+                <polygon points="-11,-6 11,0 -11,6 -7,0" />
+              </g>
+              <g class="planner-craft planner-craft-secondary" transform="translate(252 105) rotate(-90)">
+                <polygon points="-11,-6 11,0 -11,6 -7,0" />
+              </g>
+              <text class="planner-label planner-green-fill" x="245" y="88">TARGET</text>
+              <text class="planner-label planner-amber-fill" x="174" y="148">CHASER</text>
+              <text class="planner-label planner-amber-fill" x="55" y="145">PHASE ORBIT</text>
+              <text class="planner-label planner-green-fill" x="185" y="87">Δθ 90°</text>
+            </svg>
           </div>
           <p class="tool-type">Rendezvous</p>
           <h2>Meet another craft without turning the map view into performance art.</h2>
@@ -68,15 +108,36 @@
             final matching burn. Phase angle lives here because now there is
             actually something to meet.
           </p>
-          <span class="start-button is-disabled" aria-disabled="true">Coming later</span>
+          <span class="start-button is-disabled" aria-disabled="true">Coming soon</span>
         </article>
 
         <article class="tool-card" style="--accent: #f7b84d">
           <div class="orbit-art art-satellite-family" aria-hidden="true">
-            <span class="planet origin"></span>
-            <span class="planet moon"></span>
-            <span class="ellipse"></span>
-            <span class="burn burn-a"></span>
+            <svg class="planner-card-art" viewBox="0 0 320 190" focusable="false">
+              <text class="planner-kicker" x="18" y="21">03 / PATCHED-CONIC TRANSFER</text>
+              <ellipse class="planner-reference planner-green" cx="115" cy="105" rx="130" ry="48" />
+              <circle class="planner-reference planner-cyan" cx="115" cy="105" r="34" />
+              <path class="planner-path planner-amber" d="M81 105 A68 58.9 0 0 1 217 105" />
+              <circle class="planner-reference planner-pink" cx="245" cy="105" r="28" />
+              <path class="planner-path planner-pink" d="M217 105 C219 126 234 134 248 130 C262 126 269 113 266 101" />
+              <circle class="planner-body" cx="115" cy="105" r="22" />
+              <circle class="planner-shine" cx="108" cy="98" r="6" />
+              <circle class="planner-secondary-body" cx="245" cy="105" r="14" />
+              <circle class="planner-secondary-shine" cx="241" cy="101" r="4" />
+              <path class="planner-front planner-cyan" d="M81 105 A34 34 0 0 0 149 105" />
+              <path class="planner-tail-source" data-tail-color="#5bd7eb" d="M115 139 C96.2 139 81 123.8 81 105" />
+              <g class="planner-burn">
+                <path d="M81 91 V66" />
+                <path class="planner-burn-tip" d="M81 60 l-5 9 h10 z" />
+              </g>
+              <g class="planner-craft" transform="translate(81 105) rotate(-90)">
+                <polygon points="-11,-6 11,0 -11,6 -7,0" />
+              </g>
+              <text class="planner-label planner-green-fill" x="88" y="58">EJECTION</text>
+              <text class="planner-label planner-amber-fill" x="166" y="53">TRANSFER</text>
+              <text class="planner-label planner-pink-fill" x="201" y="140">SOI ENTRY</text>
+              <text class="planner-label planner-pink-fill" x="248" y="147">CAPTURE</text>
+            </svg>
           </div>
           <p class="tool-type">Satellite transfer</p>
           <h2>Kerbin to Mun, Duna to Ike, and other captured-body field trips.</h2>
@@ -86,9 +147,10 @@
             capture burns, and all the polite lies we tell landers before
             descent.
           </p>
-          <span class="start-button is-disabled" aria-disabled="true">Coming later</span>
+          <span class="start-button is-disabled" aria-disabled="true">Coming soon</span>
         </article>
       </section>
     </main>
+    <script src="../planner-card-art.js?v=1"></script>
   </body>
 </html>

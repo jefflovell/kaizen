@@ -85,6 +85,7 @@ body::before {
 .tool-type {
   margin: 0 0 10px;
   color: var(--amber);
+  font-family: var(--tech);
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.09em;
@@ -1438,9 +1439,16 @@ body::before {
 .tool-card h2 {
   margin: 0;
   font-family: "Space Grotesk", sans-serif;
-  font-size: clamp(1.38rem, 2.15vw, 2.1rem);
-  line-height: 1.04;
+  font-size: clamp(1.2rem, 1.65vw, 1.55rem);
+  line-height: 1.12;
   letter-spacing: 0;
+}
+
+.tool-card .tool-type {
+  margin: 0;
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  line-height: 1.15;
+  letter-spacing: 0.065em;
 }
 
 .tool-card p:not(.tool-type) {
@@ -1462,6 +1470,7 @@ body::before {
   border: 1px solid transparent;
   border-radius: 6px;
   background: var(--accent);
+  font-family: var(--tech);
   font-size: 0.84rem;
   font-weight: 800;
   text-decoration: none;
@@ -1488,6 +1497,272 @@ body::before {
     radial-gradient(circle at 50% 55%, rgba(255, 255, 255, 0.05), transparent 7rem),
     #071018;
   background-size: 28px 28px, 28px 28px, auto, auto;
+}
+
+.planner-card-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.planner-card-art :is(
+  circle,
+  ellipse,
+  path,
+  polygon,
+  line
+) {
+  vector-effect: non-scaling-stroke;
+}
+
+.planner-card-art .planner-kicker,
+.planner-card-art .planner-label {
+  font-family: var(--tech);
+  font-weight: 700;
+  letter-spacing: 0.055em;
+}
+
+.planner-card-art .planner-kicker {
+  fill: rgba(155, 176, 184, 0.72);
+  font-size: 8px;
+}
+
+.planner-card-art .planner-label {
+  font-size: 8.5px;
+}
+
+.planner-card-art .planner-body {
+  fill: #174f54;
+  stroke: rgba(122, 220, 210, 0.8);
+  stroke-width: 1.35;
+}
+
+.planner-card-art .planner-shine {
+  fill: rgba(223, 255, 250, 0.46);
+}
+
+.planner-card-art .planner-secondary-body {
+  fill: #70858d;
+  stroke: rgba(237, 247, 248, 0.48);
+  stroke-width: 1.25;
+}
+
+.planner-card-art .planner-secondary-shine {
+  fill: rgba(255, 255, 255, 0.32);
+}
+
+.planner-card-art .planner-reference,
+.planner-card-art .planner-path,
+.planner-card-art .planner-front,
+.planner-card-art .planner-axis,
+.planner-card-art .planner-signal,
+.planner-card-art .planner-phase,
+.planner-card-art .planner-graticule path,
+.planner-card-art .planner-graticule ellipse,
+.planner-card-art .planner-swath,
+.planner-card-art .planner-gap,
+.planner-card-art .planner-apsis-line,
+.planner-card-art .planner-dwell-bracket,
+.planner-card-art .planner-latitude,
+.planner-card-art .planner-latitude-front {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.planner-card-art .planner-reference {
+  stroke-width: 1.15;
+  stroke-dasharray: 4 5;
+  stroke-opacity: 0.62;
+}
+
+.planner-card-art .planner-path {
+  stroke-width: 1.7;
+  stroke-opacity: 0.92;
+}
+
+.planner-card-art .planner-front {
+  stroke-width: 1.55;
+  stroke-opacity: 0.82;
+}
+
+.planner-card-art .planner-rear {
+  stroke-opacity: 0.36;
+}
+
+.planner-card-art .planner-axis {
+  stroke: rgba(155, 176, 184, 0.24);
+  stroke-width: 1;
+  stroke-dasharray: 3 6;
+}
+
+.planner-card-art .planner-datum {
+  stroke: rgba(245, 180, 71, 0.5);
+}
+
+.planner-card-art .planner-cyan { stroke: #5bd7eb; }
+.planner-card-art .planner-green { stroke: #8ce66f; }
+.planner-card-art .planner-amber { stroke: #f5b447; }
+.planner-card-art .planner-pink { stroke: #ff18b0; }
+.planner-card-art .planner-purple { stroke: #a96bff; }
+
+.planner-card-art .planner-cyan-fill { fill: #5bd7eb; }
+.planner-card-art .planner-green-fill { fill: #8ce66f; }
+.planner-card-art .planner-amber-fill { fill: #f5b447; }
+.planner-card-art .planner-pink-fill { fill: #ff18b0; }
+
+.planner-card-art .planner-tail-source {
+  fill: none;
+  stroke: transparent;
+}
+
+.planner-card-art .planner-tail-segment {
+  fill: none;
+  stroke-linecap: butt;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.planner-card-art .planner-craft polygon {
+  fill: #ff704d;
+  stroke: #ffd7cc;
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+
+.planner-card-art .planner-craft-secondary {
+  opacity: 0.76;
+}
+
+.planner-card-art .planner-burn > path:first-child {
+  fill: none;
+  stroke: #4cff4c;
+  stroke-width: 2.6;
+  stroke-linecap: butt;
+}
+
+.planner-card-art .planner-burn .planner-burn-tip {
+  fill: #4cff4c;
+  stroke: none;
+}
+
+.planner-card-art .planner-burn-combined > path:first-child {
+  stroke: #ff18b0;
+}
+
+.planner-card-art .planner-burn-combined .planner-burn-tip {
+  fill: #ff18b0;
+}
+
+.planner-card-art .planner-burn-plane > path:first-child {
+  stroke: #ff18b0;
+}
+
+.planner-card-art .planner-burn-plane .planner-burn-tip {
+  fill: #ff18b0;
+}
+
+.planner-card-art .planner-node {
+  fill: #071018;
+  stroke: rgba(155, 176, 184, 0.72);
+  stroke-width: 1.3;
+}
+
+.planner-card-art .planner-node-active {
+  stroke: #ff18b0;
+  stroke-width: 2;
+}
+
+.planner-card-art .planner-signal {
+  stroke: #5bd7eb;
+  stroke-width: 1.3;
+  stroke-dasharray: 3 4;
+}
+
+.planner-card-art .planner-satellite {
+  fill: #d8f36a;
+  stroke: #071018;
+  stroke-width: 1.2;
+}
+
+.planner-card-art .planner-phase {
+  stroke: rgba(216, 243, 106, 0.18);
+  stroke-width: 1;
+  stroke-dasharray: 2 5;
+}
+
+.planner-card-art .planner-phase-angle {
+  fill: none;
+  stroke: rgba(216, 243, 106, 0.42);
+  stroke-dasharray: 3 3;
+}
+
+.planner-card-art .planner-graticule path,
+.planner-card-art .planner-graticule ellipse {
+  stroke: rgba(91, 215, 235, 0.22);
+  stroke-width: 0.9;
+}
+
+.planner-card-art .planner-swath {
+  stroke: rgba(147, 167, 255, 0.3);
+  stroke-width: 7;
+}
+
+.planner-card-art .planner-shift-arrow,
+.planner-card-art .planner-spin {
+  fill: none;
+  stroke: #f5b447;
+  stroke-width: 1.8;
+  stroke-linecap: butt;
+}
+
+.planner-card-art .planner-shift-tip,
+.planner-card-art .planner-spin-tip {
+  fill: #f5b447;
+}
+
+.planner-card-art .planner-spin-cyan {
+  stroke: #5bd7eb;
+}
+
+.planner-card-art .planner-spin-tip-cyan {
+  fill: #5bd7eb;
+}
+
+.planner-card-art .planner-gap {
+  stroke: #ff18b0;
+  stroke-width: 2.2;
+  stroke-dasharray: 3 3;
+}
+
+.planner-card-art .planner-apsis-line {
+  stroke: rgba(245, 180, 71, 0.25);
+  stroke-width: 1;
+  stroke-dasharray: 2 5;
+}
+
+.planner-card-art .planner-dwell-bracket {
+  stroke: rgba(255, 24, 176, 0.64);
+  stroke-width: 1.4;
+  stroke-dasharray: 3 4;
+}
+
+.planner-card-art .planner-latitude,
+.planner-card-art .planner-latitude-front {
+  stroke: #f5b447;
+  stroke-width: 1.25;
+  stroke-dasharray: 3 4;
+}
+
+.planner-card-art .planner-dogleg {
+  fill: none;
+  stroke: #ff18b0;
+  stroke-width: 2.3;
+  stroke-linecap: butt;
+}
+
+.planner-card-art .planner-dogleg-tip {
+  fill: #ff18b0;
 }
 
 .family-diagram {
@@ -2012,6 +2287,20 @@ body::before {
   .home-header {
     grid-template-columns: 1fr;
     gap: 10px;
+  }
+
+  .home-title h1 {
+    display: block;
+    max-width: 100%;
+    font-size: clamp(1.7rem, 8.5vw, 2rem);
+  }
+
+  .home-title h2 {
+    font-size: clamp(1.12rem, 5.8vw, 1.35rem);
+  }
+
+  .home-copy {
+    font-size: 1rem;
   }
 
   .official-hero,
