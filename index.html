@@ -12,10 +12,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=67" />
+    <link rel="stylesheet" href="styles.css?v=68" />
     <script src="script.js" defer></script>
   </head>
   <body>
@@ -188,14 +188,94 @@
         <div class="project-intro">
           <p>Field note 02</p>
           <h2>Kerbal Space Program Orbital Maneuvers</h2>
-          <div class="ksp-note-preview" aria-hidden="true">
-            <span class="ksp-planet"></span>
-            <span class="ksp-orbit orbit-inner"></span>
-            <span class="ksp-orbit orbit-outer"></span>
-            <span class="ksp-transfer"></span>
-            <span class="ksp-burn burn-one"></span>
-            <span class="ksp-burn burn-two"></span>
-          </div>
+          <figure
+            class="ksp-note-preview"
+            role="img"
+            aria-label="Technical drawing of a two-burn Hohmann transfer from a low Kerbin orbit to a higher circular orbit"
+          >
+            <svg class="ksp-technical-drawing" viewBox="0 0 560 320" focusable="false">
+              <title>Two-burn Hohmann orbit raise around Kerbin</title>
+
+              <g class="ksp-plate-header">
+                <text x="24" y="28">ORBIT PLAN 01 / HOHMANN RAISE</text>
+                <text class="ksp-plate-id" x="536" y="28" text-anchor="end">KERBIN // LOCAL FRAME</text>
+                <path d="M24 39 H536" />
+              </g>
+
+              <g class="ksp-construction-lines">
+                <path d="M32 172 H516" />
+                <path d="M260 54 V285" />
+                <circle cx="260" cy="172" r="136" />
+                <path d="M24 58 v-16 h16 M520 42 h16 v16 M24 278 v16 h16 M520 294 h16 v-16" />
+              </g>
+
+              <g class="ksp-orbit-geometry">
+                <circle class="ksp-tech-orbit ksp-tech-orbit-inner" cx="260" cy="172" r="64" />
+                <circle class="ksp-tech-orbit ksp-tech-orbit-outer" cx="260" cy="172" r="118" />
+                <path class="ksp-tech-transfer-guide" d="M196 172 A91 87 0 0 1 378 172" />
+                <path class="ksp-tech-transfer-motion" pathLength="160" d="M196 172 A91 87 0 0 1 378 172" />
+              </g>
+
+              <g class="ksp-tech-dimensions">
+                <path d="M260 172 V108 M254 108 H266" />
+                <path d="M260 172 V54 M254 54 H266" />
+                <text x="268" y="101">r₁ / PARKING ORBIT</text>
+                <text x="268" y="65">r₂ / TARGET ORBIT</text>
+              </g>
+
+              <g class="ksp-tech-planet">
+                <circle cx="260" cy="172" r="40" />
+                <path d="M230 163 C242 151 247 159 255 153 C264 146 274 151 283 145" />
+                <path d="M226 181 C237 174 248 184 258 178 C267 173 278 181 292 171" />
+                <path d="M238 194 C250 189 263 196 277 188" />
+                <circle class="ksp-tech-planet-shine" cx="247" cy="159" r="6" />
+                <text x="260" y="176" text-anchor="middle">KERBIN</text>
+              </g>
+
+              <g class="ksp-tech-node ksp-tech-node-one" transform="translate(196 172)">
+                <circle r="8" />
+                <path class="ksp-node-crosshair" d="M-14 0 H14 M0 -14 V14" />
+                <g class="ksp-tech-craft" transform="rotate(-90)">
+                  <polygon points="-11,-6 11,0 -11,6 -7,0" />
+                </g>
+                <path class="ksp-burn-vector" d="M0 -17 V-43" />
+                <path class="ksp-burn-tip" d="M0 -49 l-5 9 h10 z" />
+              </g>
+
+              <g class="ksp-tech-node ksp-tech-node-two" transform="translate(378 172)">
+                <circle r="8" />
+                <path class="ksp-node-crosshair" d="M-14 0 H14 M0 -14 V14" />
+                <g class="ksp-tech-craft" transform="rotate(90)">
+                  <polygon points="-11,-6 11,0 -11,6 -7,0" />
+                </g>
+                <path class="ksp-burn-vector" d="M0 17 V43" />
+                <path class="ksp-burn-tip" d="M0 49 l-5 -9 h10 z" />
+              </g>
+
+              <g class="ksp-tech-labels">
+                <path d="M148 112 H194 L203 124" />
+                <text x="82" y="108">01 / PROGRADE</text>
+                <text x="82" y="121">ENTER TRANSFER</text>
+
+                <path d="M369 125 L386 104 H450" />
+                <text x="394" y="90">02 / PROGRADE</text>
+                <text x="394" y="103">CIRCULARIZE</text>
+
+                <path d="M292 229 L319 250 H392" />
+                <text class="ksp-transfer-label" x="400" y="253">TRANSFER ARC / ½ PERIOD</text>
+              </g>
+
+              <g class="ksp-plate-footer">
+                <path d="M24 278 H536" />
+                <text x="24" y="299">Δv₁</text>
+                <text x="68" y="299">PROGRADE</text>
+                <text x="199" y="299">COAST</text>
+                <text x="276" y="299">APOAPSIS</text>
+                <text x="404" y="299">Δv₂</text>
+                <text x="448" y="299">PROGRADE</text>
+              </g>
+            </svg>
+          </figure>
         </div>
         <div class="project-detail">
           <span class="status status-under-construction"><i></i> Under construction</span>
