@@ -335,24 +335,205 @@ a {
 }
 
 .thought-article-body {
-  width: min(780px, 100%);
+  width: 100%;
   margin: 58px auto 0;
 }
 
-.thought-article-body p {
+.thought-section > p {
+  width: min(780px, 100%);
+  margin-right: auto;
   margin-bottom: 1.55em;
+  margin-left: auto;
   color: #2d3345;
   font-size: clamp(1.05rem, 1.4vw, 1.16rem);
   line-height: 1.82;
 }
 
-.thought-article-body > p:first-child {
+.thought-section-intro > p:first-child {
   color: var(--ink);
   font-family: var(--display);
   font-size: clamp(1.35rem, 2.1vw, 1.7rem);
   font-weight: 500;
   letter-spacing: -0.025em;
   line-height: 1.48;
+}
+
+.thought-section-heading {
+  position: relative;
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr);
+  gap: 28px;
+  align-items: end;
+  width: min(1040px, 100%);
+  margin: 108px auto 50px;
+  padding: 0 0 28px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.thought-section-heading::after {
+  position: absolute;
+  right: 0;
+  bottom: -9px;
+  width: 16px;
+  height: 16px;
+  background: var(--coral);
+  box-shadow: -24px 0 0 var(--blue), -48px 0 0 var(--lavender);
+  content: "";
+}
+
+.thought-section-heading > span {
+  color: var(--blue);
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.thought-section-heading h2 {
+  max-width: 860px;
+  margin: 0;
+  font-size: clamp(2.8rem, 5.3vw, 5.25rem);
+  letter-spacing: -0.065em;
+  line-height: 0.94;
+}
+
+.thought-pullquote {
+  position: relative;
+  width: min(950px, calc(100% - 48px));
+  margin: 74px auto 84px;
+  padding: 46px 58px 48px;
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  background:
+    linear-gradient(110deg, rgba(49, 85, 245, 0.07), transparent 52%),
+    rgba(255, 255, 255, 0.66);
+}
+
+.thought-pullquote::before {
+  position: absolute;
+  top: 24px;
+  left: 22px;
+  color: var(--coral);
+  font-family: Georgia, serif;
+  font-size: 5.5rem;
+  line-height: 1;
+  content: "“";
+}
+
+.thought-pullquote-right {
+  margin-right: 0;
+}
+
+.thought-pullquote p {
+  max-width: 780px;
+  margin: 0 auto;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: clamp(2rem, 3.8vw, 3.65rem);
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 1.08;
+}
+
+.thought-story-example {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.34fr) minmax(0, 1fr);
+  gap: clamp(34px, 6vw, 74px);
+  width: min(1040px, 100%);
+  margin: 0 auto;
+  padding: 48px 0;
+  border-top: 1px solid rgba(19, 24, 43, 0.24);
+}
+
+.thought-story-example:last-child {
+  border-bottom: 1px solid rgba(19, 24, 43, 0.24);
+}
+
+.thought-story-example h3 {
+  margin: 7px 0 0;
+  color: var(--blue);
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.thought-story-example h3 span {
+  display: block;
+  margin-top: 10px;
+  color: var(--muted);
+  font-family: var(--body);
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.35;
+  text-transform: none;
+}
+
+.thought-story-copy p {
+  margin: 0;
+  color: #2d3345;
+  font-size: clamp(1.05rem, 1.4vw, 1.16rem);
+  line-height: 1.82;
+}
+
+.thought-story-copy p + p {
+  margin-top: 1.55em;
+}
+
+.thought-big-question {
+  display: block;
+  margin: 34px 0 44px;
+  padding-left: 28px;
+  border-left: 8px solid var(--blue);
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: clamp(1.75rem, 3vw, 2.85rem);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 1.16;
+}
+
+.thought-blockquote {
+  position: relative;
+  width: min(940px, 100%);
+  margin: 68px auto 78px;
+  padding: 58px clamp(32px, 7vw, 92px);
+  border: 2px solid var(--ink);
+  background: var(--ink);
+  box-shadow: 14px 14px 0 var(--blue);
+}
+
+.thought-blockquote::after {
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  width: 18px;
+  height: 18px;
+  background: var(--coral);
+  box-shadow: -28px 0 0 var(--lavender);
+  content: "";
+}
+
+.thought-blockquote p {
+  margin: 0 0 24px;
+  color: #fff;
+  font-family: var(--display);
+  font-size: clamp(2.4rem, 5vw, 4.8rem);
+  font-weight: 600;
+  letter-spacing: -0.065em;
+  line-height: 0.98;
+}
+
+.thought-blockquote cite {
+  color: var(--lavender);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .thought-article-body em {
@@ -367,9 +548,9 @@ a {
 .thought-divider {
   display: flex;
   align-items: center;
-  width: 100%;
+  width: min(1040px, 100%);
   height: 28px;
-  margin: 64px 0;
+  margin: 96px auto 0;
   border: 0;
 }
 
@@ -7014,8 +7195,71 @@ h1 {
     line-height: 1.76;
   }
 
+  .thought-section-heading {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin: 76px auto 36px;
+    padding-bottom: 24px;
+  }
+
+  .thought-section-heading h2 {
+    font-size: clamp(2.65rem, 13vw, 4rem);
+  }
+
+  .thought-pullquote,
+  .thought-pullquote-right {
+    width: 100%;
+    margin: 52px 0 62px;
+    padding: 44px 24px 38px;
+  }
+
+  .thought-pullquote::before {
+    top: 15px;
+    left: 14px;
+    font-size: 4.2rem;
+  }
+
+  .thought-pullquote p {
+    font-size: clamp(1.85rem, 9vw, 2.65rem);
+    line-height: 1.08;
+  }
+
+  .thought-story-example {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 36px 0;
+  }
+
+  .thought-story-example h3 {
+    margin-top: 0;
+  }
+
+  .thought-story-copy p {
+    font-size: 1.03rem;
+    line-height: 1.76;
+  }
+
+  .thought-big-question {
+    margin: 28px 0 36px;
+    padding-left: 20px;
+    border-left-width: 6px;
+    font-size: clamp(1.65rem, 8vw, 2.35rem);
+    line-height: 1.14;
+  }
+
+  .thought-blockquote {
+    margin: 52px 0 64px;
+    padding: 52px 24px 40px;
+    box-shadow: 8px 8px 0 var(--blue);
+  }
+
+  .thought-blockquote p {
+    font-size: clamp(2.25rem, 11vw, 3.5rem);
+    line-height: 0.98;
+  }
+
   .thought-divider {
-    margin: 46px 0;
+    margin: 68px 0 0;
   }
 
   .menu-toggle {
