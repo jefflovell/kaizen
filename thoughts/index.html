@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Thoughts on building, learning, and making complicated things easier to understand."
+    />
+    <title>Thoughts | Kaizen</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css?v=70" />
+    <script src="../script.js" defer></script>
+  </head>
+  <body class="thoughts-page">
+    <header class="site-header">
+      <a class="brand" href="../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+        <a href="../#about">About</a>
+        <a href="../#notes">Notes</a>
+        <a href="../#work">Work</a>
+        <a href="./" aria-current="page">Thoughts</a>
+        <a href="../#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="thoughts-hero" aria-labelledby="thoughts-title">
+        <div class="thoughts-hero-copy">
+          <h1 id="thoughts-title">Thoughts</h1>
+          <p>
+            Essays on building, learning, and making complicated things easier
+            to understand.
+          </p>
+        </div>
+        <div class="thoughts-thread" aria-hidden="true">
+          <svg viewBox="0 0 570 250" focusable="false">
+            <path d="M82 42 H270 C335 42 342 116 414 116 H508" />
+            <path d="M58 83 H264 C326 83 346 116 414 116 H522" />
+            <path d="M96 124 H522" />
+            <path d="M62 165 H264 C326 165 346 124 414 124 H522" />
+            <path d="M104 206 H270 C335 206 342 124 414 124 H508" />
+            <path class="thread-dash" d="M18 42 H64 M22 124 H78 M18 206 H86" />
+            <rect class="thread-ink" x="34" y="29" width="13" height="13" />
+            <rect class="thread-blue" x="70" y="68" width="25" height="15" />
+            <rect class="thread-coral" x="35" y="151" width="13" height="13" />
+            <rect class="thread-lavender" x="88" y="191" width="17" height="15" />
+            <rect class="thread-blue" x="288" y="112" width="31" height="19" />
+            <rect class="thread-ink" x="526" y="108" width="8" height="8" />
+            <rect class="thread-blue" x="542" y="108" width="8" height="8" />
+            <rect class="thread-coral" x="526" y="124" width="8" height="8" />
+            <rect class="thread-lavender" x="542" y="124" width="8" height="8" />
+          </svg>
+        </div>
+      </section>
+
+      <section class="thoughts-list" aria-label="Published thoughts">
+        <article class="thought-card thought-card-featured">
+          <p class="thought-meta">Thought 01</p>
+          <h2>I Want to Believe</h2>
+          <p>
+            What do <em>The X-Files</em>, <em>The Iliad</em>, and
+            <em>Saving Private Ryan</em> have in common?
+          </p>
+          <a class="thought-link" href="./i-want-to-believe/">
+            Read the thought <span aria-hidden="true">→</span>
+          </a>
+        </article>
+      </section>
+    </main>
+
+    <footer id="contact" class="site-footer">
+      <p>Built with care and a little curiosity.</p>
+      <a href="https://github.com/jefflovell" rel="me">@jefflovell</a>
+      <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+    </footer>
+  </body>
+</html>
