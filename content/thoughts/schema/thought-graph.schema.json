@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jefflovell.github.io/kaizen/schema/thought-graph.schema.json",
+  "title": "Kaizen Thoughts Explorer Graph",
+  "type": "object",
+  "required": ["version", "dimensions", "nodes", "edges"],
+  "properties": {
+    "version": { "type": "string" },
+    "dimensions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "label", "question"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+          "label": { "type": "string" },
+          "question": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "type",
+          "status",
+          "summary",
+          "question",
+          "minutes",
+          "dimensions",
+          "position"
+        ],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+          "title": { "type": "string" },
+          "eyebrow": { "type": "string" },
+          "type": { "enum": ["thought", "concept", "work"] },
+          "status": { "enum": ["published", "planned", "reference"] },
+          "url": { "type": "string" },
+          "summary": { "type": "string" },
+          "question": { "type": "string" },
+          "minutes": { "type": "integer", "minimum": 1 },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "dimensions": {
+            "type": "object",
+            "additionalProperties": { "type": "number", "minimum": 0, "maximum": 1 }
+          },
+          "position": {
+            "type": "object",
+            "required": ["x", "y"],
+            "properties": {
+              "x": { "type": "number", "minimum": 0, "maximum": 100 },
+              "y": { "type": "number", "minimum": 0, "maximum": 100 }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source", "target", "type", "weight", "reason"],
+        "properties": {
+          "source": { "type": "string" },
+          "target": { "type": "string" },
+          "type": { "enum": ["supports", "challenges", "reframes", "applies", "context"] },
+          "weight": { "type": "number", "minimum": 0, "maximum": 1 },
+          "dimensions": { "type": "array", "items": { "type": "string" } },
+          "reason": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
