@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Explore Kaizen Thoughts by idea, question, and conceptual path."
+    />
+    <title>Explore the Thoughts | Kaizen</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../styles.css?v=71" />
+    <link rel="stylesheet" href="./explorer.css?v=1" />
+    <script src="../../script.js" defer></script>
+    <script src="./explorer.js?v=1" defer></script>
+  </head>
+  <body class="thoughts-page explorer-page">
+    <header class="site-header">
+      <a class="brand" href="../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+        <a href="../../#about">About</a>
+        <a href="../../#notes">Notes</a>
+        <a href="../../#work">Work</a>
+        <a href="../" aria-current="page">Thoughts</a>
+        <a href="../../#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top" class="explorer-main">
+      <section class="explorer-intro" aria-labelledby="explorer-title">
+        <p class="explorer-kicker">A field guide through the library</p>
+        <h1 id="explorer-title">Explore the Thoughts.</h1>
+        <p>
+          Pick an idea, choose the question underneath it, and follow a path
+          through the books, myths, systems, and arguments that connect them.
+        </p>
+      </section>
+
+      <section class="route-controls" aria-labelledby="route-controls-title">
+        <h2 id="route-controls-title" class="sr-only">Build a path</h2>
+        <div class="control-group">
+          <label for="start-node">Start with</label>
+          <select id="start-node" name="start"></select>
+        </div>
+
+        <div class="control-group">
+          <label for="dimension">Explore by</label>
+          <select id="dimension" name="dimension"></select>
+        </div>
+
+        <fieldset class="control-group time-control">
+          <legend>I have</legend>
+          <div class="segmented-control">
+            <input type="radio" id="minutes-5" name="minutes" value="5" />
+            <label for="minutes-5">5 min</label>
+            <input type="radio" id="minutes-15" name="minutes" value="15" checked />
+            <label for="minutes-15">15 min</label>
+            <input type="radio" id="minutes-30" name="minutes" value="30" />
+            <label for="minutes-30">30 min</label>
+          </div>
+        </fieldset>
+
+        <div class="control-actions">
+          <button id="find-path" class="primary-action" type="button">
+            Find a path <span aria-hidden="true">→</span>
+          </button>
+          <button id="surprise-me" class="text-action" type="button">
+            Surprise me <span aria-hidden="true">↗</span>
+          </button>
+        </div>
+      </section>
+
+      <p id="explorer-status" class="sr-only" role="status" aria-live="polite"></p>
+
+      <section class="explorer-workspace" aria-label="Thoughts path explorer">
+        <div class="map-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">The terrain</p>
+              <h2>Connections</h2>
+            </div>
+            <div class="view-switcher" aria-label="Connection view">
+              <button type="button" data-view="map" aria-pressed="true">Map</button>
+              <button type="button" data-view="list" aria-pressed="false">List</button>
+            </div>
+          </div>
+
+          <div id="graph-map" class="graph-map" aria-label="Interactive map of connected thoughts">
+            <svg
+              id="thought-graph"
+              viewBox="0 0 1000 660"
+              role="img"
+              aria-labelledby="graph-title graph-description"
+              preserveAspectRatio="xMidYMid meet"
+            >
+              <title id="graph-title">Map of connected Kaizen Thoughts</title>
+              <desc id="graph-description">
+                Select a labeled node to begin a new path. The adjacent list contains the same items.
+              </desc>
+              <g id="graph-edges"></g>
+              <g id="graph-nodes"></g>
+            </svg>
+          </div>
+
+          <div id="graph-list" class="graph-list" hidden></div>
+
+          <div class="map-footer">
+            <div class="edge-legend" aria-label="Connection types">
+              <span class="legend-item"><i class="legend-line supports"></i>Supports</span>
+              <span class="legend-item"><i class="legend-line challenges"></i>Challenges</span>
+              <span class="legend-item"><i class="legend-line reframes"></i>Reframes</span>
+              <span class="legend-item"><i class="legend-line applies"></i>Applies</span>
+              <span class="legend-item"><i class="legend-line context"></i>Context</span>
+            </div>
+            <button id="reset-map" class="text-action reset-action" type="button">Reset map</button>
+          </div>
+        </div>
+
+        <aside class="route-panel" aria-labelledby="route-title">
+          <div class="route-heading">
+            <p class="panel-kicker">Your route</p>
+            <h2 id="route-title">A path through adaptation</h2>
+            <p id="route-question" class="route-question"></p>
+          </div>
+
+          <ol id="route-list" class="route-list"></ol>
+
+          <div class="route-footer">
+            <p id="route-summary"></p>
+            <button id="copy-route" class="copy-action" type="button">Copy path link</button>
+          </div>
+        </aside>
+      </section>
+
+      <section class="explorer-note" aria-labelledby="how-title">
+        <p class="panel-kicker">What the machine is—and is not—doing</p>
+        <h2 id="how-title">The connections are editorial. The route is computational.</h2>
+        <p>
+          Every line on this map has a human-written reason. The route finder
+          weighs those connections against your question and time budget, then
+          looks for a coherent path with a little room for surprise. As the
+          library grows, semantic embeddings can help discover overlooked
+          neighbors—but they will propose connections, not pronounce truth.
+        </p>
+        <a href="../">Return to all Thoughts <span aria-hidden="true">→</span></a>
+      </section>
+
+      <noscript>
+        <p class="noscript-note">
+          This map needs JavaScript to calculate routes. You can still browse the
+          published essays from the <a href="../">Thoughts index</a>.
+        </p>
+      </noscript>
+    </main>
+
+    <footer id="contact" class="site-footer">
+      <p>Built with care and a little curiosity.</p>
+      <a href="https://github.com/jefflovell" rel="me">@jefflovell</a>
+      <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+    </footer>
+  </body>
+</html>

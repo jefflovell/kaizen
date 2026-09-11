@@ -10,3 +10,6 @@ site-mobile.png
 
 # Local generated outputs
 tmp/
+
+# macOS metadata
+.DS_Store

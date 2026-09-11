@@ -224,6 +224,12 @@ a {
   box-shadow: 13px 13px 0 var(--lavender);
 }
 
+.thought-card-field-guide {
+  grid-column: 1 / span 8;
+  margin-top: 4px;
+  box-shadow: 13px 13px 0 var(--coral);
+}
+
 .thought-card-empty {
   grid-column: 1 / -1;
   display: flex;
@@ -321,6 +327,35 @@ a {
   max-width: 1000px;
   margin-bottom: 24px;
   font-size: clamp(4.2rem, 9vw, 8.4rem);
+}
+
+.thought-article-header h1 em {
+  font-style: italic;
+}
+
+.thought-article-header-long h1 {
+  font-size: clamp(3.8rem, 7.5vw, 7.2rem);
+}
+
+.thought-article-status {
+  margin: 0 0 16px;
+  color: var(--blue);
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.thought-subtitle {
+  max-width: 850px;
+  margin: -8px 0 18px;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: clamp(1.55rem, 3vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
 }
 
 .thought-deck {
@@ -495,6 +530,16 @@ a {
   line-height: 1.16;
 }
 
+.thought-big-question span {
+  display: block;
+  margin-top: 14px;
+  color: var(--coral);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .thought-blockquote {
   position: relative;
   width: min(940px, 100%);
@@ -560,6 +605,47 @@ a {
   height: 8px;
   background: var(--blue);
   box-shadow: 14px 14px 0 var(--coral), 42px 0 0 var(--lavender);
+}
+
+.thought-continuation {
+  position: relative;
+  width: min(1040px, 100%);
+  margin: 104px auto 0;
+  padding: clamp(50px, 8vw, 92px) clamp(28px, 7vw, 82px);
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  color: #fff;
+  background: var(--ink);
+  box-shadow: 14px 14px 0 var(--coral);
+}
+
+.thought-continuation::after {
+  position: absolute;
+  top: 26px;
+  right: 28px;
+  width: 16px;
+  height: 16px;
+  background: var(--coral);
+  box-shadow: -26px 0 0 var(--blue), -52px 0 0 var(--lavender);
+  content: "";
+}
+
+.thought-continuation > span {
+  color: var(--lavender);
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.thought-continuation p {
+  margin: 16px 0 0;
+  color: #fff;
+  font-family: var(--display);
+  font-size: clamp(3.1rem, 8vw, 7rem);
+  font-weight: 600;
+  letter-spacing: -0.07em;
+  line-height: 0.95;
 }
 
 .hero {
@@ -6913,6 +6999,7 @@ h1 {
 
   .thought-card-featured,
   .thought-card-secondary,
+  .thought-card-field-guide,
   .thought-card-empty {
     grid-column: 1 / -1;
   }
@@ -7156,6 +7243,7 @@ h1 {
 
   .thought-card-featured,
   .thought-card-secondary,
+  .thought-card-field-guide,
   .thought-card-empty {
     margin-top: 0;
     box-shadow: 8px 8px 0 var(--blue);
@@ -7165,12 +7253,17 @@ h1 {
     box-shadow: 8px 8px 0 var(--lavender);
   }
 
+  .thought-card-field-guide {
+    margin-top: 0;
+    box-shadow: 8px 8px 0 var(--coral);
+  }
+
   .thought-card h2 {
     font-size: clamp(2rem, 10vw, 2.7rem);
   }
 
   .thought-article-shell {
-    width: min(100% - 32px, 1200px);
+    width: min(1200px, calc(100% - 32px));
     padding: 46px 0 82px;
   }
 
@@ -7184,6 +7277,14 @@ h1 {
 
   .thought-article-header h1 {
     font-size: clamp(3.65rem, 18vw, 5.2rem);
+  }
+
+  .thought-article-header-long h1 {
+    font-size: clamp(3.1rem, 15vw, 4.6rem);
+  }
+
+  .thought-subtitle {
+    margin-top: -2px;
   }
 
   .thought-article-body {
@@ -7255,6 +7356,22 @@ h1 {
 
   .thought-blockquote p {
     font-size: clamp(2.25rem, 11vw, 3.5rem);
+    line-height: 0.98;
+  }
+
+  .thought-continuation {
+    margin-top: 72px;
+    padding: 54px 24px 50px;
+    box-shadow: 8px 8px 0 var(--coral);
+  }
+
+  .thought-continuation::after {
+    top: 18px;
+    right: 18px;
+  }
+
+  .thought-continuation p {
+    font-size: clamp(2.45rem, 13vw, 3.5rem);
     line-height: 0.98;
   }
 
