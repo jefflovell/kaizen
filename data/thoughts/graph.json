@@ -28,13 +28,13 @@
     {
       "id": "odyssey",
       "title": "The Fuzzy Logic of Nolan’s Odyssey",
-      "eyebrow": "Thought 02 · Prologue",
+      "eyebrow": "Thought 02 · In progress",
       "type": "thought",
       "status": "published",
       "url": "../fuzzy-logic-of-nolans-odyssey/",
       "summary": "The Ship of Theseus, the Sorites paradox, and how Nolan betrays Homer faithfully.",
       "question": "Can changing a classic be the most faithful way to preserve it?",
-      "minutes": 6,
+      "minutes": 16,
       "tags": ["Nolan", "Odyssey", "adaptation", "zeitgeist", "myth"],
       "dimensions": { "adaptation": 1, "otherness": 0.45, "legitimacy": 0.35, "agency": 0.55 },
       "position": { "x": 22, "y": 48 }
