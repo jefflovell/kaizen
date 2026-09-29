@@ -1,110 +1,15 @@
 /* Shared presentation for the serialized Odyssey essay. */
-.odyssey-series {
-  grid-column: 1 / -1;
-  min-width: 0;
-  padding-bottom: 34px;
-}
-
-.odyssey-series-heading {
-  max-width: 960px;
-  margin-bottom: 34px;
-}
-
-.odyssey-series-heading h2 {
+.odyssey-card-subtitle {
   margin: 0 0 18px;
   font-family: var(--display);
-  font-size: clamp(2.7rem, 4.8vw, 4.5rem);
-  line-height: 1.02;
-  letter-spacing: -0.055em;
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.02em;
 }
 
-.odyssey-series-heading > p:last-child {
-  max-width: 710px;
-  color: var(--muted);
-  font-size: 1.15rem;
-}
-
-.odyssey-series-cards {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 28px;
-  padding-right: 10px;
-}
-
-.odyssey-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  padding: 28px;
-  border: 2px solid var(--ink);
-  background: var(--paper);
-  box-shadow: 10px 10px 0 var(--blue);
-}
-
-.odyssey-card::after {
-  content: "";
-  position: absolute;
-  top: 93px;
-  right: 28px;
-  width: 12px;
-  height: 12px;
-  background: var(--coral);
-  box-shadow: -18px 0 0 var(--blue), -36px 0 0 var(--lavender);
-}
-
-.odyssey-card-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 12px;
-  min-height: 46px;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.055em;
-  text-transform: uppercase;
-}
-
-.odyssey-latest {
-  padding: 3px 7px;
-  color: var(--ink);
-  background: var(--coral);
-}
-
-.odyssey-card-number {
-  display: block;
-  margin: 0 0 26px;
+.odyssey-card-subtitle > span {
   color: var(--blue);
-  font-family: var(--display);
-  font-size: 4.5rem;
-  font-weight: 600;
-  letter-spacing: -0.065em;
-  line-height: 1;
-}
-
-.odyssey-card h3 {
-  margin: 0 0 20px;
-  font-family: var(--display);
-  font-size: clamp(1.65rem, 2.5vw, 2.25rem);
-  line-height: 1.08;
-  letter-spacing: -0.045em;
-}
-
-.odyssey-card > p {
-  margin: 0 0 32px;
-  color: var(--muted);
-  line-height: 1.65;
-}
-
-.odyssey-card .thought-link {
-  align-self: flex-start;
-  margin-top: auto;
-}
-
-.odyssey-reading-time {
-  margin-top: 12px;
-  color: var(--muted);
-  font-size: 0.8rem;
 }
 
 .odyssey-part-label {
@@ -171,7 +76,7 @@
   white-space: nowrap;
 }
 
-.odyssey-series a:focus-visible,
+.odyssey-library-card a:focus-visible,
 .odyssey-series-nav a:focus-visible,
 .thought-continuation-link:focus-visible {
   outline: 3px solid var(--blue);
@@ -202,47 +107,7 @@
   letter-spacing: -0.045em;
 }
 
-@media (max-width: 1000px) {
-  .odyssey-series-cards {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  .odyssey-card {
-    padding: 28px 32px;
-  }
-
-  .odyssey-card h3 {
-    font-size: clamp(2rem, 5vw, 2.8rem);
-  }
-
-  .odyssey-card-meta {
-    min-height: 32px;
-  }
-
-  .odyssey-card-number {
-    margin-bottom: 20px;
-  }
-
-  .odyssey-card::after {
-    top: 82px;
-    right: 32px;
-  }
-}
-
 @media (max-width: 600px) {
-  .odyssey-series-heading h2 {
-    font-size: 2.65rem;
-  }
-
-  .odyssey-card {
-    padding: 24px;
-  }
-
-  .odyssey-card::after {
-    right: 24px;
-  }
-
   .odyssey-series-nav {
     gap: 0 18px;
   }
