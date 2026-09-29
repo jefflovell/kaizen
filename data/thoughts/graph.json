@@ -27,17 +27,45 @@
     },
     {
       "id": "odyssey",
-      "title": "The Fuzzy Logic of Nolan’s Odyssey",
-      "eyebrow": "Thought 02 · In progress",
+      "title": "A Faithful Betrayal of Homer",
+      "eyebrow": "Odyssey · Part 1 · Prologue",
       "type": "thought",
       "status": "published",
       "url": "../fuzzy-logic-of-nolans-odyssey/",
-      "summary": "The Ship of Theseus, the Sorites paradox, and how Nolan betrays Homer faithfully.",
-      "question": "Can changing a classic be the most faithful way to preserve it?",
-      "minutes": 16,
-      "tags": ["Nolan", "Odyssey", "adaptation", "zeitgeist", "myth"],
-      "dimensions": { "adaptation": 1, "otherness": 0.45, "legitimacy": 0.35, "agency": 0.55 },
-      "position": { "x": 22, "y": 48 }
+      "summary": "The Ship of Theseus, the Sorites paradox, and why nobody comes home unchanged.",
+      "question": "How much can a story change and still be itself?",
+      "minutes": 7,
+      "tags": ["Nolan","Odyssey","adaptation","zeitgeist","myth"],
+      "dimensions": {"adaptation":1,"otherness":0.45,"legitimacy":0.35,"agency":0.55},
+      "position": {"x":22,"y":48}
+    },
+    {
+      "id": "odyssey-taxidermy",
+      "title": "Taxidermy Is Not Authenticity",
+      "eyebrow": "Odyssey · Part 2",
+      "type": "thought",
+      "status": "published",
+      "url": "../taxidermy-is-not-authenticity/",
+      "summary": "A living tradition survives by changing shape. A dead one survives by being labeled correctly.",
+      "question": "What should an adaptation preserve: events, values, or the work a story does?",
+      "minutes": 10,
+      "tags": ["Nolan","Odyssey","adaptation","fidelity","myth"],
+      "dimensions": {"adaptation":1,"otherness":0.6,"legitimacy":0.45},
+      "position": {"x":7,"y":40}
+    },
+    {
+      "id": "odyssey-horse",
+      "title": "The Horse Was Made of Trust",
+      "eyebrow": "Odyssey · Part 3",
+      "type": "thought",
+      "status": "published",
+      "url": "../the-horse-was-made-of-trust/",
+      "summary": "Odysseus turns trust into a weapon, and victory becomes a question of responsibility.",
+      "question": "What survives a victory when winning becomes the only rule?",
+      "minutes": 13,
+      "tags": ["Nolan","Odyssey","trust","agency","adaptation"],
+      "dimensions": {"agency":1,"adaptation":0.85,"power":0.95,"legitimacy":0.9},
+      "position": {"x":37,"y":55}
     },
     {
       "id": "odysseus-ajax",
@@ -249,6 +277,9 @@
     }
   ],
   "edges": [
+    {"source":"odyssey","target":"odyssey-taxidermy","type":"context","weight":1,"dimensions":["adaptation"],"reason":"Part 2 develops the prologue's question through three kinds of fidelity."},
+    {"source":"odyssey-taxidermy","target":"odyssey-horse","type":"applies","weight":1,"dimensions":["adaptation","agency"],"reason":"Part 3 tests the adaptation argument against the Horse and the betrayal of trust."},
+    {"source":"odyssey-horse","target":"principled-adaptation","type":"challenges","weight":0.95,"dimensions":["adaptation","agency"],"reason":"The Horse asks what adaptation becomes when victory overrides every other obligation."},
     { "source": "believe", "target": "maps-models", "type": "supports", "weight": 0.98, "dimensions": ["otherness", "adaptation"], "reason": "The essay's central warning is that our categories are useful maps, not the outer boundary of reality." },
     { "source": "believe", "target": "odyssey", "type": "reframes", "weight": 0.7, "dimensions": ["adaptation", "otherness"], "reason": "Both ask how a familiar story changes when it meets the needs and fears of a different present." },
     { "source": "believe", "target": "dont-panic", "type": "context", "weight": 0.72, "dimensions": ["absurdity", "otherness"], "reason": "Spielberg's wonder and Adams's composure offer different humane responses to an unknowable universe." },
