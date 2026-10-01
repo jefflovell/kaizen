@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-02",
+  "version": "2026-10-01",
   "dimensions": [
     { "id": "adaptation", "label": "Adaptation", "question": "When is flexibility wisdom, and when is it surrender?" },
     { "id": "agency", "label": "Agency", "question": "Who is acting, and who is being used as an instrument?" },
@@ -11,6 +11,35 @@
     { "id": "otherness", "label": "Otherness", "question": "What happens when we meet a mind, culture, or model unlike our own?" }
   ],
   "nodes": [
+    {
+      "id": "odyssey-accountability",
+      "title": "Fate vs. Free Will and the Problem of Accountability",
+      "eyebrow": "Odyssey · Part 4",
+      "type": "thought",
+      "status": "published",
+      "url": "../fate-vs-free-will-and-the-problem-of-accountability/",
+      "summary": "Divine explanations give way to conscience, and understanding our circumstances does not settle what we owe each other.",
+      "question": "What happens when the gods stop explaining us to ourselves?",
+      "minutes": 23,
+      "tags": [
+        "Nolan",
+        "Odyssey",
+        "accountability",
+        "moral injury",
+        "theater",
+        "AI"
+      ],
+      "dimensions": {
+        "agency": 1,
+        "power": 0.9,
+        "absurdity": 0.95,
+        "adaptation": 0.65
+      },
+      "position": {
+        "x": 55,
+        "y": 65
+      }
+    },
     {
       "id": "believe",
       "title": "I Want to Believe",
@@ -277,6 +306,9 @@
     }
   ],
   "edges": [
+    {"source":"odyssey-horse","target":"odyssey-accountability","type":"reframes","weight":1,"dimensions":["agency","power"],"reason":"Part 4 follows the betrayal of trust into conscience, moral injury, and responsibility."},
+    {"source":"odyssey-accountability","target":"enshittification","type":"applies","weight":0.9,"dimensions":["agency","power"],"reason":"The essay asks which people and incentives are hidden by appeals to the market or the algorithm."},
+    {"source":"odyssey-accountability","target":"human-agency","type":"supports","weight":0.95,"dimensions":["agency","absurdity"],"reason":"Explaining constraints does not settle what choices remain or what we owe the people affected by them."},
     {"source":"odyssey","target":"odyssey-taxidermy","type":"context","weight":1,"dimensions":["adaptation"],"reason":"Part 2 develops the prologue's question through three kinds of fidelity."},
     {"source":"odyssey-taxidermy","target":"odyssey-horse","type":"applies","weight":1,"dimensions":["adaptation","agency"],"reason":"Part 3 tests the adaptation argument against the Horse and the betrayal of trust."},
     {"source":"odyssey-horse","target":"principled-adaptation","type":"challenges","weight":0.95,"dimensions":["adaptation","agency"],"reason":"The Horse asks what adaptation becomes when victory overrides every other obligation."},
