@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="The planned Signal Bloom roadmap: recording, beat layering, sample editing, remixing, and stem separation."
+    />
+    <title>Signal Bloom Roadmap | Kaizen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../../../styles.css" />
+    <script src="../../../script.js" defer></script>
+  </head>
+  <body class="case-study-page">
+    <header class="site-header">
+      <a class="brand" href="../../../" aria-label="Kaizen home">KAIZEN<span>.</span></a>
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+        <a href="../../../#about">About</a>
+        <a href="../../../#work">Work</a>
+        <a href="../../../#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="case-hero" aria-labelledby="roadmap-title">
+        <div class="case-kicker"><a href="../">← Signal Bloom</a><span>Planned development</span></div>
+        <div class="case-title"><h1 id="roadmap-title">Signal Bloom roadmap</h1><p>From playable visuals to a remix instrument.</p></div>
+        <div class="case-section-copy"><p>Status: Planned. These releases describe proposed work, not shipped features. Relative difficulty is an engineering estimate, not a delivery commitment.</p><p>Signal Bloom currently plays a fixed set of sounds and drives visuals from audio analysis. Recording, a shared musical clock, editable pads, and project storage are new foundations. Preserve the sound-reactive visuals and immediate play experience; place production controls in an expandable studio panel.
+</p></div>
+        <div class="case-actions"><a class="text-link" href="../ROADMAP.md" download>Download roadmap (Markdown)</a></div>
+      </section>
+      <div class="case-content"><section class="case-section"><p class="case-section-label">Planned</p><div class="case-section-copy"><h2>Release 1 — Record and layer beats</h2><p>Covers priorities 1–4. The first complete workflow: play a beat, loop it, add layers, tighten timing, and download the result.</p>
+<ul><li><strong>Recording and layering — High:</strong> Record pad performances into 1-, 2-, 4-, or 8-bar loops; overdub additional layers; mute, delete, and undo the latest layer.</li><li><strong>Metronome — Low once the clock exists:</strong> BPM control, audible click, visual beat indicator, and an optional one-bar count-in.</li><li><strong>Quantization — Medium:</strong> Snap recorded hits to 1/8- or 1/16-note timing; support Off; preserve original timing so changes are reversible.</li><li><strong>Download — Medium:</strong> Export the mixed loop as a stereo WAV, excluding the metronome.</li></ul>
+<p>Record which pads were played and when instead of immediately flattening everything into audio. This allows timing edits, separate layers, and later sound replacement. Use one shared audio clock for playback, recording, and the metronome. Keep live pad feedback immediate; apply quantization to recorded playback.</p>
+<p><strong>Ready when:</strong> A user can record a four-bar beat, add two layers, undo one, change quantization, and download a WAV that matches playback and loops cleanly.</p></div></section>
+<section class="case-section"><p class="case-section-label">Planned</p><div class="case-section-copy"><h2>Release 2 — Shape sounds and build kits</h2><p>Covers priorities 5, 6, and 10. Introduce editable pads before adding a large collection of sounds.</p>
+<ul><li><strong>Parametric EQ — Medium:</strong> Three adjustable bands with frequency, gain, and bandwidth controls; bypass and reset; master EQ first.</li><li><strong>Sample libraries — Medium:</strong> A small curated set of free drum and effects packs, with preview, loading feedback, and source/license credits. Verify each pack permits the intended use and redistribution.</li><li><strong>Custom pads and patches — Medium–high:</strong> Assign sounds to pads; edit names, volume, pitch, and playback behavior; save and reload kits.</li></ul>
+<p>A pad holds a sound and its settings. A kit/patch saves a collection of pad assignments and settings. Keep those separate from the recorded performance. Start with a few cohesive libraries instead of a searchable marketplace. Changing a kit should be explicit because it can change an existing performance.</p>
+<p>Add local project saving and a portable project backup here. WAV downloads preserve the finished sound; project backups preserve editable work.</p>
+<p><strong>Ready when:</strong> A user can choose a drum kit, customize several pads, adjust EQ, save the project, and reopen it with the same sounds and settings.</p></div></section>
+<section class="case-section"><p class="case-section-label">Planned</p><div class="case-section-copy"><h2>Release 3 — Import, slice, and remix</h2><p>Covers priorities 7 and 9. An imported song becomes much more useful when excerpts can become playable pads.</p>
+<ul><li><strong>Song/audio import — Medium:</strong> Load a local audio file, display its waveform, preview it, and control its level.</li><li><strong>Clipping and windowing — Medium–high:</strong> Select start/end points, zoom, audition the selection, add short fades, and assign the clip to a pad.</li><li><strong>Remix playback — High:</strong> Start an imported backing track with the loop transport; set its start offset and manually enter its BPM.</li></ul>
+<p>Treat windowing initially as selecting a playable region with fades to reduce clicks at its boundaries. Editing preserves the original file. Import files locally in the browser, with file-size guidance and clear errors for unsupported formats.</p>
+<p>Automatic beat detection, tempo matching without changing pitch, and time stretching are separate enhancements. Importing a song does not make it follow the project tempo.</p>
+<p><strong>Ready when:</strong> A user can import a track, extract several clips, assign them to pads, record a new arrangement, and export it.</p></div></section>
+<section class="case-section"><p class="case-section-label">Planned</p><div class="case-section-copy"><h2>Release 4 — Frequency isolation and stem separation</h2><p>Covers priority 8, split into two distinct capabilities.</p>
+<ul><li><strong>Frequency isolation — Low–medium:</strong> Audition or export a selected frequency range using high-pass and low-pass filters. This can ship alongside EQ or the clip editor.</li><li><strong>Vocal/instrument separation — Very high:</strong> Generate separate vocal, drum, bass, and accompaniment tracks with a source-separation model.</li></ul>
+<p>Frequency isolation can emphasize bass, brightness, or a narrow band, but cannot reliably extract vocals or an instrument because their frequencies overlap.</p>
+<p>Actual stem separation needs a feasibility stage covering processing location, model licensing, hardware requirements, processing time, and audible artifacts. Begin with an import-stems workflow so users can remix previously separated tracks. Add built-in separation after evaluating a model and deciding whether processing runs on the device or a server.</p>
+<p><strong>Ready when:</strong> Frequency filtering is clearly distinguished from stem separation, and any separation workflow produces independently controllable tracks that can be clipped and assigned to pads.</p></div></section>
+<section class="case-section"><p class="case-section-label">Reference</p><div class="case-section-copy"><h2>Foundations and implementation order</h2><ol><li>Shared musical clock and precisely scheduled sample playback.</li><li>Recording data model, layers, and reversible timing edits.</li><li>Offline audio rendering and WAV export.</li><li>Editable sample/pad model and project persistence.</li><li>EQ and curated sample packs.</li><li>Audio import, waveform editing, and clip-to-pad assignment.</li><li>Frequency filtering.</li><li>Stem-separation feasibility work and integration.</li></ol>
+<p>The first release stays focused on record → layer → quantize → download. It delivers a useful instrument while establishing the timing and export foundations needed by everything that follows.</p></div></section>
+<section class="case-section"><p class="case-section-label">Reference</p><div class="case-section-copy"><h2>Original feature priorities</h2><ol><li>Recording to layer beats — Release 1.</li><li>Metronome — Release 1.</li><li>Quantizer — Release 1.</li><li>Sample/mix download — Release 1.</li><li>Parametric EQ — Release 2.</li><li>Different free sample libraries — Release 2.</li><li>Song import for remixing — Release 3.</li><li>Frequency or vocal/instrument isolation — Release 4, with frequency filtering eligible earlier.</li><li>Clipping/windowing to create samples — Release 3.</li><li>Custom sample pads/patches — Release 2, moved earlier to support libraries and imported clips.</li></ol></div></section>
+<section class="case-section"><p class="case-section-label">Reference</p><div class="case-section-copy"><h2>Technical references</h2><ul><li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API" rel="noreferrer">Web Audio API</a>: browser audio processing, filters, and offline rendering.</li><li><a href="https://freesound.org/help/faq/" rel="noreferrer">Freesound licensing FAQ</a>: sample licenses and attribution requirements.</li><li><a href="https://github.com/facebookresearch/demucs" rel="noreferrer">Demucs</a>: an example of model-based music source separation; evaluate suitability before adoption.</li></ul></div></section></div>
+    </main>
+    <footer id="contact" class="site-footer">
+      <p>Built with care and a little curiosity.</p>
+      <a href="https://github.com/jefflovell" rel="me">@jefflovell</a>
+      <a class="back-to-top" href="#" aria-label="Back to top">↑</a>
+    </footer>
+  </body>
+</html>
