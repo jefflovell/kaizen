@@ -58,6 +58,20 @@ Actual stem separation needs a feasibility stage covering processing location, m
 
 **Ready when:** Frequency filtering is clearly distinguished from stem separation, and any separation workflow produces independently controllable tracks that can be clipped and assigned to pads.
 
+## Planned follow-up — Song arranger
+
+Build a bar-based timeline with tracks and reusable clips, so recordings can form a song rather than sharing one fixed loop length. This is additional roadmap scope after the Release 1 recording foundation; release placement is not yet assigned.
+
+- Repeat or duplicate a recorded clip a chosen number of times in sequence.
+- Give each clip its own length and start position; support four-bar and eight-bar clips in the same arrangement.
+- Record a new clip at a selected timeline position, with an eight-beat count-in before that position and existing tracks audible during the take.
+- Place clips on the same track for a transition, or on separate tracks to layer them. Preserve per-layer quantization and original timing.
+- Play and export the full arrangement, stopping at its end. Repeating clips in the timeline is separate from repeatedly overwriting a recording take.
+
+**Example:** Repeat a four-bar clip four times (bars 1–16), then record a different eight-bar clip starting at the fifth four-bar slot (bar 17), covering bars 17–24. The timeline must make the difference between bar numbers and clip repetitions explicit.
+
+**Ready when:** A user can build that 24-bar arrangement, hear the transition at bar 17, edit either clip independently, and export the complete song.
+
 ## Foundations and implementation order
 
 1. Shared musical clock and precisely scheduled sample playback.
